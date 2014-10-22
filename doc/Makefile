@@ -1,12 +1,12 @@
 BIN_PDFLATEX = pdflatex
 BIN_BIBTEX = bibtex
-BIN_VIEW = xdg-open 
+BIN_VIEW = xdg-open
 BIN_PRESENT = pdf-presenter-console
 CP = cp
 RM = rm -rf
 
-DURATION = 30
-WARN_END = 5
+DURATION = 5
+WARN_END = 2
 
 -include config.mk
 
@@ -14,9 +14,9 @@ TEX_FILES = $(wildcard *.tex)
 PDF_FILES = $(TEX_FILES:.tex=.pdf)
 
 
-.PHONY: all clean clean-latex clean-bibtex clean-all dist-clean 
-.PHONY: view view-presentation view-handout view-% 
-#present present-% 
+.PHONY: all clean clean-latex clean-bibtex clean-all dist-clean
+.PHONY: view view-presentation view-handout view-%
+#present present-%
 .PHONY: preview-handout preview-presentation handout presentation
 
 
@@ -109,62 +109,28 @@ Ausarbeitung.%.bib: %.bib
 clean: clean-latex clean-bibtex clean-handout clean-presentation clean-Ausarbeitung
 
 clean-latex:
-	$(RM) *.aux
-	$(RM) *.d
-	$(RM) *.dvi
-	$(RM) *.log
-	$(RM) *.nav
-	$(RM) *.out
-	$(RM) *.snm
-	$(RM) *.toc
+	$(RM) *.aux *.d *.dvi *.log *.nav *.out *.snm *.toc
 
 clean-bibtex:
-	$(RM) *.bbl
-	$(RM) *.blg
+	$(RM) *.bbl *.blg
 
 clean-handout:
-	$(RM) handout.*.tex
-	$(RM) handout.*.bib
-	$(RM) handout.*.aux
-	$(RM) handout.*.bbl
-	$(RM) handout.*.blg
-	$(RM) handout.*.log
-	$(RM) handout.*.nav
-	$(RM) handout.*.out
-	$(RM) handout.*.snm
-	$(RM) handout.*.toc
-	$(RM) handout.*.lof
-	$(RM) handout.*.lot
-	$(RM) handout.*.tdo
-	
+	$(RM) handout.*.tex handout.*.bib handout.*.aux handout.*.bbl \
+		handout.*.blg handout.*.log handout.*.nav handout.*.out handout.*.snm \
+		handout.*.toc handout.*.lof handout.*.lot handout.*.tdo
+
 clean-presentation:
-	$(RM) presentation.*.tex
-	$(RM) presentation.*.bib
-	$(RM) presentation.*.aux
-	$(RM) presentation.*.bbl
-	$(RM) presentation.*.blg
-	$(RM) presentation.*.log
-	$(RM) presentation.*.nav
-	$(RM) presentation.*.out
-	$(RM) presentation.*.snm
-	$(RM) presentation.*.toc
-	$(RM) presentation.*.lof
-	$(RM) presentation.*.lot
-	$(RM) presentation.*.tdo
-	
+	$(RM) presentation.*.tex presentation.*.bib presentation.*.aux \
+	presentation.*.bbl presentation.*.blg presentation.*.log \
+	presentation.*.nav presentation.*.out presentation.*.snm \
+	presentation.*.toc presentation.*.lof presentation.*.lot \
+	presentation.*.tdo
+
 clean-Ausarbeitung:
-	$(RM) Ausarbeitung.*.bib
-	$(RM) Ausarbeitung.*.aux
-	$(RM) Ausarbeitung.*.bbl
-	$(RM) Ausarbeitung.*.blg
-	$(RM) Ausarbeitung.*.log
-	$(RM) Ausarbeitung.*.nav
-	$(RM) Ausarbeitung.*.out
-	$(RM) Ausarbeitung.*.snm
-	$(RM) Ausarbeitung.*.toc
-	$(RM) Ausarbeitung.*.lof
-	$(RM) Ausarbeitung.*.lot
-	$(RM) Ausarbeitung.*.tdo
+	$(RM) Ausarbeitung.*.bib Ausarbeitung.*.aux Ausarbeitung.*.bbl \
+		Ausarbeitung.*.blg Ausarbeitung.*.log Ausarbeitung.*.nav \
+		Ausarbeitung.*.out Ausarbeitung.*.snm Ausarbeitung.*.toc \
+		Ausarbeitung.*.lof Ausarbeitung.*.lot Ausarbeitung.*.tdo
 
 clean-all: clean
 	$(RM) $(PDF_FILES)

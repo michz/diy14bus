@@ -10,3 +10,51 @@ github_username:  michz/diy14bus
 # Build settings
 markdown: kramdown
 permalink: pretty
+
+#author settings
+#structure:
+#    $USERNAME:
+#        display_name: FULL NAME
+#        gravatar: ID OF GRAVATAR (FOR PICTURE)
+#        email: ADRESS
+#        web: LINK TO WEBSITE
+#        twitter: TWITTER USERNAME
+#        github: GITHUB USERNAME
+
+authors:
+    pkanzler:
+        display_name: Patrick Kanzler
+        gravatar: 
+        email: patrick.kanzler@fablab.fau.de
+        web: 
+        twitter: 
+        github: patkan
+    mzapf:
+        display_name: Michael Zapf
+        gravatar: 
+        email: 
+        web: 
+        twitter: 
+        github: 
+    rbackhaus:
+        display_name: Robin Backhaus
+        gravatar: 
+        email: 
+        web: 
+        twitter: 
+        github: 
+    khoellring:
+        display_name: Kevin Höllring
+        gravatar: 
+        email: 
+        web: 
+        twitter: 
+        github: 
+    jschnurrer:
+        display_name: Josef Schnurrer
+        gravatar: 
+        email: 
+        web: 
+        twitter: 
+        github: 
+     

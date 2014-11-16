@@ -9,3 +9,5 @@ author: pkanzler
 
 Ein schönes Feature wäre die Möglichkeit den Author eines Posts darzustellen.
 Dieser Post scheint genau das zu sein, was ich suche: [http://www.lostdecadegames.com/blog-author-attribution-using-jekyll/]
+
+TODO: wie published man? Was muss in einen neuen Post rein?

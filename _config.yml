@@ -4,7 +4,7 @@ email:
 description: "Dies ist die Dokumentationsseite des Projektes DIY14BUS als Teil der Vorlesung DIY: Presonal Fabrication"
 baseurl: "/diy14bus"
 url: "https://michz.github.io/diy14bus/"
-twitter_username: n/a
+twitter_username: 
 github_username:  michz/diy14bus
 
 # Build settings

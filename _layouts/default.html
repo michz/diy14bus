@@ -1,4 +1,8 @@
-{% assign author = {% if page.author %} • {{ site.authors[page.author] }}{% endif %} %}
+{% if page.author %}
+    {% assign author = site.authors[page.author] %}
+{% else %}
+    {% assign author = site.authors['diy14bus'] %}
+{% endif %}
 <!DOCTYPE html>
 <html>
 

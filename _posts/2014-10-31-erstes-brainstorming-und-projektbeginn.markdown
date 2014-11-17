@@ -19,8 +19,17 @@ Das Team besteht aus:
 * Patrick Kanzler
 * Josef Schnurrer
 
+==Entwicklung Infrastruktur
+Als Infrastruktur wird ein [GitHub-Repository][github] verwendet.
+Michi hat es angelegt und die anderen als collaborator eingetragen.
+Zur Dokumentation und zur Erstellung der ersten [Konzeptpräsentation][presentation], wurde der Branch `doc` angelegt.
+
+
+
 Fortsetzung folgt...
 
 
 
 [diy14]: http://www7.cs.fau.de/de/teaching/diy-2014w/
+[github]: https://github.com/michz/diy14bus
+[presentation]: https://github.com/michz/diy14bus/tree/doc/doc

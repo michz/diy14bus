@@ -12,6 +12,7 @@ Dabei kam die Idee auf, eine Alternative zu den, zugegebenermaßen bereits vielz
 
 Im Rahmen der Veranstaltung [DIY14][diy14] hat sich dann ein Team gebildet, um dieses Bussystem zu entwickeln.
 Das Team besteht aus:
+
 * Michael Zapf
 * Robin Backhaus
 * Kevin Höllring

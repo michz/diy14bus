@@ -28,6 +28,7 @@ Zur Dokumentation und zur Erstellung der ersten [Konzeptpräsentation][presentat
 
 ## Ziel
 Ziel des Projektes ist ein Hausbaussystem.
+Hausbus meint ein Netz von Sensoren und Aktoren, welche Ereignisse erzeugen und darauf reagieren können.
 Als besonderes Merkmal soll das System aus einzelnen, kostengünstigen, sich selbst vermaschenden Knoten bestehen.
 Um keine unbrauchbare Insellösung zu entwickeln, soll das Meshnetzwerk über ein ebenfalls selbst gebautes Gateway Verbindung zu einer [openHAB][openhab]-Instanz aufnehmen können.
 
@@ -42,6 +43,8 @@ Relativ früh wurde uns der Tipp gegeben, "RIOT OS" anzuschauen.
 RIOT OS ist ein Betriebssystem für den Bereich embedded, welches auf das Thema Internet of Things optimiert wurde.
 Damit bietet es gegenüber Konkurrenten, wie chibiOS oder FreeRTOS den Vorteil, dass einiges, wie eine saubere Netzwerkkommunikation mit Unterstützung für IPv6 bereits implementiert ist.
 Es soll 6LoWPAN zum Einsatz kommen, um auf den doch relativ schwachen Knotengeräten Ressourcen zu sparen.
+
+## Hardware
 
 
 Fortsetzung folgt...

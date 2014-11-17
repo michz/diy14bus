@@ -19,10 +19,22 @@ Das Team besteht aus:
 * Patrick Kanzler
 * Josef Schnurrer
 
+Dieser Post soll die Entwicklungen bis zum Einführen dieses Blogs beschreiben.
+
 ## Entwicklung Infrastruktur
 Als Infrastruktur wird ein [GitHub-Repository][github] verwendet.
 Michi hat es angelegt und die anderen als collaborator eingetragen.
 Zur Dokumentation und zur Erstellung der ersten [Konzeptpräsentation][presentation], wurde der Branch `doc` angelegt.
+
+## Ziel
+Ziel des Projektes ist ein Hausbaussystem.
+Als besonderes Merkmal soll das System aus einzelnen, kostengünstigen, sich selbst vermaschenden Knoten bestehen.
+
+## Name
+Die Wahl des Namen fiel nicht leicht.
+Wir haben uns darauf geeinigt, dass wir das Projekt DIY14BUS nennen und auch so anmelden.
+Wenn dann später mehr über Technologie und Funktionsumfang bekannt ist, ist es hoffentlich leichter, einen "richtigen" Namen zu wählen.
+
 
 
 

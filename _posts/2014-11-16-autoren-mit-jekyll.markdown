@@ -3,7 +3,7 @@ layout: post
 title:  "Autoren mit Jekyll"
 date:   2014-11-16 23:53:12
 categories: [Infrastruktur]
-tags: [Jekyll, Authoren]
+tags: [Jekyll, Autoren]
 author: pkanzler
 ---
 

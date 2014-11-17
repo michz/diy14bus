@@ -1,3 +1,6 @@
+#global settings
+timezone: Europe/Berlin
+
 # Site settings
 title: DIY14BUS
 email: 

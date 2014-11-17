@@ -19,7 +19,7 @@ Das Team besteht aus:
 * Patrick Kanzler
 * Josef Schnurrer
 
-==Entwicklung Infrastruktur
+## Entwicklung Infrastruktur
 Als Infrastruktur wird ein [GitHub-Repository][github] verwendet.
 Michi hat es angelegt und die anderen als collaborator eingetragen.
 Zur Dokumentation und zur Erstellung der ersten [Konzeptpräsentation][presentation], wurde der Branch `doc` angelegt.

@@ -2,17 +2,34 @@
 timezone: Europe/Berlin
 
 # Site settings
-title: DIY14BUS
-email: 
+name: DIY14BUS
 description: "Dies ist der Dokumentatiosblog des Projektes DIY14BUS als Teil der Vorlesung DIY: Personal Fabrication"
 baseurl: "/diy14bus"
 url: "https://michz.github.io/diy14bus/"
-twitter_username: 
-github_username:  michz/diy14bus
+github:  michz/diy14bus
+
+# Set this to your UA-# value, or '' to disable the block completely
+gaaccount: ''
+
+# Set this to your disqus shortname to enable comments. Note that the 'comments'
+# setting below must also be true. Individual posts can override 'comments' to
+# disable on a post-by-post basis
+disqus: ''
+comments: false
 
 # Build settings
 markdown: kramdown
 permalink: pretty
+
+permalink: /:year/:month/:title
+paginate: 3
+
+highlighter: pygments
+markdown: redcarpet
+redcarpet:
+  extensions: ["no_intra_emphasis", "fenced_code_blocks", "autolink", "tables", "with_toc_data"]
+
+exclude: ['README.md', 'LICENSE']
 
 #author settings
 #structure:

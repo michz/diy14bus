@@ -1,4 +1,6 @@
+#editor and browser-files
 *.kate-swp
+*.directory
 
 #do not include built output
 _site/*

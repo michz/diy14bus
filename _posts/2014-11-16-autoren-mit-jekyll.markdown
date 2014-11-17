@@ -12,3 +12,4 @@ Dieser Post scheint genau das zu sein, was ich suche: [http://www.lostdecadegame
 
 TODO: wie published man? Was muss in einen neuen Post rein?
 TODO: autoren-zeugs fertig basteln, Einfach nur Link zu Liste von Autoren? Oder so wie lostdecadegames?
+TODO: default-autor diy14bus setzen

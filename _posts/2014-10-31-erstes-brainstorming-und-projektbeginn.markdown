@@ -29,13 +29,19 @@ Zur Dokumentation und zur Erstellung der ersten [Konzeptpräsentation][presentat
 ## Ziel
 Ziel des Projektes ist ein Hausbaussystem.
 Als besonderes Merkmal soll das System aus einzelnen, kostengünstigen, sich selbst vermaschenden Knoten bestehen.
+Um keine unbrauchbare Insellösung zu entwickeln, soll das Meshnetzwerk über ein ebenfalls selbst gebautes Gateway Verbindung zu einer [openHAB][openhab]-Instanz aufnehmen können.
 
 ## Name
 Die Wahl des Namen fiel nicht leicht.
 Wir haben uns darauf geeinigt, dass wir das Projekt DIY14BUS nennen und auch so anmelden.
 Wenn dann später mehr über Technologie und Funktionsumfang bekannt ist, ist es hoffentlich leichter, einen "richtigen" Namen zu wählen.
 
-
+## Betriebssystem
+Um das Rad nicht neu zu erfinden, bietet es sich an, ein eingebettetes Betriebssystem auf den Knoten einzusetzen.
+Relativ früh wurde uns der Tipp gegeben, "RIOT OS" anzuschauen.
+RIOT OS ist ein Betriebssystem für den Bereich embedded, welches auf das Thema Internet of Things optimiert wurde.
+Damit bietet es gegenüber Konkurrenten, wie chibiOS oder FreeRTOS den Vorteil, dass einiges, wie eine saubere Netzwerkkommunikation mit Unterstützung für IPv6 bereits implementiert ist.
+Es soll 6LoWPAN zum Einsatz kommen, um auf den doch relativ schwachen Knotengeräten Ressourcen zu sparen.
 
 
 Fortsetzung folgt...
@@ -45,3 +51,4 @@ Fortsetzung folgt...
 [diy14]: http://www7.cs.fau.de/de/teaching/diy-2014w/
 [github]: https://github.com/michz/diy14bus
 [presentation]: https://github.com/michz/diy14bus/tree/doc/doc
+[openhab]: TODO LINK

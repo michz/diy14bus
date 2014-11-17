@@ -4,7 +4,7 @@ timezone: Europe/Berlin
 # Site settings
 title: DIY14BUS
 email: 
-description: "Dies ist die Dokumentationsseite des Projektes DIY14BUS als Teil der Vorlesung DIY: Presonal Fabrication"
+description: "Dies ist der Dokumentatiosblog des Projektes DIY14BUS als Teil der Vorlesung DIY: Personal Fabrication"
 baseurl: "/diy14bus"
 url: "https://michz.github.io/diy14bus/"
 twitter_username: 

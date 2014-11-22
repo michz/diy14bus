@@ -11,11 +11,11 @@ author: jschnurrer
 
 ## Projekt auschecken (lokale Kopie anlegen)
 
-    git clone https://github.com/michz/diy14bus
+    git clone ssh://git@github.com/michz/diy14bus
     cd diy14bus
     git submodule init
     git submodule update
-    git checkout master //Für den Quellcode. Nicht notwendig, da standard
+    git checkout master //Für den Quellcode. (Nicht notwendig, da standard)
     git checkout gh-pages //Für die Blogeinträge
 
 ## Die Änderungen hochladen

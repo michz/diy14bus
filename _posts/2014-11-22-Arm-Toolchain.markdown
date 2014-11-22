@@ -62,7 +62,7 @@ Hier den Rechner neu starten, damit die Änderung für $PATH übernommen wird.
 ## 4. Das Projekt auschecken
 Siehe Post zu Git-Grundlagen
 
-    git clone https://github.com/michz/diy14bus
+    git clone ssh://git@github.com/michz/diy14bus
     cd diy14bus
     git submodule init
     git submodule update

@@ -16,13 +16,13 @@ author: jschnurrer
     git submodule init
     git submodule update
     git checkout master //Für den Quellcode
-    git checkout gh_pages //Für die Blogeinträge
+    git checkout gh-pages //Für die Blogeinträge
 
 ## Die Änderungen hochladen
 
-    git add neue_datei.txt //für neue Dateien oder einfach mit -a
+    git add neue_datei.txt //für neue Dateien oder einfach mit -A
     git commit -m "My changes" 
-    git push origin master //oder statt "master" dann "gh_pages" für Blogeinträge
+    git push origin master //oder statt "master" dann "gh-pages" für Blogeinträge
 
 ## lokale Kopie aktualisieren
 Ich will mein lokales Repository auf neusten Stand holen ohne löschen und git clone

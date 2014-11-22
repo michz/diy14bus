@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "ARM-Toolchain - bis es läuft..."
-date:   2014-11-22 20:00:00
+date:   2014-11-22 22:00:00
 categories: [Grundlagen]
 tags: [ARM, Programmierung, Funktionieren]
 author: jschnurrer
@@ -40,6 +40,16 @@ danach den Ordner stlink irgendwo platzieren (ich habe meinen Home-Ordner genomm
 	cd .. //um wieder aus dem Ordner stlink eins höher zu gehen
 	cp -R stlink ~/stlink
 
+Den neuen Ordner in &PATH einfügen:
+
+    gedit ~/.profile
+
+und in die letzte Zeile
+
+    PATH=$PATH:/home/.../stlink
+
+einfügen. (Das ... natürlich noch ersetzen. Funktioniert hier auch ein ~ für den Home Ordner?) 
+
 Setting up udev rules:
 
 	cd ~/stlink
@@ -47,6 +57,7 @@ Setting up udev rules:
     sudo udevadm control --reload-rules
     sudo udevadm trigger
 
+Hier den Rechner neu starten, damit die Änderung für $PATH übernommen wird.
 
 ## 4. Das Projekt auschecken
 Siehe Post zu Git-Grundlagen

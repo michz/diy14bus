@@ -21,7 +21,7 @@ author: jschnurrer
 ## Die Änderungen hochladen
 
     git add neue_datei.txt //für neue Dateien oder einfach mit -A
-    git commit -m "My changes" 
+    git commit -a -m "My changes" 
     git push origin master //oder statt "master" dann "gh-pages" für Blogeinträge
 
 ## lokale Kopie aktualisieren

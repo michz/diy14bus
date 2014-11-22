@@ -4,7 +4,7 @@ title:  "Virtuelles Netzwerk unter Linux"
 date:   2014-11-22 17:00:00
 categories: [Infrastruktur]
 tags: [Netzwerk, Funk, Linux, Simulation]
-author: michz
+author: mzapf
 ---
 Es war gewünscht, mittels virtueller Netzwerkinterfaces (tap devices) und
 virtuellen Netzwerkbrücken eine virtuelle Netzwerkinfrastruktur aufzubauen,

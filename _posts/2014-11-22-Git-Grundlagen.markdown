@@ -15,15 +15,15 @@ author: jschnurrer
     git submodule init
     git submodule update
 
-Für den Quellcode
+### Für den Quellcode
     git checkout master
 
-Für die Blogeinträge
+### Für die Blogeinträge
     git checkout gh_pages
 
 ## Die Änderungen hochladen
 
-    git add neue_datei.txt //für neue Dateien oder einfach mit * für alle
+    git add neue_datei.txt //für neue Dateien oder einfach mit -a
     git commit -m "My changes" 
     git push origin master //oder statt "master" dann "gh_pages" für Blogeinträge
 

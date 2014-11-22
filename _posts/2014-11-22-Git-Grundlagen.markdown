@@ -10,6 +10,7 @@ author: jschnurrer
 # Grundlagen für Git:
 
 ## Projekt auschecken (lokale Kopie anlegen)
+
     git clone https://github.com/michz/diy14bus
     cd diy14bus
     git submodule init
@@ -27,7 +28,9 @@ author: jschnurrer
 Ich will mein lokales Repository auf neusten Stand holen ohne löschen und git clone
 
 Mache ich immer mit
+
     git checkout master -f
+
 Bügelt halt alles nieder, was lokal noch vorhanden ist, lässt aber nur lokal vorhandene Dateien in Ruhe (war für mich noch nie ein Problem)
 
 Gibt es eine elegantere Möglichkeit? Ein checkout ohne -f zählt nur die Differenzen auf und ein pull holt nur die neuen Dateien und lässt die Modifizierten in Ruhe.

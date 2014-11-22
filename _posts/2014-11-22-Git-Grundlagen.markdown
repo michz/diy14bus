@@ -14,12 +14,8 @@ author: jschnurrer
     cd diy14bus
     git submodule init
     git submodule update
-
-### Für den Quellcode
-    git checkout master
-
-### Für die Blogeinträge
-    git checkout gh_pages
+    git checkout master //Für den Quellcode
+    git checkout gh_pages //Für die Blogeinträge
 
 ## Die Änderungen hochladen
 

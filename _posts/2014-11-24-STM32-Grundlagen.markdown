@@ -24,7 +24,7 @@ author: jschnurrer
 
 ## DM00058181.pdf: "Datasheet - production data"
 
-Alternate PIN Functions ab Seite 35
+Alternate PIN Functions ab Seite 35:
 
     PA0 Platz Taster!
     PA1 Platz für diese anderen Pins
@@ -35,7 +35,7 @@ Alternate PIN Functions ab Seite 35
     PA6 SPI1_MISO
     PA7 SPI1_MOSI
 
-* An dem SPI hängt auch der L3GD20 dran, aber der CS von dem ist auf PE3, daher kein Problem.
+* An dem SPI-Bus hängt auch der L3GD20 dran, aber der CS von dem ist auf PE3, daher kein Problem.
 
 
 ## Abkürzungen:

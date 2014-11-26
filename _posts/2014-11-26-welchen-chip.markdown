@@ -15,8 +15,9 @@ Welchen Mikrocontroller für die Endhardware
 ##	[STM32F030F4P6TR](http://de.farnell.com/stmicroelectronics/stm32f030f4p6tr/mcu-32bit-cortex-m0-48mhz-tssop/dp/2432084)
 
 *    Kosten <1€ pro Stück
-*    Vorteil: Ähnlich zum F3, in den wir uns jetzt schon eingearbeitet haben. 
+*    Vorteil: Ähnlich zum F3, in den wir uns jetzt schon eingearbeitet haben. (Noch zu checken)
+*    Auch über JTAG mit USB-PROG programmierbar, dann sparen wir uns den zweiten µC für die Programmierung (noch zu checken)
 
-* Was spricht dagegen?
+*    Was spricht dagegen?
 
 

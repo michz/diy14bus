@@ -16,7 +16,7 @@ Welchen Mikrocontroller für die Endhardware
 
 *    Kosten <1€ pro Stück
 *    Vorteil: Ähnlich zum F3, in den wir uns jetzt schon eingearbeitet haben. (Noch zu checken)
-*    Auch über JTAG mit USB-PROG programmierbar, dann sparen wir uns den zweiten µC für die Programmierung (noch zu checken)
+*    Auch über JTAG mit USB-PROG programmierbar, dann sparen wir uns den zweiten µC für die Programmierung. So weit muss es aber gar nicht kommen, wir nehmen uns einfach den JTAG von einem st-link vom Eval-Board.
 
 *    Was spricht dagegen?
 

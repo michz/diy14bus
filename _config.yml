@@ -44,7 +44,7 @@ exclude: ['README.md', 'LICENSE']
 authors:
     pkanzler:
         display_name: Patrick Kanzler
-        gravatar: 
+        gravatar: f1e313318311db9034c032fd4cf179c9
         email: patrick.kanzler@fablab.fau.de
         web: 
         twitter: patrick_kanzler

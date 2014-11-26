@@ -19,6 +19,6 @@ Allgemeine Sachen und Struktur von RIOT
 
 kennzeichnen, damit wir mit
 
-    grep "//TODO DIY" ./ -R
+    grep "// TODO DIY" ./ -R
 
 auf das ganze Repository unsere Baustellen leicht finden können.}

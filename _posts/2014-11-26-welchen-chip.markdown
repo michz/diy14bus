@@ -25,7 +25,7 @@ Welchen Mikrocontroller für die Endhardware
         2014-11-26T22:42:10 WARN src/stlink-common.c: unknown chip id! 0xe0042000
         make: *** [flash] Fehler 255
 
-    Macht ja auch Sinn, sonst kauft sich jeder ein STM32F1 board für 10€ und nicht den Programmer für 30€. Den USB-Prog versuch ich dann morgen.
+    Macht ja auch Sinn, sonst kauft sich jeder ein STM32F0 board für 10€ und nicht den Programmer für 30€. Den USB-Prog versuch ich dann morgen.
 
 
 *   Was spricht dagegen?

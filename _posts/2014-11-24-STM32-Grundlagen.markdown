@@ -11,8 +11,8 @@ author: jschnurrer
 
 * bevor man nachschaut, wo man was implementiert, erst mal schauen, obs entsprechende Sachen nicht schon gibt:
 * /diy14bus/RIOT/cpu/stm32f3 
-
-
+* /diy14bus/RIOT/cpu/stm32f3/periph
+* /diy14bus/RIOT/boards/stm32f3discovery-diy/include/ 
 
 
 * Die Dateien sind auf der [Homepage vom STM32F3-Discovery Board](http://www.st.com/web/catalog/tools/FM116/SC959/SS1532/PF254044) und auf der [Homepage vom STM32F303](http://www.st.com/web/en/catalog/mmc/SC1169/SS1576/LN1531) zu finden
@@ -96,5 +96,8 @@ SPI status flags
 * TXE: Tx buffer empty flag
 * RXNE: Rx buffer not empty
 * BSY: Busy flag
+
+# Anmerkung vom 26.11.2014
+* da es nun sehr stark nach dem F0-Chip aussieht: Beschränken auf PortA, den Taster an Port A, sowie beschränken auf zwei LEDs (LD3 und LD4) die sind auf allen drei boards (F0, F3 und F4) vorhanden. Damit muss nur das Board im Makefile angepasst werden.
 
 

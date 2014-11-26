@@ -14,10 +14,20 @@ Welchen Mikrocontroller für die Endhardware
 
 ##	[STM32F030F4P6TR](http://de.farnell.com/stmicroelectronics/stm32f030f4p6tr/mcu-32bit-cortex-m0-48mhz-tssop/dp/2432084)
 
-*    Kosten <1€ pro Stück
-*    Vorteil: Ähnlich zum F3, in den wir uns jetzt schon eingearbeitet haben. (Noch zu checken)
-*    Auch über JTAG mit USB-PROG programmierbar, dann sparen wir uns den zweiten µC für die Programmierung. So weit muss es aber gar nicht kommen, wir nehmen uns einfach den JTAG von einem st-link vom Eval-Board.
+*   Kosten <1€ pro Stück
+*   Vorteil: Ähnlich zum F3, in den wir uns jetzt schon eingearbeitet haben. (Noch zu checken)
+*   Auch über JTAG mit USB-PROG programmierbar, dann sparen wir uns den zweiten µC für die Programmierung. So weit muss es aber gar nicht kommen, wir nehmen uns einfach den JTAG von einem st-link vom Eval-Board.
+    UPDATE: Das funktioniert nicht so wie gedacht. Es kann mit dem St-Link nur der ARM des jeweiligen Boards programmiert werden, weil der µC für die Programmierung die Device-ID des montierten ARMs kennt. Beim Programmieren kommt daher folgende Fehlermeldung:
 
-*    Was spricht dagegen?
+        $ make flash
+        st-flash write bin/stm32f3discovery/first-test.hex 0x8000000
+        2014-11-26T22:42:10 INFO src/stlink-common.c: Loading device parameters....
+        2014-11-26T22:42:10 WARN src/stlink-common.c: unknown chip id! 0xe0042000
+        make: *** [flash] Fehler 255
+
+    Macht ja auch Sinn, sonst kauft sich jeder ein STM32F1 board für 10€ und nicht den Programmer für 30€. Den USB-Prog versuch ich dann morgen.
+
+
+*   Was spricht dagegen?
 
 

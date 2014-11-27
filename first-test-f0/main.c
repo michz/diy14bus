@@ -4,94 +4,105 @@
 #include "hwtimer.h"
 
 
-#define 	TEST_WAIT	500
+//dies ist eine kleine Testanwendung für meine LPD8896 LED-Leiste.
+// und funktioniert sogar!
 
+
+#define 	TEST_WAIT	10
 
 int main(void)
 {
+
+	//noetig? Nein, LE nicht notwendig fuer SPI-Konfiguration.
+    //GPIOA->MODER &= ~(2 << (2 * 4));           /* set pin to output mode */
+    //GPIOA->MODER |= (1 << (2 * 4));
+    //GPIOA->OTYPER &= ~(1 << 4);                /* set to push-pull configuration */
+    //GPIOA->OSPEEDR |= (3 << (2 * 4));          /* set to high speed */
+    //GPIOA->PUPDR &= ~(3 << (2 * 4));           /* configure push-pull resistors */
+    //GPIOA->PUPDR |= (0b00 << (2 * 4));
+    //GPIOA->ODR &= ~(1 << 4);                   /* set pin to low signal */
+
 
 	if(spi_init_master(SPI_0, SPI_CONF_FIRST_RISING, SPI_SPEED_100KHZ) != 0){
 		while(1) LD3_ON; //nix mehr machen
 
 	}
-	LD4_ON;
 
-	uint8_t mirwors = 0;
+	char blubb = 0;
+	char *mirwors = &blubb; //null und NULL wollte er nicht, daher halt umstaendlich
 
     while(1) {
 		for(uint8_t i = 0; i<30; i++){
 
-			if(spi_transfer_byte(SPI_0, 0x7F, mirwors) != 0){
+			//blau
+			if(spi_transfer_byte(SPI_0, 0x8f, mirwors) != 1){
 				while(1) LD3_ON; //nix mehr machen
 			}
-			if(spi_transfer_byte(SPI_0, 0x7F, mirwors) != 0){
+
+			if(spi_transfer_byte(SPI_0, 0x80, mirwors) != 1){
 				while(1) LD3_ON; //nix mehr machen
 			}
-			if(spi_transfer_byte(SPI_0, 0x7F, mirwors) != 0){
+			if(spi_transfer_byte(SPI_0, 0x80, mirwors) != 1){
 				while(1) LD3_ON; //nix mehr machen
 			}
 
 			hwtimer_wait(HWTIMER_TICKS(TEST_WAIT * 1000));
 
-			if(spi_transfer_byte(SPI_0, 0x7F, mirwors) != 0){
+			//gruen
+			if(spi_transfer_byte(SPI_0, 0x80, mirwors) != 1){
 				while(1) LD3_ON; //nix mehr machen
 			}
-			if(spi_transfer_byte(SPI_0, 0x7F, mirwors) != 0){
+			if(spi_transfer_byte(SPI_0, 0x80, mirwors) != 1){
 				while(1) LD3_ON; //nix mehr machen
 			}
-			if(spi_transfer_byte(SPI_0, 0x7F, mirwors) != 0){
+			if(spi_transfer_byte(SPI_0, 0x8f, mirwors) != 1){
 				while(1) LD3_ON; //nix mehr machen
 			}
 
 			hwtimer_wait(HWTIMER_TICKS(TEST_WAIT * 1000));
 		}
 
-		if(spi_transfer_byte(SPI_0, 0xF0, mirwors) != 0){
-			while(1) LD3_ON; //nix mehr machen
-		}
-		if(spi_transfer_byte(SPI_0, 0xF0, mirwors) != 0){
-			while(1) LD3_ON; //nix mehr machen
-		}
-		if(spi_transfer_byte(SPI_0, 0xF0, mirwors) != 0){
-			while(1) LD3_ON; //nix mehr machen
+		for(uint16_t i=((60+31)/32); i>0; i--) {
+			if(spi_transfer_byte(SPI_0, 0x00, mirwors) != 1){
+				while(1) LD3_ON; //nix mehr machen
+			}
 		}
 
 
 		for(uint8_t i = 0; i<30; i++){
 
-			if(spi_transfer_byte(SPI_0, 0x7F, mirwors) != 0){
+			//dunkel
+			if(spi_transfer_byte(SPI_0, 0x80, mirwors) != 1){
 				while(1) LD3_ON; //nix mehr machen
 			}
-			if(spi_transfer_byte(SPI_0, 0x7F, mirwors) != 0){
+			if(spi_transfer_byte(SPI_0, 0x80, mirwors) != 1){
 				while(1) LD3_ON; //nix mehr machen
 			}
-			if(spi_transfer_byte(SPI_0, 0x7F, mirwors) != 0){
-				while(1) LD3_ON; //nix mehr machen
-			}
-
-			hwtimer_wait(HWTIMER_TICKS(TEST_WAIT * 1000));
-
-			if(spi_transfer_byte(SPI_0, 0x7F, mirwors) != 0){
-				while(1) LD3_ON; //nix mehr machen
-			}
-			if(spi_transfer_byte(SPI_0, 0x7F, mirwors) != 0){
-				while(1) LD3_ON; //nix mehr machen
-			}
-			if(spi_transfer_byte(SPI_0, 0x7F, mirwors) != 0){
+			if(spi_transfer_byte(SPI_0, 0x80, mirwors) != 1){
 				while(1) LD3_ON; //nix mehr machen
 			}
 
 			hwtimer_wait(HWTIMER_TICKS(TEST_WAIT * 1000));
+
+			//rot
+			if(spi_transfer_byte(SPI_0, 0x80, mirwors) != 1){
+				while(1) LD3_ON; //nix mehr machen
+			}
+			if(spi_transfer_byte(SPI_0, 0x8f, mirwors) != 1){
+				while(1) LD3_ON; //nix mehr machen
+			}
+			if(spi_transfer_byte(SPI_0, 0x80, mirwors) != 1){
+				while(1) LD3_ON; //nix mehr machen
+			}
+
+			hwtimer_wait(HWTIMER_TICKS(TEST_WAIT * 1000));
 		}
 
-		if(spi_transfer_byte(SPI_0, 0xF0, mirwors) != 0){
-			while(1) LD3_ON; //nix mehr machen
-		}
-		if(spi_transfer_byte(SPI_0, 0xF0, mirwors) != 0){
-			while(1) LD3_ON; //nix mehr machen
-		}
-		if(spi_transfer_byte(SPI_0, 0xF0, mirwors) != 0){
-			while(1) LD3_ON; //nix mehr machen
+
+		for(uint16_t i=((60+31)/32); i>0; i--) {
+			if(spi_transfer_byte(SPI_0, 0x00, mirwors) != 1){
+				while(1) LD3_ON; //nix mehr machen
+			}
 		}
 
 

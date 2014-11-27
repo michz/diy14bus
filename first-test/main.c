@@ -1,4 +1,5 @@
 #include "board.h" // stm32f3discovery
+//#include "stm32f3"
 #include "hwtimer.h"
 
 int main(void)

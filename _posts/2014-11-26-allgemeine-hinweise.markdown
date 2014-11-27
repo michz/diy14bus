@@ -13,12 +13,13 @@ Allgemeine Sachen und Struktur von RIOT
 # Allgemeine Hinweise
 
 
-*    damit wir uns im Quelltext synchronisieren können und damit wir wissen, wo noch offene Baustellen von uns sind, diese TODOS als 
+*   damit wir uns im Quelltext synchronisieren können und damit wir wissen,
+    wo noch offene Baustellen von uns sind, diese TODOS als
 
          // TODO DIY
 
     kennzeichnen, damit wir mit
 
-        $ grep "// TODO DIY" ./ -R
+        $ grep -i "TODO DIY" ./ -R
 
     auf das ganze Repository unsere Baustellen leicht finden können.

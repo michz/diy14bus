@@ -10,6 +10,9 @@ author: jschnurrer
 Welchen Mikrocontroller für die Endhardware
 ====
 
+*Anmerkung: Diskussionen bitte irgendwo, wo man tatsächlich auch diskutieren kann.
+([Piratenpad](https://piratenpad.de/p/diy14bus) z.B.)*
+
 # [STM32](http://de.farnell.com/webapp/wcs/stores/servlet/Search?catalogId=15001&langId=-3&storeId=10161&categoryId=700000004185&sort=P_PRICE&st=STM32&pageSize=25&showResults=true&pf=310031672,310060087,310078320,310089495)
 
 ##	[STM32F030F4P6TR](http://de.farnell.com/stmicroelectronics/stm32f030f4p6tr/mcu-32bit-cortex-m0-48mhz-tssop/dp/2432084)

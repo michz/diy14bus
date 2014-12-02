@@ -2,7 +2,7 @@
 APPLICATION = first-test-f1
 
 # If no BOARD is found in the environment, use this default:
-BOARD ?= stm32f0discovery
+BOARD ?= stm32f0discovery-diy
 #BOARD ?= native
 
 # This has to be the absolute path to the RIOT base directory:

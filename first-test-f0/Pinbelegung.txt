@@ -1,0 +1,35 @@
+RF1100SE-Board (das Ding mit dem CC1100 drauf)
+
+1	VDD		-> 3V		
+2	VDD		-> 3V
+3	MOSI	-> PA7
+4	CLK		-> PA5
+5	MISO/GDO1 -> PA6/PF6
+6	GDO2	-> PF7
+7	CSn		-> PA4
+8	GDO0	-> PF5
+9	GND		-> GND
+10	GND		-> GND
+
+
+weil (festgelegt in boards/stm32f0discovery-diy/stm32f0discovery-cc110x.c):
+
+GDO0 -> GPIO_3 
+GDO1 -> GPIO_4
+GDO2 -> GPIO_5
+
+
+STM32F0 (entnommen aus boards/stm32f0discovery-diy/include/periph_conf.h)
+
+GPIO_0	-> PA0
+GPIO_1	-> PA1
+GPIO_2	-> PF4
+GPIO_3	-> PF5
+GPIO_4	-> PF6
+GPIO_5	-> PF7
+GPIO_6	-> PF10
+GPIO_7	-> PF11
+GPIO_8	-> PF12
+GPIO_9	-> PF13
+GPIO_10	-> PF14
+GPIO_11	-> PF15

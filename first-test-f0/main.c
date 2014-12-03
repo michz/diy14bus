@@ -29,9 +29,6 @@ void *radio(void *arg)
 
     msg_t m;
 
-    radio_packet_t *p;
-    radio_packet_length_t i;
-
     msg_init_queue(msg_q, RCV_BUFFER_SIZE);
 
     while (1) {

@@ -1,4 +1,4 @@
-#define MODULE_CC110X_LEGACY
+//#define MODULE_CC110X_LEGACY
 
 #include <stdlib.h>
 

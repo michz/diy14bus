@@ -2,10 +2,10 @@
 
 #include <stdlib.h>
 
-#include "board.h" // stm32f3discovery
+#include "board.h" // stm32f0discovery-diy
 #include "cpu.h"
-#include "periph/spi.h"
-#include "hwtimer.h"
+//#include "periph/spi.h"
+//#include "hwtimer.h"
 
 #include "thread.h"
 
@@ -53,6 +53,7 @@ void *radio(void *arg)
 			msg_t *newMsg = (msg_t *) malloc(sizeof(msg_t));
 			newMsg->type = PKT_PENDING;
 			msg_send(newMsg, radio_pid); //hier noch Fehlerabfragen einfuegen!
+			free(newMsg);
 			sendMsg = 0;
 	
 	

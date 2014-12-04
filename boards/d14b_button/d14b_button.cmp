@@ -1,0 +1,45 @@
+Cmp-Mod V01 Created by Cvpcb 0.201412031631+5310~19~ubuntu14.04.1-product   date = Do 04 Dez 2014 14:39:02 CET
+
+BeginCmp
+TimeStamp = /5480ADD3;
+Reference = C1;
+ValeurCmp = 100n;
+IdModule  = SMD_Packages:SMD-1206;
+EndCmp
+
+BeginCmp
+TimeStamp = /5480AD1C;
+Reference = C2;
+ValeurCmp = 10u;
+IdModule  = SMD_Packages:SMD-1206;
+EndCmp
+
+BeginCmp
+TimeStamp = /5480667B;
+Reference = SW1;
+ValeurCmp = SW_PUSH;
+IdModule  = d14b_libs:TACTILE_SW;
+EndCmp
+
+BeginCmp
+TimeStamp = /548067BC;
+Reference = SW2;
+ValeurCmp = SW_PUSH;
+IdModule  = d14b_libs:TACTILE_SW;
+EndCmp
+
+BeginCmp
+TimeStamp = /5480649D;
+Reference = U1;
+ValeurCmp = STM32F030F4P6TR;
+IdModule  = Housings_SSOP:TSSOP-20_4.4x6.5mm_Pitch0.65mm;
+EndCmp
+
+BeginCmp
+TimeStamp = /5480655E;
+Reference = U2;
+ValeurCmp = nRF24L01+-Module;
+IdModule  = Pin_Headers:Pin_Header_Straight_2x04;
+EndCmp
+
+EndListe

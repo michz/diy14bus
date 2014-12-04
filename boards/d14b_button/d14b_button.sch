@@ -1,0 +1,294 @@
+EESchema Schematic File Version 2
+LIBS:power
+LIBS:device
+LIBS:transistors
+LIBS:conn
+LIBS:linear
+LIBS:regul
+LIBS:74xx
+LIBS:cmos4000
+LIBS:adc-dac
+LIBS:memory
+LIBS:xilinx
+LIBS:special
+LIBS:microcontrollers
+LIBS:dsp
+LIBS:microchip
+LIBS:analog_switches
+LIBS:motorola
+LIBS:texas
+LIBS:intel
+LIBS:audio
+LIBS:interface
+LIBS:digital-audio
+LIBS:philips
+LIBS:display
+LIBS:cypress
+LIBS:siliconi
+LIBS:opto
+LIBS:atmel
+LIBS:contrib
+LIBS:valves
+LIBS:STM32F030F4P6TR
+LIBS:nrf24l01plus-module
+LIBS:d14b_button-cache
+EELAYER 25 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L STM32F030F4P6TR U1
+U 1 1 5480649D
+P 2800 3250
+F 0 "U1" H 1300 4150 60  0000 C CNN
+F 1 "STM32F030F4P6TR" H 3950 2350 60  0000 C CNN
+F 2 "Housings_SSOP:TSSOP-20_4.4x6.5mm_Pitch0.65mm" H 2800 3250 40  0000 C CIN
+F 3 "" H 1300 4150 60  0000 C CNN
+	1    2800 3250
+	1    0    0    -1  
+$EndComp
+$Comp
+L nRF24L01+-Module U2
+U 1 1 5480655E
+P 9450 2700
+F 0 "U2" H 8800 3000 60  0000 C CNN
+F 1 "nRF24L01+-Module" H 9450 2700 60  0000 C CNN
+F 2 "Pin_Headers:Pin_Header_Straight_2x04" H 9550 2300 60  0001 C CNN
+F 3 "" H 9550 2300 60  0000 C CNN
+	1    9450 2700
+	1    0    0    -1  
+$EndComp
+$Comp
+L SW_PUSH SW1
+U 1 1 5480667B
+P 6050 2450
+F 0 "SW1" H 6200 2560 50  0000 C CNN
+F 1 "SW_PUSH" H 6050 2370 50  0000 C CNN
+F 2 "d14b_libs:TACTILE_SW" H 6050 2450 60  0001 C CNN
+F 3 "" H 6050 2450 60  0000 C CNN
+	1    6050 2450
+	1    0    0    -1  
+$EndComp
+$Comp
+L SW_PUSH SW2
+U 1 1 548067BC
+P 6050 2750
+F 0 "SW2" H 6200 2860 50  0000 C CNN
+F 1 "SW_PUSH" H 6050 2670 50  0000 C CNN
+F 2 "d14b_libs:TACTILE_SW" H 6050 2750 60  0001 C CNN
+F 3 "" H 6050 2750 60  0000 C CNN
+	1    6050 2750
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	10300 2550 10600 2550
+Wire Wire Line
+	10300 2700 10600 2700
+Wire Wire Line
+	10300 2850 10600 2850
+Wire Wire Line
+	9450 3100 9450 4300
+Wire Wire Line
+	9450 2100 9450 2300
+$Comp
+L GND #PWR01
+U 1 1 54806F87
+P 9450 4300
+F 0 "#PWR01" H 9450 4300 30  0001 C CNN
+F 1 "GND" H 9450 4230 30  0001 C CNN
+F 2 "" H 9450 4300 60  0000 C CNN
+F 3 "" H 9450 4300 60  0000 C CNN
+	1    9450 4300
+	1    0    0    -1  
+$EndComp
+$Comp
+L GND #PWR02
+U 1 1 548070FB
+P 2800 4300
+F 0 "#PWR02" H 2800 4300 30  0001 C CNN
+F 1 "GND" H 2800 4230 30  0001 C CNN
+F 2 "" H 2800 4300 60  0000 C CNN
+F 3 "" H 2800 4300 60  0000 C CNN
+	1    2800 4300
+	1    0    0    -1  
+$EndComp
+$Comp
+L 3V3 #PWR03
+U 1 1 54807252
+P 9450 2100
+F 0 "#PWR03" H 9450 2200 40  0001 C CNN
+F 1 "3V3" H 9450 2225 40  0000 C CNN
+F 2 "" H 9450 2100 60  0000 C CNN
+F 3 "" H 9450 2100 60  0000 C CNN
+	1    9450 2100
+	1    0    0    -1  
+$EndComp
+$Comp
+L 3V3 #PWR04
+U 1 1 5480734E
+P 2800 2100
+F 0 "#PWR04" H 2800 2200 40  0001 C CNN
+F 1 "3V3" H 2800 2225 40  0000 C CNN
+F 2 "" H 2800 2100 60  0000 C CNN
+F 3 "" H 2800 2100 60  0000 C CNN
+	1    2800 2100
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2800 2250 2800 2100
+Wire Wire Line
+	4500 3250 4650 3250
+Wire Wire Line
+	4500 3350 4650 3350
+Text GLabel 4650 3250 2    60   Input ~ 0
+MISO
+Text GLabel 4650 3350 2    60   Input ~ 0
+MOSI
+Text GLabel 10600 2700 2    60   Input ~ 0
+MOSI
+Text GLabel 10600 2850 2    60   Input ~ 0
+MISO
+Wire Wire Line
+	2800 4200 2800 4300
+Wire Wire Line
+	4500 3150 4650 3150
+Text GLabel 4650 3150 2    60   Input ~ 0
+SCK
+Text GLabel 10600 2550 2    60   Input ~ 0
+SCK
+Wire Wire Line
+	4500 2750 5750 2750
+Wire Wire Line
+	5550 2650 4500 2650
+Wire Wire Line
+	5550 2450 5550 2650
+Wire Wire Line
+	5550 2450 5750 2450
+Wire Wire Line
+	6350 2450 6450 2450
+Connection ~ 6450 2450
+Wire Wire Line
+	6450 2750 6350 2750
+Connection ~ 6450 2750
+$Comp
+L 3V3 #PWR05
+U 1 1 5480A257
+P 6450 2100
+F 0 "#PWR05" H 6450 2200 40  0001 C CNN
+F 1 "3V3" H 6450 2225 40  0000 C CNN
+F 2 "" H 6450 2100 60  0000 C CNN
+F 3 "" H 6450 2100 60  0000 C CNN
+	1    6450 2100
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8550 2550 8350 2550
+Wire Wire Line
+	8550 2700 8350 2700
+Wire Wire Line
+	8550 2850 8350 2850
+Wire Wire Line
+	4500 3550 4650 3550
+Wire Wire Line
+	4500 3650 4650 3650
+Wire Wire Line
+	4500 3750 4650 3750
+Text GLabel 4650 3550 2    60   Input ~ 0
+CE
+Text GLabel 4650 3650 2    60   Input ~ 0
+CSN
+Text GLabel 4650 3750 2    60   Input ~ 0
+IRQ
+$Comp
+L CP2 C2
+U 1 1 5480AD1C
+P 7650 2800
+F 0 "C2" H 7650 2900 40  0000 L CNN
+F 1 "10u" H 7656 2715 40  0000 L CNN
+F 2 "SMD_Packages:SMD-1206" H 7688 2650 30  0001 C CNN
+F 3 "" H 7650 2800 60  0000 C CNN
+	1    7650 2800
+	1    0    0    -1  
+$EndComp
+$Comp
+L C C1
+U 1 1 5480ADD3
+P 7300 2800
+F 0 "C1" H 7300 2900 40  0000 L CNN
+F 1 "100n" H 7306 2715 40  0000 L CNN
+F 2 "SMD_Packages:SMD-1206" H 7338 2650 30  0001 C CNN
+F 3 "" H 7300 2800 60  0000 C CNN
+	1    7300 2800
+	1    0    0    -1  
+$EndComp
+$Comp
+L 3V3 #PWR06
+U 1 1 5480AE60
+P 7300 2100
+F 0 "#PWR06" H 7300 2200 40  0001 C CNN
+F 1 "3V3" H 7300 2225 40  0000 C CNN
+F 2 "" H 7300 2100 60  0000 C CNN
+F 3 "" H 7300 2100 60  0000 C CNN
+	1    7300 2100
+	1    0    0    -1  
+$EndComp
+$Comp
+L 3V3 #PWR07
+U 1 1 5480AE73
+P 7650 2100
+F 0 "#PWR07" H 7650 2200 40  0001 C CNN
+F 1 "3V3" H 7650 2225 40  0000 C CNN
+F 2 "" H 7650 2100 60  0000 C CNN
+F 3 "" H 7650 2100 60  0000 C CNN
+	1    7650 2100
+	1    0    0    -1  
+$EndComp
+$Comp
+L GND #PWR08
+U 1 1 5480AE86
+P 7650 4300
+F 0 "#PWR08" H 7650 4300 30  0001 C CNN
+F 1 "GND" H 7650 4230 30  0001 C CNN
+F 2 "" H 7650 4300 60  0000 C CNN
+F 3 "" H 7650 4300 60  0000 C CNN
+	1    7650 4300
+	1    0    0    -1  
+$EndComp
+$Comp
+L GND #PWR09
+U 1 1 5480AE99
+P 7300 4300
+F 0 "#PWR09" H 7300 4300 30  0001 C CNN
+F 1 "GND" H 7300 4230 30  0001 C CNN
+F 2 "" H 7300 4300 60  0000 C CNN
+F 3 "" H 7300 4300 60  0000 C CNN
+	1    7300 4300
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	7650 4300 7650 3000
+Wire Wire Line
+	7650 2600 7650 2100
+Wire Wire Line
+	7300 2100 7300 2600
+Wire Wire Line
+	7300 3000 7300 4300
+Text GLabel 8350 2550 0    60   Input ~ 0
+CE
+Text GLabel 8350 2700 0    60   Input ~ 0
+CSN
+Text GLabel 8350 2850 0    60   Input ~ 0
+IRQ
+Wire Wire Line
+	6450 2100 6450 2750
+$EndSCHEMATC

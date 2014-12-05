@@ -17,6 +17,7 @@ für das komplette Projekt dient:
     mkdir arbeitsverzeichnis
 
 Anschließend werden die beiden Repositories geklont:
+
     git clone git@github.com:michz/diy14bus.git
     git clone git@github.com:patkan/RIOT.git
 

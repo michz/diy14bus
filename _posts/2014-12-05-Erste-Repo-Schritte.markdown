@@ -31,26 +31,26 @@ beschrieben.
 Im Anwendungs-Makefile muss der Pfad zu RIOT angegeben werden.
 
 Beispiel:
-```Makefile
-# name of your application
-APPLICATION = first-test-f1
+```make
+    # name of your application
+    APPLICATION = first-test-f1
 
-# If no BOARD is found in the environment, use this default:
-BOARD ?= stm32f0discovery-diy
+    # If no BOARD is found in the environment, use this default:
+    BOARD ?= stm32f0discovery-diy
 
-######## THIS IS THE IMPORTANT LINE ########
-# This has to be the absolute path to the RIOT base directory:
-RIOTBASE ?= $(CURDIR)/../../RIOT/
+    ######## THIS IS THE IMPORTANT LINE ########
+    # This has to be the absolute path to the RIOT base directory:
+    RIOTBASE ?= $(CURDIR)/../../RIOT/
 
-# Modules required by this application
-USEMODULE += cc110x_spi
-USEMODULE += cc110x_legacy
+    # Modules required by this application
+    USEMODULE += cc110x_spi
+    USEMODULE += cc110x_legacy
 
 
-# Change this to 0 show compiler invocation lines by default:
-QUIET ?= 1
+    # Change this to 0 show compiler invocation lines by default:
+    QUIET ?= 1
 
-include $(RIOTBASE)/Makefile.include
+    include $(RIOTBASE)/Makefile.include
 ```
 
 Die Zeile, in der die Variable `RIOTBASE` definiert wird, stimmt exakt so,

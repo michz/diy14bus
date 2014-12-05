@@ -31,7 +31,6 @@ beschrieben.
 Im Anwendungs-Makefile muss der Pfad zu RIOT angegeben werden.
 
 Beispiel:
-```make
     # name of your application
     APPLICATION = first-test-f1
 
@@ -51,7 +50,6 @@ Beispiel:
     QUIET ?= 1
 
     include $(RIOTBASE)/Makefile.include
-```
 
 Die Zeile, in der die Variable `RIOTBASE` definiert wird, stimmt exakt so,
 wenn die Repositories wie oben auf derselben Verzeichnisebene liegen.

@@ -8,10 +8,12 @@ author: jschnurrer
 ---
 
 # Grundlagen für Git
-*DEPRECATED / VARLTET! Die nachfolgende Anleitung ist veraltet und kann
+**DEPRECATED / VARLTET! Die nachfolgende Anleitung ist veraltet und kann
 nicht mehr verwendet werden. Inzwischen sind beide Repositories einzeln,
 es wird kein Submodul mehr verwendet.
-Siehe auch: [Erste (Repository-)Schritte](http://michz.github.io/diy14bus/2014/12/Erste-Repo-Schritte/)*
+Siehe auch: [Erste (Repository-)Schritte](http://michz.github.io/diy14bus/2014/12/Erste-Repo-Schritte/)**
+
+
 (Anmerkung: Die folgenden "Erste Schritte"-Beschreibungen beziehen sich auf das
 Entwickeln im master-Branch. Arbeitet man auf einem anderen Branch, ist "master"
 durch den entsprechenden Namen zu ersetzen.)

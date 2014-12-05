@@ -1,16 +1,18 @@
-//#define MODULE_CC110X_LEGACY
+//#define MODULE_CC110X_LEGACY //wo wird das sonst definiert? ^^
 
 #include <stdlib.h>
 
 #include "board.h" // stm32f0discovery-diy
 #include "cpu.h"
 //#include "periph/spi.h"
-//#include "hwtimer.h"
+#include "hwtimer.h"
 
 #include "thread.h"
 
 #include "cc110x_legacy.h"
 #include "transceiver.h"
+
+#include "periph/gpio.h"
 
 
 #define SND_BUFFER_SIZE     (100)
@@ -25,6 +27,7 @@ kernel_pid_t radio_pid;
 
 void *radio(void *arg)
 {
+
     (void) arg;
 
     msg_t m;
@@ -33,9 +36,11 @@ void *radio(void *arg)
 
     while (1) {
 
+		sendMsg = 1;
+
 		if(msg_try_receive(&m) == 1){
 
-			LD4_ON;
+			
 
 		    if (m.type == PKT_PENDING) {
 
@@ -45,21 +50,27 @@ void *radio(void *arg)
 		    }
 		    else {
 		        puts("Unknown packet received");
+				
 		    }
 		}
 
 		else if(sendMsg == 1){ //hier dann auf sendMsg pruefen, das durch externen Taster in dessen ISR auf 1 gesetzt wird.
+			
 			//neue msg anlegen.
 			msg_t *newMsg = (msg_t *) malloc(sizeof(msg_t));
 			newMsg->type = PKT_PENDING;
-			msg_send(newMsg, radio_pid); //hier noch Fehlerabfragen einfuegen!
+
+			if(msg_send(newMsg, radio_pid) == -1){ 
+				//no success 
+				//20141205: wird ausgeführt
+				//LD4_ON;
+			}
+
 			free(newMsg);
-			sendMsg = 0;
-	
 	
 		}
 	
-
+		hwtimer_wait(HWTIMER_TICKS(500 * 1000));
 
     }
 }
@@ -83,21 +94,25 @@ void init_transceiver(void)
 
     transceiver_init(transceivers);
     (void) transceiver_start();
-    transceiver_register(transceivers, radio_pid);
+    if(transceiver_register(transceivers, radio_pid) != 1){
+		//no success
+
+		//LD4_ON; 
+	}
 }
-
-
-
 
 
 
 int main(void)
 {
+	sendMsg = 1;
+
+	RCC->AHBENR |= RCC_AHBENR_GPIOAEN;
+	RCC->AHBENR |= RCC_AHBENR_GPIOFEN;
 
 	init_transceiver();
 
-	sendMsg = 1;
-
+	while(1){}
 
 
         //LD3_ON;

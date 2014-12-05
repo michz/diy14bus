@@ -6,7 +6,7 @@ RF1100SE-Board (das Ding mit dem CC1100 drauf)
 4	CLK		-> PA5
 5	MISO/GDO1 -> PA6/PF6
 6	GDO2	-> PF7
-7	CSn		-> PA4
+7	CSn		-> PF4 (GPIO_2)
 8	GDO0	-> PF5
 9	GND		-> GND
 10	GND		-> GND

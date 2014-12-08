@@ -1,8 +1,8 @@
 # name of your application
-APPLICATION = first-test-f0
+APPLICATION = cc1101-test-f0
 
 # If no BOARD is found in the environment, use this default:
-BOARD ?= stm32f3discovery-diy
+BOARD ?= stm32f0discovery-diy
 #BOARD ?= native
 
 # This has to be the absolute path to the RIOT base directory:
@@ -21,6 +21,6 @@ CFLAGS += -marm -mthumb-interwork
 
 
 # Change this to 0 show compiler invocation lines by default:
-QUIET ?= 0
+QUIET ?= 1
 
 include $(RIOTBASE)/Makefile.include

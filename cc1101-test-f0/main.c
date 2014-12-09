@@ -38,6 +38,8 @@ void *radio(void *arg)
 
     while (1) {
 
+		//cc110x_txrx('a'); //just for debug
+
 		sendMsg = 1;
 
 		if(msg_try_receive(&m) == 1){
@@ -72,7 +74,7 @@ void *radio(void *arg)
 			if(msg_send(newMsg, radio_pid) == -1){ 
 				//no success 
 				//20141205: is reached :(
-				LD4_ON;
+				//LD4_ON;
 			}
 
 			free(newMsg);

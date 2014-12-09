@@ -1,6 +1,7 @@
 #include "board.h" // stm32f3discovery
 #include "cpu.h"
 #include "periph/spi.h"
+#include "periph/gpio.h"
 #include "hwtimer.h"
 
 
@@ -23,10 +24,19 @@ int main(void)
     //GPIOA->ODR &= ~(1 << 4);                   /* set pin to low signal */
 
 
-	if(spi_init_master(SPI_0, SPI_CONF_FIRST_RISING, SPI_SPEED_1MHZ) != 0){
+	if(spi_init_master(SPI_1, SPI_CONF_FIRST_RISING, SPI_SPEED_1MHZ) != 0){
 		while(1) LD3_ON; //nix mehr machen
 
 	}
+
+
+
+
+	//GPIOs work but the clock has to be enabled first:
+	RCC->AHBENR |= RCC_AHBENR_GPIOEEN;
+
+	//GPIO_6 : PE1
+	gpio_init_out(GPIO_6, GPIO_NOPULL); //just for debug
 
 	char blubb = 0;
 	char *mirwors = &blubb; //null und NULL wollte er nicht, daher halt umstaendlich
@@ -34,28 +44,31 @@ int main(void)
     while(1) {
 		for(uint8_t i = 0; i<30; i++){
 			
+			gpio_set(GPIO_6);
+
 			//blau
-			if(spi_transfer_byte(SPI_0, 0x8f, mirwors) != 1){
+			if(spi_transfer_byte(SPI_1, 0x8f, mirwors) != 1){
 				while(1) LD3_ON; //nix mehr machen
 			}
 
-			if(spi_transfer_byte(SPI_0, 0x80, mirwors) != 1){
+			if(spi_transfer_byte(SPI_1, 0x80, mirwors) != 1){
 				while(1) LD3_ON; //nix mehr machen
 			}
-			if(spi_transfer_byte(SPI_0, 0x80, mirwors) != 1){
+			if(spi_transfer_byte(SPI_1, 0x80, mirwors) != 1){
 				while(1) LD3_ON; //nix mehr machen
 			}
 
 			hwtimer_wait(HWTIMER_TICKS(TEST_WAIT * 1000));
 
+
 			//gruen
-			if(spi_transfer_byte(SPI_0, 0x80, mirwors) != 1){
+			if(spi_transfer_byte(SPI_1, 0x80, mirwors) != 1){
 				while(1) LD3_ON; //nix mehr machen
 			}
-			if(spi_transfer_byte(SPI_0, 0x80, mirwors) != 1){
+			if(spi_transfer_byte(SPI_1, 0x80, mirwors) != 1){
 				while(1) LD3_ON; //nix mehr machen
 			}
-			if(spi_transfer_byte(SPI_0, 0x8f, mirwors) != 1){
+			if(spi_transfer_byte(SPI_1, 0x8f, mirwors) != 1){
 				while(1) LD3_ON; //nix mehr machen
 			}
 
@@ -63,35 +76,37 @@ int main(void)
 		}
 
 		for(uint16_t i=((60+31)/32); i>0; i--) {
-			if(spi_transfer_byte(SPI_0, 0x00, mirwors) != 1){
+			if(spi_transfer_byte(SPI_1, 0x00, mirwors) != 1){
 				while(1) LD3_ON; //nix mehr machen
 			}
 		}
 
 
+		gpio_clear(GPIO_6);
+
 		for(uint8_t i = 0; i<30; i++){
 
 			//dunkel
-			if(spi_transfer_byte(SPI_0, 0x80, mirwors) != 1){
+			if(spi_transfer_byte(SPI_1, 0x80, mirwors) != 1){
 				while(1) LD3_ON; //nix mehr machen
 			}
-			if(spi_transfer_byte(SPI_0, 0x80, mirwors) != 1){
+			if(spi_transfer_byte(SPI_1, 0x80, mirwors) != 1){
 				while(1) LD3_ON; //nix mehr machen
 			}
-			if(spi_transfer_byte(SPI_0, 0x80, mirwors) != 1){
+			if(spi_transfer_byte(SPI_1, 0x80, mirwors) != 1){
 				while(1) LD3_ON; //nix mehr machen
 			}
 
 			hwtimer_wait(HWTIMER_TICKS(TEST_WAIT * 1000));
 
 			//rot
-			if(spi_transfer_byte(SPI_0, 0x80, mirwors) != 1){
+			if(spi_transfer_byte(SPI_1, 0x80, mirwors) != 1){
 				while(1) LD3_ON; //nix mehr machen
 			}
-			if(spi_transfer_byte(SPI_0, 0x8f, mirwors) != 1){
+			if(spi_transfer_byte(SPI_1, 0x8f, mirwors) != 1){
 				while(1) LD3_ON; //nix mehr machen
 			}
-			if(spi_transfer_byte(SPI_0, 0x80, mirwors) != 1){
+			if(spi_transfer_byte(SPI_1, 0x80, mirwors) != 1){
 				while(1) LD3_ON; //nix mehr machen
 			}
 
@@ -100,7 +115,7 @@ int main(void)
 
 
 		for(uint16_t i=((60+31)/32); i>0; i--) {
-			if(spi_transfer_byte(SPI_0, 0x00, mirwors) != 1){
+			if(spi_transfer_byte(SPI_1, 0x00, mirwors) != 1){
 				while(1) LD3_ON; //nix mehr machen
 			}
 		}

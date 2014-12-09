@@ -1,5 +1,5 @@
 # name of your application
-APPLICATION = first-test-f0
+APPLICATION = spi-test-f3
 
 # If no BOARD is found in the environment, use this default:
 BOARD ?= stm32f3discovery-diy

@@ -1,5 +1,5 @@
 # name of your application
-APPLICATION = first-test-f1
+APPLICATION = spi-test-f0
 
 # If no BOARD is found in the environment, use this default:
 BOARD ?= stm32f0discovery-diy
@@ -21,6 +21,6 @@ CFLAGS += -marm -mthumb-interwork
 
 
 # Change this to 0 show compiler invocation lines by default:
-QUIET ?= 1
+QUIET ?= 0
 
 include $(RIOTBASE)/Makefile.include

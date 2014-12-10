@@ -291,4 +291,6 @@ Text GLabel 8350 2850 0    60   Input ~ 0
 IRQ
 Wire Wire Line
 	6450 2100 6450 2750
+Text Notes 5200 5100 0    60   ~ 0
+TODO\n\nWandler für Eingang\nQuarz als Taktquelle\nzusätzliche Entkopplung?
 $EndSCHEMATC

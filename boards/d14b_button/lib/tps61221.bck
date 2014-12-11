@@ -1,7 +1,7 @@
 EESchema-DOCLIB  Version 2.0
 #
 $CMP TPS61221
-D ## Ändern!
+D TPS61221
 $ENDCMP
 #
 $CMP TPS77801D

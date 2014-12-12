@@ -9,8 +9,8 @@ BOARD ?= stm32f3discovery-diy
 RIOTBASE ?= $(CURDIR)/../../RIOT/
 
 
-USEMODULE += cc110x_spi
-USEMODULE += cc110x_legacy
+#USEMODULE += cc110x_spi
+#USEMODULE += cc110x_legacy
 
 
 # Comment this out to disable code in RIOT that does safety checking

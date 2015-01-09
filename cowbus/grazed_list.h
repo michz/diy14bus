@@ -22,7 +22,8 @@
 //   und löscht zyklisch die Einträge, damit keiner zu alt ist.
 
 typedef struct grazed_header {
-    // TODO: besteht aus SeqNr und Addr
+    unsigned int seq_no             : 5;
+    unsigned int addr               : 11;
 } grazed_header;
 
 
@@ -33,13 +34,13 @@ typedef struct grazed_header {
  * If new entry is the one that would be deleted next by grazed_delete_cyclic()
  * move this pointer one entry ahead.
  */
-int grazed_add(SeqNr, Addr); //TODO
+int grazed_add(unsigned int seq_nr, addr); //TODO
 
 /**
  * Clears the next entry.
  * This is used to assure that no entry is too old.
  */
-void grazed_delete_cyclic(); // TODO
+void grazed_delete_cyclic(void); // TODO
 
 
 #endif // GRAZED_LIST_H

@@ -1,4 +1,4 @@
-update=Do 11 Dez 2014 16:27:37 CET
+update=Fr 09 Jan 2015 16:39:39 CET
 version=1
 last_client=kicad
 [cvpcb]
@@ -25,9 +25,11 @@ SolderMaskMinWidth=0.000000000000
 DrawSegmentWidth=0.200000000000
 BoardOutlineThickness=0.100000000000
 ModuleOutlineThickness=0.150000000000
+[general]
+version=1
 [eeschema]
 version=1
-LibDir=lib
+LibDir=lib;lib.pretty
 [eeschema/libraries]
 LibName1=power
 LibName2=device
@@ -62,5 +64,3 @@ LibName30=valves
 LibName31=lib/STM32F030F4P6TR
 LibName32=lib/nrf24l01plus-module
 LibName33=lib/tps61221
-[general]
-version=1

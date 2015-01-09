@@ -953,30 +953,30 @@ Text Label 8500 1850 0    60   ~ 0
 CSN
 Text Label 8500 2000 0    60   ~ 0
 IRQ
-Text Label 5150 2550 2    60   ~ 0
+Text Label 5250 2550 2    60   ~ 0
 SCK
-Text Label 5150 2650 2    60   ~ 0
+Text Label 5250 2650 2    60   ~ 0
 MISO
-Text Label 5150 2750 2    60   ~ 0
+Text Label 5250 2750 2    60   ~ 0
 MOSI
-Text Label 5150 3750 2    60   ~ 0
+Text Label 5250 3750 2    60   ~ 0
 CE
-Text Label 5150 3850 2    60   ~ 0
+Text Label 5250 3850 2    60   ~ 0
 CSN
-Text Label 5150 3950 2    60   ~ 0
+Text Label 5250 3950 2    60   ~ 0
 IRQ
 Wire Wire Line
-	4900 2550 5150 2550
+	4900 2550 5250 2550
 Wire Wire Line
-	4900 2650 5150 2650
+	4900 2650 5250 2650
 Wire Wire Line
-	4900 2750 5150 2750
+	4900 2750 5250 2750
 Wire Wire Line
-	5150 3750 4900 3750
+	4900 3750 5250 3750
 Wire Wire Line
-	4900 3850 5150 3850
+	4900 3850 5250 3850
 Wire Wire Line
-	4900 3950 5150 3950
+	4900 3950 5250 3950
 Wire Wire Line
 	8500 1700 8750 1700
 Wire Wire Line
@@ -997,6 +997,46 @@ Text Notes 8700 3000 0    120  ~ 0
 SWD
 Text Notes 1200 6250 0    120  ~ 0
 PSU
-Text Notes 8250 5450 0    120  ~ 0
+Text Notes 5750 5800 0    120  ~ 0
 TODO\nPSU überarbeiten\nµC komplett beschalten
+Text Notes 8750 5000 0    120  ~ 0
+UART\n
+$Comp
+L CONN_01X03 P?
+U 1 1 54B08A26
+P 9500 5400
+F 0 "P?" H 9500 5600 50  0000 C CNN
+F 1 "CONN_01X03" V 9600 5400 50  0000 C CNN
+F 2 "" H 9500 5400 60  0000 C CNN
+F 3 "" H 9500 5400 60  0000 C CNN
+	1    9500 5400
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8900 5300 9300 5300
+Wire Wire Line
+	8900 5400 9300 5400
+Text Label 8900 5300 0    60   ~ 0
+UARTRX
+Text Label 8900 5400 0    60   ~ 0
+UARTTX
+$Comp
+L GND #PWR?
+U 1 1 54B08EA3
+P 9300 5500
+F 0 "#PWR?" H 9300 5250 60  0001 C CNN
+F 1 "GND" H 9300 5350 60  0000 C CNN
+F 2 "" H 9300 5500 60  0000 C CNN
+F 3 "" H 9300 5500 60  0000 C CNN
+	1    9300 5500
+	1    0    0    -1  
+$EndComp
+Text Label 5250 3050 2    60   ~ 0
+UARTRX
+Text Label 5250 2950 2    60   ~ 0
+UARTTX
+Wire Wire Line
+	5250 2950 4900 2950
+Wire Wire Line
+	4900 3050 5250 3050
 $EndSCHEMATC

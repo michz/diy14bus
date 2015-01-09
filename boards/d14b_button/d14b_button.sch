@@ -1520,8 +1520,8 @@ F 3 "" H 8750 4500 60  0000 C CNN
 	1    8750 5700
 	1    0    0    -1  
 $EndComp
-Text Notes 9800 6000 0    39   ~ 0
-Pinbelegung:\n1 #CS\n2 SO\n3 #WP\n4 VSS\n5 VCC\n6 #HOLD\n7 SCK\n8 SI
+Text Notes 9750 6100 0    39   ~ 0
+Pinbelegung:\n1 #CS\n2 SO\n3 #WP\n4 VSS\n5 VCC\n6 #HOLD\n7 SCK\n8 SI\n\nChip:  25AA640AT-I/MS (64K von Digikey)
 Wire Wire Line
 	8100 5550 8500 5550
 Wire Wire Line

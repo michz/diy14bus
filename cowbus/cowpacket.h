@@ -17,6 +17,7 @@ typedef enum cowpacket_type {
     program     = 2,    ///< map action of actor to given sensor event (addr+event)
     get_name    = 3,    ///< get name of device with given addr
     get_state   = 4,    ///< get current state of sensor (data) or actor (if stateful)
+    get_config  = 5,    ///< get config of actor (event mapping)
 } cowpacket_type;
 
 // TODO definiere Paketstruktur

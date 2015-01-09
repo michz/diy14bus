@@ -33,8 +33,11 @@ typedef struct grazed_header {
  * If table full, oldest entry is overwritten.
  * If new entry is the one that would be deleted next by grazed_delete_cyclic()
  * move this pointer one entry ahead.
+ *
+ * @param   seq_nr  sequence number of current packet
+ * @param   addr    sender/receiver/sensor/actor address of packet
  */
-int grazed_add(unsigned int seq_nr, addr); //TODO
+int grazed_add(unsigned int seq_nr, unsigned int addr); //TODO
 
 /**
  * Clears the next entry.

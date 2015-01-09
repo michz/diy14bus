@@ -1,0 +1,28 @@
+nrf14l01+-Board
+
+1	GND		-> GND
+2	VDD		-> 3V
+3   CE      -> PB11
+4   CSN     -> PB12
+5	SCK		-> PB13
+6	MOSI	-> PB15
+7	MISO    -> PB14
+8	IRQ	    -> A1
+
+
+
+STM32F3 (entnommen aus boards/stm32f3discovery-diy/include/periph_conf.h)
+
+GPIO_0	-> PE2
+GPIO_1	-> PE4
+GPIO_2	-> PE5
+GPIO_3	-> PE3
+GPIO_4	-> PE0
+GPIO_5	-> PE1
+GPIO_6	-> PB11
+GPIO_7	-> PB12
+GPIO_8	-> PB13
+GPIO_9	-> PB14
+GPIO_10	-> PB15
+GPIO_11	-> PA0
+GPIO_12	-> PA1

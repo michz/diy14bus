@@ -798,12 +798,12 @@ $EndComp
 $Comp
 L +3V3 #PWR?
 U 1 1 54AFEB56
-P 9100 3250
-F 0 "#PWR?" H 9100 3100 60  0001 C CNN
-F 1 "+3V3" H 9100 3390 60  0000 C CNN
-F 2 "" H 9100 3250 60  0000 C CNN
-F 3 "" H 9100 3250 60  0000 C CNN
-	1    9100 3250
+P 8450 3250
+F 0 "#PWR?" H 8450 3100 60  0001 C CNN
+F 1 "+3V3" H 8450 3390 60  0000 C CNN
+F 2 "" H 8450 3250 60  0000 C CNN
+F 3 "" H 8450 3250 60  0000 C CNN
+	1    8450 3250
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -928,9 +928,7 @@ Wire Wire Line
 Wire Wire Line
 	1200 4950 1000 4950
 Wire Wire Line
-	9100 3250 9100 3350
-Wire Wire Line
-	9100 3350 9250 3350
+	8450 3350 9250 3350
 Wire Wire Line
 	1000 3250 1200 3250
 Wire Wire Line
@@ -995,10 +993,10 @@ Text Notes 8600 750  0    120  ~ 0
 NRF24L01
 Text Notes 8700 3000 0    120  ~ 0
 SWD
-Text Notes 1200 6250 0    120  ~ 0
+Text Notes 1200 6450 0    120  ~ 0
 PSU
-Text Notes 5750 5800 0    120  ~ 0
-TODO\nPSU überarbeiten\nµC komplett beschalten
+Text Notes 5450 6400 0    120  ~ 0
+TODO\nPSU überarbeiten\nµC komplett beschalten\nSWD/JTAG auch mit RESET beschalten\nTaster für RESET
 Text Notes 8750 5000 0    120  ~ 0
 UART\n
 $Comp
@@ -1039,4 +1037,88 @@ Wire Wire Line
 	5250 2950 4900 2950
 Wire Wire Line
 	4900 3050 5250 3050
+Text Label 5250 3350 2    60   ~ 0
+SWDIO
+Text Label 5250 3450 2    60   ~ 0
+SWCLK
+Wire Wire Line
+	5250 3350 4900 3350
+Wire Wire Line
+	4900 3450 5250 3450
+$Comp
+L ZENERsmall D?
+U 1 1 54B0A648
+P 8450 3450
+F 0 "D?" H 8450 3550 40  0000 C CNN
+F 1 "Z5V1" H 8450 3350 30  0000 C CNN
+F 2 "" H 8450 3450 60  0000 C CNN
+F 3 "" H 8450 3450 60  0000 C CNN
+	1    8450 3450
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	8450 3250 8450 3350
+$Comp
+L GND #PWR?
+U 1 1 54B0A8DC
+P 8450 3550
+F 0 "#PWR?" H 8450 3550 30  0001 C CNN
+F 1 "GND" H 8450 3480 30  0001 C CNN
+F 2 "" H 8450 3550 60  0000 C CNN
+F 3 "" H 8450 3550 60  0000 C CNN
+	1    8450 3550
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9250 3650 8600 3650
+Text Label 8600 3650 0    60   ~ 0
+SWDIO
+Text Label 8900 3750 0    60   ~ 0
+SWCLK
+$Comp
+L ZENERsmall D?
+U 1 1 54B0AD67
+P 8600 3750
+F 0 "D?" H 8600 3850 40  0000 C CNN
+F 1 "Z5V1" H 8600 3650 30  0000 C CNN
+F 2 "" H 8600 3750 60  0000 C CNN
+F 3 "" H 8600 3750 60  0000 C CNN
+	1    8600 3750
+	0    -1   -1   0   
+$EndComp
+$Comp
+L GND #PWR?
+U 1 1 54B0AD6D
+P 8600 3850
+F 0 "#PWR?" H 8600 3850 30  0001 C CNN
+F 1 "GND" H 8600 3780 30  0001 C CNN
+F 2 "" H 8600 3850 60  0000 C CNN
+F 3 "" H 8600 3850 60  0000 C CNN
+	1    8600 3850
+	1    0    0    -1  
+$EndComp
+$Comp
+L ZENERsmall D?
+U 1 1 54B0ADD7
+P 8900 3850
+F 0 "D?" H 8900 3950 40  0000 C CNN
+F 1 "Z5V1" H 8900 3750 30  0000 C CNN
+F 2 "" H 8900 3850 60  0000 C CNN
+F 3 "" H 8900 3850 60  0000 C CNN
+	1    8900 3850
+	0    -1   -1   0   
+$EndComp
+$Comp
+L GND #PWR?
+U 1 1 54B0ADDD
+P 8900 3950
+F 0 "#PWR?" H 8900 3950 30  0001 C CNN
+F 1 "GND" H 8900 3880 30  0001 C CNN
+F 2 "" H 8900 3950 60  0000 C CNN
+F 3 "" H 8900 3950 60  0000 C CNN
+	1    8900 3950
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8900 3750 9250 3750
 $EndSCHEMATC

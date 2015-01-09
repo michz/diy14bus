@@ -1,45 +1,367 @@
-Cmp-Mod V01 Created by Cvpcb (2014-11-30 BZR 5308)-product   date = Do 11 Dez 2014 10:21:31 CET
+Cmp-Mod V01 Created by Cvpcb (2014-12-16 BZR 5324)-product   date = Fr 09 Jan 2015 16:48:27 CET
+
+BeginCmp
+TimeStamp = /54896B73;
+Reference = BT1;
+ValeurCmp = BATTERY;
+IdModule  = ;
+EndCmp
 
 BeginCmp
 TimeStamp = /5480ADD3;
 Reference = C1;
 ValeurCmp = 100n;
-IdModule  = SMD_Packages:SMD-1206;
+IdModule  = Capacitors_SMD:C_0603;
 EndCmp
 
 BeginCmp
 TimeStamp = /5480AD1C;
 Reference = C2;
 ValeurCmp = 10u;
-IdModule  = SMD_Packages:SMD-1206;
+IdModule  = Capacitors_SMD:c_elec_4x5.8;
+EndCmp
+
+BeginCmp
+TimeStamp = /54AFFDE5;
+Reference = C3;
+ValeurCmp = 100n;
+IdModule  = Capacitors_SMD:C_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B015E8;
+Reference = C4;
+ValeurCmp = 100n;
+IdModule  = Capacitors_SMD:C_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B1C241;
+Reference = C5;
+ValeurCmp = 4.7u;
+IdModule  = Capacitors_SMD:c_elec_4x5.8;
+EndCmp
+
+BeginCmp
+TimeStamp = /54AF99C9;
+Reference = C6;
+ValeurCmp = 100n;
+IdModule  = Capacitors_SMD:C_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /54AF9BEB;
+Reference = C7;
+ValeurCmp = 10n;
+IdModule  = Capacitors_SMD:C_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B1C439;
+Reference = C8;
+ValeurCmp = 1u;
+IdModule  = Capacitors_SMD:c_elec_4x5.8;
+EndCmp
+
+BeginCmp
+TimeStamp = /54AF9D47;
+Reference = C9;
+ValeurCmp = 20p;
+IdModule  = Capacitors_SMD:C_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /54AF9DC5;
+Reference = C10;
+ValeurCmp = 20p;
+IdModule  = Capacitors_SMD:C_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B0A568;
+Reference = C11;
+ValeurCmp = 10p;
+IdModule  = Capacitors_SMD:C_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B3296C;
+Reference = C12;
+ValeurCmp = 100n;
+IdModule  = Capacitors_SMD:C_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B0A56E;
+Reference = C13;
+ValeurCmp = 10p;
+IdModule  = Capacitors_SMD:C_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B40EF8;
+Reference = C14;
+ValeurCmp = 100n;
+IdModule  = Capacitors_SMD:C_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /54898D66;
+Reference = C15;
+ValeurCmp = 10 μF;
+IdModule  = ;
+EndCmp
+
+BeginCmp
+TimeStamp = /5489AA0A;
+Reference = C16;
+ValeurCmp = 10u;
+IdModule  = ;
+EndCmp
+
+BeginCmp
+TimeStamp = /54AFC019;
+Reference = D1;
+ValeurCmp = LED_RCBG;
+IdModule  = ;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B2C3A2;
+Reference = D2;
+ValeurCmp = LED;
+IdModule  = ;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B0A648;
+Reference = D3;
+ValeurCmp = Z5V1;
+IdModule  = ;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B0AD67;
+Reference = D4;
+ValeurCmp = Z5V1;
+IdModule  = ;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B0ADD7;
+Reference = D5;
+ValeurCmp = Z5V1;
+IdModule  = ;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B1B9F1;
+Reference = D6;
+ValeurCmp = Z5V1;
+IdModule  = ;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B374CD;
+Reference = J1;
+ValeurCmp = USB;
+IdModule  = ;
+EndCmp
+
+BeginCmp
+TimeStamp = /54AFD79C;
+Reference = JP1;
+ValeurCmp = JUMPER3;
+IdModule  = ;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B435C7;
+Reference = JP2;
+ValeurCmp = JUMPER3;
+IdModule  = ;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B1F253;
+Reference = JP3;
+ValeurCmp = JUMPER3;
+IdModule  = ;
+EndCmp
+
+BeginCmp
+TimeStamp = /54898DB7;
+Reference = L1;
+ValeurCmp = 4.7u;
+IdModule  = ;
+EndCmp
+
+BeginCmp
+TimeStamp = /54AFAC94;
+Reference = P1;
+ValeurCmp = CONN_02X10;
+IdModule  = ;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B08A26;
+Reference = P2;
+ValeurCmp = CONN_01X03;
+IdModule  = ;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B262BA;
+Reference = P3;
+ValeurCmp = PIEZO_BUZZ;
+IdModule  = ;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B41ABF;
+Reference = P4;
+ValeurCmp = EEPROM_SPI;
+IdModule  = ;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B25F08;
+Reference = Q1;
+ValeurCmp = MOSFET_N;
+IdModule  = ;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B00744;
+Reference = R1;
+ValeurCmp = 0;
+IdModule  = ;
+EndCmp
+
+BeginCmp
+TimeStamp = /54AFBB5E;
+Reference = R2;
+ValeurCmp = 680;
+IdModule  = ;
+EndCmp
+
+BeginCmp
+TimeStamp = /54AFBB0B;
+Reference = R3;
+ValeurCmp = 510;
+IdModule  = ;
+EndCmp
+
+BeginCmp
+TimeStamp = /54AFD7FD;
+Reference = R4;
+ValeurCmp = 10k;
+IdModule  = ;
+EndCmp
+
+BeginCmp
+TimeStamp = /54AFBA14;
+Reference = R5;
+ValeurCmp = 680;
+IdModule  = ;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B2C2FF;
+Reference = R6;
+ValeurCmp = 680;
+IdModule  = ;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B0890E;
+Reference = R7;
+ValeurCmp = 0;
+IdModule  = ;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B371E3;
+Reference = R8;
+ValeurCmp = 10, 2.5W;
+IdModule  = ;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B34C40;
+Reference = R9;
+ValeurCmp = 0;
+IdModule  = ;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B34DCF;
+Reference = R10;
+ValeurCmp = *;
+IdModule  = ;
 EndCmp
 
 BeginCmp
 TimeStamp = /5480667B;
 Reference = SW1;
 ValeurCmp = SW_PUSH;
-IdModule  = d14b_libs:TACTILE_SW;
+IdModule  = TonisLibrary:Button_SMD_Schurter_LSG;
 EndCmp
 
 BeginCmp
 TimeStamp = /548067BC;
 Reference = SW2;
 ValeurCmp = SW_PUSH;
-IdModule  = d14b_libs:TACTILE_SW;
+IdModule  = TonisLibrary:Button_SMD_Schurter_LSG;
 EndCmp
 
 BeginCmp
-TimeStamp = /5480649D;
-Reference = U1;
-ValeurCmp = STM32F030F4P6TR;
-IdModule  = Housings_SSOP:TSSOP-20_4.4x6.5mm_Pitch0.65mm;
+TimeStamp = /54B328EE;
+Reference = SW3;
+ValeurCmp = SW_PUSH;
+IdModule  = TonisLibrary:Button_SMD_Schurter_LSG;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B0F915;
+Reference = SW4;
+ValeurCmp = SW_PUSH;
+IdModule  = TonisLibrary:Button_SMD_Schurter_LSG;
 EndCmp
 
 BeginCmp
 TimeStamp = /5480655E;
-Reference = U2;
+Reference = U1;
 ValeurCmp = nRF24L01+-Module;
 IdModule  = Pin_Headers:Pin_Header_Straight_2x04;
+EndCmp
+
+BeginCmp
+TimeStamp = /54AFE9EC;
+Reference = U2;
+ValeurCmp = STM32F050C6;
+IdModule  = Pin_Headers:Pin_Header_Straight_2x04;
+EndCmp
+
+BeginCmp
+TimeStamp = /548991BF;
+Reference = U3;
+ValeurCmp = TPS61221;
+IdModule  = SO6;
+EndCmp
+
+BeginCmp
+TimeStamp = /54AF9828;
+Reference = X1;
+ValeurCmp = 8M;
+IdModule  = ;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B0A562;
+Reference = X2;
+ValeurCmp = 32.768k;
+IdModule  = ;
 EndCmp
 
 EndListe

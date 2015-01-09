@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by Cvpcb (2014-12-16 BZR 5324)-product   date = Fr 09 Jan 2015 17:05:04 CET
+Cmp-Mod V01 Created by Cvpcb (2014-12-16 BZR 5324)-product   date = Fr 09 Jan 2015 17:54:59 CET
 
 BeginCmp
 TimeStamp = /54896B73;
@@ -109,84 +109,84 @@ BeginCmp
 TimeStamp = /54898D66;
 Reference = C15;
 ValeurCmp = 10u;
-IdModule  = ;
+IdModule  = Capacitors_SMD:C_0805;
 EndCmp
 
 BeginCmp
 TimeStamp = /5489AA0A;
 Reference = C16;
 ValeurCmp = 10u;
-IdModule  = ;
+IdModule  = Capacitors_SMD:C_0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B45CE7;
+Reference = CON1;
+ValeurCmp = USB-MICRO-B;
+IdModule  = Connect:USB_Micro-B;
 EndCmp
 
 BeginCmp
 TimeStamp = /54AFC019;
 Reference = D1;
 ValeurCmp = LED_RCBG;
-IdModule  = ;
+IdModule  = Pin_Headers:Pin_Header_Straight_2x02;
 EndCmp
 
 BeginCmp
 TimeStamp = /54B2C3A2;
 Reference = D2;
 ValeurCmp = LED;
-IdModule  = ;
+IdModule  = LEDs:LED-0603;
 EndCmp
 
 BeginCmp
 TimeStamp = /54B0A648;
 Reference = D3;
 ValeurCmp = Z5V1;
-IdModule  = ;
+IdModule  = Diodes_SMD:Diode-MiniMELF_Standard;
 EndCmp
 
 BeginCmp
 TimeStamp = /54B0AD67;
 Reference = D4;
 ValeurCmp = Z5V1;
-IdModule  = ;
+IdModule  = Diodes_SMD:Diode-MiniMELF_Standard;
 EndCmp
 
 BeginCmp
 TimeStamp = /54B0ADD7;
 Reference = D5;
 ValeurCmp = Z5V1;
-IdModule  = ;
+IdModule  = Diodes_SMD:Diode-MiniMELF_Standard;
 EndCmp
 
 BeginCmp
 TimeStamp = /54B1B9F1;
 Reference = D6;
 ValeurCmp = Z5V1;
-IdModule  = ;
-EndCmp
-
-BeginCmp
-TimeStamp = /54B374CD;
-Reference = J1;
-ValeurCmp = USB;
-IdModule  = ;
+IdModule  = Diodes_SMD:Diode-MiniMELF_Standard;
 EndCmp
 
 BeginCmp
 TimeStamp = /54AFD79C;
 Reference = JP1;
 ValeurCmp = JUMPER3;
-IdModule  = ;
+IdModule  = Connect:GS3;
 EndCmp
 
 BeginCmp
 TimeStamp = /54B435C7;
 Reference = JP2;
 ValeurCmp = JUMPER3;
-IdModule  = ;
+IdModule  = Connect:GS3;
 EndCmp
 
 BeginCmp
 TimeStamp = /54B1F253;
 Reference = JP3;
 ValeurCmp = JUMPER3;
-IdModule  = ;
+IdModule  = Connect:GS3;
 EndCmp
 
 BeginCmp
@@ -200,105 +200,105 @@ BeginCmp
 TimeStamp = /54AFAC94;
 Reference = P1;
 ValeurCmp = CONN_02X10;
-IdModule  = ;
+IdModule  = Connect:VASCH10x2;
 EndCmp
 
 BeginCmp
 TimeStamp = /54B08A26;
 Reference = P2;
 ValeurCmp = CONN_01X03;
-IdModule  = ;
+IdModule  = Connect:PINHEAD1-3;
 EndCmp
 
 BeginCmp
 TimeStamp = /54B262BA;
 Reference = P3;
 ValeurCmp = PIEZO_BUZZ;
-IdModule  = ;
+IdModule  = Connect:PINHEAD1-2;
 EndCmp
 
 BeginCmp
 TimeStamp = /54B41ABF;
 Reference = P4;
 ValeurCmp = EEPROM_SPI;
-IdModule  = ;
+IdModule  = SMD_Packages:MSOP-8;
 EndCmp
 
 BeginCmp
 TimeStamp = /54B25F08;
 Reference = Q1;
 ValeurCmp = MOSFET_N;
-IdModule  = ;
+IdModule  = SMD_Packages:DPAK-2-1EP_GDS;
 EndCmp
 
 BeginCmp
 TimeStamp = /54B00744;
 Reference = R1;
 ValeurCmp = 0;
-IdModule  = ;
+IdModule  = Resistors_SMD:R_0603;
 EndCmp
 
 BeginCmp
 TimeStamp = /54AFBB5E;
 Reference = R2;
 ValeurCmp = 680;
-IdModule  = ;
+IdModule  = Resistors_SMD:R_0603;
 EndCmp
 
 BeginCmp
 TimeStamp = /54AFBB0B;
 Reference = R3;
 ValeurCmp = 510;
-IdModule  = ;
+IdModule  = Resistors_SMD:R_0603;
 EndCmp
 
 BeginCmp
 TimeStamp = /54AFD7FD;
 Reference = R4;
 ValeurCmp = 10k;
-IdModule  = ;
+IdModule  = Resistors_SMD:R_0603;
 EndCmp
 
 BeginCmp
 TimeStamp = /54AFBA14;
 Reference = R5;
 ValeurCmp = 680;
-IdModule  = ;
+IdModule  = Resistors_SMD:R_0603;
 EndCmp
 
 BeginCmp
 TimeStamp = /54B2C2FF;
 Reference = R6;
 ValeurCmp = 680;
-IdModule  = ;
+IdModule  = Resistors_SMD:R_0603;
 EndCmp
 
 BeginCmp
 TimeStamp = /54B0890E;
 Reference = R7;
 ValeurCmp = 0;
-IdModule  = ;
+IdModule  = Resistors_SMD:R_0603;
 EndCmp
 
 BeginCmp
 TimeStamp = /54B371E3;
 Reference = R8;
 ValeurCmp = 10, 2.5W;
-IdModule  = ;
+IdModule  = Resistors_ThroughHole:Resistor_Horizontal_RM15mm;
 EndCmp
 
 BeginCmp
 TimeStamp = /54B34C40;
 Reference = R9;
 ValeurCmp = 0;
-IdModule  = ;
+IdModule  = Resistors_SMD:R_0603;
 EndCmp
 
 BeginCmp
 TimeStamp = /54B34DCF;
 Reference = R10;
 ValeurCmp = *;
-IdModule  = ;
+IdModule  = Resistors_SMD:R_0603;
 EndCmp
 
 BeginCmp
@@ -340,7 +340,7 @@ BeginCmp
 TimeStamp = /54AFE9EC;
 Reference = U2;
 ValeurCmp = STM32F050C6;
-IdModule  = Pin_Headers:Pin_Header_Straight_2x04;
+IdModule  = Housings_QFP:LQFP-48_7x7mm_Pitch0.5mm;
 EndCmp
 
 BeginCmp

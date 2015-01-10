@@ -19,10 +19,11 @@
 #include "grazed_list.h"
 #include "actor.h"
 #include "sensor.h"
+#include "packet_queue.h"
 
-#define SND_BUFFER_SIZE     (100)
-#define RCV_BUFFER_SIZE     (64)
-#define RADIO_STACK_SIZE    (KERNEL_CONF_STACKSIZE_DEFAULT)
+//#define SND_BUFFER_SIZE     (100)
+//#define RCV_BUFFER_SIZE     (64)
+//#define RADIO_STACK_SIZE    (KERNEL_CONF_STACKSIZE_DEFAULT)
 
 
 /// instance of nrf24l01+ transceiver
@@ -30,6 +31,7 @@ static nrf24l01p_t nrf24l01p_0;
 
 /// stack for rx_handler-thread // TODO: stacksize anders wählen (?)
 char rx_handler_stack[KERNEL_CONF_STACKSIZE_MAIN];
+
 
 // TODO implement RX handler that waits for a message from the ISR
 // Now: example implementation from RIOT/tests/
@@ -87,6 +89,10 @@ void *nrf24l01p_rx_handler(void *arg)
 
 int main(void)
 {
+
+    // initialize ringbuffer for received packets
+    packet_queue_init();
+
 
     //                                            ce=B11, cs=B12, irq=A1
     int ret = nrf24l01p_init(&nrf24l01p_0, SPI_1, GPIO_6, GPIO_7, GPIO_12);

@@ -38,10 +38,10 @@ EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
-Title ""
-Date ""
-Rev ""
-Comp ""
+Title "Cowbus Demoboard (Schaltermodul)"
+Date "Fr 09 Jan 2015"
+Rev "2"
+Comp "https://michz.github.io/diy14bus/"
 Comment1 ""
 Comment2 ""
 Comment3 ""

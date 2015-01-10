@@ -11,6 +11,9 @@
 #ifndef COWPACKET_H
 #define COWPACKET_H
 
+#define PAYLOAD_MAX_LENGTH  (26)
+
+
 typedef enum cowpacket_type {
     undefined   = 0,    ///< reserved!
     event       = 1,    ///< normal bus event
@@ -28,7 +31,7 @@ typedef struct cowpacket {
     cowpacket_type type             : 4;
     unsigned int is_fragment        : 1;
     unsigned int reserved           : 3;
-    unsigned char payload[26];
+    unsigned char payload[PAYLOAD_MAX_LENGTH];
     unsigned char checksum[2];
 } cowpacket;
 

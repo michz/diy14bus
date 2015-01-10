@@ -148,6 +148,9 @@ void *nrf24l01p_rx_handler(void *arg)
                 }
 
                 puts("");
+                LD9_ON;
+                hwtimer_wait(HWTIMER_TICKS(100 * 1000));
+                LD9_OFF;
 
                 break;
 
@@ -300,9 +303,9 @@ int main(void)
 
 
 
-        LD3_ON;
+        LD5_ON;
         hwtimer_wait(HWTIMER_TICKS(500* 1000));
-        LD3_OFF;
+        LD5_OFF;
         LD4_ON;
         hwtimer_wait(HWTIMER_TICKS(500 * 1000));
         LD4_OFF;

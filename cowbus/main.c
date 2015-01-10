@@ -17,6 +17,8 @@
 
 #include "cowpacket.h"
 #include "grazed_list.h"
+#include "actor.h"
+#include "sensor.h"
 
 #define SND_BUFFER_SIZE     (100)
 #define RCV_BUFFER_SIZE     (64)

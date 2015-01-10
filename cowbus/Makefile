@@ -9,7 +9,8 @@ BOARD ?= stm32f3discovery-diy
 RIOTBASE ?= $(CURDIR)/../../RIOT/
 
 # application configuration options
-APP_MACROS = -DNODE_IS_ACTOR		# says that this node is a actor
+APP_MACROS += -DNODE_IS_ACTOR		# says that this node is a actor
+APP_MACROS += -DNODE_IS_SENSOR		# says that this node is a sensor
 
 
 USEMODULE += nrf24l01p
@@ -32,7 +33,7 @@ include $(RIOTBASE)/Makefile.include
 
 # some useful things...
 .PHONY: todo
-GREP_ARGS = --exclude={*.tmp,*.swp,Makefile} --exclude-dir=".svn" -n --color=auto
+GREP_ARGS = --exclude={*.tmp,*.swp,Makefile} --exclude-dir=".git" -n --color=auto
 todo:
 	-@grep $(GREP_ARGS) -i "TODO" ./ -R 
 

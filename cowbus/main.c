@@ -93,7 +93,17 @@ int main(void)
     // initialize ringbuffer for received packets
     packet_queue_init();
 
+    // TODO get node address from eeprom
+    //      if not available, go through algorithm to determine new address:
+    //          1. generate randomly address of length 11 bit
+    //          2. send PING with generated address
+    //          3. wait X seconds for answer (ping_answer)
+    //          4. if no answer received, accept address and save it
+    //          5. if an answer is received, start over with 1.
+    //              (or determine another address on another way)
+    //
 
+    // initialize radio module
     //                                            ce=B11, cs=B12, irq=A1
     int ret = nrf24l01p_init(&nrf24l01p_0, SPI_1, GPIO_6, GPIO_7, GPIO_12);
 
@@ -107,11 +117,12 @@ int main(void)
 
     nrf24l01p_set_rxmode(&nrf24l01p_0);
 
-    // TODO initialize buttons
+    // TODO initialize buttons (with interrupts)
     // TODO initialize LEDs
 
 	while(1) {
         // TODO
+        // if everything works with interrupts, we could go to sleep here
     }
 
     return 0;

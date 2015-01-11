@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by Cvpcb (2014-12-16 BZR 5324)-product   date = Fr 09 Jan 2015 17:54:59 CET
+Cmp-Mod V01 Created by Cvpcb (2014-12-16 BZR 5324)-product   date = So 11 Jan 2015 22:15:34 CET
 
 BeginCmp
 TimeStamp = /54896B73;
@@ -197,9 +197,9 @@ IdModule  = ;
 EndCmp
 
 BeginCmp
-TimeStamp = /54AFAC94;
+TimeStamp = /54B2A0A6;
 Reference = P1;
-ValeurCmp = CONN_02X10;
+ValeurCmp = CONN_02X05;
 IdModule  = Connect:VASCH10x2;
 EndCmp
 
@@ -274,29 +274,50 @@ IdModule  = Resistors_SMD:R_0603;
 EndCmp
 
 BeginCmp
-TimeStamp = /54B0890E;
+TimeStamp = /54B12F0E;
 Reference = R7;
+ValeurCmp = 10k;
+IdModule  = Resistors_SMD:R_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B12F9E;
+Reference = R8;
+ValeurCmp = 10k;
+IdModule  = Resistors_ThroughHole:Resistor_Horizontal_RM15mm;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B12FEC;
+Reference = R9;
+ValeurCmp = 10k;
+IdModule  = Resistors_SMD:R_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B0890E;
+Reference = R10;
 ValeurCmp = 0;
 IdModule  = Resistors_SMD:R_0603;
 EndCmp
 
 BeginCmp
 TimeStamp = /54B371E3;
-Reference = R8;
+Reference = R11;
 ValeurCmp = 10, 2.5W;
 IdModule  = Resistors_ThroughHole:Resistor_Horizontal_RM15mm;
 EndCmp
 
 BeginCmp
 TimeStamp = /54B34C40;
-Reference = R9;
+Reference = R12;
 ValeurCmp = 0;
 IdModule  = Resistors_SMD:R_0603;
 EndCmp
 
 BeginCmp
 TimeStamp = /54B34DCF;
-Reference = R10;
+Reference = R13;
 ValeurCmp = *;
 IdModule  = Resistors_SMD:R_0603;
 EndCmp
@@ -305,28 +326,28 @@ BeginCmp
 TimeStamp = /5480667B;
 Reference = SW1;
 ValeurCmp = SW_PUSH;
-IdModule  = TonisLibrary:Button_SMD_Schurter_LSG;
+IdModule  = d14lib:Button_SMD_Schurter_LSG;
 EndCmp
 
 BeginCmp
 TimeStamp = /548067BC;
 Reference = SW2;
 ValeurCmp = SW_PUSH;
-IdModule  = TonisLibrary:Button_SMD_Schurter_LSG;
+IdModule  = d14lib:Button_SMD_Schurter_LSG;
 EndCmp
 
 BeginCmp
 TimeStamp = /54B328EE;
 Reference = SW3;
 ValeurCmp = SW_PUSH;
-IdModule  = TonisLibrary:Button_SMD_Schurter_LSG;
+IdModule  = d14lib:Button_SMD_Schurter_LSG;
 EndCmp
 
 BeginCmp
 TimeStamp = /54B0F915;
 Reference = SW4;
 ValeurCmp = SW_PUSH;
-IdModule  = TonisLibrary:Button_SMD_Schurter_LSG;
+IdModule  = d14lib:Button_SMD_Schurter_LSG;
 EndCmp
 
 BeginCmp

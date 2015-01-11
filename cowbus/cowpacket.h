@@ -21,6 +21,8 @@ typedef enum cowpacket_type {
     get_name    = 3,    ///< get name of device with given addr
     get_state   = 4,    ///< get current state of sensor (data) or actor (if stateful)
     get_config  = 5,    ///< get config of actor (event mapping)
+    ping        = 6,    ///< ask if there is somebody out there with the given address
+    ping_answer = 7,    ///< ping answer saying "I am ADDR"
 } cowpacket_type;
 
 // TODO definiere Paketstruktur

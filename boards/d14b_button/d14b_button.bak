@@ -1645,7 +1645,7 @@ Wire Wire Line
 Wire Wire Line
 	9050 3350 9350 3350
 Text Notes 5500 1150 0    60   ~ 0
-TODO\nJumper zur Strommessung vor Wandler\nJumper zur Strommessung nach Wandler\nrichtigen MCU einsetzen
+TODO\nJumper zur Strommessung nach Wandler\nrichtigen MCU einsetzen
 Wire Wire Line
 	8900 1000 9650 1000
 Wire Wire Line
@@ -1687,4 +1687,10 @@ F 3 "" H 3150 6450 60  0000 C CNN
 $EndComp
 Wire Wire Line
 	3450 6450 4250 6450
+Wire Wire Line
+	2850 6450 2850 6900
+Wire Wire Line
+	2850 6900 3400 6900
+Text Label 3400 6900 2    60   ~ 0
+VBAT_MEAS
 $EndSCHEMATC

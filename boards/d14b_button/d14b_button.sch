@@ -1645,7 +1645,7 @@ Wire Wire Line
 Wire Wire Line
 	9050 3350 9350 3350
 Text Notes 5500 1150 0    60   ~ 0
-TODO\nJumper zur Strommessung nach Wandler\nrichtigen MCU einsetzen
+TODO\nJumper zur Strommessung nach Wandler\nrichtigen MCU einsetzen\nSpannungsteiler (trennbar) zur Messung von VBAT_MEAS
 Wire Wire Line
 	8900 1000 9650 1000
 Wire Wire Line

@@ -32,6 +32,7 @@ LIBS:valves
 LIBS:STM32F030F4P6TR
 LIBS:nrf24l01plus-module
 LIBS:tps61221
+LIBS:stm32f051k8t6
 LIBS:d14b_button-cache
 EELAYER 25 0
 EELAYER END
@@ -678,28 +679,6 @@ F 3 "" H 1200 1550 60  0000 C CNN
 	1    1200 1550
 	1    0    0    -1  
 $EndComp
-$Comp
-L R R1
-U 1 1 54B00744
-P 1450 1150
-F 0 "R1" V 1530 1150 40  0000 C CNN
-F 1 "0" V 1457 1151 40  0000 C CNN
-F 2 "Resistors_SMD:R_0603" V 1380 1150 30  0001 C CNN
-F 3 "" H 1450 1150 30  0000 C CNN
-	1    1450 1150
-	0    1    1    0   
-$EndComp
-$Comp
-L +3V3 #PWR030
-U 1 1 54B00899
-P 1700 1150
-F 0 "#PWR030" H 1700 1000 60  0001 C CNN
-F 1 "+3V3" H 1700 1290 60  0000 C CNN
-F 2 "" H 1700 1150 60  0000 C CNN
-F 3 "" H 1700 1150 60  0000 C CNN
-	1    1700 1150
-	1    0    0    -1  
-$EndComp
 Connection ~ 6150 4150
 Connection ~ 6150 4450
 Wire Wire Line
@@ -929,19 +908,6 @@ Wire Wire Line
 Wire Wire Line
 	1500 2500 1250 2500
 Connection ~ 3500 6450
-$Comp
-L PWR_FLAG #FLG035
-U 1 1 54B14A07
-P 1250 1150
-F 0 "#FLG035" H 1250 1245 30  0001 C CNN
-F 1 "PWR_FLAG" H 1250 1330 30  0000 C CNN
-F 2 "" H 1250 1150 60  0000 C CNN
-F 3 "" H 1250 1150 60  0000 C CNN
-	1    1250 1150
-	1    0    0    -1  
-$EndComp
-Wire Wire Line
-	1250 1150 1200 1150
 Text Label 1250 2050 0    60   ~ 0
 NRST
 Wire Wire Line
@@ -1239,8 +1205,6 @@ F 3 "" H 5450 7450 60  0000 C CNN
 	1    5450 7450
 	1    0    0    -1  
 $EndComp
-Wire Wire Line
-	2350 6950 2750 6950
 Wire Wire Line
 	2750 6950 2750 6700
 $Comp
@@ -1645,7 +1609,7 @@ Wire Wire Line
 Wire Wire Line
 	9050 3350 9350 3350
 Text Notes 5500 1150 0    60   ~ 0
-TODO\nJumper zur Strommessung nach Wandler\nrichtigen MCU einsetzen
+TODO\nJumper zur Strommessung nach Wandler\nrichtigen MCU einsetzen\nSpannungsteiler (trennbar) zur Messung von VBAT_MEAS
 Wire Wire Line
 	8900 1000 9650 1000
 Wire Wire Line
@@ -1687,10 +1651,9 @@ F 3 "" H 3150 6450 60  0000 C CNN
 $EndComp
 Wire Wire Line
 	3450 6450 4250 6450
+Text Label 3000 6950 2    60   ~ 0
+VBAT
+Connection ~ 2750 6950
 Wire Wire Line
-	2850 6450 2850 6900
-Wire Wire Line
-	2850 6900 3400 6900
-Text Label 3400 6900 2    60   ~ 0
-VBAT_MEAS
+	3000 6950 2350 6950
 $EndSCHEMATC

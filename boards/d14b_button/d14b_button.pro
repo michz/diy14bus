@@ -1,4 +1,4 @@
-update=Fr 09 Jan 2015 16:39:39 CET
+update=Mo 12 Jan 2015 13:57:48 CET
 version=1
 last_client=kicad
 [cvpcb]
@@ -64,3 +64,4 @@ LibName30=valves
 LibName31=lib/STM32F030F4P6TR
 LibName32=lib/nrf24l01plus-module
 LibName33=lib/tps61221
+LibName34=lib/stm32f051k8t6

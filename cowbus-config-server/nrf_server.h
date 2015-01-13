@@ -16,7 +16,11 @@
 //#include <RF24/RF24.h>
 #include "../../RF24/RF24.h"
 
+#include "ws_server.h"
+
 #include "../cowbus/cowpacket.h"
+
+class ws_server;
 
 class nrf_server {
     public:
@@ -85,7 +89,19 @@ class nrf_server {
                     printf("isFrag: %d\n", cp->is_fragment);
                     printf("data  : %s\n", payload);
                     printf("\n");
-                    //TODO: in JSON packen und per ws_server an clients schicken
+
+                    std::stringstream ss;
+                    ss << "{ " <<
+                        "\"seq_no\": \""    << cp->seq_no << "\", " <<
+                        "\"ttl\": \""       << cp->ttl << "\", " <<
+                        "\"address\": \""   << cp->addr << "\", " <<
+                        "\"type\": \""      << cp->type << "\", " <<
+                        "\"is_fragment\": \"" << cp->is_fragment << "\", " <<
+                        "\"payload\": \""   << payload << "\" " <<
+                        " }";
+                    std::cout << "Sending JSON to client: " << ss.str();
+                    
+                    to_ws->send(ss.str());
                 }
 
                 //TODO: Sleep-Time anpassen
@@ -93,9 +109,25 @@ class nrf_server {
             }
         }
 
+        /**
+         * TODO
+         */
+        void set_to_ws(ws_server* callback) {
+            to_ws = callback;
+        }
+
+
+        /**
+         * TODO
+         */
+        void send_json(const std::string & data) {
+            //TODO: JSON parsen und Daten in cowpacket packen
+        }
+
     private:
         RF24 radio{RPI_V2_GPIO_P1_22, RPI_V2_GPIO_P1_24, BCM2835_SPI_SPEED_8MHZ};
         const uint64_t pipes[2] = { 0xe7e7e7e7e7LL, 0xe7e7e7e7e7LL };
+        ws_server*  to_ws;
 };
 
 

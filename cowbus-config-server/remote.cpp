@@ -17,13 +17,16 @@ using namespace std;
 using boost::thread;
 
 
-
 int main( int argc, char ** argv) {
     // Create a websocket server endpoint
     ws_server wss;
-    boost::thread ws_thread(&ws_server::run, &wss, 9002);
-
     nrf_server nrfs;
+
+    nrfs.set_to_ws(&wss);
+    //wss.set_to_nrfs(&nrfs);
+    
+    // run threads    
+    boost::thread ws_thread(&ws_server::run, &wss, 9002);
     boost::thread nrf_thread(&nrf_server::run, &nrfs);
 
     // wait for websocketpp-server to terminate (should not happen)

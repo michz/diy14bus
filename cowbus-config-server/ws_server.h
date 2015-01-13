@@ -10,6 +10,7 @@
 #ifndef WS_SERVER_H
 #define WS_SERVER_H
 
+//#include "nrf_server.h"
 
 #include <websocketpp/config/asio_no_tls.hpp>
 #include <websocketpp/server.hpp>
@@ -20,7 +21,7 @@ using websocketpp::lib::placeholders::_1;
 using websocketpp::lib::placeholders::_2;
 using websocketpp::lib::bind;
 
-
+//class nrf_server;
 
 class ws_server {
     public:
@@ -43,20 +44,9 @@ class ws_server {
         void on_message(connection_hdl hdl, server::message_ptr msg) {
             // TODO: JSON-Objekt auspacken und cowpacket versenden
 
-            // FIXME: DEBUG: echo
-            std::cout << "on_message called with hdl: " << hdl.lock().get()
-                << " and message: " << msg->get_payload()
-                << std::endl;
-            try {
-                send(msg->get_payload());
-            }
-            catch (const websocketpp::lib::error_code& e) {
-                std::cout << "Echo failed because: " << e
-                << "(" << e.message() << ")" << std::endl;
-            }
+            //to_nrfs->send_json(msg->get_payload());
         }
         void send(std::string const & msg) {
-            // TODO msg sollte gleich JSON-Daten enthalten
             for (auto it : m_connections) {
                 m_server.send(it, msg, websocketpp::frame::opcode::TEXT);
             }
@@ -66,10 +56,19 @@ class ws_server {
             m_server.start_accept();
             m_server.run();
         }
+
+        /**
+         * TODO
+         */
+        //void set_to_nrfs(nrf_server* callback) {
+        //    to_nrfs = callback;
+        //}
+
     private:
         typedef std::set<connection_hdl,std::owner_less<connection_hdl>> con_list;
         server          m_server;
         con_list        m_connections;
+        //nrf_server*     to_nrfs;
 };
 
 

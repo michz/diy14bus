@@ -13,11 +13,10 @@
 #include <cstdlib>
 #include <sstream>
 #include <iostream>
-#include <RF24/RF24.h>
+//#include <RF24/RF24.h>
+#include "../../RF24/RF24.h"
 
 #include "../cowbus/cowpacket.h"
-
-using namespace std;
 
 class nrf_server {
     public:
@@ -51,7 +50,7 @@ class nrf_server {
         bool sendMessage(std::string const payload){
             radio.stopListening(); //Stop listening
 
-            printf("Now sending  %s...", payload);
+            std::cout << "Now sending  " << payload << std::endl;
 
             // Send the message
             bool ok = radio.write(payload.c_str(), sizeof(cowpacket));
@@ -59,7 +58,7 @@ class nrf_server {
             radio.startListening(); // resume listening operation
             
             if (!ok) {
-                printf("failed...\n\r");
+                std::cout << "failed..." << std::endl;
                 return false;
             } 
             return true;
@@ -69,12 +68,16 @@ class nrf_server {
          * TODO
          */
         void run() {
+            char read_buf[sizeof(cowpacket)];
             while(true) {
                 if (radio.available()) {
                     radio.read(read_buf, sizeof(cowpacket));
+                    cowpacket* cp = (cowpacket*)read_buf;
+
                     char payload[PAYLOAD_MAX_LENGTH+1];
                     payload[PAYLOAD_MAX_LENGTH] = 0;
                     memcpy(payload, cp->payload, PAYLOAD_MAX_LENGTH);
+
                     printf("seq_no: %d\n", cp->seq_no);
                     printf("TTL   : %d\n", cp->ttl);
                     printf("addr  : %d\n", cp->addr);
@@ -91,9 +94,9 @@ class nrf_server {
         }
 
     private:
-        RF24 radio(RPI_V2_GPIO_P1_22, RPI_V2_GPIO_P1_24, BCM2835_SPI_SPEED_8MHZ);
+        RF24 radio{RPI_V2_GPIO_P1_22, RPI_V2_GPIO_P1_24, BCM2835_SPI_SPEED_8MHZ};
         const uint64_t pipes[2] = { 0xe7e7e7e7e7LL, 0xe7e7e7e7e7LL };
-}
+};
 
 
 #endif  // NRF_SERVER_H

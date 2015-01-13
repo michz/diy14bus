@@ -9,6 +9,7 @@
 
 #include "../cowbus/cowpacket.h"
 #include "ws_server.h"
+#include "nrf_server.h"
 
 
 using namespace std;

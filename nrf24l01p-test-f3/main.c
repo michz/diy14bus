@@ -20,6 +20,9 @@
 #include "board_uart0.h"
 
 
+#include "../cowbus/cowpacket.h"
+
+
 #define SND_BUFFER_SIZE     (100)
 #define RCV_BUFFER_SIZE     (64)
 #define RADIO_STACK_SIZE    (KERNEL_CONF_STACKSIZE_DEFAULT)
@@ -32,79 +35,7 @@ kernel_pid_t radio_pid;
 
 static nrf24l01p_t nrf24l01p_0;
 
-
-void *radio(void *arg)
-{
-
-	uint8_t temp = 0;
-
-    (void) arg;
-
-    msg_t m;
-
-    msg_init_queue(msg_q, RCV_BUFFER_SIZE);
-
-    while (1) {
-
-		//cc110x_txrx('a'); //just for debug
-
-		sendMsg = 1;
-
-		if(msg_try_receive(&m) == 1){
-
-		    if (m.type == RCV_PKT_CC1100) {
-
-				if(temp == 0){
-					LD3_ON;
-					temp = 1;
-				}
-				else{
-					LD3_OFF;
-					temp = 0;
-				}
-
-		    }
-		    else if (m.type == ENOBUFFER) {
-		        puts("Transceiver buffer full");
-		    }
-		    else {
-		        puts("Unknown packet received");
-
-		    }
-		}
-
-
-		hwtimer_wait(HWTIMER_TICKS(500 * 1000));
-
-    }
-}
-
-
-
-
-/*
-void init_transceiver(void)
-{
-    radio_pid = thread_create(
-                        radio_stack_buffer,
-                        sizeof(radio_stack_buffer),
-                        PRIORITY_MAIN - 2,
-                        CREATE_STACKTEST,
-                        radio, //name der Funktion, in der der Thread losackert.
-                        NULL,
-                        "radio");
-
-    uint16_t transceivers = TRANSCEIVER_DEFAULT;
-
-    transceiver_init(transceivers);
-    (void) transceiver_start();
-    if(transceiver_register(transceivers, radio_pid) != 1){
-		//no success
-		//20141205 not reached
-		LD4_ON;
-	}
-}
-*/
+int seq_no = 0xB;
 
 
 
@@ -230,7 +161,6 @@ int main(void)
     gpio_irq_enable(GPIO_11);
 
 
-    char* text_msg = "Bla";
 	while(1) {
 		if(gpio_read(GPIO_0) > 0 && sendMsg == 1){ //hier dann auf sendMsg pruefen, das durch externen Taster in dessen ISR auf 1 gesetzt wird.
 			sendMsg = 0;
@@ -242,10 +172,24 @@ int main(void)
             int status = 0;
             char tx_buf[NRF24L01P_MAX_DATA_LENGTH];
 
-            /* fill TX buffer with numbers 32..1 */
-            for (int i = 0; i < sizeof(tx_buf); i++) {
-                tx_buf[i] = NRF24L01P_MAX_DATA_LENGTH - i;
+            /* fill TX buffer with sample data */
+            cowpacket* cp = (cowpacket*)tx_buf;
+            cp->seq_no  = seq_no;
+            cp->ttl     = 5;
+            cp->addr    = 2040;
+            cp->type    = event;
+            cp->is_fragment = 0;
+
+            for (int i = 0; i < sizeof(cp->payload); ++i) {
+                cp->payload[i] = 48+i;
             }
+            cp->checksum[0] = 0xAA;
+            cp->checksum[1] = 0xAA;
+
+            if (seq_no > 30) { seq_no = 0; }
+            else { seq_no++; }
+
+
             /* power on the device */
             r = nrf24l01p_on(&nrf24l01p_0);
             printf("on: %i\n", r);

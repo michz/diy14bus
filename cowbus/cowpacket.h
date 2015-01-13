@@ -3,7 +3,7 @@
  *
  * TODO
  *
- * @author  TODO
+ * @author  Michael Zapf <michael.zapf@fau.de>
  * @file
  */
 
@@ -25,7 +25,6 @@ typedef enum cowpacket_type {
     ping_answer = 7,    ///< ping answer saying "I am ADDR"
 } cowpacket_type;
 
-// TODO definiere Paketstruktur
 typedef struct cowpacket {
     unsigned int seq_no             : 5;
     unsigned int ttl                : 8;

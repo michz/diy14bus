@@ -32,12 +32,27 @@ extern char eeprom_name_buffer[NAME_MAX_LENGTH];
  */
 char* eeprom_get_name(void);
 
+/**
+ * Returns the address of this device.
+ *
+ * @return  The address.
+ */
+int eeprom_get_addr(void);
+
+//TODO configuration, etc...
+
 
 /**
- * Set the ame of this device.
+ * Set the name of this device.
  * @param   new_name    The new name array coded as cowbit-characters.
  */
 void eeprom_set_name(char* new_name);
+
+/**
+ * Set the address of this device.
+ * @param   addr    The new address.
+ */
+void eeprom_set_addr(int addr);
 
 
 #endif // EEPROM_H

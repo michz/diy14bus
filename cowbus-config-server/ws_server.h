@@ -10,8 +10,6 @@
 #ifndef WS_SERVER_H
 #define WS_SERVER_H
 
-//#include "nrf_server.h"
-
 #include <websocketpp/config/asio_no_tls.hpp>
 #include <websocketpp/server.hpp>
 
@@ -42,9 +40,7 @@ class ws_server {
             m_connections.erase(hdl);
         }
         void on_message(connection_hdl hdl, server::message_ptr msg) {
-            // TODO: JSON-Objekt auspacken und cowpacket versenden
-
-            //to_nrfs->send_json(msg->get_payload());
+            pkt_callback(msg->get_payload());
         }
         void send(std::string const & msg) {
             for (auto it : m_connections) {
@@ -58,17 +54,17 @@ class ws_server {
         }
 
         /**
-         * TODO
+         * @brief Set which function is called when a packet is received from browser.
          */
-        //void set_to_nrfs(nrf_server* callback) {
-        //    to_nrfs = callback;
-        //}
+        void set_pkt_callback(void (*callback)(std::string)) {
+            pkt_callback = callback;
+        }
 
     private:
         typedef std::set<connection_hdl,std::owner_less<connection_hdl>> con_list;
         server          m_server;
         con_list        m_connections;
-        //nrf_server*     to_nrfs;
+        void            (*pkt_callback)(std::string);
 };
 
 

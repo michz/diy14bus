@@ -9,7 +9,7 @@ WSPP_PATH = ../../websocketpp/
 
 
 # define all programs
-PROGRAMS = remote
+PROGRAMS = cowbus-config-server
 SOURCES = ${PROGRAMS:=.cpp}
 
 all: ${PROGRAMS}

@@ -1597,7 +1597,7 @@ Wire Wire Line
 Wire Wire Line
 	9050 3350 9350 3350
 Text Notes 3950 850  0    60   ~ 0
-TODO\nJumper zur Strommessung nach Wandler\nSpannungsteiler (trennbar) zur Messung von VSUP_MEAS\nLED:Common Anode?
+TODO\nJumper zur Strommessung nach Wandler\nSpannungsteiler (trennbar) zur Messung von VSUP_MEAS\nLED:Common Anode!
 Wire Wire Line
 	8900 1000 9650 1000
 Wire Wire Line

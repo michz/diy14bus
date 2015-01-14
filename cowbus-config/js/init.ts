@@ -1,4 +1,3 @@
-var wsU
 
 $(document).ready(function() {
     initWebSocket();
@@ -6,7 +5,9 @@ $(document).ready(function() {
 
 function pktHandler(json : string) {
     var obj = JSON.parse(json);
-    logme(obj.payload);
+    var pkt = cowpacket.fromJSON(obj);
+    logme("Received: " + JSON.stringify(pkt));
+    
     // TODO: irgendwas mit obj anfangen
 }
 

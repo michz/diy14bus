@@ -4,9 +4,9 @@ class cow {
     methods : string[];
 
 
-    constructor(public new_address) {
+    constructor(new_address : number, new_name : string = "unnamed") {
         this.address    = new_address;
-        this.name       = "unbenannt";
+        this.name       = new_name;
     }
 }
 

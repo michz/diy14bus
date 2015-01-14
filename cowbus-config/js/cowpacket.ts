@@ -16,7 +16,36 @@ class cowpacket {
     type    : cowpacket_type;
     is_fragment: boolean;
     payload : string;
-    crc     : string;
+
+    constructor(new_version: number = 0, new_seq_no: number = 1, 
+                new_ttl: number = 4, new_address: number = 2047,
+                new_type: cowpacket_type = cowpacket_type.undefined_packet,
+                new_is_fragment: boolean = false, new_payload: string = "") {
+        this.version    = new_version;
+        this.seq_no     = new_seq_no;
+        this.ttl        = new_ttl;
+        this.address    = new_address;
+        this.type       = new_type;
+        this.is_fragment = new_is_fragment;
+        this.payload    = new_payload;
+    }
+
+    static fromJSON(json: Object) : cowpacket {
+        var r = new cowpacket(
+            json['version'],
+            json['seq_no'],
+            json['ttl'],
+            json['address'],
+            json['type'],
+            json['is_fragment'],
+            json['payload']
+            );
+        return r;
+    }
+
+    generateJSON() : string {
+        return JSON.stringify(this);
+    }
 }
 
 

@@ -174,6 +174,7 @@ int main(void)
 
             /* fill TX buffer with sample data */
             cowpacket* cp = (cowpacket*)tx_buf;
+            cp->version = 0;
             cp->seq_no  = seq_no;
             cp->ttl     = 5;
             cp->addr    = 2040;

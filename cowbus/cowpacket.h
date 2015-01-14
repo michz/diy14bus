@@ -26,12 +26,12 @@ typedef enum cowpacket_type {
 } cowpacket_type;
 
 typedef struct cowpacket {
+    unsigned int version            : 3;
     unsigned int seq_no             : 5;
     unsigned int ttl                : 8;
     unsigned int addr               : 11;
     cowpacket_type type             : 4;
     unsigned int is_fragment        : 1;
-    unsigned int reserved           : 3;
     unsigned char payload[PAYLOAD_MAX_LENGTH];
     unsigned char checksum[2];
 } cowpacket;

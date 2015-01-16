@@ -160,7 +160,7 @@ int main(void)
     gpio_init_int(GPIO_11, GPIO_NOPULL, GPIO_RISING, (void *)button_pressed, 0);
     gpio_irq_enable(GPIO_11);
 
-
+    int i = 0;
 	while(1) {
 		if(gpio_read(GPIO_0) > 0 && sendMsg == 1){ //hier dann auf sendMsg pruefen, das durch externen Taster in dessen ISR auf 1 gesetzt wird.
 			sendMsg = 0;
@@ -247,13 +247,19 @@ int main(void)
 
 
 
-
-        LD5_ON;
-        hwtimer_wait(HWTIMER_TICKS(500* 1000));
-        LD5_OFF;
-        LD4_ON;
-        hwtimer_wait(HWTIMER_TICKS(500 * 1000));
-        LD4_OFF;
+        if (i < 5000) {
+            LD5_ON;
+            LD4_OFF;
+        }
+        else if (i < 10000) {
+            LD5_OFF;
+            LD4_ON;
+        }
+        else {
+            i = 0;
+        }
+        i++;
+        hwtimer_wait(HWTIMER_TICKS(100)); // 100 us
     }
 
 

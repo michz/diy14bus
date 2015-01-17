@@ -9,10 +9,14 @@
     <meta name="keywords" content="">
 
     <script src="js/legacy/jquery-1.11.2.min.js"></script>
+    <script src="js/legacy/jquery-ui-1.11.2.custom/jquery-ui.min.js"></script>
+    <script src="js/cow.js"></script>
     <script src="js/socket.js"></script>
     <script src="js/cowpacket.js"></script>
+    <script src="js/cow_list.js"></script>
     <script src="js/init.js"></script>
 
+    <link rel="stylesheet" type="text/css" href="js/legacy/jquery-ui-1.11.2.custom/jquery-ui.css">
     <link rel="stylesheet" type="text/css" href="css/webconfig.css">
 
 </head>
@@ -23,15 +27,6 @@
             <td style="width:50%;">
                 <h2>Nodes</h2>
                 <div id="nodes">
-                    <div class="node" id="node_1">
-                        <h3 id="node_1_name">unnamed</h3>
-                        <span class="addr" id="node_1_addr">1543</span>
-                        <p class="buttons">
-                            <span class="node-button button-rename" id="node_1_rename">Rename</span>
-                            <span class="node-button button-ping" id="node_1_ping">Ping</span>
-                        </p>
-                        <p style="clear:both;"></p>
-                    </div>
                 </div>
             </td>
             <td style="width:50%;">
@@ -40,8 +35,14 @@
             </td>
         </tr>
     </table>
-<!--
-    <p><input type="text" id="txtSend" name="txtSend"><input type="button" id="btnSend"></p>
-    -->
+
+    <!-- rename dialog -->
+    <div id="dialog-rename" title="Rename cowbus node">
+        <form>
+            <p>new Name of Node #<span id="spanRenameAddr"></span>:</p>
+            <input type="hidden" id="hidRenameAddr">
+            <input style="width:100%;" type="text" name="txtRename" id="txtRename" value="">
+        </form>
+    </div>
 </body>
 </html>

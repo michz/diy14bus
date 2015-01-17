@@ -1,41 +1,38 @@
-var wsUri = "ws://piplus1:9002/";
-var websocket;
+class socket {
 
-function initWebSocket()
-{
-    websocket = new WebSocket(wsUri);
-    websocket.onopen = function(evt) { onOpen(evt) };
-    websocket.onclose = function(evt) { onClose(evt) };
-    websocket.onmessage = function(evt) { onMessage(evt) };
-    websocket.onerror = function(evt) { onError(evt) };
+    wsUri       : string = "ws://piplus1:9002/";
+    websocket   : WebSocket;
+
+    constructor() {
+        this.websocket              = new WebSocket(this.wsUri);
+        this.websocket.onopen       = this.onOpen;
+        this.websocket.onclose      = this.onClose;
+        this.websocket.onmessage    = this.onMessage;
+        this.websocket.onerror      = this.onError;
+    }
+
+    onOpen(evt) : void {
+        logme("CONNECTED", "success");
+    }
+
+    onClose(evt) : void {
+        logme("DISCONNECTED", "error");
+    }
+
+    onMessage(evt) : void {
+        pktHandler(evt.data);
+    }
+
+    onError(evt) : void {
+        logme('<span style="color: red;">ERROR:</span> ' + evt.data, "error");
+    }
+
+    send(message : string) : void {
+        logme("SENT: " + message);
+        this.websocket.send(message);
+    }
+
 }
-
-function onOpen(evt)
-{
-    logme("CONNECTED", "success");
-}
-
-function onClose(evt)
-{
-    logme("DISCONNECTED", "error");
-}
-
-function onMessage(evt)
-{
-    pktHandler(evt.data);
-}
-
-function onError(evt)
-{
-    logme('<span style="color: red;">ERROR:</span> ' + evt.data, "error");
-}
-
-function doSend(message)
-{
-    logme("SENT: " + message);
-    websocket.send(message);
-}
-
 
 
 // vim: set et ts=4 sw=4 syntax=javascript:

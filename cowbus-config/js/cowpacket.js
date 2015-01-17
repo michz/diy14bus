@@ -8,6 +8,7 @@ var cowpacket_type;
     cowpacket_type[cowpacket_type["get_config"] = 5] = "get_config";
     cowpacket_type[cowpacket_type["ping"] = 6] = "ping";
     cowpacket_type[cowpacket_type["ping_answer"] = 7] = "ping_answer";
+    cowpacket_type[cowpacket_type["set_name"] = 8] = "set_name";
 })(cowpacket_type || (cowpacket_type = {}));
 var cowpacket = (function () {
     function cowpacket(new_version, new_seq_no, new_ttl, new_address, new_type, new_is_fragment, new_payload) {
@@ -28,7 +29,6 @@ var cowpacket = (function () {
     }
     cowpacket.fromJSON = function (json) {
         var r = new cowpacket(json['version'], json['seq_no'], json['ttl'], json['address'], json['type'], json['is_fragment'], json['payload']);
-        logme(JSON.stringify(r));
         return r;
     };
     cowpacket.prototype.generateJSON = function () {

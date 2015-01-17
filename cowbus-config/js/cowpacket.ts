@@ -6,7 +6,8 @@ enum cowpacket_type {
     get_state           = 4,
     get_config          = 5,
     ping                = 6,
-    ping_answer         = 7
+    ping_answer         = 7,
+    set_name            = 8
 }
 class cowpacket {
     version : number;

@@ -14,9 +14,10 @@
 #include <sstream>
 #include <iostream>
 //#include <RF24/RF24.h>
-#include "../../RF24/RF24.h"
 
-#include "../cowbus/cowpacket.h"
+#include "RF24.h"
+
+#include "../../cowbus/cowpacket.h"
 
 class ws_server;
 
@@ -51,8 +52,6 @@ class nrf_server {
          */
         bool sendMessage(std::string const payload){
             radio.stopListening(); //Stop listening
-
-            std::cout << "Now sending  " << payload << std::endl;
 
             // Send the message
             bool ok = radio.write(payload.c_str(), sizeof(cowpacket));

@@ -23,6 +23,7 @@ typedef enum cowpacket_type {
     get_config  = 5,    ///< get config of actor (event mapping)
     ping        = 6,    ///< ask if there is somebody out there with the given address
     ping_answer = 7,    ///< ping answer saying "I am ADDR"
+    set_ane     = 8,    ///< set the name of the current node
 } cowpacket_type;
 
 typedef struct cowpacket {

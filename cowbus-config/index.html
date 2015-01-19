@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Cowbus Configuration Webtool</title>
+    <meta name="description" content="">
+    <meta name="author" content="diy14bus project group">
+    <meta name="keywords" content="">
+
+    <script src="js/legacy/jquery-1.11.2.min.js"></script>
+    <script src="js/legacy/jquery-ui-1.11.2.custom/jquery-ui.min.js"></script>
+    <script src="js/cow.js"></script>
+    <script src="js/socket.js"></script>
+    <script src="js/cowpacket.js"></script>
+    <script src="js/cow_list.js"></script>
+    <script src="js/init.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="js/legacy/jquery-ui-1.11.2.custom/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="css/webconfig.css">
+
+</head>
+
+<body>
+    <table id="mainTable">
+        <tr>
+            <td style="width:50%;">
+                <h2>Nodes</h2>
+                <div id="nodes">
+                </div>
+            </td>
+            <td style="width:50%;">
+                <h2>Log</h2>
+                <div id="log-output"></div>
+            </td>
+        </tr>
+    </table>
+
+    <!-- rename dialog -->
+    <div id="dialog-rename" title="Rename cowbus node">
+        <form>
+            <p>new Name of Node #<span id="spanRenameAddr"></span>:</p>
+            <input type="hidden" id="hidRenameAddr">
+            <input style="width:100%;" type="text" name="txtRename" id="txtRename" value="">
+        </form>
+    </div>
+</body>
+</html>

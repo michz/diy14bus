@@ -1,4 +1,4 @@
-update=Di 13 Jan 2015 17:22:49 CET
+update=Mo 19 Jan 2015 21:41:20 CET
 version=1
 last_client=kicad
 [cvpcb]
@@ -65,3 +65,4 @@ LibName31=lib/STM32F030F4P6TR
 LibName32=lib/nrf24l01plus-module
 LibName33=lib/tps61221
 LibName34=lib/ STM32F030C8T6
+LibName35=lib/led_rabg

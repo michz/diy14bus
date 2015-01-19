@@ -15,7 +15,6 @@ Das Team besteht aus:
 
 * Michael Zapf
 * Robin Backhaus
-* Kevin Höllring
 * Patrick Kanzler
 * Josef Schnurrer
 
@@ -45,9 +44,7 @@ Damit bietet es gegenüber Konkurrenten, wie chibiOS oder FreeRTOS den Vorteil, 
 Es soll 6LoWPAN zum Einsatz kommen, um auf den doch relativ schwachen Knotengeräten Ressourcen zu sparen.
 
 ## Hardware
-
-
-Fortsetzung folgt...
+Für die Hardware standen verschiedene Plattformen zur Verfügung. Dies wurde im Piratenpad diskutiert.
 
 
 

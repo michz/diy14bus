@@ -21,7 +21,7 @@ USEMODULE += uart0
 # which is not needed in a production environment but helps in the
 # development process:
 #CFLAGS += -DDEVELHELP 
-CFLAGS += -marm -mthumb-interwork $(APP_MACROS)
+CFLAGS += -I./include/ -marm -mthumb-interwork $(APP_MACROS)
 
 
 # Change this to 0 show compiler invocation lines by default:

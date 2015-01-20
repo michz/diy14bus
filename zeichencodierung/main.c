@@ -3,9 +3,10 @@
 
 // value for characters:
 
-// 0...9 : number
-// 10...45 : letter
-// 36...39 : 4 special characters: " ", "@", "_", "\0" 
+// 0 : null '\0'
+// 1...10 : number
+// 11...36 : letter
+// 37...39 : 4 special characters: " ", "@", "_"
 
 #include <stdio.h>
 #include <inttypes.h>
@@ -13,52 +14,57 @@
 
 
 uint8_t char_to_value(char in){
-	if('0' <= in && in <= '9'){ //number
-		return in - '0';
+
+	if(in == '\0'){ // special character
+		return 0;
 	}
-	else if('a' <= in && in <= 'z'){ //letter
-		return in - 'a' + 10;
+	else if(('0' <= in) && (in <= '9')){ //number
+		return in - '0' + 1;
 	}
-	else if('A' <= in && in <= 'Z'){ //letter
-		return in - 'A' + 10;
+	else if(('a' <= in) && (in <= 'z')){ //letter
+		return in - 'a' + 11;
+	}
+	else if(('A' <= in) && (in <= 'Z')){ //letter
+		return in - 'A' + 11;
 	}
 	else if(in == ' '){ // special character
-		return 36;
-	}
-	else if(in == '@'){ // special character
 		return 37;
 	}
-	else if(in == '_'){ // special character
+	else if(in == '@'){ // special character
 		return 38;
 	}
-	else if(in == '\0'){ // special character
+	else if(in == '_'){ // special character
 		return 39;
 	}
+
 	
 	printf("char_to_value: invalid input argument\n");
 
-	return 38; //underscore
+	return 39; //underscore
 
 }
 
 char value_to_char(uint8_t in){
-	if(in < 10){ //number
-		return in + '0';
-	}
-	else if(in == 36){ // special character
-		return ' ';
-	}
-	else if(in == 37){ // special character
-		return '@';
-	}
-	else if(in == 38){ // special character
-		return '_';
-	}
-	else if(in == 39){ // special character
+
+
+	if(in == 0){ // special character
 		return '\0';
 	}
+	else if((1 <= in) && (in <= 10)){ //number
+		return in + '0' - 1;
+	}
+	else if(in == 37){ // special character
+		return ' ';
+	}
+	else if(in == 38){ // special character
+		return '@';
+	}
+	else if(in == 39){ // special character
+		return '_';
+	}
+
 	else{ //letter
-		return in - 10 + 'a';
+		return in - 11 + 'a';
 	}
 }
 

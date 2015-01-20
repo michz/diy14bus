@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by Cvpcb (2014-12-16 BZR 5324)-product   date = Di 20 Jan 2015 01:22:33 CET
+Cmp-Mod V01 Created by Cvpcb (2014-12-16 BZR 5324)-product   date = Di 20 Jan 2015 01:50:25 CET
 
 BeginCmp
 TimeStamp = /54896B73;
@@ -445,14 +445,14 @@ BeginCmp
 TimeStamp = /54AF9828;
 Reference = X1;
 ValeurCmp = 8M;
-IdModule  = ;
+IdModule  = Crystals:Crystal_HC49-SD_SMD;
 EndCmp
 
 BeginCmp
 TimeStamp = /54B0A562;
 Reference = X2;
 ValeurCmp = 32.768k;
-IdModule  = ;
+IdModule  = d14lib:crystal_SMD_CPFB;
 EndCmp
 
 EndListe

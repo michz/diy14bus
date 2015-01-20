@@ -22,11 +22,14 @@ static nrf24l01p_t nrf24l01p_0;
 /// @brief Callback function pointer for incoming packets
 static void (*recv_callback)(cowpacket);
 
+/// @brief Current sequence number
 static unsigned char c_seq_no = 1;
 
 /// stack for rx_handler-thread // TODO: stacksize anders wählen (?)
 char rx_handler_stack[KERNEL_CONF_STACKSIZE_MAIN];
 
+/// @brief Address of this node
+unsigned short cowbus_address = COWBUS_DEFAULT_ADDR;
 
 static inline unsigned char radio_get_next_seq_no(void) {
     if (c_seq_no >= 31) c_seq_no = 0;
@@ -66,12 +69,14 @@ void *nrf24l01p_rx_handler(void *arg)
                 // CE high
                 nrf24l01p_start((nrf24l01p_t *)m.content.ptr);
 
-                // TODO: for first tests simply switch LED on/off or send response
-                // print rx buffer
-                for (int i = 0; i < NRF24L01P_MAX_DATA_LENGTH; i++) {
-                    printf("%i ", rx_buf[i]);
+                // TODO check if correct cowpacket (especially version!)
+                if (recv_callback != NULL) {
+                    cowpacket p;
+                    memcpy(&p, rx_buf, NRF24L01P_MAX_DATA_LENGTH);
+                    recv_callback(p);
+                    //TODO better do NOT process packet directly in ISR/thread,
+                    //     better enqueue into some kind of processing queue
                 }
-                printf("\n");
 
                 break;
 
@@ -139,7 +144,7 @@ void radio_nrf_send_data(char* payload, unsigned short payload_length) {
 }
 
 void radio_nrf_send_packet(unsigned short address, cowpacket_type type, 
-                            char* payload) {
+                            char* payload, unsigned char payload_length) {
     //TODO assure that payload is not longer than PAYLOAD_MAX_LENGTH bytes
     cowpacket pkt;
     pkt.version     = COWBUS_VERSION;
@@ -148,7 +153,7 @@ void radio_nrf_send_packet(unsigned short address, cowpacket_type type,
     pkt.addr        = address;
     pkt.type        = type;
     pkt.is_fragment = 0;
-    memcpy(payload, pkt.payload, PAYLOAD_MAX_LENGTH);
+    memcpy(pkt.payload, payload, payload_length);
 
     //TODO: Checksumme berechnen
 

@@ -27,6 +27,35 @@
 
 void packet_received(cowpacket pkt) {
     // TODO packet handling (switch led on/off, ping response, ...)
+    switch (pkt.type) {
+        case event:
+            // only interpret this if address is my node's address
+            if (pkt.addr == cowbus_address) {
+                // TODO interpret message payload (led1 on, led2 color, ...)
+            }
+            else {
+                // TODO go through programmed event handlers
+            }
+            break;
+
+        case get_name:
+            if (pkt.addr == cowbus_address) {
+                // TODO send packet with our name
+            }
+            break;
+
+        case ping:
+            if (pkt.addr == cowbus_address) {
+                radio_nrf_send_packet(cowbus_address, ping_answer, "", 0);
+            }
+            break;
+
+        case set_name:
+            if (pkt.addr == cowbus_address) {
+                // TODO save name into eeprom and RAM
+            }
+            break;
+    }
 }
 
 int main(void)
@@ -56,8 +85,7 @@ int main(void)
 
 
 	while(1) {
-        // TODO
-        // if everything works with interrupts, we could go to sleep here
+        // TODO we could go to (deep?) sleep here
     }
 
     return 0;

@@ -22,7 +22,9 @@
 
 #define COWBUS_VERSION          (1)
 #define COWBUS_DEFAULT_TTL      (5)
+#define COWBUS_DEFAULT_ADDR     (99)
 
+extern unsigned short cowbus_address;
 
 /**
  * @brief   TODO
@@ -43,7 +45,8 @@ void radio_nrf_send_data(char* payload, unsigned short payload_length);
  * @brief   TODO
  */
 void radio_nrf_send_packet(unsigned short address, cowpacket_type type,         
-                            char* payload);
+                            char* payload, unsigned char payload_length);
+
 
 #endif // RADIO_NRF_H
 

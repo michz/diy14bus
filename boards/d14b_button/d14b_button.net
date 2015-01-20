@@ -1,7 +1,7 @@
 (export (version D)
   (design
     (source /home/patrick/dev/diy_mesh/diy14bus/boards/d14b_button/d14b_button.sch)
-    (date "Mo 19 Jan 2015 21:42:40 CET")
+    (date "Di 20 Jan 2015 00:18:37 CET")
     (tool "Eeschema (2014-12-16 BZR 5324)-product"))
   (components
     (comp (ref U1)
@@ -36,6 +36,7 @@
       (tstamp 5480ADD3))
     (comp (ref BT1)
       (value BATTERY)
+      (footprint batteryconn:KZH20SMD-2)
       (libsource (lib device) (part BATTERY))
       (sheetpath (names /) (tstamps /))
       (tstamp 54896B73))
@@ -140,7 +141,7 @@
       (tstamp 54B0A56E))
     (comp (ref JP1)
       (value JUMPER3)
-      (footprint Connect:GS3)
+      (footprint Connect:PINHEAD1-3)
       (libsource (lib device) (part JUMPER3))
       (sheetpath (names /) (tstamps /))
       (tstamp 54AFD79C))
@@ -200,13 +201,13 @@
       (tstamp 54B1C241))
     (comp (ref C8)
       (value 1u)
-      (footprint Capacitors_SMD:c_elec_4x5.8)
+      (footprint Capacitors_SMD:C_0603)
       (libsource (lib device) (part CAPAPOL))
       (sheetpath (names /) (tstamps /))
       (tstamp 54B1C439))
     (comp (ref JP3)
       (value JUMPER3)
-      (footprint Connect:GS3)
+      (footprint Connect:PINHEAD1-3)
       (libsource (lib device) (part JUMPER3))
       (sheetpath (names /) (tstamps /))
       (tstamp 54B1F253))
@@ -278,7 +279,7 @@
       (tstamp 54B41ABF))
     (comp (ref JP2)
       (value JUMPER3)
-      (footprint Connect:GS3)
+      (footprint Connect:PINHEAD1-3)
       (libsource (lib device) (part JUMPER3))
       (sheetpath (names /) (tstamps /))
       (tstamp 54B435C7))
@@ -314,11 +315,13 @@
       (tstamp 54B2A0A6))
     (comp (ref JP4)
       (value JUMPER)
+      (footprint Connect:PINHEAD1-2)
       (libsource (lib device) (part JUMPER))
       (sheetpath (names /) (tstamps /))
       (tstamp 54B3D11B))
     (comp (ref JP5)
       (value JUMPER)
+      (footprint Connect:PINHEAD1-2)
       (libsource (lib device) (part JUMPER))
       (sheetpath (names /) (tstamps /))
       (tstamp 54B3EC55))
@@ -330,6 +333,7 @@
       (tstamp 54B5A341))
     (comp (ref D7)
       (value DIODE)
+      (footprint Diodes_SMD:Diode-MiniMELF_Standard)
       (libsource (lib device) (part DIODE))
       (sheetpath (names /) (tstamps /))
       (tstamp 54BD6F73))
@@ -345,6 +349,7 @@
       (tstamp 54BDCAF9))
     (comp (ref R1)
       (value 100k)
+      (footprint Resistors_SMD:R_0603)
       (libsource (lib device) (part R))
       (sheetpath (names /) (tstamps /))
       (tstamp 54BDCE48))
@@ -360,25 +365,48 @@
       (tstamp 54BDD960))
     (comp (ref C17)
       (value 100n)
+      (footprint Capacitors_SMD:C_0603)
       (libsource (lib device) (part C))
       (sheetpath (names /) (tstamps /))
       (tstamp 54BDDED3))
     (comp (ref JP6)
       (value JUMPER)
+      (footprint Connect:PINHEAD1-2)
       (libsource (lib device) (part JUMPER))
       (sheetpath (names /) (tstamps /))
       (tstamp 54BE8A1E))
     (comp (ref D8)
       (value ZENERsmall)
+      (footprint Diodes_SMD:Diode-MiniMELF_Standard)
       (libsource (lib device) (part ZENERsmall))
       (sheetpath (names /) (tstamps /))
       (tstamp 54BF6E88))
     (comp (ref D1)
       (value LED_RABG)
+      (footprint d14lib:PLCC-4)
       (libsource (lib led_rabg) (part LED_RABG))
       (sheetpath (names /) (tstamps /))
       (tstamp 54BFA583)))
   (libparts
+    (libpart (lib device) (part BATTERY)
+      (fields
+        (field (name Reference) BT)
+        (field (name Value) BATTERY))
+      (pins
+        (pin (num 1) (name +) (type passive))
+        (pin (num 2) (name -) (type passive))))
+    (libpart (lib device) (part C)
+      (description "Condensateur non polarise")
+      (footprints
+        (fp SM*)
+        (fp C?)
+        (fp C1-1))
+      (fields
+        (field (name Reference) C)
+        (field (name Value) C))
+      (pins
+        (pin (num 1) (name ~) (type passive))
+        (pin (num 2) (name ~) (type passive))))
     (libpart (lib device) (part CP)
       (aliases
         (alias CAPAPOL))
@@ -392,13 +420,24 @@
       (pins
         (pin (num 1) (name ~) (type passive))
         (pin (num 2) (name ~) (type passive))))
-    (libpart (lib device) (part BATTERY)
+    (libpart (lib device) (part CP2)
+      (footprints
+        (fp SM*)
+        (fp C?)
+        (fp C1-1))
       (fields
-        (field (name Reference) BT)
-        (field (name Value) BATTERY))
+        (field (name Reference) C)
+        (field (name Value) CP2))
       (pins
-        (pin (num 1) (name +) (type passive))
-        (pin (num 2) (name -) (type passive))))
+        (pin (num 1) (name ~) (type passive))
+        (pin (num 2) (name ~) (type passive))))
+    (libpart (lib device) (part CRYSTAL)
+      (fields
+        (field (name Reference) X)
+        (field (name Value) CRYSTAL))
+      (pins
+        (pin (num 1) (name 1) (type passive))
+        (pin (num 2) (name 2) (type passive))))
     (libpart (lib device) (part DIODE)
       (description "Diode simple")
       (footprints
@@ -410,6 +449,13 @@
       (pins
         (pin (num 1) (name A) (type passive))
         (pin (num 2) (name K) (type passive))))
+    (libpart (lib device) (part INDUCTOR_SMALL)
+      (fields
+        (field (name Reference) L)
+        (field (name Value) INDUCTOR_SMALL))
+      (pins
+        (pin (num 1) (name 1) (type input))
+        (pin (num 2) (name 2) (type input))))
     (libpart (lib device) (part JUMPER)
       (fields
         (field (name Reference) JP)
@@ -440,6 +486,17 @@
       (pins
         (pin (num 1) (name A) (type passive))
         (pin (num 2) (name K) (type passive))))
+    (libpart (lib device) (part MOS_N)
+      (aliases
+        (alias MOSFET_N))
+      (docs transistors/mos/*.*)
+      (fields
+        (field (name Reference) Q)
+        (field (name Value) MOS_N))
+      (pins
+        (pin (num D) (name D) (type passive))
+        (pin (num G) (name G) (type input))
+        (pin (num S) (name S) (type passive))))
     (libpart (lib device) (part MOS_P)
       (aliases
         (alias MOSFET_P))
@@ -451,6 +508,39 @@
         (pin (num D) (name D) (type passive))
         (pin (num G) (name G) (type input))
         (pin (num S) (name S) (type passive))))
+    (libpart (lib device) (part R)
+      (description Resistance)
+      (footprints
+        (fp R?)
+        (fp SM0603)
+        (fp SM0805)
+        (fp R?-*)
+        (fp SM1206))
+      (fields
+        (field (name Reference) R)
+        (field (name Value) R))
+      (pins
+        (pin (num 1) (name ~) (type passive))
+        (pin (num 2) (name ~) (type passive))))
+    (libpart (lib device) (part SW_PUSH)
+      (description "Push Button")
+      (fields
+        (field (name Reference) SW)
+        (field (name Value) SW_PUSH))
+      (pins
+        (pin (num 1) (name 1) (type passive))
+        (pin (num 2) (name 2) (type passive))))
+    (libpart (lib device) (part ZENERsmall)
+      (footprints
+        (fp D?)
+        (fp SO*)
+        (fp SM*))
+      (fields
+        (field (name Reference) D)
+        (field (name Value) ZENERsmall))
+      (pins
+        (pin (num 1) (name A) (type passive))
+        (pin (num 2) (name K) (type passive))))
     (libpart (lib conn) (part CONN_01X02)
       (footprints
         (fp Pin_Header_Straight_1X02)
@@ -476,87 +566,6 @@
         (pin (num 1) (name P1) (type passive))
         (pin (num 2) (name P2) (type passive))
         (pin (num 3) (name P3) (type passive))))
-    (libpart (lib device) (part R)
-      (description Resistance)
-      (footprints
-        (fp R?)
-        (fp SM0603)
-        (fp SM0805)
-        (fp R?-*)
-        (fp SM1206))
-      (fields
-        (field (name Reference) R)
-        (field (name Value) R))
-      (pins
-        (pin (num 1) (name ~) (type passive))
-        (pin (num 2) (name ~) (type passive))))
-    (libpart (lib device) (part ZENERsmall)
-      (footprints
-        (fp D?)
-        (fp SO*)
-        (fp SM*))
-      (fields
-        (field (name Reference) D)
-        (field (name Value) ZENERsmall))
-      (pins
-        (pin (num 1) (name A) (type passive))
-        (pin (num 2) (name K) (type passive))))
-    (libpart (lib device) (part INDUCTOR_SMALL)
-      (fields
-        (field (name Reference) L)
-        (field (name Value) INDUCTOR_SMALL))
-      (pins
-        (pin (num 1) (name 1) (type input))
-        (pin (num 2) (name 2) (type input))))
-    (libpart (lib device) (part CP2)
-      (footprints
-        (fp SM*)
-        (fp C?)
-        (fp C1-1))
-      (fields
-        (field (name Reference) C)
-        (field (name Value) CP2))
-      (pins
-        (pin (num 1) (name ~) (type passive))
-        (pin (num 2) (name ~) (type passive))))
-    (libpart (lib device) (part C)
-      (description "Condensateur non polarise")
-      (footprints
-        (fp SM*)
-        (fp C?)
-        (fp C1-1))
-      (fields
-        (field (name Reference) C)
-        (field (name Value) C))
-      (pins
-        (pin (num 1) (name ~) (type passive))
-        (pin (num 2) (name ~) (type passive))))
-    (libpart (lib device) (part SW_PUSH)
-      (description "Push Button")
-      (fields
-        (field (name Reference) SW)
-        (field (name Value) SW_PUSH))
-      (pins
-        (pin (num 1) (name 1) (type passive))
-        (pin (num 2) (name 2) (type passive))))
-    (libpart (lib device) (part MOS_N)
-      (aliases
-        (alias MOSFET_N))
-      (docs transistors/mos/*.*)
-      (fields
-        (field (name Reference) Q)
-        (field (name Value) MOS_N))
-      (pins
-        (pin (num D) (name D) (type passive))
-        (pin (num G) (name G) (type input))
-        (pin (num S) (name S) (type passive))))
-    (libpart (lib device) (part CRYSTAL)
-      (fields
-        (field (name Reference) X)
-        (field (name Value) CRYSTAL))
-      (pins
-        (pin (num 1) (name 1) (type passive))
-        (pin (num 2) (name 2) (type passive))))
     (libpart (lib conn) (part CONN_02X04)
       (footprints
         (fp Pin_Header_Straight_2X04)
@@ -614,6 +623,19 @@
         (pin (num 7) (name SHELL2) (type passive))
         (pin (num 8) (name SHELL3) (type passive))
         (pin (num 9) (name SHELL4) (type passive))))
+    (libpart (lib nrf24l01plus-module) (part nRF24L01+-Module)
+      (fields
+        (field (name Reference) U)
+        (field (name Value) nRF24L01+-Module))
+      (pins
+        (pin (num 1) (name GND) (type power_in))
+        (pin (num 2) (name VCC) (type power_in))
+        (pin (num 3) (name CE) (type input))
+        (pin (num 4) (name CSN) (type input))
+        (pin (num 5) (name SCK) (type input))
+        (pin (num 6) (name MOSI) (type input))
+        (pin (num 7) (name MISO) (type output))
+        (pin (num 8) (name IRQ) (type output))))
     (libpart (lib " STM32F030C8T6") (part STM32F030C8T6)
       (fields
         (field (name Reference) U)
@@ -668,19 +690,6 @@
         (pin (num 46) (name TIM4_CH4/TIM17_CH1/PB9) (type BiDi))
         (pin (num 47) (name VSS) (type power_in))
         (pin (num 48) (name VDD) (type power_in))))
-    (libpart (lib nrf24l01plus-module) (part nRF24L01+-Module)
-      (fields
-        (field (name Reference) U)
-        (field (name Value) nRF24L01+-Module))
-      (pins
-        (pin (num 1) (name GND) (type power_in))
-        (pin (num 2) (name VCC) (type power_in))
-        (pin (num 3) (name CE) (type input))
-        (pin (num 4) (name CSN) (type input))
-        (pin (num 5) (name SCK) (type input))
-        (pin (num 6) (name MOSI) (type input))
-        (pin (num 7) (name MISO) (type output))
-        (pin (num 8) (name IRQ) (type output))))
     (libpart (lib tps61221) (part TPS61221)
       (description "TPS6122x Low Input Voltage, 0.7V Boost Converter With 5.5μA Quiescent Current")
       (footprints

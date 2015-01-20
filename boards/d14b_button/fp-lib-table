@@ -1,3 +1,4 @@
 (fp_lib_table
   (lib (name d14lib)(type KiCad)(uri ${KIPRJMOD}/lib.pretty)(options "")(descr ""))
+  (lib (name batteryconn)(type Legacy)(uri ${KIPRJMOD}/lib/KZ20SMD-2.mod)(options "")(descr ""))
 )

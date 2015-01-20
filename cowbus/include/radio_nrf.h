@@ -18,7 +18,10 @@
 #define RADIO_NRF_PIN_CS        GPIO_7
 #define RADIO_NRF_PIN_IRQ       GPIO_12
 #define RADIO_NRF_ADDR          {0xe7, 0xe7, 0xe7, 0xe7, 0xe7}
-#define RADIO_NRF_CHANNEL       5
+#define RADIO_NRF_CHANNEL       (5)
+
+#define COWBUS_VERSION          (1)
+#define COWBUS_DEFAULT_TTL      (5)
 
 
 /**
@@ -29,13 +32,18 @@ void radio_nrf_init(void);
 /**
  * @brief   TODO
  */
-void radio_nrf_register_rx_callback(void); //TODO
+void radio_nrf_register_rx_callback(void (recv_callback)(cowpacket)); //TODO
 
 /**
  * @brief   TODO
  */
-void radio_nrf_send_packet(char* payload, uint8_t payload_length);
+void radio_nrf_send_data(char* payload, unsigned short payload_length);
 
+/**
+ * @brief   TODO
+ */
+void radio_nrf_send_packet(unsigned short address, cowpacket_type type,         
+                            char* payload);
 
 #endif // RADIO_NRF_H
 

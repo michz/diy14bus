@@ -3,20 +3,35 @@
  * @date    2015-01-20
  * @file
  */
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+
 #include "board.h"      // cowbus-one
 #include "cpu.h"        // stmf0 ?
 #include "thread.h"
 #include "nrf24l01p.h"
 #include "nrf24l01p_settings.h"
+#include "hwtimer.h"
 
 #include "radio_nrf.h"
 
 /// @brief instance of RIOTs nrf24l01p driver
 static nrf24l01p_t nrf24l01p_0;
 
+/// @brief Callback function pointer for incoming packets
+static void (*recv_callback)(cowpacket);
+
+static unsigned char c_seq_no = 1;
+
 /// stack for rx_handler-thread // TODO: stacksize anders wählen (?)
 char rx_handler_stack[KERNEL_CONF_STACKSIZE_MAIN];
 
+
+static inline unsigned char radio_get_next_seq_no(void) {
+    if (c_seq_no >= 31) c_seq_no = 0;
+    return ++c_seq_no;
+}
 
 // TODO implement RX handler that waits for a message from the ISR
 // Now: example implementation from RIOT/tests/
@@ -85,12 +100,60 @@ void radio_nrf_init(void) {
         nrf24l01p_rx_handler, 0, "nrf24l01p_rx_handler");
 
     nrf24l01p_set_rxmode(&nrf24l01p_0);
+
+    recv_callback = NULL;
 }
 
-void radio_nrf_register_rx_callback(void) {
+void radio_nrf_register_rx_callback(void (*callback)(cowpacket)) {
+    recv_callback = callback;
 }
 
-void radio_nrf_send_packet(char* payload, uint8_t payload_length) {
+void radio_nrf_send_data(char* payload, unsigned short payload_length) {
+    // TODO: CSMA/CA
+    // power on the device
+    int r = nrf24l01p_on(&nrf24l01p_0);
+    
+    // setup device as transmitter
+    r = nrf24l01p_set_txmode(&nrf24l01p_0);
+    
+    // load data to transmit into device
+    r = nrf24l01p_preload(&nrf24l01p_0, payload, payload_length);
+    
+    // trigger transmitting
+    nrf24l01p_transmit(&nrf24l01p_0);
+
+    // wait while data is pysically transmitted 
+    hwtimer_wait(DELAY_DATA_ON_AIR);
+
+    r = nrf24l01p_get_status(&nrf24l01p_0);
+    if (r & TX_DS) {
+        printf("Sent Packet\n");
+    }
+    else {
+        //TODO error handling
+    }
+
+    // setup device as receiver
+    nrf24l01p_set_rxmode(&nrf24l01p_0);
+
+}
+
+void radio_nrf_send_packet(unsigned short address, cowpacket_type type, 
+                            char* payload) {
+    //TODO assure that payload is not longer than PAYLOAD_MAX_LENGTH bytes
+    cowpacket pkt;
+    pkt.version     = COWBUS_VERSION;
+    pkt.seq_no      = radio_get_next_seq_no();
+    pkt.ttl         = COWBUS_DEFAULT_TTL;
+    pkt.addr        = address;
+    pkt.type        = type;
+    pkt.is_fragment = 0;
+    memcpy(payload, pkt.payload, PAYLOAD_MAX_LENGTH);
+
+    //TODO: Checksumme berechnen
+
+    radio_nrf_send_data((char*)&pkt, sizeof(cowpacket));
+
 
 }
 

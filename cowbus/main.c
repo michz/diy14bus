@@ -15,6 +15,8 @@
 
 #include "board_uart0.h"
 
+#include "led.h"
+#include "switch.h"
 #include "cowpacket.h"
 #include "grazed_list.h"
 #include "actor.h"
@@ -23,18 +25,21 @@
 #include "radio_nrf.h"
 
 
-
+void packet_received(cowpacket pkt) {
+    // TODO packet handling (switch led on/off, ping response, ...)
+}
 
 int main(void)
 {
     // initialize ringbuffer for received packets
     packet_queue_init();
 
-    // TODO initialize buttons (with interrupts)
-    // TODO initialize LEDs
+    switch_init();
+    led_init();
 
     // initialize radio driver
     radio_nrf_init();
+    radio_nrf_register_rx_callback(packet_received);
 
 
     // TODO get node address from eeprom

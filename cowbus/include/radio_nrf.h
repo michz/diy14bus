@@ -47,6 +47,10 @@ void radio_nrf_send_data(char* payload, unsigned short payload_length);
 void radio_nrf_send_packet(unsigned short address, cowpacket_type type,         
                             char* payload, unsigned char payload_length);
 
+/**
+ * @brief   TODO
+ */
+void radio_nrf_backoff(void);
 
 #endif // RADIO_NRF_H
 

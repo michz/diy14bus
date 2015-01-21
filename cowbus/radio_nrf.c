@@ -25,8 +25,11 @@ static void (*recv_callback)(cowpacket);
 /// @brief Current sequence number
 static unsigned char c_seq_no = 1;
 
+/// @brief Current backoff time
+static unsigned int c_backoff = 0;
+
 /// @brief stack for rx_handler-thread // TODO: stacksize anders wählen (?)
-char rx_handler_stack[KERNEL_CONF_STACKSIZE_MAIN];
+char rx_handler_stack[KERNEL_CONF_STACKSIZE_DEFAULT];
 
 /// @brief Address of this node
 unsigned short cowbus_address = COWBUS_DEFAULT_ADDR;
@@ -44,7 +47,6 @@ void *nrf24l01p_rx_handler(void *arg) {
     unsigned int pid = thread_getpid();
     char rx_buf[NRF24L01P_MAX_DATA_LENGTH];
 
-    puts("Registering nrf24l01p_rx_handler thread...");
     nrf24l01p_register(&nrf24l01p_0, &pid);
 
     msg_t m;
@@ -106,6 +108,9 @@ void radio_nrf_init(void) {
     nrf24l01p_set_rxmode(&nrf24l01p_0);
 
     recv_callback = NULL;
+
+    // initialize RNG for CSMA/CA backoff
+    srand(hwtimer_now());
 }
 
 void radio_nrf_register_rx_callback(void (*callback)(cowpacket)) {
@@ -114,6 +119,11 @@ void radio_nrf_register_rx_callback(void (*callback)(cowpacket)) {
 
 void radio_nrf_send_data(char* payload, unsigned short payload_length) {
     // TODO: CSMA/CA
+    // check if medium is busy
+    //   if yes: radio_nrf_backoff();
+    // check again
+    
+    
     // power on the device
     int r = nrf24l01p_on(&nrf24l01p_0);
     
@@ -161,4 +171,18 @@ void radio_nrf_send_packet(unsigned short address, cowpacket_type type,
 
 }
 
+void radio_nrf_backoff(void) {
+    if (c_backoff == 0) {
+        c_backoff = 165 + rand() % 660; // from 1 to 5 packets
+        // TODO test if this calculation is correct
+    }
+    hwtimer_wait(HWTIMER_TICKS(c_backoff));
+    c_backoff = 0;
+}
 
+/*
+ * Some notes:
+ * According to nrf24l01+ datasheet, a packet is not larger than 329 bit.
+ * So the transmission of one packet at 2Mbps should not take longer than 
+ *  164.5µs (or 0.1645ms).
+ */

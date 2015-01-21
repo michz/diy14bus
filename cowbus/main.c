@@ -25,6 +25,7 @@
 #include "radio_nrf.h"
 
 
+
 void packet_received(cowpacket pkt) {
     // TODO packet handling (switch led on/off, ping response, ...)
     switch (pkt.type) {

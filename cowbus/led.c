@@ -6,6 +6,7 @@
 
 #include "board.h"
 #include "cpu.h"
+#include "periph/gpio.h"
 
 #include "led.h"
 

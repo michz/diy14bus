@@ -5,22 +5,25 @@ cowbus general demonstration firmware
 
 # currently used board: cowbus-one
 
+
+folgendes ist wo anders sicher besser aufgehoben, aber wo?
+
 # pin configuration
 
 ## GPIOs
 
-GPIO_0
-GPIO_1
-GPIO_2
-GPIO_3
+GPIO_0		RGB-LED
+GPIO_1		RGB-LED
+GPIO_2		RGB-LED
+GPIO_3		LED
 GPIO_4
 GPIO_5
 GPIO_6		nRF-CE
 GPIO_7		nRF-CSN
 GPIO_8
-GPIO_9
-GPIO_10
-GPIO_11
+GPIO_9		SW1
+GPIO_10		SW2
+GPIO_11		SW4
 GPIO_12		nRF-IRQ
 
 
@@ -35,8 +38,8 @@ PA5		out		SPI-CLK
 PA6		in		SPI-MISO
 PA7		out		SPI-MOSI
 PA8
-PA9
-PA10
+PA9		out		UART_TX
+PA10	in		UART_RX
 PA11
 PA11
 PA12
@@ -54,9 +57,8 @@ PB6		in		SW4
 PB7
 PB8
 PB9
-PB10
-PB11
-PB11
+PB10	out		ROM_CS
+PB11	out		ROM_HOLD
 PB12
 PB13	out		BUZZER
 PB14

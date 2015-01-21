@@ -2,8 +2,8 @@
 APPLICATION = cowbus
 
 # If no BOARD is found in the environment, use this default:
-#BOARD ?= stm32f3discovery-diy
-BOARD ?= cowbus-one
+BOARD ?= stm32f3discovery-diy
+#BOARD ?= cowbus-one
 
 # This has to be the absolute path to the RIOT base directory:
 RIOTBASE ?= $(CURDIR)/../../RIOT/
@@ -30,9 +30,14 @@ QUIET ?= 1
 include $(RIOTBASE)/Makefile.include
 
 
+cowbus-doc: *.c include/*.h doc/Doxyfile
+	doxygen doc/Doxyfile
+
+clean-cowbus-doc:
+	rm -rf doc/html/
 
 # some useful things...
-.PHONY: todo
+.PHONY: todo clean-doc
 GREP_ARGS = --exclude={*.tmp,*.swp,Makefile} --exclude-dir=".git" -n --color=auto
 todo:
 	-@grep $(GREP_ARGS) -i "TODO" ./ -R 

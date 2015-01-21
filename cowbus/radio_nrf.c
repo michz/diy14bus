@@ -25,21 +25,20 @@ static void (*recv_callback)(cowpacket);
 /// @brief Current sequence number
 static unsigned char c_seq_no = 1;
 
-/// stack for rx_handler-thread // TODO: stacksize anders wählen (?)
+/// @brief stack for rx_handler-thread // TODO: stacksize anders wählen (?)
 char rx_handler_stack[KERNEL_CONF_STACKSIZE_MAIN];
 
 /// @brief Address of this node
 unsigned short cowbus_address = COWBUS_DEFAULT_ADDR;
 
+/// @brief Increments and returns the sequence number counter
 static inline unsigned char radio_get_next_seq_no(void) {
     if (c_seq_no >= 31) c_seq_no = 0;
     return ++c_seq_no;
 }
 
-// TODO implement RX handler that waits for a message from the ISR
-// Now: example implementation from RIOT/tests/
-void *nrf24l01p_rx_handler(void *arg)
-{
+// based on a test from RIOT
+void *nrf24l01p_rx_handler(void *arg) {
     msg_t msg_q[1];
     msg_init_queue(msg_q, 1);
     unsigned int pid = thread_getpid();

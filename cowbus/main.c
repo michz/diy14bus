@@ -84,8 +84,11 @@ int main(void)
 
 
 
-	while(1) {
-        // TODO we could go to (deep?) sleep here
+	while (1) {
+        // we can go to sleep here
+        // THIS DOES NOT WAKE UP!
+        // (if needed, thread has to be woken up externally)
+        thread_sleep();
     }
 
     return 0;

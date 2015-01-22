@@ -26,6 +26,26 @@ $(document).ready(function() {
         } 
     });
 
+    // init connect dialog
+    $( "#dialog-connect" ).dialog({
+        autoOpen: false,
+        width: 500,
+        modal: true,
+        buttons: [
+            {
+                text: "Connect",
+                click: function() {
+                    var addr = $("#txtHost").val();
+                    store.setHost(addr);
+                    sock.connect("ws://" + addr + "/");
+                    $( this ).dialog( "close" );
+                }
+            }
+        ]
+    });
+    $("#txtHost").val(store.getHost());
+    $("#btnClose").click(function() { $("#dialog-connect").dialog("open"); });
+
     // init rename dialog
     $( "#dialog-rename" ).dialog({
         autoOpen: false,
@@ -58,6 +78,12 @@ $(document).ready(function() {
     });
 
 
+
+    // and now start
+    $("#dialog-connect").dialog("open");
+
+    // debug
+    known_cows.updateCow(new cow(2))
 });
 
 function pktHandler(json : string) {

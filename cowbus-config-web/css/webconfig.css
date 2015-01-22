@@ -72,6 +72,6 @@ div.node span.node-button { width:16px; height:16px; float:right; overflow:hidde
 
 
 /* Logging */
-#log-output { font-size:0.8em; margin:10px; }
+#log-output { font-size:0.8em; margin:10px; word-wrap:break-word; }
 #log-output .error { color:red; }
 #log-output .success { color:green; }

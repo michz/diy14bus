@@ -1,12 +1,17 @@
 var socket = (function () {
     function socket() {
-        this.wsUri = "ws://piplus1:9002/";
-        this.websocket = new WebSocket(this.wsUri);
+    }
+    socket.prototype.connect = function (addr) {
+        logme("Trying to connect to WebSocket server under URI  " + addr);
+        this.websocket = new WebSocket(addr);
         this.websocket.onopen = this.onOpen;
         this.websocket.onclose = this.onClose;
         this.websocket.onmessage = this.onMessage;
         this.websocket.onerror = this.onError;
-    }
+    };
+    socket.prototype.close = function () {
+        this.websocket.close();
+    };
     socket.prototype.onOpen = function (evt) {
         logme("CONNECTED", "success");
     };

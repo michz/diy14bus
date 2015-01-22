@@ -14,6 +14,7 @@
     <script src="js/socket.js"></script>
     <script src="js/cowpacket.js"></script>
     <script src="js/cow_list.js"></script>
+    <script src="js/store.js"></script>
     <script src="js/init.js"></script>
 
     <link rel="stylesheet" type="text/css" href="js/legacy/jquery-ui-1.11.2.custom/jquery-ui.css">
@@ -32,9 +33,18 @@
             <td style="width:50%;">
                 <h2>Log</h2>
                 <div id="log-output"></div>
+                <input type="button" name="btnClose" id="btnClose" value="Reconnect">
             </td>
         </tr>
     </table>
+
+    <!-- connect dialog -->
+    <div id="dialog-connect" title="Connect to cowbus-config-server">
+        <form>
+            <p>Address of Server (IPv4, IPv6 or hostname) and port:</p>
+            <input style="width:100%;" type="text" name="txtHost" id="txtHost" value="">
+        </form>
+    </div>
 
     <!-- rename dialog -->
     <div id="dialog-rename" title="Rename cowbus node">

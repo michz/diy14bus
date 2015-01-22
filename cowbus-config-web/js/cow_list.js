@@ -34,6 +34,19 @@ var cowList = (function () {
                 $("#txtRename").select();
                 event.preventDefault();
             });
+            $('#node_' + i + '_ping').click(function (event) {
+                var pkt = new cowpacket(0, seqNo++, stdTtl, c.address, 6 /* ping */, false, name);
+                sock.send(pkt.generateJSON());
+                event.preventDefault();
+            });
+            $('#node_' + i + '_rename').button({
+                icons: { primary: " ui-icon-pencil" },
+                text: false
+            });
+            $('#node_' + i + '_ping').button({
+                icons: { primary: "ui-icon-signal-diag" },
+                text: false
+            });
         }
     };
     return cowList;

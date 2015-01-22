@@ -1,14 +1,21 @@
 class socket {
 
-    wsUri       : string = "ws://piplus1:9002/";
     websocket   : WebSocket;
 
     constructor() {
-        this.websocket              = new WebSocket(this.wsUri);
+    }
+
+    connect(addr : string) : void {
+        logme("Trying to connect to WebSocket server under URI  " + addr);
+        this.websocket              = new WebSocket(addr);
         this.websocket.onopen       = this.onOpen;
         this.websocket.onclose      = this.onClose;
         this.websocket.onmessage    = this.onMessage;
         this.websocket.onerror      = this.onError;
+    }
+    
+    close() : void {
+        this.websocket.close();
     }
 
     onOpen(evt) : void {
@@ -31,6 +38,8 @@ class socket {
         logme("SENT: " + message);
         this.websocket.send(message);
     }
+
+
 
 }
 

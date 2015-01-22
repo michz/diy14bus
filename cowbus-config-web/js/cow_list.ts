@@ -1,5 +1,5 @@
 class cowList {
-cows : Array<cow> = new Array<cow>();
+    cows : Array<cow> = new Array<cow>();
 
     constructor() {
     }
@@ -55,6 +55,22 @@ cows : Array<cow> = new Array<cow>();
                 $("#dialog-rename").dialog( "open" );
                 $("#txtRename").select();
                 event.preventDefault();
+            });
+            $('#node_' + i + '_ping').click(function( event ) {
+                var pkt = new cowpacket(0, seqNo++, stdTtl, c.address,
+                    cowpacket_type.ping, false, name);
+
+                sock.send(pkt.generateJSON());
+                event.preventDefault();
+            });
+
+            $('#node_' + i + '_rename').button({
+                icons: { primary: " ui-icon-pencil" },
+                text: false
+            });
+            $('#node_' + i + '_ping').button({
+                icons: { primary: "ui-icon-signal-diag" },
+                text: false
             });
         }
     }

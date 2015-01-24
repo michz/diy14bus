@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by Cvpcb (2014-12-16 BZR 5324)-product   date = Di 20 Jan 2015 02:29:34 CET
+Cmp-Mod V01 Created by Cvpcb (2014-12-16 BZR 5324)-product   date = Sa 24 Jan 2015 23:53:30 CET
 
 BeginCmp
 TimeStamp = /54896B73;
@@ -200,7 +200,7 @@ BeginCmp
 TimeStamp = /54B435C7;
 Reference = JP2;
 ValeurCmp = JUMPER3;
-IdModule  = Oddities:NetTie-II_SMD;
+IdModule  = Connect:PINHEAD1-3;
 EndCmp
 
 BeginCmp

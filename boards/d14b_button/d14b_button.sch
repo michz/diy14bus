@@ -705,11 +705,11 @@ Text Label 5250 2650 2    60   ~ 0
 MISO
 Text Label 5250 2750 2    60   ~ 0
 MOSI
-Text Label 5250 3750 2    60   ~ 0
+Text Label 5250 3950 2    60   ~ 0
 CE
 Text Label 5250 3850 2    60   ~ 0
 CSN
-Text Label 5250 3950 2    60   ~ 0
+Text Label 5250 3750 2    60   ~ 0
 IRQ
 Wire Wire Line
 	4900 2550 5250 2550
@@ -1372,7 +1372,7 @@ U 1 1 54B435C7
 P 7650 6050
 F 0 "JP2" H 7700 5950 40  0000 L CNN
 F 1 "JUMPER3" H 7650 6150 40  0000 C CNN
-F 2 "Oddities:NetTie-II_SMD" H 7650 6050 60  0001 C CNN
+F 2 "Connect:PINHEAD1-3" H 7650 6050 60  0001 C CNN
 F 3 "" H 7650 6050 60  0000 C CNN
 	1    7650 6050
 	0    -1   -1   0   

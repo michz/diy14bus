@@ -705,11 +705,11 @@ Text Label 5250 2650 2    60   ~ 0
 MISO
 Text Label 5250 2750 2    60   ~ 0
 MOSI
-Text Label 5250 3750 2    60   ~ 0
+Text Label 5250 3950 2    60   ~ 0
 CE
 Text Label 5250 3850 2    60   ~ 0
 CSN
-Text Label 5250 3950 2    60   ~ 0
+Text Label 5250 3750 2    60   ~ 0
 IRQ
 Wire Wire Line
 	4900 2550 5250 2550

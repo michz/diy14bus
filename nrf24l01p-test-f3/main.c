@@ -20,7 +20,7 @@
 #include "board_uart0.h"
 
 
-#include "../cowbus/cowpacket.h"
+#include "../cowbus/include/cowpacket.h" //TODO!
 
 
 #define SND_BUFFER_SIZE     (100)

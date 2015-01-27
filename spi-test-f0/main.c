@@ -49,7 +49,7 @@ int main(void)
 			//gpio_set(GPIO_6);
 
 			//blau
-			if(spi_transfer_byte(SPI_0, 0x81, mirwors) != 1){
+			if(spi_transfer_byte(SPI_0, 0xFF, mirwors) != 1){
 				while(1) LD3_ON; //nix mehr machen
 			}
 
@@ -70,7 +70,7 @@ int main(void)
 			if(spi_transfer_byte(SPI_0, 0x80, mirwors) != 1){
 				while(1) LD3_ON; //nix mehr machen
 			}
-			if(spi_transfer_byte(SPI_0, 0x81, mirwors) != 1){
+			if(spi_transfer_byte(SPI_0, 0xFF, mirwors) != 1){
 				while(1) LD3_ON; //nix mehr machen
 			}
 
@@ -105,7 +105,7 @@ int main(void)
 			if(spi_transfer_byte(SPI_0, 0x80, mirwors) != 1){
 				while(1) LD3_ON; //nix mehr machen
 			}
-			if(spi_transfer_byte(SPI_0, 0x81, mirwors) != 1){
+			if(spi_transfer_byte(SPI_0, 0xFF, mirwors) != 1){
 				while(1) LD3_ON; //nix mehr machen
 			}
 			if(spi_transfer_byte(SPI_0, 0x80, mirwors) != 1){

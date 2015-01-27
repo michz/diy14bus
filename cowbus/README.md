@@ -47,15 +47,15 @@ PA13
 PA14
 PA15
 
-PB0		i?o		nRF-CE
+PB0		i?o		nRF-IRQ//TODO
 PB1		i?o		nRF-CSN
-PB2		in		nRF-IRQ
+PB2		in		nRF-CE //TODO
 PB3
 PB4		in		SW1
 PB5		in		SW2
-PB6		in		SW4
+PB6
 PB7
-PB8
+PB8		in		SW4//TODO
 PB9
 PB10	out		ROM-CS
 PB11	out		ROM-HOLD

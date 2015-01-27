@@ -2,6 +2,7 @@
 APPLICATION = first-test
 
 # If no BOARD is found in the environment, use this default:
+#BOARD = cowbus-one
 BOARD ?= stm32f3discovery
 #BOARD ?= native
 

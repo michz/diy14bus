@@ -1,0 +1,2 @@
+#! /bin/bash
+wget http://www.openhab.org/images/openhab-logo-square.png

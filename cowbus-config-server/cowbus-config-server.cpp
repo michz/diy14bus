@@ -7,7 +7,7 @@
 
 #include <boost/thread.hpp>
 
-#include "../cowbus/cowpacket.h"
+#include "../cowbus/include/cowpacket.h"
 #include "ws_server.h"
 #include "nrf_server.h"
 

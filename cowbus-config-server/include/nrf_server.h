@@ -17,7 +17,7 @@
 
 #include "RF24.h"
 
-#include "../../cowbus/cowpacket.h"
+#include "../../cowbus/include/cowpacket.h"
 
 class ws_server;
 

@@ -56,6 +56,11 @@ This compiles the RF24 library and installs the binary system wide.
 
 Moreover you need at least GCC version 4.7 or 4.8 (we use C++11 language features).
 
+You need Boost library: System, IOStreams, Thread.
+On Raspbian you can simply do:
+
+    apt-get install libboost-system-dev libboost-iostreams-dev libboost-thread-dev
+
 
 
 License

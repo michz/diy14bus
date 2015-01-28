@@ -1,0 +1,120 @@
+\documentclass{beamer}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[babel,german=quotes]{csquotes}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{hyperref}
+\usepackage{lmodern}
+
+\usetheme{JuanLesPins}
+\usepackage{beamerthemeshadow}
+
+\usepackage[sort&compress,comma,super,square]{natbib}
+%\bibliographystyle{apalike} % Or your specific bibliographystyle
+\bibliographystyle{unsrtdin}
+%\bibliographystyle{gerplain}
+
+
+\title{Kleiner drahtloser Hausbus}
+\author{\href{mailto:patrick.kanzler@fablab.fau.de}{Patrick Kanzler}, \href{mailto:michael.zapf@fau.de}{Michael Zapf}}
+\date{21.10.2014}
+
+
+\begin{document}
+\frame{\titlepage}
+
+\section{Projektidee: Kleiner drahtloser Hausbus}
+\begin{frame}
+    \frametitle{Ziele und Ideen}
+
+    \begin{itemize}
+        \item Mesh-Netzwerk
+        \item dezentrale Organisation
+        \item evtl. 6LoWPAN-basiert
+        \item Gateway zu (vorhandenem) Ethernet \\
+            (z.B. zur Nutzung mit \emph{OpenHAB})
+    \end{itemize}
+
+    \leavevmode
+    \makebox(0,0){\put(220,0){
+        \includegraphics[scale=0.3]{img/openhab-logo-square.png}
+    }}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Werbeblock: OpenHAB}
+
+    \begin{block}{What is openHAB?}
+        \small{
+        openHAB is a software for integrating different home automation
+        systems and technologies into one single solution that allows
+        over-arching automation rules
+        and that offers uniform user interfaces.}
+        \flushright{\tiny{
+            (Quelle: \url{http://www.openhab.org/features.html})
+        }}
+    \end{block}
+
+
+    \begin{itemize}
+        \item herstellerunabhängig
+        \item open source
+        \item Oberflächen beliebig gestaltbar \\
+            (und abrufbar: PC, Tablet, iOS, Android, ...)
+        \item unterstützt bereits jetzt \\
+            viele Komponenten und Systeme
+    \end{itemize}
+
+    \leavevmode
+    \makebox(0,0){\put(240,80){
+        \includegraphics[scale=0.25]{img/openhab-logo-square.png}
+    }}
+
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Ziele~-~Konkret}
+
+    \begin{itemize}
+        \item Beispiel-Sensor (z.\,B. Temperatur)
+            \begin{itemize}
+                \item Elektronik
+                \item Gehäuse (gedruckt)
+                \item Software
+            \end{itemize}
+        \item Beispiel-Aktor (z.\,B. LED an/aus)
+            \begin{itemize}
+                \item Elektronik
+                \item Gehäuse (gedruckt)
+                \item Software
+            \end{itemize}
+        \item Gateway (\enquote{edge router})
+            \begin{itemize}
+                \item Elektronik
+                \item Gehäuse (Acryl gelasert)
+                \item Software
+            \end{itemize}
+    \end{itemize}
+\end{frame}
+
+%\begin{block}{Blocktitel}
+%Blocktext
+%\end{block}
+%
+%\begin{exampleblock}{Blocktitel}
+%Blocktext
+%\end{exampleblock}
+%
+%
+%\begin{alertblock}{Blocktitel}
+%Blocktext
+%\end{alertblock}
+%}
+
+\nocite*
+\bibliography{2014-10-22_Projektidee}{}
+
+\end{document}
+

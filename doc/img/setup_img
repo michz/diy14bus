@@ -1,0 +1,4 @@
+#! /bin/bash
+DOWN="wget -nc"
+$DOWN http://www.openhab.org/images/openhab-logo-square.png
+$DOWN http://riot-os.org/images/logo-large.png

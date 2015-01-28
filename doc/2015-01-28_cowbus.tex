@@ -16,15 +16,15 @@
 %\bibliographystyle{gerplain}
 
 
-\title{cowbus}
-\author[R. Backhaus, K. Höllring, P. Kanzler, J. Schnurrer, M. Zapf]{Robin Backhaus \and Kevin Höllring \and Patrick Kanzler \and Josef Schnurrer \and Michael Zapf}
+\title{cowbus -- a small home automation bus}
+\author[R. Backhaus, K. Höllring, P. Kanzler, J. Schnurrer, M. Zapf]{Robin\,Backhaus \and Kevin\,Höllring \and Patrick\,Kanzler \and Josef\,Schnurrer \and Michael\,Zapf}
 \date{28.01.2015}
 
 
 \begin{document}
 \frame{\titlepage}
 
-\section{TODO}
+\section{cowbus -- a small home automation bus}
 \begin{frame}
     \frametitle{Ziele und Ideen}
 
@@ -42,29 +42,22 @@
     }}
 \end{frame}
 
-\begin{frame}
-    \frametitle{Prinzip}
-
-    \begin{itemize}
-        \item TODO: Grafik mit Lichtschaltern/Sensoren und Lampen/Aktoren
-            \begin{itemize}
-                \item TODO
-            \end{itemize}
-        \item
-        \item
-    \end{itemize}
+\begin{frame}[plain]
+    \center
+    \includegraphics[scale=0.4]{img/system}
 \end{frame}
 
 \begin{frame}
     \frametitle{Hardware}
 
     \begin{itemize}
-        \item TODO schönes Bildchen
+        \item \enquote{Prototyping-Board}
+        \item Batterie-/Akkubetrieben (oder USB)
+        \item ARM Cortex M0: STM32F030C8T6
             \begin{itemize}
-                \item TODO
+                \item bis zu 48MHz
+                \item Gehäuse: LQFP48 (7x7 mm)
             \end{itemize}
-        \item Batteriebetrieben (oder USB)
-        \item ARM Cortex M0
         \item RGB-LED und normale LED, 3 Taster
     \end{itemize}
 \end{frame}
@@ -73,13 +66,19 @@
     \frametitle{Firmware}
 
     \begin{itemize}
-        \item TODO: RIOT-basiert
+        \item basiert auf RIOT OS (\url{http://www.riot-os.org/})
             \begin{itemize}
-                \item TODO
+                \item \enquote{The friendly Operating System for the Internet of Things.}
+                \item Multithreading
+                \item gut portierbar (Schichtenarchitektur)
+                \item Lizenz: LGPLv2
             \end{itemize}
-        \item
-        \item
     \end{itemize}
+
+    \leavevmode
+    \makebox(0,0){\put(200,-80){
+        \includegraphics[width=0.4\linewidth]{img/logo-large.png}
+    }}
 \end{frame}
 
 \begin{frame}
@@ -91,10 +90,8 @@
             \begin{itemize}
                 \item Selbst Knoten im Funknetz
                 \item Übersetzt Nachrichten: IP $\Leftrightarrow$ Funk
-                \item    TODO
+                \item HTML-Client mit Websockets
             \end{itemize}
-        \item
-        \item
     \end{itemize}
 \end{frame}
 

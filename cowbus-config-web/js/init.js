@@ -70,7 +70,7 @@ $(document).ready(function () {
     // and now start
     $("#dialog-connect").dialog("open");
     // debug
-    known_cows.updateCow(new cow(2));
+    //known_cows.updateCow(new cow(2))
 });
 function pktHandler(json) {
     var obj = JSON.parse(json);

@@ -1,0 +1,69 @@
+\documentclass{IEEEtran}
+\usepackage[utf8]{inputenc}
+\usepackage{acronym}
+\usepackage{footnote}
+\usepackage{algorithmic}
+\usepackage[autostyle=true,german=quotes]{csquotes}
+
+
+\long\def\comment / *#1* /{}
+
+
+\begin{document}
+
+
+\title{cowbus -- a small home automation bus}
+\author{Robin~Backhaus \and Patrick~Kanzler \and Josef~Schnurrer \and Michael~Zapf}
+\date{\today}
+
+
+
+\maketitle
+
+\begin{abstract}
+\end{abstract}
+
+
+\section{Einleitung}
+\enquote{Smart Home} ist ein Schlagwort, um das man im 21. Jahrhungedert
+kaum noch herum kommt. Der moderne Mensch möchte sein Zuhause vernetzen.
+Lichtschalter sind nicht mehr nur noch passive Komponenten in einer
+Elektroinstallation, sie sind aktive Kommunikationspartner in einem großen Netz.
+
+Das Licht wird nicht nur am Schalter, sondern bequem von der Coach aus mit dem
+Smartphone geschalten, eingehende E-Mails erscheinen nebenbei im Fernsehbild,
+die Verdunklung fährt automatisch herunter sobald die Sonne blendet --
+all das ist keine Science Fiction mehr sondern längst Realität.
+
+\section{Motivaton}
+TODO: Warum noch ein Hausbus?
+
+
+\section{Ausblick}
+Was geplant ist: CSMA/CA, ...
+
+\section{Zusammenfassung}
+
+
+
+\section*{Abkürzungen}
+\renewcommand{\IEEEiedlistdecl}{\IEEEsetlabelwidth{CSMA/CA}}
+\begin{acronym}
+    \acro{CSMA/CA}{Carrier Sense Multiple Access with Collision Avoidance}
+\end{acronym}
+\renewcommand{\IEEEiedlistdecl}{\relax}% remember to reset \IEEEiedlistdecl
+
+
+\comment / *
+\listoffigures
+\clearpage
+
+\listoftables
+\clearpage
+* /
+
+\nocite*
+\bibliographystyle{IEEEtran}
+\bibliography{IEEEabrv,projektdoku_cowbus}
+
+\end{document}

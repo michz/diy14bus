@@ -12,6 +12,7 @@
 #include "nrf24l01p.h"
 #include "nrf24l01p_settings.h"
 #include "periph/spi.h"
+#include "periph/uart.h"
 
 #include "transceiver.h"
 
@@ -151,7 +152,7 @@ int main(void)
         rx_handler_stack, sizeof(rx_handler_stack), PRIORITY_MAIN - 1, 0,
         nrf24l01p_rx_handler, 0, "nrf24l01p_rx_handler");
 
-    nrf24l01p_disable_all_auto_ack(dev); // disable all auto ack
+    nrf24l01p_disable_all_auto_ack(&nrf24l01p_0); // disable all auto ack
     nrf24l01p_set_rxmode(&nrf24l01p_0);
 
 

@@ -95,7 +95,7 @@ void radio_nrf_init(void) {
     int ret = nrf24l01p_init(&nrf24l01p_0, SPI_0, GPIO_6, GPIO_7, GPIO_12);
     //TODO auf cowbus-board anpassen
     
-    nrf24l01p_disable_all_auto_ack(dev); // disable all auto ack
+    nrf24l01p_disable_all_auto_ack(&nrf24l01p_0); // disable all auto ack
 
     if (ret < 0) {
         printf("Transceiver initialization failed: %i\n", ret);

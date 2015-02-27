@@ -1,6 +1,6 @@
-BIN_PDFLATEX = pdflatex
-BIN_BIBTEX = bibtex
-BIN_VIEW = xdg-open
+BIN_PDFLATEX 	= pdflatex
+BIN_BIBTEX 		= bibtex
+BIN_VIEW 		= xdg-open
 CP = cp
 RM = rm -rf
 
@@ -10,7 +10,7 @@ TEX_FILES = $(wildcard *.tex)
 PDF_FILES = $(TEX_FILES:.tex=.pdf)
 
 
-.PHONY: all clean clean-latex clean-bibtex clean-all dist-clean view
+.PHONY: all clean clean-latex clean-bibtex clean-all dist-clean view preview
 
 
 all: $(PDF_FILES)
@@ -32,6 +32,12 @@ view: view-$(PDF_FILES)
 
 view-%.pdf: %.pdf
 	$(BIN_VIEW) $<
+
+
+preview: preview-$(PDF_FILES)
+
+preview-%.pdf: %.tex
+	latexmk -pdf -pvc $<
 
 
 #####################################################################

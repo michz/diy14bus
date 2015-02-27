@@ -3,8 +3,10 @@
 \usepackage{acronym}
 \usepackage{footnote}
 \usepackage{algorithmic}
+\usepackage{graphicx}
 \usepackage[autostyle=true,german=quotes]{csquotes}
 
+\usepackage{hyperref}
 
 \long\def\comment / *#1* /{}
 
@@ -21,6 +23,7 @@
 \maketitle
 
 \begin{abstract}
+    TODO
 \end{abstract}
 
 
@@ -46,12 +49,108 @@ TODO: Warum noch ein Hausbus? Vielleicht?
     \subsection{Aufgetretene Hindernisse und Risiken}
 
 \section{Systemaufbau}
+    TODO
+
     \subsection{Funkmedium}
-        (Broadcast-Medium)
+        Als Übertragungsmedium kommt eine $2,4GHz$-Technologie
+        zum Einsatz. Eine Funktechnologie eignet sich besonders gut dazu
+        bereits bestehende Installationen um intelligente Komponenten
+        zu erweitern, ohne größere bauliche Änderungen vornehmen zu müssen.
+
+        Die Wahl eines ISM-Frequenzbandes (\enquote{Industrial, Scientific and Medical Band})
+        ist in erster Linie bedingt durch die gute Verfügbarkeit von günstigen
+        Systemkomponenten und der weltweiten Einsetzbarkeit ohne Anpassung der
+        genutzten Frequenzen.
+
+        Genutzt wird der Funkkanal im Moment als Broadcastmedium.
+        Jeder Knoten kann also prinzipiell jedes Paket sehen und verarbeiten.
+        Dies spart für den Anfang sehr viel Logik und Routingaufwand,
+        da Pakete einfach ins Netz geflutet werden können und der entsprechende
+        Empfänger (wobei das durchaus mehrere Knoten sein können -- ein Schalter
+        könnte beliebig viele Lampen schalten) selbst an der Adresse erkennen
+        kann, dass er darauf reagieren muss.
 
     \subsection{Komponenten}
-        \subsubsection{Knoten (Aktor/Sensor)}
+        Grundsätzlich besteht der cowbus aus drei Typen von Komponenten,
+        die auch in Abb. \ref{fig:comp} schematisch dargestellt sind.
+
+        \begin{figure}
+            \centering
+            \includegraphics[width=0.5\textwidth]{img/system}
+            \caption{Schematische Darstellung der beteiligten Komponententypen}
+            \label{fig:comp}
+        \end{figure}
+
+        \subsubsection{Sensorknoten}
+            Sensorknoten sind aus Sicht des Systems im aktuellen Entwurf
+            zunächst \enquote{dumm}. Sie enthalten keinerlei Wenn-Dann-Logik
+            sondern produzieren ausschließlich Nachrichten mit bestimmten
+            Aussagen, z.B. \enquote{Ich bin Knoten A und meine erste Taste
+            wurde gedrückt}.
+        \subsubsection{Aktorknoten}
+            Aktorknoten ist die eigentliche Aktion-Reaktion-Logik eingepflanzt.
+            Sie lauschen auf dem Kommunikationsmedium und warten auf Anweisungen
+            ihre möglichen Aktionen auszuführen.
+
+            Dabei sind zwei Varianten vorgesehen:
+            \begin{itemize}
+                \item Ein Aktor kann eine Nachricht mit seiner eigenen Adresse
+                    erhalten. Das bedeutet für ihn, er soll diese Aktion
+                    ausführen, unabhängig davon wer das Ereignis ausgelöst hat.
+                \item Ein Aktor kann programmiert werden auf bestimmte andere
+                    Adressen und Nachrichten zu reagieren.
+                    So kann beispielsweise eingestellt werden, dass ein Aktor
+                    dann schaltet, wenn er eine Nachricht entdeckt, in der steht
+                    \enquote{Ich bin Knoten A und meine erste Taste
+                    wurde gedrückt} (siehe oben).
+            \end{itemize}
+
+            Durch diese zwei Varianten ist es auf der einen Seite möglich
+            dezentral Nachrichten auszulösen und darauf zu reagieren, wobei
+            die Auslöser, also die Sensoren selbst relativ einfach aufgebaut
+            sein können. Die aufwändigere Logik, welcher Sensor welche Aktion
+            auslöst, kann im Aktor implementiert werden.
+            Auf der anderen Seite ist es aber trotzdem möglich, das System
+            zentral zu nutzen, indem Sensornachrichten von einem zentralen
+            Punkt empfangen werden, der anschließend Nachrichten mit konkreten
+            Aktoradressen versendet. So können auch Aktoren \enquote{dumm}
+            bleiben und können (z.B. in einem sehr kleinen, temporären Aufbau)
+            ohne jede Programmierung verwendet werden, ohne dass sie von den
+            konkreten Sensoren wissen müssen.
+
+            Wie ein solches Gateway aussehen könnte zeigt der folgende Abschnitt.
+
         \subsubsection{Gateway (im Moment der PI)}
+            Ein System, dass unabhängig von äußeren Steuerungsinfrastrukturen
+            funktionieren kann, ist für die Akzeptanz im Gebäude wichtig.
+            Wenn kein Lichtschalter im Haus mehr funktioniert, weil
+            im Keller jemand das falsche Netzwerkkabel gezogen hat,
+            wird kein Nutzer recht überzeugt sein.
+            Umgekehrt ist es allerdings auch wichtig, Schnittstellen zu
+            etablierten Kommunikationsstrukturen zu bieten.
+            So ist eine Anbindung an vorhandene IPv4- oder IPv6-Netze
+            wünschenswert, sodass auch mächtigere Komponenten integriert werden
+            können, die unter Umständen noch weitere Kommunikationsmöglichkeiten
+            bieten.
+
+            Momentane Lösung dieses Wunsches ist die Integration eines Computers
+            in den cowbus. Die offensichtlichste Möglichkeit war auch bei diesem
+            Projekt ein Raspberry PI \footnote{\url{http://www.raspberrypi.org/}},
+            der bereits alle nötigen Schnittstellen mitbringt, um direkt das
+            $2,4-GHz$-Funkmodul und das vorhandene \ac{LAN} anzuschließen.
+
+            Auf dem Raspberry PI läuft ein kleiner in C++ verfasster Daemon.
+            Dieser steuert zum einen das Funkmodul und wartet auf Pakete aus
+            dem Funknetz.
+            Auf der anderen Seite enthält er einen kleinen Websocket-Server,
+            über den von jedem beliebigen PC, der ihn über das \ac{LAN}
+            erreichen kann, Pakete in das Funknetz verschickt und aus diesem
+            empfangen werden kann.
+
+            Dazu steht eine kleine HTML/JavaScript-Anwendung zur Verfügung,
+            die in jedem modernen Browser läuffähig sein sollte.
+
+
     
     \subsection{Paketaufbau}
 
@@ -97,6 +196,7 @@ kritische Auseinandersetzung mit getätigten Design-Entscheidungen
 \renewcommand{\IEEEiedlistdecl}{\IEEEsetlabelwidth{CSMA/CA}}
 \begin{acronym}
     \acro{CSMA/CA}{Carrier Sense Multiple Access with Collision Avoidance}
+    \acro{LAN}{Local Area Network}
 \end{acronym}
 \renewcommand{\IEEEiedlistdecl}{\relax}% remember to reset \IEEEiedlistdecl
 

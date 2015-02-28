@@ -306,7 +306,7 @@ Das heißt sie muss sowohl die Anforderungen an einen Sensorknoten (\ref{Sensork
 
 \subsection{Umsetzung des Prototypen}
 
-* Wahl des Funkchips (hier 32-Byte Beschränkung, GFSK und Frequenzbänder/Bandbreiten)
+
 \subsubsection{Energieversorgung}
 Eine der Anforderungen ist die Möglichkeit das Board in einer Unterputzdose zu montieren.
 Damit gibt es zwei Möglichkeiten der Energieversorgung.
@@ -328,16 +328,21 @@ Damit ist es in der aktuellen Hardware-Revision nicht möglich die Baugruppe üb
 Als Abhilfe ist für die nächste Revision ein LDO-Regler vorgesehen.
 
 \subsubsection{Prozessor}
+Die Wahl eines geeigneten Mikrocontrollers wurde früh auf 32bit-Architekturen eingeschränkt.
+Am heutigen Markt ist der preisliche Unterschied nahezu irrelevant.
+Zudem ist die Rechnenleistung der \enquote{größeren} Plattformnen meist besser.
+
+gewählter Chip STM32F030C8T6, genügend (ZAHL) RAM, Takt hoch, günstig, Toolchain gut.
+
+Auch auf Discoveryboard verfügbar --> Entwicklungsstart ohne Platine
+
+RIOT-Unterstützung
 
 \subsubsection{Funkmodul}
+* Wahl des Funkchips (hier 32-Byte Beschränkung, GFSK und Frequenzbänder/Bandbreiten)
 
 \subsubsection{Peripherie}
-*Wahl des Prozessors
-
-*Wahl fiel auf STM, weil 8bit zu wenig Dampf hat, ARM hat solide Toolchain
-
-*weiterer Vorteil: Discovery-Boards günstig, um sofort mit der Entwicklung anzufangen
-
+3 Taster, RGB-LED, Summer, SWD, EEPROM
 
 
 

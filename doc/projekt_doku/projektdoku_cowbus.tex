@@ -5,6 +5,7 @@
 \usepackage{algorithmic}
 \usepackage{graphicx}
 \usepackage[autostyle=true,german=quotes]{csquotes}
+\usepackage{todonotes}
 
 \usepackage{hyperref}
 
@@ -33,10 +34,10 @@
     kaum noch herum kommt. Der moderne Mensch möchte sein Zuhause vernetzen.
     Lichtschalter sind nicht mehr nur noch passive Komponenten in einer
     Elektroinstallation, sie sind aktive Kommunikationspartner in einem großen Netz.
-
     Das Licht wird nicht nur am Schalter, sondern bequem von der Couch aus mit dem
-    Smartphone geschalten, eingehende E-Mails erscheinen nebenbei im Fernsehbild,
-    die Verdunklung fährt automatisch herunter sobald die Sonne blendet --
+    Smartphone, automatisch durch Sensoren oder zu einer bestimmten Uhrzeit geschalt. 
+    Eingehende E-Mails erscheinen nebenbei im Fernsehbild, die Verdunklung fährt 
+    automatisch herunter sobald die Sonne blendet --
     all das ist keine Science Fiction mehr sondern längst Realität.
 
 \section{Motivaton}
@@ -54,18 +55,29 @@
     und es ermöglichen bereits bestehende und neue externe Anwendungen mit dem 
     cowbus zu verbinden.
 
-\section{Projektziele und Ideen}
+\section{Projektidee und -ziele}
 
-    An zentraler Stelle des Projektes steht die Kommunikation zwischen den 
-    Netzwerkknoten und ein Netzwerkmodell, dass möglichst flexibel erweiterbar 
-    und verkleinerbar sein soll.
+    Angefangen hat der cowbus mit der Suche nach einem Projekt für die Vorlesung 
+    \enquote{DIY: Personal Fabrication} 2014/2015 von Dr.-Ing. Jürgen Eckert, durch 
+    Michael Zapf und Patrick Kanzler. 
+    Im Rahmen der Veranstaltung hat sich dann ein Team gebildet, um eine günstige, 
+    offene Alternative zu bestehenden Heimbussystemen zu entwickeln. Das Team besteht 
+    aus Michael Zapf, Patrick Kanzler, Josef Schnurrer und Robin Backhaus. 
+    An zentraler Stelle des Projektes steht die Kommunikation zwischen Netzwerkknoten 
+    und ein Netzwerkmodell, dass möglichst flexibel erweiterbar und verkleinerbar 
+    sein soll. 
     Dazu wird ein drahtloses Mesh-Netzwerk mit dezentraler Organisation implementiert 
-    und an Beispiel-Sensoren und -Aktoren getestet. Optional könnte nach ersten 
-    Funktionstests der ausgewählten Hardware oder im Anschluss an die erfolgreiche 
-    Implementierung eines Netzwerkes der Standart \enquote{6LoWPAN} implementiert werden. 
-    Als dritte Komponente neben Aktoren und Sensoren soll ein Ethernet-Gateway 
-    implementiert werden. Als optionales Anwendungsbeispiel würde sich \enquote{OpenHAB} 
-    besonders eignen.
+    und an Beispiel-Sensoren und -Aktoren getestet. 
+    Als besonderes Merkmal soll das System aus einzelnen, kostengünstigen, sich 
+    selbst vermaschenden Knoten bestehen.
+    Die Sensoren und Aktoren sollen Ereignisse erzeugen und darauf reagieren können. 
+    Optional könnte nach ersten Funktionstests der ausgewählten Hardware oder im 
+    Anschluss an die erfolgreiche Implementierung eines Netzwerkes der Standart 
+    \enquote{6LoWPAN} implementiert werden. 
+    Um keine unbrauchbare Insellösung zu entwickeln, soll neben den Aktoren und 
+    Sensoren ein Ethernet-Gateway implementiert werden. Durch dieses soll das 
+    Meshnetzwerk als optionales Anwendungsbeispiel eine Verbindung zu 
+    einer \enquote{OpenHAB}-Instanz aufnehmen können.
 
 \section{Projektablauf und Meilensteine}
 
@@ -146,7 +158,7 @@
             Sensorknoten sind aus Sicht des Systems im aktuellen Entwurf
             zunächst \enquote{dumm}. Sie enthalten keinerlei Wenn-Dann-Logik
             sondern produzieren ausschließlich Nachrichten mit bestimmten
-            Aussagen, z.B. \enquote{Ich bin Knoten A und meine erste Taste
+            Aussagen, z.\,B. \enquote{Ich bin Knoten A und meine erste Taste
             wurde gedrückt}.
         \subsubsection{Aktorknoten}
             Aktorknoten ist die eigentliche Aktion-Reaktion-Logik eingepflanzt.
@@ -229,27 +241,53 @@
     
 
 \section{Knoten-Prototyp-Hardware}
+Tests mit den Discovery-Boards haben gezeigt, dass das Hardware-Konzept tauglich ist.
+Aus diesem Grund wurde ein Protoyp entwickelt.
+
+\subsection{Anforderungen an den Protoypen}
+Ziel des cowbus ist die möglichst einfache Integration in bestehende Installationen.
+Aus diesem Grund soll die fertige Platine so bemaßt sein, dass sie in einer Unterputzdose montiert werden kann.
+Eine Unterputzdose ist rund und bietet etwa 4\,cm Durchmesser.
+
+\todo{günstiger Preis}
+
+\todo{genügend Hardware, um alle Funktionalität zu testen}
+
+\subsection{Umsetzung des Prototypen}
+
+<<<<<<< HEAD
+* Wahl des Funkchips (hier 32-Byte Beschränkung, GFSK und Frequenzbänder/Bandbreiten)
+=======
+\subsubsection{Energieversorgung}
+Eine der Anforderungen ist die Möglichkeit das Board in einer Unterputzdose zu montieren.
+Damit gibt es zwei Möglichkeiten der Energieversorgung.
+Wenn in der Dose Netzspannung verfügbar ist, kann die Energie hieraus bezogen werden.
+Andernfalls muss das Board aus einer Batterie versorgt werden.
+
+Für den Prototypen wurde die letztere Option gewählt.
+Um ein Netzteil für Unterputzdosenmontage zu realisieren, müsste eine stark integrierte Baugruppe, welche bei Netzspannung arbeitet, entworfen werden.
+Dies ist im Rahmen dieses Projektes nicht umsetzbar.
+>>>>>>> 816acf5f755d761faed23752bd7595238972035d
+
+Aus diesem Grund wurde eine Energieversorgung per Batterie umgesetzt.
+Dazu kommt der Boost-Converter TPS61221 von \emph{Texas Instruments} zum Einsatz.
+
+
+Batterie, 5V-Versorgung, 5V hat Designfehler
+
+\subsubsection{Prozessor}
+
+\subsubsection{Funkmodul}
+
+\subsubsection{Peripherie}
 *Wahl des Prozessors
 
 *Wahl fiel auf STM, weil 8bit zu wenig Dampf hat, ARM hat solide Toolchain
 
 *weiterer Vorteil: Discovery-Boards günstig, um sofort mit der Entwicklung anzufangen
 
-* Wahl des Funkchips (hier 32-Byte Beschränkung, GFSK und Frequenzbänder/Bandbreiten)
-
-*parallel dazu Entwicklung richtiger Hardware
-
-*Anforderungen:
-
-*Idee: Schaltermodul, welches in eine Unterputzdose passt --> bedingt Form
-
-*möglichst günstig
-
-*...
 
 
-
-*
 
     Platine, Aufbau, Designentscheidungen, ...
 

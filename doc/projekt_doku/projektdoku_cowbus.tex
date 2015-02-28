@@ -325,12 +325,12 @@ Die Planung sah vor, die Schaltung auch optional über USB zu versorgen.
 Dieser Zustand ist über Jumperstellungen auswählbar.
 Das Datenblatt des Wandlers wurde dazu fehlerhaft interpretiert, da dieser nur 5V-tolerant ist.
 Damit ist es in der aktuellen Hardware-Revision nicht möglich die Baugruppe über USB zu versorgen.
-Als Abhilfe ist für die nächste Revision ein LDO-Regler vorgesehen.
+Als Abhilfe ist für die nächste Revision ein zusätzlicher LDO-Regler vorgesehen.
 
 \subsubsection{Prozessor}
 Die Wahl eines geeigneten Mikrocontrollers wurde früh auf 32bit-Architekturen eingeschränkt.
 Am heutigen Markt ist der preisliche Unterschied nahezu irrelevant.
-Zudem ist die Rechnenleistung der \enquote{größeren} Plattformnen meist besser.
+Zudem ist die Rechnenleistung der \enquote{größeren} Plattformen meist besser.
 
 gewählter Chip STM32F030C8T6, genügend (ZAHL) RAM, Takt hoch, günstig, Toolchain gut.
 
@@ -342,7 +342,17 @@ RIOT-Unterstützung
 * Wahl des Funkchips (hier 32-Byte Beschränkung, GFSK und Frequenzbänder/Bandbreiten)
 
 \subsubsection{Peripherie}
-3 Taster, RGB-LED, Summer, SWD, EEPROM
+Gemäß den Anforderungen ist der Prototyp mit entsprechender Peripherie bestückt.
+Zum einen sind drei Taster angeschlossen, um einen grundlegenden Sensor zu modellieren.
+Zum anderen befindet sich auf dem Board eine RGB-LED, welche eine primitive Form eines Aktors darstellt.
+
+Für zukünftige Features ist ein Summer vorgesehen.
+Dieser wird mit einem N-MOSFET angeschalten.
+Der Summer ist dazu vorgesehen, einzelne Knoten während der Konfiguration zu erkennen.
+
+Um Daten wie die Konfiguration des Knotens dauerhaft zu speichern, ist an den Mikrocontroller ein EEPROM über SPI angeschlossen.
+Die SWD-Funktionalität des Controllers ist in Form einer Cortex-M-Debugschnittstelle herausgeführt.
+
 
 
 

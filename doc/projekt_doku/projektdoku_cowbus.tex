@@ -184,13 +184,13 @@
             \label{fig:comp}
         \end{figure}
 
-        \subsubsection{Sensorknoten}
+        \subsubsection{Sensorknoten}\label{Sensorknoten}
             Sensorknoten sind aus Sicht des Systems im aktuellen Entwurf
             zunächst \enquote{dumm}. Sie enthalten keinerlei Wenn-Dann-Logik
             sondern produzieren ausschließlich Nachrichten mit bestimmten
             Aussagen, z.\,B. \enquote{Ich bin Knoten A und meine erste Taste
             wurde gedrückt}.
-        \subsubsection{Aktorknoten}
+        \subsubsection{Aktorknoten}\label{Aktorknoten}
             Aktorknoten ist die eigentliche Aktion-Reaktion-Logik eingepflanzt.
             Sie lauschen auf dem Kommunikationsmedium und warten auf Anweisungen
             ihre möglichen Aktionen auszuführen.
@@ -279,15 +279,16 @@ Ziel des cowbus ist die möglichst einfache Integration in bestehende Installati
 Aus diesem Grund soll die fertige Platine so bemaßt sein, dass sie in einer Unterputzdose montiert werden kann.
 Eine Unterputzdose ist rund und bietet etwa 4\,cm Durchmesser.
 
-\todo{günstiger Preis}
+Weitere Anforderung ist, dass das Projekt erschwinglich bleibt.
+In einer fertigen Installation könnte eine Vielzahl von Knoten verbaut sein, deswegen darf der Preis eines einzelnen Knotens nicht zu hoch werden.
+Für die Prototypenplatine wurde ein Ziel von 20 Euro festgelegt.
 
-\todo{genügend Hardware, um alle Funktionalität zu testen}
+Abschließend soll die Platine ausreichend sein, um alle grundlegenden Fähigkeiten des Buses zu entwickeln und abzubilden.
+Das heißt sie muss sowohl die Anforderungen an einen Sensorknoten (\ref{Sensorknoten}), als auch die an einen Aktorknoten (\ref{Aktorknoten}) erfüllen.
 
 \subsection{Umsetzung des Prototypen}
 
-<<<<<<< HEAD
 * Wahl des Funkchips (hier 32-Byte Beschränkung, GFSK und Frequenzbänder/Bandbreiten)
-=======
 \subsubsection{Energieversorgung}
 Eine der Anforderungen ist die Möglichkeit das Board in einer Unterputzdose zu montieren.
 Damit gibt es zwei Möglichkeiten der Energieversorgung.
@@ -297,7 +298,6 @@ Andernfalls muss das Board aus einer Batterie versorgt werden.
 Für den Prototypen wurde die letztere Option gewählt.
 Um ein Netzteil für Unterputzdosenmontage zu realisieren, müsste eine stark integrierte Baugruppe, welche bei Netzspannung arbeitet, entworfen werden.
 Dies ist im Rahmen dieses Projektes nicht umsetzbar.
->>>>>>> 816acf5f755d761faed23752bd7595238972035d
 
 Aus diesem Grund wurde eine Energieversorgung per Batterie umgesetzt.
 Dazu kommt der Boost-Converter TPS61221 von \emph{Texas Instruments} zum Einsatz.

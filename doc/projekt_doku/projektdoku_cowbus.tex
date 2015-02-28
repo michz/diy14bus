@@ -226,20 +226,27 @@
 
     
     \subsection{Paketaufbau}
-    - Hardware bedingt sind wir für die übertragenen Pakete auf 32 Byte beschränkt, dazu in der späteren Beschreibung über den Funkchip mehr. 
+            \begin{figure}
+            \centering
+            \includegraphics[width=0.5\textwidth]{img/paket}
+            \caption{Aufbau der Pakete}
+            \label{fig:paket}
+        \end{figure}
 
-    *Zum Sendepaket male ich nachher noch ein Bild
-
-    - 5 Bit Sequenznummer: aufsteigent, für jeden Teilnehmer individuell
-    - 8-Bit Time To Live: Maximalwert, der beim Weiterleiten decrementiert wird
-    - 11-Bit Adresse: Kontexabhängig ob stc/dst
-    - 4-Bit Type (TODO)
-    - 1-Bit "is frag": ist das ein aufgeteiltes Paket? -> Fragment Header am Anfang vom Payload
-    - 208-Bit Payload
-    -> macht 26 Byte
-    - 16-Bit CRC
-    
-
+        Hardware bedingt sind wir für die übertragenen Pakete auf 32\,Byte beschränkt, dazu in der späteren Beschreibung über den Funkchip mehr. Abbildung \label{fig:paket} zeigt den Aufbau der Pakete. Die Pakete bestehen aus:
+        \begin{itemize}
+            \item 5 Bit Sequenznummer: aufsteigent, für jeden Teilnehmer individuell
+            \item 8-Bit Time To Live: Maximalwert, der beim Weiterleiten decrementiert wird
+            \item 11-Bit Adresse: Kontexabhängig ob Sende / Empfangsadresse
+            \item 4-Bit Type 
+                \begin{itemize}
+                    \item TODO
+                \end{itemize}
+            \item 1-Bit "is frag": ist das ein aufgeteiltes Paket? - Fragment Header am Anfang vom Payload
+            \item 208-Bit Payload - macht 26 Byte
+            \item 16-Bit CRC
+        \end{itemize}
+        
 \section{Knoten-Prototyp-Hardware}
 Tests mit den Discovery-Boards haben gezeigt, dass das Hardware-Konzept tauglich ist.
 Aus diesem Grund wurde ein Protoyp entwickelt.
@@ -301,6 +308,30 @@ Batterie, 5V-Versorgung, 5V hat Designfehler
 
     \subsection{CSMA/CA}
 Was geplant ist: CSMA/CA, ...;
+
+    \subsection{Payloadkompression}
+    Codierung der Zeichen in der Payload: 
+    - in der Payload sollen bei getname und setname und ... für den menschen lesbare Buchstaben als Name eines Knoten übertragen werden
+    - Kompression nötig, da sonst nur 208-Bit / 8-Bit (bei Ascii) = 26 Zeichen
+    - zur Kompression gibt es hier zwei Möglichkeiten: 
+    - Entweder aufgrund der Buchstabenwahrscheinlichkeit einen oder mehrere Buchstaben durch Symbole ersetzen (via Huffman oder Vektor Huffman)
+    - hier kommen dann aber unterschiedlich lange Payloads raus und die Anzahl der Buchstaben sollte nicht mit den verwedeten Buchstaben selbst variieren.
+    - Oder die Anzahl der Zeichen verringern.
+    - Das machen wir hier.
+    - es sind dafür als Namen nur Buchstaben, Zahlen und einzelne Sonderzeichen zugelassen
+    - 26 Buchstaben, 10 Zahlen, 4 Sonderzeichen (Null-Terminator, Leerzeichen, at-Zeichen, Unterstrich) ergibt 40 Zustände pro Zeichen, die wir als gleich Wahrscheinlich annehmen.
+    $log_{2}(40) = 5,32 bit$
+    und 
+    $log_{2}(40^3) = 5,32 \cdot 3 bit < 16 Bit$
+    -> es können 3 Zeichen in 2 Byte codiert werden
+    Mit 8-Bit pro Zeichen wären in der Payload 26 Zeichen möglich gewesen, mit Reduzierung der Zustände sind 39 Zeichen möglich.
+    Mit 40 Möglichkeiten pro Zeichen ergeben sich bei 3 Zeichen $40^3 = 64000$. Mit 16 Bit können 65536 Zustände abgebildet werden. -> passt.
+    - es werden 3 Zeichen ($x_{1}$, $x_{2}$, $x_{3}$) in ein Symbol gepackt. Dieses Symbol kann durch folgendes Polynom berechnet werden:
+    $Symbol = x_{1} \cdot 40^{0} + x_{2} \cdot 40^{1} + x_{3} \cdot 40^{2}$
+    - Die Decodierung erfolgt über folgende Gleichungen:
+    - $x_{1} = Symbol Y 40$
+    - $x_{2} = \frac{Symbol - x_{1}}{40} Y 40$
+    - $x_{3} = \frac{Symbol - (x_{1} + x_{2} \cdot 40}{40} (Y 40)$
 
     \subsection{Routing}
         *jeder leitet jedes Paket einmal weiter und merkt sich den Header des Paketes, damit er es kein zweites Mal weiter leitet

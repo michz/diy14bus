@@ -5,6 +5,7 @@
 \usepackage{algorithmic}
 \usepackage{graphicx}
 \usepackage[autostyle=true,german=quotes]{csquotes}
+\usepackage{todonotes}
 
 \usepackage{hyperref}
 
@@ -66,8 +67,9 @@
     und ein Netzwerkmodell, dass möglichst flexibel erweiterbar und verkleinerbar 
     sein soll. 
     Dazu wird ein drahtloses Mesh-Netzwerk mit dezentraler Organisation implementiert 
-    und an Beispiel-Sensoren und -Aktoren getestet. Als besonderes Merkmal soll das 
-    System aus einzelnen, kostengünstigen, sich selbst vermaschenden Knoten bestehen
+    und an Beispiel-Sensoren und -Aktoren getestet. 
+    Als besonderes Merkmal soll das System aus einzelnen, kostengünstigen, sich 
+    selbst vermaschenden Knoten bestehen.
     Die Sensoren und Aktoren sollen Ereignisse erzeugen und darauf reagieren können. 
     Optional könnte nach ersten Funktionstests der ausgewählten Hardware oder im 
     Anschluss an die erfolgreiche Implementierung eines Netzwerkes der Standart 
@@ -116,8 +118,7 @@
 
 \section{Verwendete Software und Hilfsmittel}
 
-    GitHub, KiCad
-
+    GitHub, KiCad, JLink und OpenOCD
 \section{Aufgetretene Hindernisse und Risiken}
 
 \section{Systemaufbau}
@@ -227,6 +228,16 @@
     \subsection{Paketaufbau}
 
 \section{Knoten-Prototyp-Hardware}
+Tests mit den Discovery-Boards haben gezeigt, dass das Hardware-Konzept tauglich ist.
+Aus diesem Grund wurde ein Protoyp entwickelt.
+
+\subsection{Anforderungen an den Protoypen}
+Ziel des cowbus ist die möglichst einfache Integration in bestehende Installationen.
+Aus diesem Grund soll die fertige Platine so bemaßt sein, dass sie in einer Unterputzdose montiert werden kann.
+Eine Unterputzdose ist rund und bietet etwa 4\,cm Durchmesser.
+
+\todo{günstiger Preis}
+
 *Wahl des Prozessors
 
 *Wahl fiel auf STM, weil 8bit zu wenig Dampf hat, ARM hat solide Toolchain

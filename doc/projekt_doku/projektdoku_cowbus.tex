@@ -214,6 +214,19 @@
 
     
     \subsection{Paketaufbau}
+    - Hardware bedingt sind wir für die übertragenen Pakete auf 32 Byte beschränkt, dazu in der späteren Beschreibung über den Funkchip mehr. 
+
+    *Zum Sendepaket male ich nachher noch ein Bild
+
+    - 5 Bit Sequenznummer: aufsteigent, für jeden Teilnehmer individuell
+    - 8-Bit Time To Live: Maximalwert, der beim Weiterleiten decrementiert wird
+    - 11-Bit Adresse: Kontexabhängig ob stc/dst
+    - 4-Bit Type (TODO)
+    - 1-Bit "is frag": ist das ein aufgeteiltes Paket? -> Fragment Header am Anfang vom Payload
+    - 208-Bit Payload
+    -> macht 26 Byte
+    - 16-Bit CRC
+    
 
 \section{Knoten-Prototyp-Hardware}
 *Wahl des Prozessors
@@ -222,7 +235,7 @@
 
 *weiterer Vorteil: Discovery-Boards günstig, um sofort mit der Entwicklung anzufangen
 
-
+* Wahl des Funkchips (hier 32-Byte Beschränkung, GFSK und Frequenzbänder/Bandbreiten)
 
 *parallel dazu Entwicklung richtiger Hardware
 
@@ -245,8 +258,16 @@
     \subsection{Kommunikationsstruktur: Nachrichtenbasiert, jeder Knoten entscheidet anhand Adresse ob er interessiert ist am Inhalt}
     \subsection{RIOT - Was, Warum; evtl. auch kritische Auseinandersetzung?}
 
+
 \section{Ausblick}
+
+    \subsection{CSMA/CA}
 Was geplant ist: CSMA/CA, ...;
+
+    \subsection{Routing}
+        *jeder leitet jedes Paket einmal weiter und merkt sich den Header des Paketes, damit er es kein zweites Mal weiter leitet
+
+
 kritische Auseinandersetzung mit getätigten Design-Entscheidungen
 
 \section{Zusammenfassung}

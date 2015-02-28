@@ -392,8 +392,9 @@ Was geplant ist: CSMA/CA, ...;
     $$x_{3} = \frac{Symbol - (x_{1} + x_{2} \cdot 40)}{40} (\% 40)$$
 
     \subsection{Routing}
-        Damit die Nachrichten, die ein Knoten losschickt, auch ihr Ziel erreichen ist eine Wegewahl und damit eine Strategie zur Weiterleitung der Pakete erforderlich. Ein Sensor schickt jedoch nur seine Zustandsänderung ins Netz. Welcher und wie viele Aktoren auf diese Nachricht reagieren weiß der Sensor jedoch nicht. Die Nachricht muss daher alle Knoten erreichen, mit anderen Worten: es gibt nur Broadcast-Nachrichten.
-        *jeder leitet jedes Paket einmal weiter und merkt sich den Header des Paketes, damit er es kein zweites Mal weiter leitet
+        Damit die Nachrichten, die ein Knoten losschickt, auch ihr Ziel erreichen ist eine Wegewahl und damit eine Strategie zur Weiterleitung der Pakete erforderlich. Ein Sensor schickt jedoch nur seine Zustandsänderung ins Netz. Welcher und wie viele Aktoren auf diese Nachricht reagieren weiß der Sensor jedoch nicht. Die Nachrichten müssen daher alle Knoten erreichen, mit anderen Worten: es gibt nur Broadcast-Nachrichten. Ein Routingverfahren für eine effiziente Wegewahl ist daher nicht erforderlich.
+        Da es nur Broadcast-Nachrichten gibt, werden die Nachrichten über fluten verbreitet. Ein Sensor schickt eine Nachricht an seine Nachbarn. Diese schicken die Pakte wieder weiter und so verbreitet sich die Nachricht im Netz. Damit jedoch die Nachricht nicht zwischen zwei Knoten hin- und her pendelt, merkt sich jeder Knoten den Header jedes Paketes, das er weiter leitet in einem FIFO-Puffer, damit er das selbe Paket kein zweites Mal weiter leitet.
+        
 
     \subsection{Verschlüsselung}
         

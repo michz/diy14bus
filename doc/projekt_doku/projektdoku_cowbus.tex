@@ -227,6 +227,31 @@ Eine Unterputzdose ist rund und bietet etwa 4\,cm Durchmesser.
 
 \todo{günstiger Preis}
 
+\todo{genügend Hardware, um alle Funktionalität zu testen}
+
+\subsection{Umsetzung des Prototypen}
+
+\subsubsection{Energieversorgung}
+Eine der Anforderungen ist die Möglichkeit das Board in einer Unterputzdose zu montieren.
+Damit gibt es zwei Möglichkeiten der Energieversorgung.
+Wenn in der Dose Netzspannung verfügbar ist, kann die Energie hieraus bezogen werden.
+Andernfalls muss das Board aus einer Batterie versorgt werden.
+
+Für den Prototypen wurde die letztere Option gewählt.
+Um ein Netzteil für Unterputzdosenmontage zu realisieren, müsste eine stark integrierte Baugruppe, welche bei Netzspannung arbeitet entworfen werden.
+Dies ist im Rahmen dieses Projektes nicht umsetzbar.
+
+Aus diesem Grund wurde eine Energieversorgung per Batterie umgesetzt.
+Dazu kommt der Boost-Converter TPS61221 von \emph{Texas Instruments} zum Einsatz.
+
+
+Batterie, 5V-Versorgung, 5V hat Designfehler
+
+\subsubsection{Prozessor}
+
+\subsubsection{Funkmodul}
+
+\subsubsection{Peripherie}
 *Wahl des Prozessors
 
 *Wahl fiel auf STM, weil 8bit zu wenig Dampf hat, ARM hat solide Toolchain
@@ -235,19 +260,6 @@ Eine Unterputzdose ist rund und bietet etwa 4\,cm Durchmesser.
 
 
 
-*parallel dazu Entwicklung richtiger Hardware
-
-*Anforderungen:
-
-*Idee: Schaltermodul, welches in eine Unterputzdose passt --> bedingt Form
-
-*möglichst günstig
-
-*...
-
-
-
-*
 
     Platine, Aufbau, Designentscheidungen, ...
 

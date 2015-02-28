@@ -356,27 +356,17 @@ Was geplant ist: CSMA/CA, ...;
 
     \subsection{Payloadkompression}
     Codierung der Zeichen in der Payload: 
-    - in der Payload sollen bei getname und setname und ... für den menschen lesbare Buchstaben als Name eines Knoten übertragen werden
-    - Kompression nötig, da sonst nur 208-Bit / 8-Bit (bei Ascii) = 26 Zeichen
-    - zur Kompression gibt es hier zwei Möglichkeiten: 
-    - Entweder aufgrund der Buchstabenwahrscheinlichkeit einen oder mehrere Buchstaben durch Symbole ersetzen (via Huffman oder Vektor Huffman)
-    - hier kommen dann aber unterschiedlich lange Payloads raus und die Anzahl der Buchstaben sollte nicht mit den verwedeten Buchstaben selbst variieren.
-    - Oder die Anzahl der Zeichen verringern.
-    - Das machen wir hier.
-    - es sind dafür als Namen nur Buchstaben, Zahlen und einzelne Sonderzeichen zugelassen
-    - 26 Buchstaben, 10 Zahlen, 4 Sonderzeichen (Null-Terminator, Leerzeichen, at-Zeichen, Unterstrich) ergibt 40 Zustände pro Zeichen, die wir als gleich Wahrscheinlich annehmen.
-    $log_{2}(40) = 5,32 bit$
-    und 
-    $log_{2}(40^3) = 5,32 \cdot 3 bit < 16 Bit$
-    -> es können 3 Zeichen in 2 Byte codiert werden
-    Mit 8-Bit pro Zeichen wären in der Payload 26 Zeichen möglich gewesen, mit Reduzierung der Zustände sind 39 Zeichen möglich.
-    Mit 40 Möglichkeiten pro Zeichen ergeben sich bei 3 Zeichen $40^3 = 64000$. Mit 16 Bit können 65536 Zustände abgebildet werden. -> passt.
-    - es werden 3 Zeichen ($x_{1}$, $x_{2}$, $x_{3}$) in ein Symbol gepackt. Dieses Symbol kann durch folgendes Polynom berechnet werden:
-    $Symbol = x_{1} \cdot 40^{0} + x_{2} \cdot 40^{1} + x_{3} \cdot 40^{2}$
+    In der Payload sollen bei den Pakettypen get\_name und set\_name für den menschen lesbare Buchstaben als Name eines Knoten übertragen werden. Bei unkomprimierter Übertragung mittels Ascii Zeichen, also 8-Bit pro Zeichen, wären bei einer maximalen Payload von 208-Bit nur 26 Zeichen möglich. Zur Kompression des Knotennamens gibt es hier im Allgemeinen zwei Möglichkeiten. Zum einen können aufgrund der Buchstabenwahrscheinlichkeit in einer bestimmten Sprache ein oder mehrere Buchstaben durch Symbole ersetzt werden (z.B. mittels Huffmann oder Vektor-Huffman Codierung). Bei diesem Verfahren entstehen allerdings bei gleich langen Namen unterschiedlich lange Paylods. Da die maximale Anzahl von Buchstaben nicht mit den Buchstaben selbst variieren soll, ist dieses Verfahren ungeeignet. Die zweite Möglichkeit ist die Anzahl an möglichen Zeichen beschränken. Es sind für Namen von Knoten also nur noch Zahlen, Buchstaben und 4 Sonderzeichen (Null-Terminator, Leerzeichen, at-Zeichen, Unterstrich) zugelassen. Dies ergibt 40 Zustände pro Zeichen, die wir als gleich wahrscheinlich annehmen. Bei 40 möglichen Zuständen ergibt sich ein Informationsgehalt von $log_{2}(40) = 5,32 bit$. Für drei Zeichen ergibt sich ein Informationsgehalt von $log_{2}(40^3) = 5,32 \cdot 3 bit < 16 Bit$. Es können also 3 Zeichen in 2 Byte codiert werden. Mit 8-Bit pro Zeichen wären in der Payload 26 Zeichen möglich gewesen, mit Reduzierung der Zustände sind nun 39 Zeichen möglich.
+    Anschaulich gesehen ergeben sich mit 40 Möglichkeiten pro Zeichen bei 3 Zeichen $40^3 = 64000$ Möglichkeiten. Mit 16 Bit können 65536 Zustände abgebildet werden. 
+    Es werden drei ZeichenZeichen ($x_{1}$, $x_{2}$, $x_{3}$) in ein Symbol gepackt. Dieses Symbol kann durch folgendes Polynom berechnet werden:
+    $$Symbol = x_{1} \cdot 40^{0} + x_{2} \cdot 40^{1} + x_{3} \cdot 40^{2}$$
     - Die Decodierung erfolgt über folgende Gleichungen:
-    - $x_{1} = Symbol Y 40$
-    - $x_{2} = \frac{Symbol - x_{1}}{40} Y 40$
-    - $x_{3} = \frac{Symbol - (x_{1} + x_{2} \cdot 40}{40} (Y 40)$
+
+    $$x_{1}=Symbol \% 20$$
+
+    $$x_{2} = \frac{Symbol - x_{1}}{40} \% 40$$
+    
+    $$x_{3} = \frac{Symbol - (x_{1} + x_{2} \cdot 40}{40} (\% 40)$$
 
     \subsection{Routing}
         *jeder leitet jedes Paket einmal weiter und merkt sich den Header des Paketes, damit er es kein zweites Mal weiter leitet

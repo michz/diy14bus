@@ -30,7 +30,6 @@
 
 
 \section{Einleitung}
-
     \enquote{Smart Home} ist ein Schlagwort, um das man im 21. Jahrhundert
     kaum noch herum kommt. Der moderne Mensch möchte sein Zuhause vernetzen.
     Lichtschalter sind nicht mehr nur noch passive Komponenten in einer
@@ -42,7 +41,6 @@
     all das ist keine Science Fiction mehr sondern längst Realität.
 
 \section{Motivaton}
-
     Die meißten erhältlichen \enquote{Smart Home}-Lösungen sind teuer und nicht offen.
     Da die Beliebtheit solcher Systeme immer größer wird, wäre eine größere 
     Zugänglichkeit durch günstige Alternativen und langfristige Sicherheit, 
@@ -57,7 +55,6 @@
     cowbus zu verbinden.
 
 \section{Projektidee und -ziele}
-
     Angefangen hat der cowbus mit der Suche nach einem Projekt für die Vorlesung 
     \enquote{DIY: Personal Fabrication} 2014/2015 von Dr.-Ing. Jürgen Eckert, durch 
     Michael Zapf und Patrick Kanzler. Im Rahmen der Veranstaltung hat sich dann ein 
@@ -81,8 +78,9 @@
     Meshnetzwerk als optionales Anwendungsbeispiel eine Verbindung zu 
     einer \enquote{OpenHAB}-Instanz aufnehmen können.
 
-\section{Erstes Brainstorming}
 
+\section{Projektverlauf}
+    \subsection{Erstes Brainstorming}
     Die Wahl des Projektnamen fiel nicht leicht. Wir haben uns darauf geeinigt, dass 
     wir das Projekt DIY14BUS nennen und auch so anmelden. Nachdem wir im 
     Projektverlauf mehr über Technologie und Funktionsumfang festlegen, wollten wir 
@@ -103,8 +101,7 @@
     Sensor-Actor-Konzept umzusetzen. Erst im Anschluss sollte ein 
     Ethernet-Gateway folgen um den Funktionsumfang des cowbus zu erhöhen.
 
-\section{Projektplanung}
-
+    \subsection{Projektplanung}
     Zeitlich haben wir das Projekt in Monate aufgeteilt. Für den restlichen Oktober 
     gaben wir uns Zeit uns kennen zu lernen, Informationen und Wissen über bestehende 
     und zu verwendende Technologien auszutauschen und uns in das Thema einzuarbeiten.
@@ -132,8 +129,7 @@
     unseren Schwerpunkt auf Fehlerbehebungen zu legen. Außerdem steht es noch an 
     die Arbeit an optionalen Projektzielen fortzuführen. 
 
-\section{Kennenlernen von RIOT OS}
-
+    \subsection{Kennenlernen von RIOT OS}
     Um das Rad nicht neu zu erfinden, bietet es sich an, ein eingebettetes 
     Betriebssystem auf den Knoten einzusetzen. Relativ früh wurde uns der Tipp 
     gegeben, "RIOT OS" anzuschauen. \url{http://www.riot-os.org/} 
@@ -149,8 +145,8 @@
         TODO: Multithreading, gut portierbar (Schichtenarchitektur), Lizenz: LGPLv2, c++
 
     \subsection{Funkchip nrf24l01+}
-        Die Wahl des Funkchips stand nach kurzer Recherche fest: Der nrf24l01+ von Nordic Semiconductor. Der Transceiver ist günstig in der Anschaffung, da er im zehner-Pack nur rund 1~Euro pro Stück kostet. Er arbeitet im 2,4GHz ISM-Band, überträgt eine bis zu 2Mbps und ist bereits auf einer handlichen kleinen Platine bestückt. Der Nachteil dieses Funkchips war jedoch die lange Lieferzeit und der Treiber war in Riot OS nicht vorhanden.
-        Um dennoch zügig mit der Entwicklung beginnen zu können, haben wurden erste Versuche mit dem CC1101 von Texas Instruments gestartet, dessen Treiber bereits in Riot vorhanden war. Parallel dazu haben wir den Treiber für den nrf24l01+ Tranceiver geschrieben. Trotz zweigleisiger Entwicklung ging der Fortschritt nur stockend voran aufgrund der langen Einarbeitungszeit in Riot.
+    Die Wahl des Funkchips stand nach kurzer Recherche fest: Der nrf24l01+ von Nordic Semiconductor. Der Transceiver ist günstig in der Anschaffung, da er im zehner-Pack nur rund 1~Euro pro Stück kostet. Er arbeitet im 2,4GHz ISM-Band, überträgt eine bis zu 2Mbps und ist bereits auf einer handlichen kleinen Platine bestückt. Der Nachteil dieses Funkchips war jedoch die lange Lieferzeit und der Treiber war in Riot OS nicht vorhanden.
+    Um dennoch zügig mit der Entwicklung beginnen zu können, haben wurden erste Versuche mit dem CC1101 von Texas Instruments gestartet, dessen Treiber bereits in Riot vorhanden war. Parallel dazu haben wir den Treiber für den nrf24l01+ Tranceiver geschrieben. Trotz zweigleisiger Entwicklung ging der Fortschritt nur stockend voran aufgrund der langen Einarbeitungszeit in Riot.
 
     \subsection{Erstes Prototyping mit Discovery Boards}
     Um die prinzipielle Funktionsweise überprüfen zu können, haben wir die Transceiver an STM32F3-Discovery Boards angesteckt. Die Discovery Boards sind Evaluationsplatinen für den STM32F3 ARM Prozessor von ST. Die Boards können über den St-Link programmiert werden.

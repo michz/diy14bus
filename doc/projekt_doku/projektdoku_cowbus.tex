@@ -145,17 +145,11 @@
 
     \subsection{Erste Funkübertragung und Messung der Funkreichweite}
         Nach etwa der Hälfte der bisherigen Entwicklungszeit ist in Riot glücklicherweise der Treiber für den nrf24l01+ Chip erschienen. Mit diesem Treiber ist es erstmals gelungen, Pakete mit Riot zu versenden und mit einem anderen Board zu empfangen.
-        
         Der Treiber ist allerdings nicht in die bisherigen Module des Netzwerkstapels integriert worden. Da die Integration zu aufwändig gewesen wäre, wurde auf diesem Treiber aufgebaut und ein eigenes Protokoll entworfen.
- 
 
-    \subsection{ARM Cortex M0: STM32F030C8T6}
-
-        bis zu 48 MHz, Gehäuse LQFP48 (7x7 mm)
-
-    \subsection{Platinendesign}
-
-        RGB-LED, Batterie-/Akkubetrieb oder USB, drei Taster, Board ca 4 cm Radius
+    \subsection{Platinendesign des Prototypes}
+    An dieser Stelle erschienen drei Baustellen. Zum einen sollte ein Prototyp, der cowbus-one, geplant und erstellt werden. Auf einer runden Platine soll ein ARM-Prozessor von ARM, eine RGB-LED, und drei Taster platziert werden. Dafür wurde erst der Schaltplan, dann das Layout erstellt und anschließend die Platine gefertigt und bestückt.
+    Die zweite Baustelle war die Hardware Abstraction Layer (HAL) von Riot OS für unser
 
     \subsection{Zwischenpresentation}
     

@@ -60,10 +60,11 @@
 
     Angefangen hat der cowbus mit der Suche nach einem Projekt für die Vorlesung 
     \enquote{DIY: Personal Fabrication} 2014/2015 von Dr.-Ing. Jürgen Eckert, durch 
-    Michael Zapf und Patrick Kanzler. 
-    Im Rahmen der Veranstaltung hat sich dann ein Team gebildet, um eine günstige, 
-    offene Alternative zu bestehenden Heimbussystemen zu entwickeln. Das Team besteht 
-    aus Michael Zapf, Patrick Kanzler, Josef Schnurrer und Robin Backhaus. 
+    Michael Zapf und Patrick Kanzler. Im Rahmen der Veranstaltung hat sich dann ein 
+    Team gebildet, um eine günstige, offene Alternative zu bestehenden Heimbussystemen 
+    zu entwickeln. Das Team besteht aus Michael Zapf, Patrick Kanzler, Josef Schnurrer 
+    und Robin Backhaus. 
+
     An zentraler Stelle des Projektes steht die Kommunikation zwischen Netzwerkknoten 
     und ein Netzwerkmodell, dass möglichst flexibel erweiterbar und verkleinerbar 
     sein soll. 
@@ -80,58 +81,70 @@
     Meshnetzwerk als optionales Anwendungsbeispiel eine Verbindung zu 
     einer \enquote{OpenHAB}-Instanz aufnehmen können.
 
-\section{Projektablauf und Meilensteine}
+\section{Erstes Brainstorming}
 
-    \subsection{Erstes Brainstorming und Projektplanung}
+    Die Wahl des Projektnamen fiel nicht leicht. Wir haben uns darauf geeinigt, dass 
+    wir das Projekt DIY14BUS nennen und auch so anmelden. Nachdem wir im 
+    Projektverlauf mehr über Technologie und Funktionsumfang festlegen, wollten wir 
+    später einen "richtigen" Namen wählen. Die Wahl viel dann auf cowbus.
 
-        Die Wahl des Projektnamen fiel nicht leicht. Wir haben uns darauf geeinigt, dass 
-        wir das Projekt DIY14BUS nennen und auch so anmelden. Nachdem wir im 
-        Projektverlauf mehr über Technologie und Funktionsumfang festlegen, wollten wir 
-        später einen "richtigen" Namen wählen. Die Wahl viel dann auf cowbus.
+    Über die Implementierung von \enquote{6LoWPAN} waren wir uns nach einem ersten 
+    Brainstorming nicht mehr sicher. Obwohl dies als moderner offener Standard 
+    sehr wünschenswert war, hatten wir aufgrund der begrenzten Projektzeit Bedenken 
+    zu viel Zeit zu verlieren wenn die Implementierung nicht auf Anhieb gelingen 
+    sollte. Vorher ein funktionierendes Mesh-Netzwerk mit den von uns gewünschten 
+    Eigenschaften zu implementieren erschien uns als wichtiger, vor allem um 
+    eigene Erfahrungen zu sammeln. Wir entschieden uns dafür \enquote{6LoWPAN} 
+    nicht sofort zu implementieren, sondern als Option für eine Weiterentwicklung 
+    nach dem Projekt offen zu halten.
 
-        Über die Implementierung von \enquote{6LoWPAN} waren wir uns nach einem ersten 
-        Brainstorming nicht mehr sicher. Obwohl dies als moderner offener Standard 
-        sehr wünschenswert war, hatten wir aufgrund der begrenzten Projektzeit Bedenken 
-        zu viel Zeit zu verlieren wenn die Implementierung nicht auf Anhieb gelingen 
-        sollte. Vorher ein funktionierendes Mesh-Netzwerk mit den von uns gewünschten 
-        Eigenschaften zu implementieren erschien uns als wichtiger, vor allem um 
-        eigene Erfahrungen zu sammeln. Wir entschieden uns dafür \enquote{6LoWPAN} 
-        nicht sofort zu implementieren, sondern als Option für eine Weiterentwicklung 
-        nach dem Projekt offen zu halten.
+    Durch die Konkretisierung unserer Projektziele entschieden wir uns eine 
+    \enquote{proof-of-work}-Herangehensweise zu wählen und als erstes unser 
+    Sensor-Actor-Konzept umzusetzen. Erst im Anschluss sollte ein 
+    Ethernet-Gateway folgen um den Funktionsumfang des cowbus zu erhöhen.
 
-        Durch die Konkretisierung unserer Projektziele entschieden wir uns eine 
-        \enquote{proof-of-work}-Herangehensweise zu wählen und als erstes unser 
-        Sensor-Actor-Konzept umzusetzen. Erst im Anschluss sollte ein 
-        Ethernet-Gateway folgen um den Funktionsumfang des cowbus zu erhöhen.
+\section{Projektplanung}
 
-        Zeitlich haben wir das Projekt in Monate aufgeteilt. Für den restlichen Oktober 
-        gaben wir uns Zeit uns kennen zu lernen, Informationen und Wissen über bestehende 
-        und zu verwendende Technologien auszutauschen und uns in das Thema einzuarbeiten.
+    Zeitlich haben wir das Projekt in Monate aufgeteilt. Für den restlichen Oktober 
+    gaben wir uns Zeit uns kennen zu lernen, Informationen und Wissen über bestehende 
+    und zu verwendende Technologien auszutauschen und uns in das Thema einzuarbeiten.
+    Verwendete Software und Hilfsmittel sollten unter anderen GitHub, KiCad, JLink 
+    und OpenOCD, sowie ein Blog zur Projektdokumentation sein, die für unsere 
+    Projektinfrastruktur vorbereitet wurden.
+    Im November sollten die ersten Tests und Anpassungen von RIOT OS in Verbindung 
+    mit den Discovery-Boards stattfinden um anschließend mit der Planung und einem 
+    Entwurf für unser Mesh-Netzwerk beginnen zu können.
+    Nachdem unsere \enquote{nrf24l01+}-Funkchips angekommen waren sollte im Dezember 
+    die Softwareentwicklung und  Funktests mit Discovery-Boards vorangehen, hier 
+    stießen wir jedoch auf Komplikationen bei der Unterstützung durch RIOT OS. 
+    Während wir dennoch unser erstes Funksignal übertragen konnten, gewannen wir 
+    einen genaueren Überblick, welchen Funktionsumfang wir mit unseren 
+    Sensor-Aktor-Prototypen im Rahmen des Projektes realisieren könnten, was die 
+    Grundlage für das gleichzeitig stattfindende Schaltungslayout und 
+    Platinendesign für unseren Prototypen sein sollte.
+    Im Januar wollten wir die bisherigen Ergebnisse zusammenbringen und  
+    Implementierung und Test der bisherigen Software am Prototypen vorantreiben. 
+    Als Meilenstein nahmen wir uns vor in der Zwischenstandspräsentation erste 
+    Showcases vorführen zu können. Unser Prototyp sollte als der 
+    \enquote{Beispielknoten} gleichzeitig Sensor- (über Druckknöpfe) und 
+    Aktorfunktionalitätten (verschiedene LEDs) haben.
+    Für Februar hatten wir uns vorgenommen das Projekt soweit abzurunden und 
+    unseren Schwerpunkt auf Fehlerbehebungen zu legen. Außerdem steht es noch an 
+    die Arbeit an optionalen Projektzielen fortzuführen. 
 
-        November: Ausprobieren von RIOT OS und Discovery-Boards, Planung und 
-        Entwurf Mesh-Netzwerk.
-        Dezember: Softwareentwicklung, Funktests mit Discovery-Boards, Design Prototyp.
-        Januar: Implementierung und Test am Prototypen (als Sensor und Aktor).
-        Februar: Fehlerbehebung und Arbeit an optionalen Projektzielen. 
-        */
+\section{Kennenlernen von RIOT OS}
 
-    \subsection{Projektinfrastruktur, verwendete Software und Hilfsmittel}
-        
-        GitHub, KiCad, JLink und OpenOCD, Blog
-
-    \subsection{Kennenlernen von RIOT OS}
-
-        Um das Rad nicht neu zu erfinden, bietet es sich an, ein eingebettetes 
-        Betriebssystem auf den Knoten einzusetzen. Relativ früh wurde uns der Tipp 
-        gegeben, "RIOT OS" anzuschauen. \url{http://www.riot-os.org/} 
-        \enquote{The friendly Operating System for the Internet of Things.}
-        RIOT OS ist ein Betriebssystem für den Bereich embedded, welches auf das 
-        Thema Internet of Things optimiert wurde. 
-        Damit bietet es gegenüber Konkurrenten, wie chibiOS oder FreeRTOS den Vorteil, 
-        dass einiges, wie eine saubere Netzwerkkommunikation mit Unterstützung für 
-        IPv6 bereits implementiert ist. 
-        Es soll 6LoWPAN zum Einsatz kommen, um auf den doch relativ schwachen 
-        Knotengeräten Ressourcen zu sparen.
+    Um das Rad nicht neu zu erfinden, bietet es sich an, ein eingebettetes 
+    Betriebssystem auf den Knoten einzusetzen. Relativ früh wurde uns der Tipp 
+    gegeben, "RIOT OS" anzuschauen. \url{http://www.riot-os.org/} 
+    \enquote{The friendly Operating System for the Internet of Things.}
+    RIOT OS ist ein Betriebssystem für den Bereich embedded, welches auf das 
+    Thema Internet of Things optimiert wurde. 
+    Damit bietet es gegenüber Konkurrenten, wie chibiOS oder FreeRTOS den Vorteil, 
+    dass einiges, wie eine saubere Netzwerkkommunikation mit Unterstützung für 
+    IPv6 bereits implementiert ist. 
+    Es soll 6LoWPAN zum Einsatz kommen, um auf den doch relativ schwachen 
+    Knotengeräten Ressourcen zu sparen.
 
         TODO: Multithreading, gut portierbar (Schichtenarchitektur), Lizenz: LGPLv2, c++
 

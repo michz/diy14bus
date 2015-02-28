@@ -81,15 +81,47 @@
 
 \section{Projektablauf und Meilensteine}
 
-    \section{Konkretisierung der Ziele und Projektplanung}
+    \subsection{Erstes Brainstorming und Projektplanung}
 
-        TODO: aus Blogbeitrag Brainstorming und Projektbeginn
+        Die Wahl des Projektnamen fiel nicht leicht. Wir haben uns darauf geeinigt, dass 
+        wir das Projekt DIY14BUS nennen und auch so anmelden. Nachdem wir im 
+        Projektverlauf mehr über Technologie und Funktionsumfang festlegen, wollen wir 
+        einen "richtigen" Namen wählen. Die Wahl viel dann auf cowbus.
+
+        TODO: Festlegung konkreter Ziele.
+
+        TODO: Projektplanung 
+        /*
+        Oktober: Kennenlernen, Wissensaustausch und Einarbeitung in 
+        verwendete Technologien.
+        November: Ausprobieren von RIOT OS und Discovery-Boards, Planung und 
+        Entwurf Mesh-Netzwerk.
+        Dezember: Softwareentwicklung, Funktests mit Discovery-Boards, Design Prototyp.
+        Januar: Implementierung und Test am Prototypen (als Sensor und Aktor).
+        Februar: Fehlerbehebung und Arbeit an optionalen Projektzielen. 
+        */
+
+    \subsection{Projektinfrastruktur, Verwendete Software und Hilfsmittel}
+        
+        GitHub, KiCad, JLink und OpenOCD
 
     \subsection{Kennenlernen von RIOT OS}
 
+        Um das Rad nicht neu zu erfinden, bietet es sich an, ein eingebettetes 
+        Betriebssystem auf den Knoten einzusetzen. Relativ früh wurde uns der Tipp 
+        gegeben, "RIOT OS" anzuschauen. 
+        RIOT OS ist ein Betriebssystem für den Bereich embedded, welches auf das 
+        Thema Internet of Things optimiert wurde. 
+        Damit bietet es gegenüber Konkurrenten, wie chibiOS oder FreeRTOS den Vorteil, 
+        dass einiges, wie eine saubere Netzwerkkommunikation mit Unterstützung für 
+        IPv6 bereits implementiert ist. 
+        Es soll 6LoWPAN zum Einsatz kommen, um auf den doch relativ schwachen 
+        Knotengeräten Ressourcen zu sparen.
+
         \url{http://www.riot-os.org/} \enquote{The friendly Operating System for the 
         Internet of Things.}, Multithreading, gut portierbar (Schichtenarchitektur), 
-        Lizenz: LGPLv2
+        Lizenz: LGPLv2, 
+        c++
 
     \subsection{Funkchip nrf24l01+}
 
@@ -116,9 +148,7 @@
 
 \section{Verwendete Programmiersprachen und Techniken}
 
-\section{Verwendete Software und Hilfsmittel}
 
-    GitHub, KiCad, JLink und OpenOCD
 \section{Aufgetretene Hindernisse und Risiken}
 
 \section{Systemaufbau}

@@ -367,9 +367,72 @@ Die SWD-Funktionalität des Controllers ist in Form einer Cortex-M-Debugschnitts
     Platine, Aufbau, Designentscheidungen, ...
 
 
-\section{Software und System}
-    \subsection{Kommunikationsstruktur: Nachrichtenbasiert, jeder Knoten entscheidet anhand Adresse ob er interessiert ist am Inhalt}
-    \subsection{RIOT - Was, Warum; evtl. auch kritische Auseinandersetzung?}
+\section{Software}
+    Um die Entwicklungszyklen kurz zu halten haben wir uns dafür entschieden
+    ein Betriebssystem einzusetzen, das Grundfunktionalitäten bereits
+    zur Verfügung stellt.
+
+%    \subsection{Kommunikationsstruktur: Nachrichtenbasiert, jeder Knoten entscheidet anhand Adresse ob er interessiert ist am Inhalt}
+    \subsection{RIOT -- The friendly Operating System for the Internet of Things.\cite{RIOT}}
+        RIOT OS möchte ein Betriebssystem für eingebettete Systeme sein,
+        das einfach zu bedienen und ressourcensparend ist und dabei speziell
+        auf Internet-of-Things-Anwendungen abzielt. Es bringt viele Definitionen
+        für verbreitete Entwicklungs- und Prototyping-Boards mit, darunter die
+        STM32F*-Discovery-Serie.
+        Die Abstraktion von hardwareabhängigem Code vom eigentlichen Kernel
+        ermöglicht eine weitgehend getrennte Entwicklung von Funktionalität und
+        Hardwareunterstützung.
+
+        Theoretisch genügt der Austausch des Hardware Abstraction Layers,
+        um den RIOT-Code von einer Plattform auf eine andere zu portieren.
+
+    \subsection{RIOT und cowbus}
+        In der Praxis hat sich diese Abstraktion aber nur als teilweise sauber
+        implementiert herausgestellt. Leider ist vor allem der Netzwerkstapel
+        sehr unübersichtlich aufbaut, nicht sauber getrennt und vor allem kaum
+        dokumentiert. Allein diese Tatsache hat die Entwicklung des cowbus stark
+        verzögert, weil lange nicht klar war, wie viel möglich ist.
+        Prinzipiell bietet RIOT auch Implementierungen für Protokolle oberhalb
+        der MAC-Schicht. So sind z.B. Teile von 802.15.4 sowie diverse
+        Routingprotokolle implementiert. Leider sind vor allem erstgenannte
+        Funktionen nicht sauber getrennt, sondern Funkchip-abhängig in den
+        Code zur Ansteuerung der Netzwerkschnittstelle gemischt, sodass eine
+        Wiederverwendung der Codes kaum sinnvoll möglich ist.
+
+        Der Netzwerkstapel ist zum Zeitpunkt der Fertigstellung dieser
+        Beschreibung allerdings in einem Refactoringprozess,
+        sodass sich das möglicherweise in absehbarer Zeit ändert und nicht
+        abschließend darüber geurteilt werden soll.
+
+        Letztendlich bietet die Nutzung von RIOT als Betriebssystem trotzdem
+        große Vorteile. Vor allem jetzt, nachdem die Portierung auf die eigene
+        Plattform fast abgeschlossen ist, erwarten wir deutlich kürzere
+        Entwicklungszyklen.
+
+    \subsection{Packet Handler}
+        Wir nutzen im Moment nur die unterste Schicht von RIOTs Netzwerkstapel.
+        Sobald ein Paket empfangen wurde, löst der Funkchip einen Interrupt aus,
+        der von RIOTs Packet Handling abgefangen wird. Die Pakete werden in eine
+        Warteschlange geschoben und der Anwendung wird signalisiert,
+        dass ein Paket empfangen wurde.
+        Die Anwendung besitzt einen eigenen Paketempfangsthread,
+        der die Nachrichten aus der Warteschlange abholt und verarbeitet.
+
+
+    \subsection{Kritik}
+        Die Entscheidung, ob ein Betriebssystem zum Einsatz kommt,
+        wurde sehr bald getroffen. Verleitet von den vollmundigen Versprechen,
+        die RIOT auf seiner Homepage macht, schien es die perfekte Lösung für
+        unser Vorhaben zu sein. In der Praxis hat sich sehr schnell gezeigt,
+        dass RIOT nicht so bunt ist, wie es seine eigenen Werbung malt.
+        Anfangs versuchten wir ein CC1101-Funkmodul mit einem
+        STM32F3-Discovery-Board zu betreiben. Wie sich herausstellte,
+        bietet RIOT zwar einen Treiber für das Modul und unterstützt die
+        PLattform an sich, konkret war allerdings kein SPI-Treiber für das Board
+        implementiert. Solche Rückschläge häuften sich und kosteten viel Zeit.
+        Trotz allem hoffen wir, dass sich die Wahl in Zukunft auszahlt und
+        die bestehende Plattform so viel Arbeit abnimmt, dass sich die
+        bisher investierte Zeit auszahlt.
 
 
 \section{Ausblick}
@@ -421,7 +484,6 @@ kritische Auseinandersetzung mit getätigten Design-Entscheidungen
 \clearpage
 * /
 
-\nocite*
 \bibliographystyle{IEEEtran}
 \bibliography{IEEEabrv,projektdoku_cowbus}
 

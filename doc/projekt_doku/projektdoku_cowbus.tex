@@ -85,15 +85,28 @@
 
         Die Wahl des Projektnamen fiel nicht leicht. Wir haben uns darauf geeinigt, dass 
         wir das Projekt DIY14BUS nennen und auch so anmelden. Nachdem wir im 
-        Projektverlauf mehr über Technologie und Funktionsumfang festlegen, wollen wir 
-        einen "richtigen" Namen wählen. Die Wahl viel dann auf cowbus.
+        Projektverlauf mehr über Technologie und Funktionsumfang festlegen, wollten wir 
+        später einen "richtigen" Namen wählen. Die Wahl viel dann auf cowbus.
 
-        TODO: Festlegung konkreter Ziele.
+        Über die Implementierung von \enquote{6LoWPAN} waren wir uns nach einem ersten 
+        Brainstorming nicht mehr sicher. Obwohl dies als moderner offener Standard 
+        sehr wünschenswert war, hatten wir aufgrund der begrenzten Projektzeit Bedenken 
+        zu viel Zeit zu verlieren wenn die Implementierung nicht auf Anhieb gelingen 
+        sollte. Vorher ein funktionierendes Mesh-Netzwerk mit den von uns gewünschten 
+        Eigenschaften zu implementieren erschien uns als wichtiger, vor allem um 
+        eigene Erfahrungen zu sammeln. Wir entschieden uns dafür \enquote{6LoWPAN} 
+        nicht sofort zu implementieren, sondern als Option für eine Weiterentwicklung 
+        nach dem Projekt offen zu halten.
 
-        TODO: Projektplanung 
-        /*
-        Oktober: Kennenlernen, Wissensaustausch und Einarbeitung in 
-        verwendete Technologien.
+        Durch die Konkretisierung unserer Projektziele entschieden wir uns eine 
+        \enquote{proof-of-work}-Herangehensweise zu wählen und als erstes unser 
+        Sensor-Actor-Konzept umzusetzen. Erst im Anschluss sollte ein 
+        Ethernet-Gateway folgen um den Funktionsumfang des cowbus zu erhöhen.
+
+        Zeitlich haben wir das Projekt in Monate aufgeteilt. Für den restlichen Oktober 
+        gaben wir uns Zeit uns kennen zu lernen, Informationen und Wissen über bestehende 
+        und zu verwendende Technologien auszutauschen und uns in das Thema einzuarbeiten.
+
         November: Ausprobieren von RIOT OS und Discovery-Boards, Planung und 
         Entwurf Mesh-Netzwerk.
         Dezember: Softwareentwicklung, Funktests mit Discovery-Boards, Design Prototyp.
@@ -101,15 +114,16 @@
         Februar: Fehlerbehebung und Arbeit an optionalen Projektzielen. 
         */
 
-    \subsection{Projektinfrastruktur, Verwendete Software und Hilfsmittel}
+    \subsection{Projektinfrastruktur, verwendete Software und Hilfsmittel}
         
-        GitHub, KiCad, JLink und OpenOCD
+        GitHub, KiCad, JLink und OpenOCD, Blog
 
     \subsection{Kennenlernen von RIOT OS}
 
         Um das Rad nicht neu zu erfinden, bietet es sich an, ein eingebettetes 
         Betriebssystem auf den Knoten einzusetzen. Relativ früh wurde uns der Tipp 
-        gegeben, "RIOT OS" anzuschauen. 
+        gegeben, "RIOT OS" anzuschauen. \url{http://www.riot-os.org/} 
+        \enquote{The friendly Operating System for the Internet of Things.}
         RIOT OS ist ein Betriebssystem für den Bereich embedded, welches auf das 
         Thema Internet of Things optimiert wurde. 
         Damit bietet es gegenüber Konkurrenten, wie chibiOS oder FreeRTOS den Vorteil, 
@@ -118,10 +132,7 @@
         Es soll 6LoWPAN zum Einsatz kommen, um auf den doch relativ schwachen 
         Knotengeräten Ressourcen zu sparen.
 
-        \url{http://www.riot-os.org/} \enquote{The friendly Operating System for the 
-        Internet of Things.}, Multithreading, gut portierbar (Schichtenarchitektur), 
-        Lizenz: LGPLv2, 
-        c++
+        TODO: Multithreading, gut portierbar (Schichtenarchitektur), Lizenz: LGPLv2, c++
 
     \subsection{Funkchip nrf24l01+}
 
@@ -376,8 +387,10 @@ kritische Auseinandersetzung mit getätigten Design-Entscheidungen
 \section*{Abkürzungen}
 \renewcommand{\IEEEiedlistdecl}{\IEEEsetlabelwidth{CSMA/CA}}
 \begin{acronym}
+    \acro{6LoWPAN}{IPv6 over Low power Wireless Personal Area Network}
     \acro{CSMA/CA}{Carrier Sense Multiple Access with Collision Avoidance}
     \acro{LAN}{Local Area Network}
+    \acro{openHAB}{open Home Automation Bus}
 \end{acronym}
 \renewcommand{\IEEEiedlistdecl}{\relax}% remember to reset \IEEEiedlistdecl
 

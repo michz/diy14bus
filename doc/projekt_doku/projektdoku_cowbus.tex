@@ -11,6 +11,7 @@
 
 \long\def\comment / *#1* /{}
 
+\hyphenation{Zei-chen}
 
 \begin{document}
 
@@ -135,16 +136,18 @@
         TODO: Multithreading, gut portierbar (Schichtenarchitektur), Lizenz: LGPLv2, c++
 
     \subsection{Funkchip nrf24l01+}
-
-        2,4 GHz (ISM-Band), bis zu 2 Mbps, handliches Modul
+        Die Wahl des Funkchips stand nach kurzer Recherche fest: Der nrf24l01+ von Nordic Semiconductor. Der Transceiver ist günstig in der Anschaffung, da er im zehner-Pack nur rund 1~Euro pro Stück kostet. Er arbeitet im 2,4GHz ISM-Band, überträgt eine bis zu 2Mbps und ist bereits auf einer handlichen kleinen Platine bestückt. Der Nachteil dieses Funkchips war jedoch die lange Lieferzeit und der Treiber war in Riot OS nicht vorhanden.
+        Um dennoch zügig mit der Entwicklung beginnen zu können, haben wurden erste Versuche mit dem CC1101 von Texas Instruments gestartet, dessen Treiber bereits in Riot vorhanden war. Parallel dazu haben wir den Treiber für den nrf24l01+ Tranceiver geschrieben. Trotz zweigleisiger Entwicklung ging der Fortschritt nur stockend voran aufgrund der langen Einarbeitungszeit in Riot.
 
     \subsection{Erstes Prototyping mit Discovery Boards}
-
-
+    Um die prinzipielle Funktionsweise überprüfen zu können, haben wir die Transceiver an STM32F3-Discovery Boards angesteckt. Die Discovery Boards sind Evaluationsplatinen für den STM32F3 ARM Prozessor von ST. Die Boards können über den St-Link programmiert werden.
+    Zwar werden die Discovery-Boards von Riot bereits unterstützt, jedoch war für das F3-Board der SPI-Treiber zur Kommunikation mit dem Funk-Modul nicht implementiert und musste mit Hilfe der Implementierungen der anderen unterstützten Boards implementiert werden.
 
     \subsection{Erste Funkübertragung und Messung der Funkreichweite}
-
-
+        Nach etwa der Hälfte der bisherigen Entwicklungszeit ist in Riot glücklicherweise der Treiber für den nrf24l01+ Chip erschienen. Mit diesem Treiber ist es erstmals gelungen, Pakete mit Riot zu versenden und mit einem anderen Board zu empfangen.
+        
+        Der Treiber ist allerdings nicht in die bisherigen Module des Netzwerkstapels integriert worden. Da die Integration zu aufwändig gewesen wäre, wurde auf diesem Treiber aufgebaut und ein eigenes Protokoll entworfen.
+ 
 
     \subsection{ARM Cortex M0: STM32F030C8T6}
 
@@ -446,23 +449,23 @@ Die SWD-Funktionalität des Controllers ist in Form einer Cortex-M-Debugschnitts
         auf einem Discovery-Board getestet werden müssen, sondern direkt auf
         der Zielhardware laufen können.
 
-    \subsection{CSMA/CA}
+    \subsection{Medienzugriffsverfahren}
     Im aktuellen Stand der Entwicklung ist der Zugriff auf das Funkmedium in keiner Weise koordiniert. Sobald ein Knoten Daten zum versckicken hat, sendet er sie auch aufs Funkmedium. 
 
     Da auf das Funkmedium mehrere Knoten gleichzeitig zugreifen, ist ein Medienzugriffsverfahren notwendig. Diese beschreiben den Ablauf des Kanalzugriffs und können somit Konflikten vorbeugen oder diese zuindest erkennen und eine Lösung dafür einleiten. Ein Verfahren, das Konflikte vorbeugen soll ist Carrier Sense Multiple Access with Collision Avoidance (CSMA/CA, dt.: Mehrfachzugriff mit Trägerprüfung und Kollisionsvermeidung). CSMA/CA ist für ein paketvermitteltes lokales Netzwerk mit unregelmäßigem Datenaustausch aller Teilnehmer konzipiert worden. Dies entspricht auch diesem Anwendungsfall.
-    Der Mehrfachzugriff mittels CSMA/CAVerfahren auf ein Medium beinhaltet das Carrier Sensing (dt. Trägerpfüfung). Dies bedeutet, dass ein sender lauscht, ob der Kanal frei sit, bevor er sendet. Der Sender wartet, falls ein zweiter Teilnehmer sendet, bis dieser seine Daten verschickt hat. Der Sender beginnt nicht sofort im Anschluss das Senden. Hierbei wäre die Gefahr zu groß, dass andere Teilnehmer, die ebenfalls auf die Freigabe des Funkkanals gewartet haben, mit ihm gleichzeitig das Senden beginnen. Der Teilnehmer, der senden möchte wartet in diesem Fall ein zufälliges Zeitintervall und empfängt nach dieser Zeit erneut. Ist der Kanal dann belgt, wartet er erneut eine zufällige Zeit. Ist der Kanal bei Ablauf der zufälligen Zeit frei, so sendet er.
+    Der Mehrfachzugriff mittels CSMA/CA Verfahren auf ein Medium beinhaltet das Carrier Sensing (dt. Trägerpfüfung). Dies bedeutet, dass ein sender lauscht, ob der Kanal frei sit, bevor er sendet. Der Sender wartet, falls ein zweiter Teilnehmer sendet, bis dieser seine Daten verschickt hat. Der Sender beginnt nicht sofort im Anschluss das Senden. Hierbei wäre die Gefahr zu groß, dass andere Teilnehmer, die ebenfalls auf die Freigabe des Funkkanals gewartet haben, mit ihm gleichzeitig das Senden beginnen. Der Teilnehmer, der senden möchte wartet in diesem Fall ein zufälliges Zeitintervall und empfängt nach dieser Zeit erneut. Ist der Kanal dann belgt, wartet er erneut eine zufällige Zeit. Ist der Kanal bei Ablauf der zufälligen Zeit frei, so sendet er.
     Die Besonderheit des CSMA/CA Verfahrens stellt die Kollisionsvermeidung dar. Steht ein Rahmen zur Übertragung an, so wird geprüft, ob das Medium belegt ist. Ist es frei, so wird der Rahmen nach einem kurzen Zeitraum, der als DIFS (Distributed Inter-Frame Space) bezeichnet wird, gesendet. DIFS stellt den minimalen zeitlichen Abstand zwischen zwei esendeten Datenrahmen auf einem Übertragungsmedium dar. Ist der Kanal jedoch belegt, wählt die Station eine zufällige Wartezeit. Diese wird heruntergezählt, sobald der Kanal frei ist. Während anderer Übertragungen bleibt diese Zeit eingefroren. Soald ei Zeit abläuft wird der gesamte Rahmen übertragen. 
     Obwohl zwei Teilnehmer gleichzeitig das Medium als frei detektieren und das Senden anfangen, können sich deren Daten bei einem dritten Teilnehmer überlagern und unbrauchbar werden. Bei gezielter Übertragung an einen Nachbarn kann an dieser Stelle auf eine Empfangsbestätigung gewartet werden und der Rahmen erneut gesendet werden, falls diese nicht eintrifft. In unserem Netz ist es bislang jedoch noch nicht vorgesehen, dass ein Knoten seine Nachbarn kennt oder auf Empfangsbestätigungen wartet. 
 
-    \subsection{Payloadkompression}
+    \subsection{Kompression der Payload}
     Codierung der Zeichen in der Payload: 
-    In der Payload sollen bei den Pakettypen get\_name und set\_name für den menschen lesbare Buchstaben als Name eines Knoten übertragen werden. Bei unkomprimierter Übertragung mittels Ascii Zeichen, also 8-Bit pro Zeichen, wären bei einer maximalen Payload von 208-Bit nur 26 Zeichen möglich. Zur Kompression des Knotennamens gibt es hier im Allgemeinen zwei Möglichkeiten. Zum einen können aufgrund der Buchstabenwahrscheinlichkeit in einer bestimmten Sprache ein oder mehrere Buchstaben durch Symbole ersetzt werden (z.B. mittels Huffmann oder Vektor-Huffman Codierung). Bei diesem Verfahren entstehen allerdings bei gleich langen Namen unterschiedlich lange Paylods. Da die maximale Anzahl von Buchstaben nicht mit den Buchstaben selbst variieren soll, ist dieses Verfahren ungeeignet. Die zweite Möglichkeit ist die Anzahl an möglichen Zeichen beschränken. Es sind für Namen von Knoten also nur noch Zahlen, Buchstaben und 4 Sonderzeichen (Null-Terminator, Leerzeichen, at-Zeichen, Unterstrich) zugelassen. Dies ergibt 40 Zustände pro Zeichen, die wir als gleich wahrscheinlich annehmen. Bei 40 möglichen Zuständen ergibt sich ein Informationsgehalt von $log_{2}(40) = 5,32 bit$. Für drei Zeichen ergibt sich ein Informationsgehalt von $log_{2}(40^3) = 5,32 \cdot 3 bit < 16 Bit$. Es können also 3 Zeichen in 2 Byte codiert werden. Mit 8-Bit pro Zeichen wären in der Payload 26 Zeichen möglich gewesen, mit Reduzierung der Zustände sind nun 39 Zeichen möglich.
-    Anschaulich gesehen ergeben sich mit 40 Möglichkeiten pro Zeichen bei 3 Zeichen $40^3 = 64000$ Möglichkeiten. Mit 16 Bit können 65536 Zustände abgebildet werden. 
-    Es werden drei ZeichenZeichen ($x_{1}$, $x_{2}$, $x_{3}$) in ein Symbol gepackt. Dieses Symbol kann durch folgendes Polynom berechnet werden:
+    In der Payload sollen bei den Pakettypen get\_name und set\_name für den menschen lesbare Buchstaben als Name eines Knoten übertragen werden. Bei unkomprimierter Übertragung mittels Ascii Zeichen, also 8~Bit pro Zeichen, wären bei einer maximalen Payload von 208~Bit nur 26~Zeichen möglich. Zur Kompression des Knotennamens gibt es hier im Allgemeinen zwei Möglichkeiten. Zum einen können aufgrund der Buchstabenwahrscheinlichkeit in einer bestimmten Sprache ein oder mehrere Buchstaben durch Symbole ersetzt werden (z.B. mittels Huffmann oder Vektor-Huffman Codierung). Bei diesem Verfahren entstehen allerdings bei gleich langen Namen unterschiedlich lange Paylods. Da die maximale Anzahl von Buchstaben nicht mit den Buchstaben selbst variieren soll, ist dieses Verfahren ungeeignet. Die zweite Möglichkeit ist die Anzahl an möglichen Zeichen beschränken. Es sind für Namen von Knoten also nur noch Zahlen, Buchstaben und 4~Sonderzeichen (Null-Terminator, Leerzeichen, at-Zeichen, Unterstrich) zugelassen. Dies ergibt 40~Zustände pro Zeichen, die wir als gleich wahrscheinlich annehmen. Bei 40~möglichen Zuständen ergibt sich ein Informationsgehalt von $$log_{2}(40) = 5,32~bit$$. Für drei Zeichen ergibt sich ein Informationsgehalt von $$log_{2}(40^3) = 5,32 \cdot 3~bit < 16~Bit.$$ Es können also 3~Zeichen in 2~Byte codiert werden. Mit 8~Bit pro Zeichen wären in der Payload 26 Zeichen möglich gewesen, mit Reduzierung der Zustände sind nun 39~Zeichen möglich.
+    Anschaulich gesehen ergeben sich mit 40~Möglichkeiten pro Zeichen bei 3 Zeichen $40^3 = 64000$ Möglichkeiten. Mit 16~Bit können 65536~Zustände abgebildet werden. 
+    Es werden drei Zeichen ($x_{1}$, $x_{2}$, $x_{3}$) in ein Symbol gepackt. Dieses Symbol kann durch folgendes Polynom berechnet werden:
     $$Symbol = x_{1} \cdot 40^{0} + x_{2} \cdot 40^{1} + x_{3} \cdot 40^{2}$$
-    - Die Decodierung erfolgt über folgende Gleichungen:
+    Die Decodierung erfolgt über folgende Gleichungen:
 
-    $$x_{1}=Symbol \% 20$$
+    $$x_{1}=Symbol \,\, \% 20$$
 
     $$x_{2} = \frac{Symbol - x_{1}}{40} \% 40$$
     

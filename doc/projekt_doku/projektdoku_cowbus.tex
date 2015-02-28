@@ -438,16 +438,29 @@ Die SWD-Funktionalität des Controllers ist in Form einer Cortex-M-Debugschnitts
 \section{Ausblick}
     Zum jetzigen Zeitpunkt existieren in erster Linie Einzelteile,
     die gemeinsam betrachtet aufzeigen, welche Möglichkeiten sich bieten
-    und lassen Potential erahnen.
+    und Potential erahnen lassen.
 
     \subsection{Hardware}
         Der nächste Schritt wird die vollständige Inbetriebnahme der eigenen
         Prototyp-Schaltung sein, sodass zukünftige Entwicklungen nicht mehr
         auf einem Discovery-Board getestet werden müssen, sondern direkt auf
         der Zielhardware laufen können.
-    
-    \subsection{CSMA/CA}
 
+    \subsection{CSMA/CA}
+        Zur Zeit ist der Zugriff auf das Funkmedium in keiner Weise koordiniert.
+        Wer senden möchte, sendet. Sobald relevanter Verkehr auftritt führt
+        dieses Verhalten aber zu einer untragbar großen Kollisionsrate.
+        Da bisher keinerlei Bestätigungsmechanismen vorgesehen sind,
+        ist dies ein wirklich problematischer Punkt,
+        da verlorene Pakete nicht erkannt werden.
+
+        Die Idee ist als Medienzugriffsverfahren eine Art \ac{CSMA/CA}
+        einzusetzen. Dabei wird der Kanal zunächst abgehört, ob er belegt ist.
+        Bevor dann tatsächlich gesendet wird, wird eine zufällige Backoff-Zeit
+        abgewartet. Nur wenn der Kanal dann immer noch frei ist,
+        wird tatsächlich gesendet.
+        So ist es möglich, die Wahrscheinlichkeit von Kollisionen
+        erheblich zu senken.
 
 
     \subsection{Payloadkompression}

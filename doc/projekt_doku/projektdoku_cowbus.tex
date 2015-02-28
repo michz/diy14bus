@@ -319,9 +319,13 @@ Dies ist im Rahmen dieses Projektes nicht umsetzbar.
 
 Aus diesem Grund wurde eine Energieversorgung per Batterie umgesetzt.
 Dazu kommt der Boost-Converter TPS61221 von \emph{Texas Instruments} zum Einsatz.
+Dieser zeichnet sich durch einen niedrigen Ruhestrom von $0,5 \mathrm{\mu A}$ aus.
 
-
-Batterie, 5V-Versorgung, 5V hat Designfehler
+Die Planung sah vor, die Schaltung auch optional über USB zu versorgen.
+Dieser Zustand ist über Jumperstellungen auswählbar.
+Das Datenblatt des Wandlers wurde dazu fehlerhaft interpretiert, da dieser nur 5V-tolerant ist.
+Damit ist es in der aktuellen Hardware-Revision nicht möglich die Baugruppe über USB zu versorgen.
+Als Abhilfe ist für die nächste Revision ein LDO-Regler vorgesehen.
 
 \subsubsection{Prozessor}
 

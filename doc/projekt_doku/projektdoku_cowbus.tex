@@ -455,8 +455,17 @@ Was geplant ist: CSMA/CA, ...;
     $$x_{3} = \frac{Symbol - (x_{1} + x_{2} \cdot 40)}{40} (\% 40)$$
 
     \subsection{Routing}
-        
+        Damit die Nachrichten, die ein Knoten losschickt, auch ihr Ziel erreichen ist eine Wegewahl und damit eine Strategie zur Weiterleitung der Pakete erforderlich. Ein Sensor schickt jedoch nur seine Zustandsänderung ins Netz. Welcher und wie viele Aktoren auf diese Nachricht reagieren weiß der Sensor jedoch nicht. Die Nachricht muss daher alle Knoten erreichen, mit anderen Worten: es gibt nur Broadcast-Nachrichten.
         *jeder leitet jedes Paket einmal weiter und merkt sich den Header des Paketes, damit er es kein zweites Mal weiter leitet
+
+    \subsection{Verschlüsselung}
+        
+        * STM32 Cryptographic Library
+        * in C geschrieben
+        * AES mit 128, 192 und 256 bit Schlüssellänge u.a.
+        * wird von STM angeboten
+
+
 
 
 kritische Auseinandersetzung mit getätigten Design-Entscheidungen

@@ -34,10 +34,10 @@
     kaum noch herum kommt. Der moderne Mensch möchte sein Zuhause vernetzen.
     Lichtschalter sind nicht mehr nur noch passive Komponenten in einer
     Elektroinstallation, sie sind aktive Kommunikationspartner in einem großen Netz.
-
     Das Licht wird nicht nur am Schalter, sondern bequem von der Couch aus mit dem
-    Smartphone geschalten, eingehende E-Mails erscheinen nebenbei im Fernsehbild,
-    die Verdunklung fährt automatisch herunter sobald die Sonne blendet --
+    Smartphone, automatisch durch Sensoren oder zu einer bestimmten Uhrzeit geschalt. 
+    Eingehende E-Mails erscheinen nebenbei im Fernsehbild, die Verdunklung fährt 
+    automatisch herunter sobald die Sonne blendet --
     all das ist keine Science Fiction mehr sondern längst Realität.
 
 \section{Motivaton}
@@ -55,18 +55,29 @@
     und es ermöglichen bereits bestehende und neue externe Anwendungen mit dem 
     cowbus zu verbinden.
 
-\section{Projektziele und Ideen}
+\section{Projektidee und -ziele}
 
-    An zentraler Stelle des Projektes steht die Kommunikation zwischen den 
-    Netzwerkknoten und ein Netzwerkmodell, dass möglichst flexibel erweiterbar 
-    und verkleinerbar sein soll.
+    Angefangen hat der cowbus mit der Suche nach einem Projekt für die Vorlesung 
+    \enquote{DIY: Personal Fabrication} 2014/2015 von Dr.-Ing. Jürgen Eckert, durch 
+    Michael Zapf und Patrick Kanzler. 
+    Im Rahmen der Veranstaltung hat sich dann ein Team gebildet, um eine günstige, 
+    offene Alternative zu bestehenden Heimbussystemen zu entwickeln. Das Team besteht 
+    aus Michael Zapf, Patrick Kanzler, Josef Schnurrer und Robin Backhaus. 
+    An zentraler Stelle des Projektes steht die Kommunikation zwischen Netzwerkknoten 
+    und ein Netzwerkmodell, dass möglichst flexibel erweiterbar und verkleinerbar 
+    sein soll. 
     Dazu wird ein drahtloses Mesh-Netzwerk mit dezentraler Organisation implementiert 
-    und an Beispiel-Sensoren und -Aktoren getestet. Optional könnte nach ersten 
-    Funktionstests der ausgewählten Hardware oder im Anschluss an die erfolgreiche 
-    Implementierung eines Netzwerkes der Standart \enquote{6LoWPAN} implementiert werden. 
-    Als dritte Komponente neben Aktoren und Sensoren soll ein Ethernet-Gateway 
-    implementiert werden. Als optionales Anwendungsbeispiel würde sich \enquote{OpenHAB} 
-    besonders eignen.
+    und an Beispiel-Sensoren und -Aktoren getestet. 
+    Als besonderes Merkmal soll das System aus einzelnen, kostengünstigen, sich 
+    selbst vermaschenden Knoten bestehen.
+    Die Sensoren und Aktoren sollen Ereignisse erzeugen und darauf reagieren können. 
+    Optional könnte nach ersten Funktionstests der ausgewählten Hardware oder im 
+    Anschluss an die erfolgreiche Implementierung eines Netzwerkes der Standart 
+    \enquote{6LoWPAN} implementiert werden. 
+    Um keine unbrauchbare Insellösung zu entwickeln, soll neben den Aktoren und 
+    Sensoren ein Ethernet-Gateway implementiert werden. Durch dieses soll das 
+    Meshnetzwerk als optionales Anwendungsbeispiel eine Verbindung zu 
+    einer \enquote{OpenHAB}-Instanz aufnehmen können.
 
 \section{Projektablauf und Meilensteine}
 

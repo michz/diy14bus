@@ -306,7 +306,7 @@ Das heißt sie muss sowohl die Anforderungen an einen Sensorknoten (\ref{Sensork
 
 \subsection{Umsetzung des Prototypen}
 
-* Wahl des Funkchips (hier 32-Byte Beschränkung, GFSK und Frequenzbänder/Bandbreiten)
+
 \subsubsection{Energieversorgung}
 Eine der Anforderungen ist die Möglichkeit das Board in einer Unterputzdose zu montieren.
 Damit gibt es zwei Möglichkeiten der Energieversorgung.
@@ -325,18 +325,33 @@ Die Planung sah vor, die Schaltung auch optional über USB zu versorgen.
 Dieser Zustand ist über Jumperstellungen auswählbar.
 Das Datenblatt des Wandlers wurde dazu fehlerhaft interpretiert, da dieser nur 5V-tolerant ist.
 Damit ist es in der aktuellen Hardware-Revision nicht möglich die Baugruppe über USB zu versorgen.
-Als Abhilfe ist für die nächste Revision ein LDO-Regler vorgesehen.
+Als Abhilfe ist für die nächste Revision ein zusätzlicher LDO-Regler vorgesehen.
 
 \subsubsection{Prozessor}
+Die Wahl eines geeigneten Mikrocontrollers wurde früh auf 32bit-Architekturen eingeschränkt.
+Am heutigen Markt ist der preisliche Unterschied nahezu irrelevant.
+Zudem ist die Rechnenleistung der \enquote{größeren} Plattformen meist besser.
+
+gewählter Chip STM32F030C8T6, genügend (ZAHL) RAM, Takt hoch, günstig, Toolchain gut.
+
+Auch auf Discoveryboard verfügbar --> Entwicklungsstart ohne Platine
+
+RIOT-Unterstützung
 
 \subsubsection{Funkmodul}
+* Wahl des Funkchips (hier 32-Byte Beschränkung, GFSK und Frequenzbänder/Bandbreiten)
 
 \subsubsection{Peripherie}
-*Wahl des Prozessors
+Gemäß den Anforderungen ist der Prototyp mit entsprechender Peripherie bestückt.
+Zum einen sind drei Taster angeschlossen, um einen grundlegenden Sensor zu modellieren.
+Zum anderen befindet sich auf dem Board eine RGB-LED, welche eine primitive Form eines Aktors darstellt.
 
-*Wahl fiel auf STM, weil 8bit zu wenig Dampf hat, ARM hat solide Toolchain
+Für zukünftige Features ist ein Summer vorgesehen.
+Dieser wird mit einem N-MOSFET angeschalten.
+Der Summer ist dazu vorgesehen, einzelne Knoten während der Konfiguration zu erkennen.
 
-*weiterer Vorteil: Discovery-Boards günstig, um sofort mit der Entwicklung anzufangen
+Um Daten wie die Konfiguration des Knotens dauerhaft zu speichern, ist an den Mikrocontroller ein EEPROM über SPI angeschlossen.
+Die SWD-Funktionalität des Controllers ist in Form einer Cortex-M-Debugschnittstelle herausgeführt.
 
 
 

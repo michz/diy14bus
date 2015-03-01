@@ -517,19 +517,10 @@ Die SWD-Funktionalität des Controllers ist in Form einer Cortex-M-Debugschnitts
     \acs{CSMA/CA} ist für ein paketvermitteltes lokales Netzwerk mit unregelmäßigem 
     Datenaustausch aller Teilnehmer konzipiert worden. Dies entspricht auch 
     diesem Anwendungsfall.
-    Der Mehrfachzugriff mittels \acs{CSMA/CA}-Verfahren auf ein Medium beinhaltet das 
-    Carrier Sensing (dt. Trägerprüfung). Dies bedeutet, dass ein Sender lauscht, 
-    ob der Kanal frei ist, bevor er sendet. Der Sender wartet, falls ein zweiter 
-    Teilnehmer sendet, bis dieser seine Daten verschickt hat. Der Sender beginnt 
-    nicht sofort im Anschluss das Senden. Hierbei wäre die Gefahr zu groß, dass 
-    andere Teilnehmer, die ebenfalls auf die Freigabe des Funkkanals gewartet 
-    haben, mit ihm gleichzeitig das Senden beginnen. Der Teilnehmer, der senden 
-    möchte wartet in diesem Fall ein zufälliges Zeitintervall und empfängt nach 
-    dieser Zeit erneut. Ist der Kanal dann belegt, wartet er erneut eine 
-    zufällige Zeit. Ist der Kanal bei Ablauf der zufälligen Zeit frei, so sendet 
-    er.
+
     Die Besonderheit des \acs{CSMA/CA}-Verfahrens stellt die Kollisionsvermeidung dar. 
-    Steht ein Rahmen zur Übertragung an, so wird geprüft, ob das Medium belegt 
+    Steht ein Rahmen zur Übertragung an, so wird mittels
+    \emph{Carrier Sensing} (dt. Trägerprüfung) geprüft, ob das Medium belegt 
     ist. Ist es frei, so wird der Rahmen nach einem kurzen Zeitraum, der als 
     DIFS (Distributed Inter-Frame Space) bezeichnet wird, gesendet. DIFS stellt 
     den minimalen zeitlichen Abstand zwischen zwei gesendeten Datenrahmen auf 
@@ -537,7 +528,7 @@ Die SWD-Funktionalität des Controllers ist in Form einer Cortex-M-Debugschnitts
     eine zufällige Wartezeit. Diese wird heruntergezählt, sobald der Kanal frei 
     ist. Während anderer Übertragungen bleibt diese Zeit eingefroren. Sobald die 
     Zeit abläuft wird der gesamte Rahmen übertragen. 
-    Obwohl zwei Teilnehmer gleichzeitig das Medium als frei detektieren und das 
+    Wenn zwei Teilnehmer gleichzeitig das Medium als frei detektieren und das 
     Senden anfangen, können sich deren Daten bei einem dritten Teilnehmer 
     überlagern und unbrauchbar werden. Bei gezielter Übertragung an einen 
     Nachbarn kann an dieser Stelle auf eine Empfangsbestätigung gewartet werden 

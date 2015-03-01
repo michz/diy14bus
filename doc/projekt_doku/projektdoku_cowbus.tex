@@ -31,7 +31,6 @@
 Auf einem STM32F0 Microcontroller mit dem Funkchip \emph{nrf24l01+} soll mit Hilfe des Betriebssystems RIOT OS ein offener Bus für die Heimautomatisierung realisiert werden. Die Knoten kommunizieren dabei im 2,4\,GHz ISM-Band miteinander. Ziele sind preisgünstige Komponenten, einfache Erweiterbarkeit in Soft- und Hardware und die Integration in openHab.
 \end{abstract}
 
-\todo[inline]{RIOT und RIOT OS überall gleich schreiben, (auf Website nach exakter Schreibweise kucken)}
 \section{Einleitung}
     \enquote{Smart Home} ist ein Schlagwort, um das man im 21. Jahrhundert
     kaum noch herum kommt. Der moderne Mensch möchte sein Zuhause vernetzen.
@@ -198,7 +197,7 @@ Auf einem STM32F0 Microcontroller mit dem Funkchip \emph{nrf24l01+} soll mit Hil
     ein ARM-Prozessor von ARM, eine RGB-LED, und drei Taster platziert werden. 
     Dafür wurde erst der Schaltplan, dann das Layout erstellt und anschließend 
     die Platine gefertigt und bestückt.
-    Die zweite Baustelle war die Hardware Abstraction Layer (HAL) von Riot OS 
+    Die zweite Baustelle war die Hardware Abstraction Layer (HAL) von RIOT OS 
     für unseren Prototypen. Als drittes sollte das entworfene Protokoll 
     implementiert werden, das im weiteren im Detail beschrieben wird.
 
@@ -463,7 +462,7 @@ Die SWD-Funktionalität des Controllers ist in Form einer Cortex-M-Debugschnitts
         die RIOT auf seiner Homepage macht, schien es die perfekte Lösung für
         unser Vorhaben zu sein. In der Praxis hat sich sehr schnell gezeigt,
         dass RIOT nicht so bunt ist, wie es seine eigenen Werbung malt.
-        Anfangs versuchten wir ein CC1101-Funkmodul mit einem
+        Anfangs versuchten wir ein \emph{CC1101}"~Funkmodul mit einem
         STM32F3-Discovery-Board zu betreiben. Wie sich herausstellte,
         bietet RIOT zwar einen Treiber für das Modul und unterstützt die
         PLattform an sich, konkret war allerdings kein SPI-Treiber für das Board

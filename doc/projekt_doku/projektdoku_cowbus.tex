@@ -42,7 +42,7 @@ Auf einem STM32F0 Microcontroller mit dem Funkchip nrf24l01+ soll mit Hilfe des 
     all das ist keine Science Fiction mehr sondern längst Realität.
 
 \section{Motivaton}
-    Die meißten erhältlichen \enquote{Smart Home}-Lösungen sind teuer und nicht offen.
+    Die meisten erhältlichen \enquote{Smart Home}-Lösungen sind teuer und nicht offen.
     Da die Beliebtheit solcher Systeme immer größer wird, wäre eine größere 
     Zugänglichkeit durch günstige Alternativen und langfristige Sicherheit, 
     sowie mehr Kontrolle für und durch den Anwender wünschenswert.
@@ -193,15 +193,6 @@ Auf einem STM32F0 Microcontroller mit dem Funkchip nrf24l01+ soll mit Hilfe des 
     implementiert werden, das im weiteren im Detail beschrieben wird.
 
  %   \subsection{Zwischenpresentation}
-    
-
-%\section{Verwendete Programmiersprachen und Techniken}
-%\todo{rausnehmen oder was schreiben}
-%Schichtenaufbau und C oder was könnte hier hin?
-
-%\section{Aufgetretene Hindernisse und Risiken}
-%\todo{rausnehmen oder was schreiben}
-%die sind an entsprechender Stelle schon erwähnt
 
 \section{Systemaufbau}
     \todo{Einleitung}
@@ -333,7 +324,7 @@ Auf einem STM32F0 Microcontroller mit dem Funkchip nrf24l01+ soll mit Hilfe des 
                 \item ping\_answer: Antwort auf ping-Nachricht
                 \item set\_name: Den Namen eines Knotens festlegen
             \end{itemize}
-            \item 1-Bit "is frag": dies ist ein einzelnes Bit, das gesetzt ist, falls es sich um eine aufgeteilte Nachricht handelt. Der Fragment Header wird an den Anfang der Payload gesetzt.
+            \item 1-Bit \enquote{is frag}: dies ist ein einzelnes Bit, das gesetzt ist, falls es sich um eine aufgeteilte Nachricht handelt. Der Fragment Header wird an den Anfang der Payload gesetzt.
             \item 208-Bit Payload, das sind 26 Byte
             \item 16-Bit CRC
         \end{itemize}

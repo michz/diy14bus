@@ -26,7 +26,7 @@
 \maketitle
 
 \begin{abstract}
-Auf einem STM32F0 Microcontroller mit dem Funkchip nrf24l01+ soll mit Hilfe des Betriebssystems Riot OS ein offener Bus für die Heimautomatisierung realisiert werden. Die Knoten kommunizieren dabei im 2,4\,GHz ISM-Band miteinander. Ziele sind preisgünstige Komponenten, einfache Erweiterbarkeit in Soft- und Hardware und die Integration in openHab.
+Auf einem STM32F0 Microcontroller mit dem Funkchip nrf24l01+ soll mit Hilfe des Betriebssystems RIOT OS ein offener Bus für die Heimautomatisierung realisiert werden. Die Knoten kommunizieren dabei im 2,4\,GHz ISM-Band miteinander. Ziele sind preisgünstige Komponenten, einfache Erweiterbarkeit in Soft- und Hardware und die Integration in openHab.
 \end{abstract}
 
 \todo[inline]{RIOT und RIOT OS überall gleich schreiben, (auf Website nach exakter Schreibweise kucken)}
@@ -146,12 +146,12 @@ Auf einem STM32F0 Microcontroller mit dem Funkchip nrf24l01+ soll mit Hilfe des 
     IPv6 bereits implementiert ist. 
     Es soll 6LoWPAN zum Einsatz kommen, um auf den doch relativ schwachen 
     Knotengeräten Ressourcen zu sparen.
-    Riot OS unterstützt Multithreading und ist aufgrund seiner Schichtenarchitektur
+    RIOT OS unterstützt Multithreading und ist aufgrund seiner Schichtenarchitektur
     gut portierbar. Eine Anwendung kann für unterschiedlichen Boards mit unterschiedlichen
     CPU-Kernen gleich geschrieben werden, da sich der Programmierer nicht um Hardware-Details
     kümmern muss. Dies ist dank der gut ausgeprägten Hardware Abstraction Layer (HAL), 
     die für jedes Board erstellt werden muss, möglich.
-    Riot steht unter der LGPLv2 Lizenz.
+    RIOT OS steht unter der LGPLv2 Lizenz.
 
     \subsection{Funkchip nrf24l01+}
     Die Wahl des Funkchips stand nach kurzer Recherche fest: Der nrf24l01+ von 
@@ -159,27 +159,27 @@ Auf einem STM32F0 Microcontroller mit dem Funkchip nrf24l01+ soll mit Hilfe des 
     im zehner-Pack nur rund 1~Euro pro Stück kostet. Er arbeitet im 2,4GHz 
     ISM-Band, überträgt eine bis zu 2Mbps und ist bereits auf einer handlichen 
     kleinen Platine bestückt. Der Nachteil dieses Funkchips war jedoch die lange 
-    Lieferzeit und der Treiber war in Riot OS nicht vorhanden.
+    Lieferzeit und der Treiber war in RIOT OS nicht vorhanden.
     Um dennoch zügig mit der Entwicklung beginnen zu können, haben wurden erste 
     Versuche mit dem CC1101 von Texas Instruments gestartet, dessen Treiber 
-    bereits in Riot vorhanden war. Parallel dazu haben wir den Treiber für den 
+    bereits in RIOT OS vorhanden war. Parallel dazu haben wir den Treiber für den 
     nrf24l01+ Transceiver geschrieben. Trotz zweigleisiger Entwicklung ging der 
-    Fortschritt nur stockend voran aufgrund der langen Einarbeitungszeit in Riot.
+    Fortschritt nur stockend voran aufgrund der langen Einarbeitungszeit in RIOT OS.
 
     \subsection{Erstes Prototyping mit Discovery Boards}
     Um die prinzipielle Funktionsweise überprüfen zu können, haben wir die 
     Transceiver an STM32F3-Discovery Boards angesteckt. Die Discovery Boards 
     sind Evaluationsplatinen für den STM32F3 ARM Prozessor von ST. Die Boards 
     können über den St-Link programmiert werden.
-    Zwar werden die Discovery-Boards von Riot bereits unterstützt, jedoch war 
+    Zwar werden die Discovery-Boards von RIOT OS bereits unterstützt, jedoch war 
     für das F3-Board der SPI-Treiber zur Kommunikation mit dem Funk-Modul nicht 
     implementiert und musste mit Hilfe der Implementierungen der anderen 
     unterstützten Boards implementiert werden.
 
     \subsection{Erste Funkübertragung und Messung der Funkreichweite}
-        Nach etwa der Hälfte der bisherigen Entwicklungszeit ist in Riot 
+        Nach etwa der Hälfte der bisherigen Entwicklungszeit ist in RIOT OS 
         glücklicherweise der Treiber für den nrf24l01+ Chip erschienen. Mit 
-        diesem Treiber ist es erstmals gelungen, Pakete mit Riot zu versenden 
+        diesem Treiber ist es erstmals gelungen, Pakete mit RIOT OS zu versenden 
         und mit einem anderen Board zu empfangen.
         Der Treiber ist allerdings nicht in die bisherigen Module des 
         Netzwerkstapels integriert worden. Da die Integration zu aufwändig 
@@ -378,7 +378,7 @@ Am heutigen Markt ist der preisliche Unterschied nahezu irrelevant.
 Zudem ist die Rechnenleistung der \enquote{größeren} Plattformen meist besser.
 
 Der gewählte Chip ist der STM32F030C8T6.
-Es war der günstigste, der den Anforderungen von Riot und denen des entworfenen Protokolls genügt.
+Es war der günstigste, der den Anforderungen von RIOT OS und denen des entworfenen Protokolls genügt.
 Außerdem ist die Toolchain der ARM-Prozessoren von STM gut ausgereift.
 Für den verwendeten Microcontroller ist ebenfalls ein Discovery-Board verfügbar, sodass auch hier wieder der Entwicklungsstart ohne die Platine begonnen werden konnte.
 
@@ -418,13 +418,13 @@ Die SWD-Funktionalität des Controllers ist in Form einer Cortex-M-Debugschnitts
         Theoretisch genügt der Austausch des Hardware Abstraction Layers,
         um den RIOT-Code von einer Plattform auf eine andere zu portieren.
 
-    \subsection{RIOT und cowbus}
+    \subsection{RIOT OS und cowbus}
         In der Praxis hat sich diese Abstraktion aber nur als teilweise sauber
         implementiert herausgestellt. Leider ist vor allem der Netzwerkstapel
         sehr unübersichtlich aufbaut, nicht sauber getrennt und vor allem kaum
         dokumentiert. Allein diese Tatsache hat die Entwicklung des cowbus stark
         verzögert, weil lange nicht klar war, wie viel möglich ist.
-        Prinzipiell bietet RIOT auch Implementierungen für Protokolle oberhalb
+        Prinzipiell bietet RIOT OS auch Implementierungen für Protokolle oberhalb
         der MAC-Schicht. So sind z.\,B. Teile von 802.15.4 sowie diverse
         Routingprotokolle implementiert. Leider sind vor allem erstgenannte
         Funktionen nicht sauber getrennt, sondern Funkchip-abhängig in den
@@ -436,7 +436,7 @@ Die SWD-Funktionalität des Controllers ist in Form einer Cortex-M-Debugschnitts
         sodass sich das möglicherweise in absehbarer Zeit ändert und nicht
         abschließend darüber geurteilt werden soll.
 
-        Letztendlich bietet die Nutzung von RIOT als Betriebssystem trotzdem
+        Letztendlich bietet die Nutzung von RIOT OS als Betriebssystem trotzdem
         große Vorteile. Vor allem jetzt, nachdem die Portierung auf die eigene
         Plattform fast abgeschlossen ist, erwarten wir deutlich kürzere
         Entwicklungszyklen.
@@ -586,7 +586,7 @@ Die SWD-Funktionalität des Controllers ist in Form einer Cortex-M-Debugschnitts
 
 Für die Entscheidungen in der Hardware kann zum jetzien Zeitpunkt keine Kritik geübt werden. Möglicherweise fallen hier jedoch im weiteren Verlauf der Entwicklung Fehlentscheidungen auf. Das Ziel des kostengünstigen Knoten wurde gut verfolgt.
 
-Trotz der großen Startschwierigkeiten mit dem verwendeten Betriebssystem, würde auch beim nächsten Projekt die Wahl erneut auf Riot fallen. Anpassungen an der Hardware Abstraction Layer (HAL) und Integration von Treibern sind einmalige Anwendungsunabhängige Angelegenheiten. Riot ist noch lange nicht fertig entwickelt und gerade das laufende Refactoring im Netzwerkstack weckt viel versprechende Erwartungen für die Zukunft des Betriebssystems.
+Trotz der großen Startschwierigkeiten mit dem verwendeten Betriebssystem, würde auch beim nächsten Projekt die Wahl erneut auf RIOT OS fallen. Anpassungen an der Hardware Abstraction Layer (HAL) und Integration von Treibern sind einmalige Anwendungsunabhängige Angelegenheiten. RIOT OS ist noch lange nicht fertig entwickelt und gerade das laufende Refactoring im Netzwerkstack weckt viel versprechende Erwartungen für die Zukunft des Betriebssystems.
 
 \section{Zusammenfassung}
 

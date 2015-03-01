@@ -539,8 +539,8 @@ Die SWD-Funktionalität des Controllers ist in Form einer Cortex-M-Debugschnitts
     \subsection{Kompression der Payload}
     Codierung der Zeichen in der Payload: 
     In der Payload sollen bei den Pakettypen get\_name und set\_name für den 
-    menschen lesbare Buchstaben als Name eines Knoten übertragen werden. Bei 
-    unkomprimierter Übertragung mittels Ascii Zeichen, also 8~Bit pro Zeichen, 
+    Menschen lesbare Buchstaben als Name eines Knoten übertragen werden. Bei 
+    unkomprimierter Übertragung mittels ASCII-Zeichen, also 8~Bit pro Zeichen, 
     wären bei einer maximalen Payload von 208~Bit nur 26~Zeichen möglich. Zur 
     Kompression des Knotennamens gibt es hier im Allgemeinen zwei Möglichkeiten. 
     Zum einen können aufgrund der Buchstabenwahrscheinlichkeit in einer 
@@ -587,7 +587,7 @@ Die SWD-Funktionalität des Controllers ist in Form einer Cortex-M-Debugschnitts
         schicken die Pakte wieder weiter und so verbreitet sich die Nachricht im 
         Netz. Damit jedoch die Nachricht nicht zwischen zwei Knoten hin- und 
         her pendelt, merkt sich jeder Knoten den Header jedes Paketes, das er 
-        weiter leitet in einem FIFO-Puffer, damit er das selbe Paket kein 
+        weiterleitet in einem FIFO-Puffer, damit er das selbe Paket kein 
         zweites Mal weiter leitet.
         
 
@@ -598,11 +598,6 @@ Die SWD-Funktionalität des Controllers ist in Form einer Cortex-M-Debugschnitts
 
 
 
-%\todo{kritische Auseinandersetzung mit getätigten Design-Entscheidungen}
-
-Für die Entscheidungen in der Hardware kann zum jetzien Zeitpunkt keine Kritik geübt werden. Möglicherweise fallen hier jedoch im weiteren Verlauf der Entwicklung Fehlentscheidungen auf. Das Ziel des kostengünstigen Knoten wurde gut verfolgt.
-
-Trotz der großen Startschwierigkeiten mit dem verwendeten Betriebssystem, würde auch beim nächsten Projekt die Wahl erneut auf RIOT OS fallen. Anpassungen an der \ac{HAL} und Integration von Treibern sind einmalige anwendungsunabhängige Angelegenheiten. RIOT OS ist noch lange nicht fertig entwickelt und gerade das laufende Refactoring im Netzwerkstack weckt viel versprechende Erwartungen für die Zukunft des Betriebssystems.
 
 
 \section{Zusammenfassung}

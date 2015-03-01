@@ -28,7 +28,7 @@
 \maketitle
 
 \begin{abstract}
-Auf einem STM32F0 Microcontroller mit dem Funkchip \emph{nrf24l01+} soll mit Hilfe des Betriebssystems RIOT OS ein offener Bus für die Heimautomatisierung realisiert werden. Die Knoten kommunizieren dabei im 2,4\,GHz ISM-Band miteinander. Ziele sind preisgünstige Komponenten, einfache Erweiterbarkeit in Soft- und Hardware und die Integration in openHab.
+Auf einem \emph{STM32F0} Microcontroller mit dem Funkchip \emph{nrf24l01+} soll mit Hilfe des Betriebssystems RIOT OS ein offener Bus für die Heimautomatisierung realisiert werden. Die Knoten kommunizieren dabei im 2,4\,GHz ISM-Band miteinander. Ziele sind preisgünstige Komponenten, einfache Erweiterbarkeit in Soft- und Hardware und die Integration in openHab.
 \end{abstract}
 
 \section{Einleitung}
@@ -173,8 +173,8 @@ Auf einem STM32F0 Microcontroller mit dem Funkchip \emph{nrf24l01+} soll mit Hil
 
     \subsection{Erstes Prototyping mit Discovery Boards}
     Um die prinzipielle Funktionsweise überprüfen zu können, haben wir die 
-    Transceiver an STM32F3-Discovery Boards angesteckt. Die Discovery Boards 
-    sind Evaluationsplatinen für den STM32F3 ARM Prozessor von ST. Die Boards 
+    Transceiver an \emph{STM32F3}-Discovery Boards angesteckt. Die Discovery Boards 
+    sind Evaluationsplatinen für den \emph{STM32F3} ARM Prozessor von \emph{ST}. Die Boards 
     können über den St-Link programmiert werden.
     Zwar werden die Discovery-Boards von RIOT OS bereits unterstützt, jedoch war 
     für das F3-Board der SPI-Treiber zur Kommunikation mit dem Funk-Modul nicht 
@@ -382,9 +382,9 @@ Die Wahl eines geeigneten Mikrocontrollers wurde früh auf 32bit-Architekturen e
 Am heutigen Markt ist der preisliche Unterschied nahezu irrelevant.
 Zudem ist die Rechnenleistung der \enquote{größeren} Plattformen meist besser.
 
-Der gewählte Chip ist der STM32F030C8T6.
+Der gewählte Chip ist der \emph{STM32F030C8T6}.
 Es war der günstigste, der den Anforderungen von RIOT OS und denen des entworfenen Protokolls genügt.
-Außerdem ist die Toolchain der ARM-Prozessoren von STM gut ausgereift.
+Außerdem ist die Toolchain der ARM-Prozessoren von \emph{ST} gut ausgereift.
 Für den verwendeten Microcontroller ist ebenfalls ein Discovery-Board verfügbar, sodass auch hier wieder der Entwicklungsstart ohne die Platine begonnen werden konnte.
 
 \subsubsection{Funkmodul}
@@ -415,7 +415,7 @@ Die SWD-Funktionalität des Controllers ist in Form einer Cortex-M-Debugschnitts
         das einfach zu bedienen und ressourcensparend ist und dabei speziell
         auf Internet-of-Things-Anwendungen abzielt. Es bringt viele Definitionen
         für verbreitete Entwicklungs- und Prototyping-Boards mit, darunter die
-        STM32F*-Discovery-Serie.
+        \emph{STM32F*}"~Discovery-Serie.
         Die Abstraktion von hardwareabhängigem Code vom eigentlichen Kernel
         ermöglicht eine weitgehend getrennte Entwicklung von Funktionalität und
         Hardwareunterstützung.
@@ -463,7 +463,7 @@ Die SWD-Funktionalität des Controllers ist in Form einer Cortex-M-Debugschnitts
         unser Vorhaben zu sein. In der Praxis hat sich sehr schnell gezeigt,
         dass RIOT nicht so bunt ist, wie es seine eigenen Werbung malt.
         Anfangs versuchten wir ein \emph{CC1101}"~Funkmodul mit einem
-        STM32F3-Discovery-Board zu betreiben. Wie sich herausstellte,
+        \emph{STM32F3}-Discovery-Board zu betreiben. Wie sich herausstellte,
         bietet RIOT zwar einen Treiber für das Modul und unterstützt die
         PLattform an sich, konkret war allerdings kein SPI-Treiber für das Board
         implementiert. Solche Rückschläge häuften sich und kosteten viel Zeit.

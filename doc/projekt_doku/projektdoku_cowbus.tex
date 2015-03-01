@@ -144,8 +144,12 @@
     IPv6 bereits implementiert ist. 
     Es soll 6LoWPAN zum Einsatz kommen, um auf den doch relativ schwachen 
     Knotengeräten Ressourcen zu sparen.
-
-        TODO: Multithreading, gut portierbar (Schichtenarchitektur), Lizenz: LGPLv2, c++
+    Riot OS unterstützt Multithreading und ist aufgrund seiner Schichtenarchitektur
+    gut portierbar. Eine Anwendung kann für unterschiedlichen Boards mit unterschiedlichen
+    CPU-Kernen gleich geschrieben werden, da sich der Programmierer nicht um Hardware-Details
+    kümmern muss. Dies ist dank der gut ausgeprägten Hardware Abstraction Layer (HAL), 
+    die für jedes Board erstellt werden muss, möglich.
+    Riot steht unter der LGPLv2 Lizenz.
 
     \subsection{Funkchip nrf24l01+}
     Die Wahl des Funkchips stand nach kurzer Recherche fest: Der nrf24l01+ von 

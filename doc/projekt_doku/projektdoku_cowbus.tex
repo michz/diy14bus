@@ -138,17 +138,19 @@ Auf einem STM32F0 Microcontroller mit dem Funkchip nrf24l01+ soll mit Hilfe des 
     \subsection{Kennenlernen von RIOT OS}
     Um das Rad nicht neu zu erfinden, bietet es sich an, ein eingebettetes 
     Betriebssystem auf den Knoten einzusetzen. Relativ früh wurde uns der Tipp 
-    gegeben, \enquote{RIOT OS} anzuschauen. \url{http://www.riot-os.org/} 
-    \enquote{The friendly Operating System for the Internet of Things.}
+    gegeben, \enquote{RIOT OS}\footnote{\url{http://www.riot-os.org/}} anzuschauen.
+    
     RIOT OS ist ein Betriebssystem für den Bereich embedded, welches auf das 
-    Thema Internet of Things optimiert wurde. 
+    Thema Internet of Things optimiert wurde.
+    Von dessen Erschaffern wird es als \enquote{The friendly Operating System for the Internet of Things.} bezeichnet.
     Damit bietet es gegenüber Konkurrenten, wie chibiOS oder FreeRTOS den Vorteil, 
     dass einiges, wie eine saubere Netzwerkkommunikation mit Unterstützung für 
     IPv6 bereits implementiert ist. 
+    
     Es soll 6LoWPAN zum Einsatz kommen, um auf den doch relativ schwachen 
     Knotengeräten Ressourcen zu sparen.
     Riot OS unterstützt Multithreading und ist aufgrund seiner Schichtenarchitektur
-    gut portierbar. Eine Anwendung kann für unterschiedlichen Boards mit unterschiedlichen
+    gut portierbar. Eine Anwendung kann für unterschiedliche Boards mit unterschiedlichen
     CPU-Kernen gleich geschrieben werden, da sich der Programmierer nicht um Hardware-Details
     kümmern muss. Dies ist dank der gut ausgeprägten Hardware Abstraction Layer (HAL), 
     die für jedes Board erstellt werden muss, möglich.

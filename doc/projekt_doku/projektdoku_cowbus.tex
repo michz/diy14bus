@@ -177,7 +177,7 @@ Hardware und die Integration in den \ac{openHAB}.
     Lieferzeit und, dass die Treiber nicht in RIOT OS vorhanden waren.
     Um dennoch zügig mit der Entwicklung beginnen zu können, wurden erste 
     Versuche mit dem \emph{CC1101} von \emph{Texas Instruments} gestartet, dessen Treiber 
-    bereits in RIOT OS vorhanden war. Parallel dazu schrieben wird einen Treiber
+    bereits in RIOT OS vorhanden war. Parallel dazu schrieben wir einen Treiber
     für den \emph{nrf24l01+}.
     Trotz zweigleisiger Entwicklung ging der 
     Fortschritt nur stockend voran aufgrund der langen Einarbeitungszeit in RIOT OS.
@@ -315,7 +315,7 @@ Diese werden im weiteren Verlauf beschrieben.
             Auf der anderen Seite enthält er einen kleinen Websocket-Server,
             über den von jedem beliebigen PC, der ihn über das \ac{LAN}
             erreichen kann, Pakete in das Funknetz verschickt und aus diesem
-            empfangen werden kann.
+            empfangen werden können.
 
             Dazu steht eine kleine HTML/JavaScript-Anwendung zur Verfügung,
             die in jedem modernen Browser läuffähig sein sollte.
@@ -328,29 +328,31 @@ Diese werden im weiteren Verlauf beschrieben.
             \label{fig:paket}
         \end{figure}
 
-        Hardware bedingt sind wir für die übertragenen Pakete auf 32\,Byte 
+        Hardwarebedingt sind wir für die übertragenen Pakete auf 32\,Byte 
         beschränkt, dazu in der späteren Beschreibung über den Funkchip mehr. 
         Abbildung \ref{fig:paket} zeigt den Aufbau der Pakete. Die Pakete 
         bestehen aus:
         \begin{itemize}
             \item 5 Bit Sequenznummer: aufsteigend, für jeden Teilnehmer individuell
-            \item 8-Bit Time To Live: Maximalwert, der beim Weiterleiten decrementiert wird
-            \item 11-Bit Adresse: Kontexabhängig ob Sende / Empfangsadresse
-            \item 4-Bit Type: Art der Nachricht
+            \item 8 Bit Time To Live: Maximalwert, der beim Weiterleiten dekrementiert wird
+            \item 11 Bit Adresse: Kontexabhängig ob Sende- oder Empfangsadresse
+            \item 4 Bit Type: Art der Nachricht
             \begin{itemize}
-                \item undefined: Reservierter Typ.
+                \item undefined: Reservierter Typ
                 \item event: Ein Ereignis hat stattgefunden, z.\,B. wenn ein Taster gedrückt wurde
                 \item program: Einem Aktor eine Funktion zuweisen
                 \item get\_name: Den Namen eines Knotens abfragen
                 \item get\_state: Statusabfrage
-                \item get\_config: Gegenstück zu program, also die Kongiguration abfragen
+                \item get\_config: Gegenstück zu \emph{program}, also die Konfiguration auslesen
                 \item ping: Abfrage, ob bereits ein Knoten mit angegebener Adresse vorhanden ist
                 \item ping\_answer: Antwort auf ping-Nachricht
                 \item set\_name: Den Namen eines Knotens festlegen
             \end{itemize}
-            \item 1-Bit \enquote{is frag}: dies ist ein einzelnes Bit, das gesetzt ist, falls es sich um eine aufgeteilte Nachricht handelt. Der Fragment Header wird an den Anfang der Payload gesetzt.
-            \item 208-Bit Payload, das sind 26 Byte
-            \item 16-Bit CRC
+            \item 1 Bit \enquote{is frag}: Einzelnes Bit, das gesetzt ist,
+                falls es sich um eine fragmentierte Nachricht handelt.
+                Der Fragment-Header wird an den Anfang der Payload gesetzt.
+            \item 208 Bit Payload, das sind 26 Byte
+            \item 16 Bit Checksumme
         \end{itemize}
 
 \section{Knoten-Prototyp-Hardware}
@@ -398,7 +400,7 @@ Als Abhilfe ist für die nächste Revision ein zusätzlicher LDO-Regler vorgeseh
 \subsubsection{Prozessor}
 Die Wahl eines geeigneten Mikrocontrollers wurde früh auf 32bit-Architekturen eingeschränkt.
 Am heutigen Markt ist der preisliche Unterschied nahezu irrelevant.
-Zudem ist die Rechnenleistung der \enquote{größeren} Plattformen meist besser.
+Zudem ist die Rechenleistung der \enquote{größeren} Plattformen meist besser.
 
 Der gewählte Chip ist der \emph{STM32F030C8T6}.
 Es war der günstigste, der den Anforderungen von RIOT OS und denen des entworfenen Protokolls genügt.

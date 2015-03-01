@@ -346,17 +346,11 @@ Damit ist es in der aktuellen Hardware-Revision nicht möglich die Baugruppe üb
 Als Abhilfe ist für die nächste Revision ein zusätzlicher LDO-Regler vorgesehen.
 
 \subsubsection{Prozessor}
-Die Wahl eines geeigneten Mikrocontrollers wurde früh auf 32bit-Architekturen eingeschränkt.
-Am heutigen Markt ist der preisliche Unterschied nahezu irrelevant.
-Zudem ist die Rechnenleistung der \enquote{größeren} Plattformen meist besser.
-
-gewählter Chip STM32F030C8T6, genügend (ZAHL) RAM, Takt hoch, günstig, Toolchain gut.
-
-Auch auf Discoveryboard verfügbar --> Entwicklungsstart ohne Platine
-
-RIOT-Unterstützung
+Die Wahl eines geeigneten Mikrocontrollers wurde früh auf 32bit-Architekturen eingeschränkt. Am heutigen Markt ist der preisliche Unterschied nahezu irrelevant. Zudem ist die Rechnenleistung der \enquote{größeren} Plattformen meist besser. Der gewählte Chip ist der STM32F030C8T6. Es war der günstigste, der den Anforderungen von Riot und denen des entworfenen Protokolls genügt. Ausserdem ist die Toolchain der ARM-Prozessoren von STM gut ausgereift.
+Für den verwendeten Microcontroller ist ebenfalls ein Discovery-Board verfügbar, sodass auch hier wieder der Entwicklungsstart ohne die Platine begonnen werden konnte.
 
 \subsubsection{Funkmodul}
+Auf dem Prototyp wird der gleiche Chip, der auch in den Vorversuchen funktioniert hat, verwendet: der nrf24l01+. Der Funkchip arbeitet, wie oben bereits erwähnt, im 2,4GHz ISM-Band.
 * Wahl des Funkchips (hier 32-Byte Beschränkung, GFSK und Frequenzbänder/Bandbreiten)
 
 \subsubsection{Peripherie}

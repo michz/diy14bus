@@ -28,7 +28,7 @@
 \maketitle
 
 \begin{abstract}
-Auf einem STM32F0 Microcontroller mit dem Funkchip nrf24l01+ soll mit Hilfe des Betriebssystems RIOT OS ein offener Bus für die Heimautomatisierung realisiert werden. Die Knoten kommunizieren dabei im 2,4\,GHz ISM-Band miteinander. Ziele sind preisgünstige Komponenten, einfache Erweiterbarkeit in Soft- und Hardware und die Integration in openHab.
+Auf einem STM32F0 Microcontroller mit dem Funkchip \emph{nrf24l01+} soll mit Hilfe des Betriebssystems RIOT OS ein offener Bus für die Heimautomatisierung realisiert werden. Die Knoten kommunizieren dabei im 2,4\,GHz ISM-Band miteinander. Ziele sind preisgünstige Komponenten, einfache Erweiterbarkeit in Soft- und Hardware und die Integration in openHab.
 \end{abstract}
 
 \todo[inline]{RIOT und RIOT OS überall gleich schreiben, (auf Website nach exakter Schreibweise kucken)}
@@ -116,7 +116,7 @@ Auf einem STM32F0 Microcontroller mit dem Funkchip nrf24l01+ soll mit Hilfe des 
     mit den Discovery-Boards stattfinden, um anschließend mit der Planung und einem 
     Entwurf für unser Mesh-Netzwerk beginnen zu können.
    
-    Nachdem unsere \enquote{nrf24l01+}-Funkchips angekommen waren, sollte im Dezember 
+    Nachdem unsere \emph{nrf24l01+}-Funkchips angekommen waren, sollte im Dezember 
     die Softwareentwicklung und  Funktests mit Discovery-Boards vorangehen.
     Hier stießen wir jedoch auf Komplikationen bei der Unterstützung durch RIOT OS. 
     Während wir dennoch unser erstes Funksignal übertragen konnten, gewannen wir 
@@ -157,9 +157,9 @@ Auf einem STM32F0 Microcontroller mit dem Funkchip nrf24l01+ soll mit Hilfe des 
     die für jedes Board erstellt werden muss, möglich.
     RIOT OS steht unter der LGPLv2 Lizenz.
 
-    \subsection{Funkchip nrf24l01+}
-    Die Wahl des Funkchips stand nach kurzer Recherche fest: Der nrf24l01+ von 
-    Nordic Semiconductor. Der Transceiver ist günstig in der Anschaffung, da er 
+    \subsection{Funkchip \emph{nrf24l01+}}
+    Die Wahl des Funkchips stand nach kurzer Recherche fest: Der \emph{nrf24l01+} von 
+    \emph{Nordic Semiconductor}. Der Transceiver ist günstig in der Anschaffung, da er 
     im Zehner-Pack nur rund 1\,\euro\ pro Stück kostet. Er arbeitet im 2,4\,GHz 
     ISM-Band, überträgt mit einer Datenrate von bis zu 2\,Mbps und ist bereits auf einer handlichen 
     kleinen Platine bestückt.
@@ -167,9 +167,9 @@ Auf einem STM32F0 Microcontroller mit dem Funkchip nrf24l01+ soll mit Hilfe des 
     Der Nachteil dieses Funkchips war jedoch die lange 
     Lieferzeit und dass die Treiber nicht in RIOT OS vorhanden waren.
     Um dennoch zügig mit der Entwicklung beginnen zu können, wurden erste 
-    Versuche mit dem CC1101 von Texas Instruments gestartet, dessen Treiber 
+    Versuche mit dem \emph{CC1101} von \emph{Texas Instruments} gestartet, dessen Treiber 
     bereits in RIOT OS vorhanden war. Parallel dazu haben wir den Treiber für den 
-    nrf24l01+ Transceiver geschrieben. Trotz zweigleisiger Entwicklung ging der 
+    \emph{nrf24l01+} Transceiver geschrieben. Trotz zweigleisiger Entwicklung ging der 
     Fortschritt nur stockend voran aufgrund der langen Einarbeitungszeit in RIOT OS.
 
     \subsection{Erstes Prototyping mit Discovery Boards}
@@ -184,7 +184,7 @@ Auf einem STM32F0 Microcontroller mit dem Funkchip nrf24l01+ soll mit Hilfe des 
 
     \subsection{Erste Funkübertragung und Messung der Funkreichweite}
         Nach etwa der Hälfte der bisherigen Entwicklungszeit ist in RIOT OS 
-        glücklicherweise der Treiber für den nrf24l01+ Chip erschienen. Mit 
+        glücklicherweise der Treiber für den \emph{nrf24l01+}"~Chip erschienen. Mit 
         diesem Treiber ist es erstmals gelungen, Pakete mit RIOT OS zu versenden 
         und mit einem anderen Board zu empfangen.
         Der Treiber ist allerdings nicht in die bisherigen Module des 
@@ -369,7 +369,7 @@ Um ein Netzteil für Unterputzdosenmontage zu realisieren, müsste eine stark in
 Dies ist im Rahmen dieses Projektes nicht umsetzbar.
 
 Aus diesem Grund wurde eine Energieversorgung per Batterie umgesetzt.
-Dazu kommt der Boost-Converter TPS61221 von \emph{Texas Instruments} zum Einsatz.
+Dazu kommt der Boost-Converter \emph{TPS61221} von \emph{Texas Instruments} zum Einsatz.
 Dieser zeichnet sich durch einen niedrigen Ruhestrom von $0,5 \mathrm{\mu A}$ aus.
 
 Die Planung sah vor, die Schaltung auch optional über USB zu versorgen.
@@ -389,7 +389,7 @@ Außerdem ist die Toolchain der ARM-Prozessoren von STM gut ausgereift.
 Für den verwendeten Microcontroller ist ebenfalls ein Discovery-Board verfügbar, sodass auch hier wieder der Entwicklungsstart ohne die Platine begonnen werden konnte.
 
 \subsubsection{Funkmodul}
-Auf dem Prototyp wird der gleiche Chip, der auch in den Vorversuchen funktioniert hat, verwendet: der nrf24l01+. Der Funkchip arbeitet, wie oben bereits erwähnt, im 2,4GHz ISM-Band.
+Auf dem Prototyp wird der gleiche Chip, der auch in den Vorversuchen funktioniert hat, verwendet: der \emph{nrf24l01+}. Der Funkchip arbeitet, wie oben bereits erwähnt, im 2,4GHz ISM-Band.
 
 
 \subsubsection{Peripherie}

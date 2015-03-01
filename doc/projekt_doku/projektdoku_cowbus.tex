@@ -28,7 +28,11 @@
 \maketitle
 
 \begin{abstract}
-    TODO
+    - Riot OS
+    - STM32F0
+    - nrf24l01+
+    - offenes System
+    - ziel: Einbindung in openHAB
 \end{abstract}
 
 
@@ -334,8 +338,8 @@
                 \item ping\_answer: Antwort auf ping-Nachricht
                 \item set\_name: Den Namen eines Knotens festlegen
             \end{itemize}
-            \item 1-Bit "is frag": ist das ein aufgeteiltes Paket? - Fragment Header am Anfang vom Payload
-            \item 208-Bit Payload - macht 26 Byte
+            \item 1-Bit "is frag": dies ist ein einzelnes Bit, das gesetzt ist, falls es sich um eine aufgeteilte Nachricht handelt. Der Fragment Header wird an den Anfang der Payload gesetzt.
+            \item 208-Bit Payload, das sind 26 Byte
             \item 16-Bit CRC
         \end{itemize}
 

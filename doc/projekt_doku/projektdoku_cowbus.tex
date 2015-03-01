@@ -28,7 +28,7 @@
 \maketitle
 
 \begin{abstract}
-Auf einem \emph{STM32F0} Microcontroller mit dem Funkchip \emph{nrf24l01+} soll mit Hilfe des Betriebssystems RIOT OS ein offener Bus für die Heimautomatisierung realisiert werden. Die Knoten kommunizieren dabei im 2,4\,GHz ISM-Band miteinander. Ziele sind preisgünstige Komponenten, einfache Erweiterbarkeit in Soft- und Hardware und die Integration in openHab.
+Auf einem \emph{STM32F0} Microcontroller mit dem Funkchip \emph{nrf24l01+} soll mit Hilfe des Betriebssystems RIOT OS ein offener Bus für die Heimautomatisierung realisiert werden. Die Knoten kommunizieren dabei im 2,4\,GHz ISM-Band miteinander. Ziele sind preisgünstige Komponenten, einfache Erweiterbarkeit in Soft- und Hardware und die Integration in \ac{openHAB}.
 \end{abstract}
 
 \section{Einleitung}
@@ -74,11 +74,11 @@ Auf einem \emph{STM32F0} Microcontroller mit dem Funkchip \emph{nrf24l01+} soll 
     Die Sensoren und Aktoren sollen Ereignisse erzeugen und darauf reagieren können. 
     Optional könnte nach ersten Funktionstests der ausgewählten Hardware oder im 
     Anschluss an die erfolgreiche Implementierung eines Netzwerkes der Standard 
-    \enquote{6LoWPAN} implementiert werden. 
+    \enquote{\ac{6LoWPAN}} implementiert werden. 
     Um keine unbrauchbare Insellösung zu entwickeln, soll neben den Aktoren und 
     Sensoren ein Ethernet-Gateway implementiert werden. Durch dieses soll das 
     Meshnetzwerk als optionales Anwendungsbeispiel eine Verbindung zu 
-    einer \enquote{OpenHAB}-Instanz aufnehmen können.
+    einer \enquote{\ac{openHAB}}-Instanz aufnehmen können.
 
 
 \section{Projektverlauf und Meilensteine}
@@ -88,13 +88,13 @@ Auf einem \emph{STM32F0} Microcontroller mit dem Funkchip \emph{nrf24l01+} soll 
     Projektverlauf mehr über Technologie und Funktionsumfang festlegen, wollten wir 
     später einen "richtigen" Namen wählen. Die Wahl viel dann auf cowbus.
 
-    Über die Implementierung von \enquote{6LoWPAN} waren wir uns nach einem ersten 
+    Über die Implementierung von \enquote{\ac{6LoWPAN}} waren wir uns nach einem ersten 
     Brainstorming nicht mehr sicher. Obwohl dies als moderner offener Standard 
     sehr wünschenswert war, hatten wir aufgrund der begrenzten Projektzeit Bedenken 
     zu viel Zeit zu verlieren, wenn die Implementierung nicht auf Anhieb gelingen 
     sollte. Vorher ein funktionierendes Mesh-Netzwerk mit den von uns gewünschten 
     Eigenschaften zu implementieren erschien uns als wichtiger, vor allem um 
-    eigene Erfahrungen zu sammeln. Wir entschieden uns dafür \enquote{6LoWPAN} 
+    eigene Erfahrungen zu sammeln. Wir entschieden uns dafür \enquote{\ac{6LoWPAN}} 
     nicht sofort zu implementieren, sondern als Option für eine Weiterentwicklung 
     nach dem Projekt offen zu halten.
 
@@ -147,12 +147,12 @@ Auf einem \emph{STM32F0} Microcontroller mit dem Funkchip \emph{nrf24l01+} soll 
     dass einiges, wie eine saubere Netzwerkkommunikation mit Unterstützung für 
     IPv6 bereits implementiert ist. 
     
-    Es soll 6LoWPAN zum Einsatz kommen, um auf den doch relativ schwachen 
+    Es soll \ac{6LoWPAN} zum Einsatz kommen, um auf den doch relativ schwachen 
     Knotengeräten Ressourcen zu sparen.
     RIOT OS unterstützt Multithreading und ist aufgrund seiner Schichtenarchitektur
     gut portierbar. Eine Anwendung kann für unterschiedliche Boards mit unterschiedlichen
     CPU-Kernen gleich geschrieben werden, da sich der Programmierer nicht um Hardware-Details
-    kümmern muss. Dies ist dank der gut ausgeprägten Hardware Abstraction Layer (HAL), 
+    kümmern muss. Dies ist dank der gut ausgeprägten \ac{HAL}, 
     die für jedes Board erstellt werden muss, möglich.
     RIOT OS steht unter der LGPLv2 Lizenz.
 
@@ -197,7 +197,7 @@ Auf einem \emph{STM32F0} Microcontroller mit dem Funkchip \emph{nrf24l01+} soll 
     ein ARM-Prozessor von ARM, eine RGB-LED, und drei Taster platziert werden. 
     Dafür wurde erst der Schaltplan, dann das Layout erstellt und anschließend 
     die Platine gefertigt und bestückt.
-    Die zweite Baustelle war die Hardware Abstraction Layer (HAL) von RIOT OS 
+    Die zweite Baustelle war die \ac{HAL} von RIOT OS 
     für unseren Prototypen. Als drittes sollte das entworfene Protokoll 
     implementiert werden, das im weiteren im Detail beschrieben wird.
 
@@ -492,12 +492,12 @@ Die SWD-Funktionalität des Controllers ist in Form einer Cortex-M-Debugschnitts
     Medienzugriffsverfahren notwendig. Diese beschreiben den Ablauf des 
     Kanalzugriffs und können somit Konflikten vorbeugen oder diese zuindest 
     erkennen und eine Lösung dafür einleiten. Ein Verfahren, das Konflikte 
-    vorbeugen soll ist Carrier Sense Multiple Access with Collision Avoidance 
-    (CSMA/CA, dt.: Mehrfachzugriff mit Trägerprüfung und Kollisionsvermeidung). 
-    CSMA/CA ist für ein paketvermitteltes lokales Netzwerk mit unregelmäßigem 
+    vorbeugen soll ist \acl{CSMA/CA} 
+    (\acs{CSMA/CA}, dt.: Mehrfachzugriff mit Trägerprüfung und Kollisionsvermeidung). 
+    \acs{CSMA/CA} ist für ein paketvermitteltes lokales Netzwerk mit unregelmäßigem 
     Datenaustausch aller Teilnehmer konzipiert worden. Dies entspricht auch 
     diesem Anwendungsfall.
-    Der Mehrfachzugriff mittels CSMA/CA Verfahren auf ein Medium beinhaltet das 
+    Der Mehrfachzugriff mittels \acs{CSMA/CA} Verfahren auf ein Medium beinhaltet das 
     Carrier Sensing (dt. Trägerprüfung). Dies bedeutet, dass ein Sender lauscht, 
     ob der Kanal frei ist, bevor er sendet. Der Sender wartet, falls ein zweiter 
     Teilnehmer sendet, bis dieser seine Daten verschickt hat. Der Sender beginnt 
@@ -508,7 +508,7 @@ Die SWD-Funktionalität des Controllers ist in Form einer Cortex-M-Debugschnitts
     dieser Zeit erneut. Ist der Kanal dann belgt, wartet er erneut eine 
     zufällige Zeit. Ist der Kanal bei Ablauf der zufälligen Zeit frei, so sendet 
     er.
-    Die Besonderheit des CSMA/CA Verfahrens stellt die Kollisionsvermeidung dar. 
+    Die Besonderheit des \acs{CSMA/CA} Verfahrens stellt die Kollisionsvermeidung dar. 
     Steht ein Rahmen zur Übertragung an, so wird geprüft, ob das Medium belegt 
     ist. Ist es frei, so wird der Rahmen nach einem kurzen Zeitraum, der als 
     DIFS (Distributed Inter-Frame Space) bezeichnet wird, gesendet. DIFS stellt 
@@ -591,7 +591,7 @@ Die SWD-Funktionalität des Controllers ist in Form einer Cortex-M-Debugschnitts
 
 Für die Entscheidungen in der Hardware kann zum jetzien Zeitpunkt keine Kritik geübt werden. Möglicherweise fallen hier jedoch im weiteren Verlauf der Entwicklung Fehlentscheidungen auf. Das Ziel des kostengünstigen Knoten wurde gut verfolgt.
 
-Trotz der großen Startschwierigkeiten mit dem verwendeten Betriebssystem, würde auch beim nächsten Projekt die Wahl erneut auf RIOT OS fallen. Anpassungen an der Hardware Abstraction Layer (HAL) und Integration von Treibern sind einmalige Anwendungsunabhängige Angelegenheiten. RIOT OS ist noch lange nicht fertig entwickelt und gerade das laufende Refactoring im Netzwerkstack weckt viel versprechende Erwartungen für die Zukunft des Betriebssystems.
+Trotz der großen Startschwierigkeiten mit dem verwendeten Betriebssystem, würde auch beim nächsten Projekt die Wahl erneut auf RIOT OS fallen. Anpassungen an der \ac{HAL} und Integration von Treibern sind einmalige Anwendungsunabhängige Angelegenheiten. RIOT OS ist noch lange nicht fertig entwickelt und gerade das laufende Refactoring im Netzwerkstack weckt viel versprechende Erwartungen für die Zukunft des Betriebssystems.
 
 \section{Zusammenfassung}
 
@@ -607,6 +607,7 @@ Trotz der großen Startschwierigkeiten mit dem verwendeten Betriebssystem, würd
 \begin{acronym}
     \acro{6LoWPAN}{IPv6 over Low power Wireless Personal Area Network}
     \acro{CSMA/CA}{Carrier Sense Multiple Access with Collision Avoidance}
+    \acro{HAL}{Hardware Abstraction Layer}
     \acro{LAN}{Local Area Network}
     \acro{openHAB}{open Home Automation Bus}
 \end{acronym}

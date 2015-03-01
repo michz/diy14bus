@@ -485,7 +485,7 @@ Die SWD-Funktionalität des Controllers ist in Form einer Cortex-M-Debugschnitts
         Anfangs versuchten wir ein \emph{CC1101}"~Funkmodul mit einem
         \emph{STM32F3}-Discovery-Board zu betreiben. Wie sich herausstellte,
         bietet RIOT zwar einen Treiber für das Modul und unterstützt die
-        PLattform an sich, konkret war allerdings kein SPI-Treiber für das Board
+        Plattform an sich, konkret war allerdings kein SPI-Treiber für das Board
         implementiert. Solche Rückschläge häuften sich und kosteten viel Zeit.
         Trotz allem hoffen wir, dass sich die Wahl in Zukunft auszahlt und
         die bestehende Plattform so viel Arbeit abnimmt, dass sich die
@@ -517,7 +517,7 @@ Die SWD-Funktionalität des Controllers ist in Form einer Cortex-M-Debugschnitts
     \acs{CSMA/CA} ist für ein paketvermitteltes lokales Netzwerk mit unregelmäßigem 
     Datenaustausch aller Teilnehmer konzipiert worden. Dies entspricht auch 
     diesem Anwendungsfall.
-    Der Mehrfachzugriff mittels \acs{CSMA/CA} Verfahren auf ein Medium beinhaltet das 
+    Der Mehrfachzugriff mittels \acs{CSMA/CA}-Verfahren auf ein Medium beinhaltet das 
     Carrier Sensing (dt. Trägerprüfung). Dies bedeutet, dass ein Sender lauscht, 
     ob der Kanal frei ist, bevor er sendet. Der Sender wartet, falls ein zweiter 
     Teilnehmer sendet, bis dieser seine Daten verschickt hat. Der Sender beginnt 
@@ -525,10 +525,10 @@ Die SWD-Funktionalität des Controllers ist in Form einer Cortex-M-Debugschnitts
     andere Teilnehmer, die ebenfalls auf die Freigabe des Funkkanals gewartet 
     haben, mit ihm gleichzeitig das Senden beginnen. Der Teilnehmer, der senden 
     möchte wartet in diesem Fall ein zufälliges Zeitintervall und empfängt nach 
-    dieser Zeit erneut. Ist der Kanal dann belgt, wartet er erneut eine 
+    dieser Zeit erneut. Ist der Kanal dann belegt, wartet er erneut eine 
     zufällige Zeit. Ist der Kanal bei Ablauf der zufälligen Zeit frei, so sendet 
     er.
-    Die Besonderheit des \acs{CSMA/CA} Verfahrens stellt die Kollisionsvermeidung dar. 
+    Die Besonderheit des \acs{CSMA/CA}-Verfahrens stellt die Kollisionsvermeidung dar. 
     Steht ein Rahmen zur Übertragung an, so wird geprüft, ob das Medium belegt 
     ist. Ist es frei, so wird der Rahmen nach einem kurzen Zeitraum, der als 
     DIFS (Distributed Inter-Frame Space) bezeichnet wird, gesendet. DIFS stellt 

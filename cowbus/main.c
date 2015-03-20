@@ -64,7 +64,7 @@ void packet_received(cowpacket pkt) {
 //<just for debug>
 void test(void)
 {
-	led1_off();
+
 }
 //</just for debug>
 
@@ -88,8 +88,8 @@ int main(void)
 //    GPIO_11		SW4
 //    GPIO_12		nRF-IRQ
 
-    gpio_init_int(GPIO_10, GPIO_PULLDOWN, GPIO_FALLING, (void *)test, 0); //wird extern auf high gezogen
-    gpio_irq_enable(GPIO_10);
+    gpio_init_int(GPIO_9, GPIO_PULLDOWN, GPIO_FALLING, (void *)test, 0); //wird extern auf high gezogen
+    gpio_irq_enable(GPIO_9);
 
     led1_on();
 

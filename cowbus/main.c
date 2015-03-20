@@ -89,7 +89,7 @@ int main(void)
 //    GPIO_12		nRF-IRQ
 
     gpio_init_int(GPIO_10, GPIO_PULLDOWN, GPIO_FALLING, (void *)test, 0); //wird extern auf high gezogen
-    gpio_irq_enable(GPIO_11);
+    gpio_irq_enable(GPIO_10);
 
     led1_on();
 

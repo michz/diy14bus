@@ -27,7 +27,7 @@
 
 
 void packet_received(cowpacket pkt) {
-	led1_on();
+	led1_off();
     // TODO packet handling (switch led on/off, ping response, ...)
     switch (pkt.type) {
         case event:
@@ -94,7 +94,7 @@ int main(void)
     led1_on();
 
 
-    // </ust for debug>
+    // </just for debug>
 
 
     // initialize radio driver

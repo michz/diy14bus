@@ -27,6 +27,7 @@
 
 
 void packet_received(cowpacket pkt) {
+	led1_off();
     // TODO packet handling (switch led on/off, ping response, ...)
     switch (pkt.type) {
         case event:
@@ -59,13 +60,42 @@ void packet_received(cowpacket pkt) {
     }
 }
 
+
+//<just for debug>
+void test(void)
+{
+
+}
+//</just for debug>
+
 int main(void)
 {
+
+	(RCC->AHBENR |= RCC_AHBENR_GPIOAEN);
+	(RCC->AHBENR |= RCC_AHBENR_GPIOBEN);
+
     // initialize ringbuffer for received packets
     packet_queue_init();
 
     switch_init();
     led_init();
+
+
+    //<just for debug>
+
+//    GPIO_9		SW1
+//    GPIO_10		SW2
+//    GPIO_11		SW4
+//    GPIO_12		nRF-IRQ
+
+    gpio_init_int(GPIO_9, GPIO_PULLDOWN, GPIO_FALLING, (void *)test, 0); //wird extern auf high gezogen
+    gpio_irq_enable(GPIO_9);
+
+    led1_on();
+
+
+    // </just for debug>
+
 
     // initialize radio driver
     radio_nrf_init();
@@ -94,3 +124,7 @@ int main(void)
 
     return 0;
 }
+
+
+
+

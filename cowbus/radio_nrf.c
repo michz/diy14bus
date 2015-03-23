@@ -91,7 +91,7 @@ void *nrf24l01p_rx_handler(void *arg) {
 
 void radio_nrf_init(void) {
     // initialize radio module
-    //                                            ce=B11, cs=B12, irq=A1
+    //                                              ce       cs    irq
     int ret = nrf24l01p_init(&nrf24l01p_0, SPI_0, GPIO_6, GPIO_7, GPIO_12);
     //TODO auf cowbus-board anpassen
     

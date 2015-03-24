@@ -23,6 +23,7 @@
 #include "sensor.h"
 #include "packet_queue.h"
 #include "radio_nrf.h"
+#include "eeprom.h"
 
 
 
@@ -100,6 +101,13 @@ int main(void)
     // initialize radio driver
     radio_nrf_init();
     radio_nrf_register_rx_callback(packet_received);
+
+    eeprom_init();
+
+
+    board_uart0_init();
+    printf("test_uart.\n");
+
 
 
     // TODO get node address from eeprom

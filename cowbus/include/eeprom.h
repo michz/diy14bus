@@ -1,5 +1,5 @@
 /**
- * @brief   TODO
+* @brief   TODO
  *
  * TODO
  *
@@ -23,6 +23,9 @@
 
 
 extern char eeprom_name_buffer[NAME_MAX_LENGTH];
+
+
+void eeprom_init(void);
 
 
 /**

@@ -12,6 +12,7 @@
 #include "nrf24l01p_settings.h"
 #include "periph/spi.h"
 #include "periph/gpio.h"
+#include "periph/uart.h"
 
 #include "board_uart0.h"
 
@@ -25,6 +26,7 @@
 #include "radio_nrf.h"
 #include "eeprom.h"
 
+//#define MODULE_UART0
 
 
 void packet_received(cowpacket pkt) {
@@ -66,11 +68,16 @@ void packet_received(cowpacket pkt) {
 void test(void)
 {
 
+	led1_off();
+	printf("test_uart.\n");
+
 }
 //</just for debug>
 
 int main(void)
 {
+
+
 
 	(RCC->AHBENR |= RCC_AHBENR_GPIOAEN);
 	(RCC->AHBENR |= RCC_AHBENR_GPIOBEN);
@@ -81,6 +88,8 @@ int main(void)
     switch_init();
     led_init();
 
+
+    board_uart0_init(); //uart_init wird von syscalls schon vorher aufgerufen - hoffentlich zumindest
 
     //<just for debug>
 
@@ -102,11 +111,10 @@ int main(void)
     radio_nrf_init();
     radio_nrf_register_rx_callback(packet_received);
 
-    eeprom_init();
+    //eeprom_init();
 
 
-    board_uart0_init();
-    printf("test_uart.\n");
+
 
 
 

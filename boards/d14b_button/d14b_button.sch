@@ -1244,11 +1244,11 @@ Text Notes 7750 5550 0    120  ~ 0
 EEPROM über SPI
 NoConn ~ 4900 4350
 NoConn ~ 4900 4450
-Text Label 8100 6250 0    60   ~ 0
+Text Label 9500 6150 2    60   ~ 0
 SCK
 Text Label 9500 5950 2    60   ~ 0
 MISO
-Text Label 9500 6250 2    60   ~ 0
+Text Label 8100 6150 0    60   ~ 0
 MOSI
 Text Label 5400 4750 2    60   ~ 0
 ROM_CS
@@ -1260,17 +1260,17 @@ Wire Wire Line
 	4900 4850 5400 4850
 Text Label 8100 5950 0    60   ~ 0
 ROM_CS
-Text Label 9500 6150 2    60   ~ 0
+Text Label 8000 6250 0    60   ~ 0
 ROM_HOLD
 $Comp
 L +3V3 #PWR047
 U 1 1 54B40E80
-P 7900 6250
-F 0 "#PWR047" H 7900 6100 60  0001 C CNN
-F 1 "+3V3" H 7900 6390 60  0000 C CNN
-F 2 "" H 7900 6250 60  0000 C CNN
-F 3 "" H 7900 6250 60  0000 C CNN
-	1    7900 6250
+P 9450 6350
+F 0 "#PWR047" H 9450 6200 60  0001 C CNN
+F 1 "+3V3" H 9450 6490 60  0000 C CNN
+F 2 "" H 9450 6350 60  0000 C CNN
+F 3 "" H 9450 6350 60  0000 C CNN
+	1    9450 6350
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -1333,21 +1333,9 @@ Pinbelegung:\n1 #CS\n2 SO\n3 #WP\n4 VSS\n5 VCC\n6 #HOLD\n7 SCK\n8 SI\n\nChip:  2
 Wire Wire Line
 	8100 5950 8500 5950
 Wire Wire Line
-	8100 6250 8500 6250
-Wire Wire Line
 	9000 5950 9500 5950
 Wire Wire Line
-	9000 6150 9500 6150
-Wire Wire Line
 	9650 6050 9000 6050
-Wire Wire Line
-	9000 6250 9500 6250
-Wire Wire Line
-	7900 6250 8050 6250
-Wire Wire Line
-	8050 6250 8050 6150
-Wire Wire Line
-	8050 6150 8500 6150
 $Comp
 L JUMPER3 JP2
 U 1 1 54B435C7
@@ -1875,4 +1863,16 @@ Wire Wire Line
 Connection ~ 8650 4550
 Wire Wire Line
 	9100 4550 9100 4600
+Wire Wire Line
+	9000 6250 9100 6250
+Wire Wire Line
+	9100 6250 9100 6350
+Wire Wire Line
+	9100 6350 9450 6350
+Wire Wire Line
+	9500 6150 9000 6150
+Wire Wire Line
+	8100 6150 8500 6150
+Wire Wire Line
+	8500 6250 8000 6250
 $EndSCHEMATC

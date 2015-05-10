@@ -1,0 +1,458 @@
+Cmp-Mod V01 Created by Cvpcb (2014-12-16 BZR 5324)-product   date = Fr 27 Mär 2015 14:48:31 CET
+
+BeginCmp
+TimeStamp = /54896B73;
+Reference = BT1;
+ValeurCmp = BATTERY;
+IdModule  = batteryconn:KZH20SMD-2;
+EndCmp
+
+BeginCmp
+TimeStamp = /5480ADD3;
+Reference = C1;
+ValeurCmp = 100n;
+IdModule  = Capacitors_SMD:C_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /5480AD1C;
+Reference = C2;
+ValeurCmp = 10u;
+IdModule  = Capacitors_SMD:c_elec_4x5.8;
+EndCmp
+
+BeginCmp
+TimeStamp = /54AFFDE5;
+Reference = C3;
+ValeurCmp = 100n;
+IdModule  = Capacitors_SMD:C_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B015E8;
+Reference = C4;
+ValeurCmp = 100n;
+IdModule  = Capacitors_SMD:C_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B1C241;
+Reference = C5;
+ValeurCmp = 4.7u;
+IdModule  = Capacitors_SMD:c_elec_4x5.8;
+EndCmp
+
+BeginCmp
+TimeStamp = /54AF99C9;
+Reference = C6;
+ValeurCmp = 100n;
+IdModule  = Capacitors_SMD:C_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /54AF9BEB;
+Reference = C7;
+ValeurCmp = 10n;
+IdModule  = Capacitors_SMD:C_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B1C439;
+Reference = C8;
+ValeurCmp = 1u;
+IdModule  = Capacitors_SMD:C_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /54AF9D47;
+Reference = C9;
+ValeurCmp = 20p;
+IdModule  = Capacitors_SMD:C_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /54AF9DC5;
+Reference = C10;
+ValeurCmp = 20p;
+IdModule  = Capacitors_SMD:C_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B0A568;
+Reference = C11;
+ValeurCmp = 10p;
+IdModule  = Capacitors_SMD:C_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B3296C;
+Reference = C12;
+ValeurCmp = 100n;
+IdModule  = Capacitors_SMD:C_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B0A56E;
+Reference = C13;
+ValeurCmp = 10p;
+IdModule  = Capacitors_SMD:C_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B40EF8;
+Reference = C14;
+ValeurCmp = 100n;
+IdModule  = Capacitors_SMD:C_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /54898D66;
+Reference = C15;
+ValeurCmp = 10u;
+IdModule  = Capacitors_SMD:C_0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /5489AA0A;
+Reference = C16;
+ValeurCmp = 10u;
+IdModule  = Capacitors_SMD:C_0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /54BDDED3;
+Reference = C17;
+ValeurCmp = 100n;
+IdModule  = Capacitors_SMD:C_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B45CE7;
+Reference = CON1;
+ValeurCmp = USB-MICRO-B;
+IdModule  = Connect:USB_Micro-B;
+EndCmp
+
+BeginCmp
+TimeStamp = /54BFA583;
+Reference = D1;
+ValeurCmp = LED_RABG;
+IdModule  = d14lib:PLCC-4;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B2C3A2;
+Reference = D2;
+ValeurCmp = LED;
+IdModule  = LEDs:LED-0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B0A648;
+Reference = D3;
+ValeurCmp = Z5V1;
+IdModule  = Diodes_SMD:Diode-MiniMELF_Standard;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B0AD67;
+Reference = D4;
+ValeurCmp = Z5V1;
+IdModule  = Diodes_SMD:Diode-MiniMELF_Standard;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B0ADD7;
+Reference = D5;
+ValeurCmp = Z5V1;
+IdModule  = Diodes_SMD:Diode-MiniMELF_Standard;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B1B9F1;
+Reference = D6;
+ValeurCmp = Z5V1;
+IdModule  = Diodes_SMD:Diode-MiniMELF_Standard;
+EndCmp
+
+BeginCmp
+TimeStamp = /54BD6F73;
+Reference = D7;
+ValeurCmp = DIODE;
+IdModule  = Diodes_SMD:Diode-MiniMELF_Standard;
+EndCmp
+
+BeginCmp
+TimeStamp = /54BF6E88;
+Reference = D8;
+ValeurCmp = ZENERsmall;
+IdModule  = Diodes_SMD:Diode-MiniMELF_Standard;
+EndCmp
+
+BeginCmp
+TimeStamp = /54AFD79C;
+Reference = JP1;
+ValeurCmp = JUMPER3;
+IdModule  = Connect:PINHEAD1-3;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B435C7;
+Reference = JP2;
+ValeurCmp = JUMPER3;
+IdModule  = Connect:PINHEAD1-3;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B1F253;
+Reference = JP3;
+ValeurCmp = JUMPER3;
+IdModule  = Connect:PINHEAD1-3;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B3D11B;
+Reference = JP4;
+ValeurCmp = JUMPER;
+IdModule  = Connect:PINHEAD1-2;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B3EC55;
+Reference = JP5;
+ValeurCmp = JUMPER;
+IdModule  = Connect:PINHEAD1-2;
+EndCmp
+
+BeginCmp
+TimeStamp = /54BE8A1E;
+Reference = JP6;
+ValeurCmp = JUMPER;
+IdModule  = Connect:PINHEAD1-2;
+EndCmp
+
+BeginCmp
+TimeStamp = /54898DB7;
+Reference = L1;
+ValeurCmp = 4.7u;
+IdModule  = d14lib:NRS8030;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B2A0A6;
+Reference = P1;
+ValeurCmp = CONN_02X05;
+IdModule  = d14lib:CORTEX_header_SMD;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B08A26;
+Reference = P2;
+ValeurCmp = CONN_01X03;
+IdModule  = Connect:PINHEAD1-3;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B262BA;
+Reference = P3;
+ValeurCmp = PIEZO_BUZZ;
+IdModule  = Connect:PINHEAD1-2;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B41ABF;
+Reference = P4;
+ValeurCmp = EEPROM_SPI;
+IdModule  = SMD_Packages:MSOP-8;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B25F08;
+Reference = Q1;
+ValeurCmp = MOSFET_N;
+IdModule  = SMD_Packages:SOT-23-GDS;
+EndCmp
+
+BeginCmp
+TimeStamp = /54BDCAF9;
+Reference = Q2;
+ValeurCmp = IRLM6402;
+IdModule  = SMD_Packages:SOT-23-GDS;
+EndCmp
+
+BeginCmp
+TimeStamp = /54BDC287;
+Reference = Q3;
+ValeurCmp = BSS138;
+IdModule  = SMD_Packages:SOT-23-GDS;
+EndCmp
+
+BeginCmp
+TimeStamp = /54BDCE48;
+Reference = R1;
+ValeurCmp = 100k;
+IdModule  = Resistors_SMD:R_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /54AFBB5E;
+Reference = R2;
+ValeurCmp = 680;
+IdModule  = Resistors_SMD:R_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /54AFBB0B;
+Reference = R3;
+ValeurCmp = 510;
+IdModule  = Resistors_SMD:R_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /54AFD7FD;
+Reference = R4;
+ValeurCmp = 10k;
+IdModule  = Resistors_SMD:R_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /54AFBA14;
+Reference = R5;
+ValeurCmp = 680;
+IdModule  = Resistors_SMD:R_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B2C2FF;
+Reference = R6;
+ValeurCmp = 680;
+IdModule  = Resistors_SMD:R_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B12F0E;
+Reference = R7;
+ValeurCmp = 10k;
+IdModule  = Resistors_SMD:R_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B12F9E;
+Reference = R8;
+ValeurCmp = 10k;
+IdModule  = Resistors_SMD:R_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B12FEC;
+Reference = R9;
+ValeurCmp = 10k;
+IdModule  = Resistors_SMD:R_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B0890E;
+Reference = R10;
+ValeurCmp = 0;
+IdModule  = Resistors_SMD:R_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B371E3;
+Reference = R11;
+ValeurCmp = 10, 2.5W;
+IdModule  = Resistors_ThroughHole:Resistor_Horizontal_RM20mm;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B34C40;
+Reference = R12;
+ValeurCmp = 0;
+IdModule  = Resistors_SMD:R_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B34DCF;
+Reference = R13;
+ValeurCmp = *;
+IdModule  = Resistors_SMD:R_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /54BDD92F;
+Reference = R14;
+ValeurCmp = 10k;
+IdModule  = Resistors_SMD:R_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /54BDD960;
+Reference = R15;
+ValeurCmp = 10k;
+IdModule  = Resistors_SMD:R_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /5480667B;
+Reference = SW1;
+ValeurCmp = SW_PUSH;
+IdModule  = d14lib:Button_SMD_Schurter_LSG;
+EndCmp
+
+BeginCmp
+TimeStamp = /548067BC;
+Reference = SW2;
+ValeurCmp = SW_PUSH;
+IdModule  = d14lib:Button_SMD_Schurter_LSG;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B328EE;
+Reference = SW3;
+ValeurCmp = SW_PUSH;
+IdModule  = d14lib:Button_SMD_Schurter_LSG;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B0F915;
+Reference = SW4;
+ValeurCmp = SW_PUSH;
+IdModule  = d14lib:Button_SMD_Schurter_LSG;
+EndCmp
+
+BeginCmp
+TimeStamp = /5480655E;
+Reference = U1;
+ValeurCmp = nRF24L01+-Module;
+IdModule  = Pin_Headers:Pin_Header_Straight_2x04;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B5A341;
+Reference = U2;
+ValeurCmp = STM32F030C8T6;
+IdModule  = Housings_QFP:LQFP-48_7x7mm_Pitch0.5mm;
+EndCmp
+
+BeginCmp
+TimeStamp = /548991BF;
+Reference = U3;
+ValeurCmp = TPS61221;
+IdModule  = Housings_SOT-23_SOT-143_TSOT-6:SC70-6;
+EndCmp
+
+BeginCmp
+TimeStamp = /54AF9828;
+Reference = X1;
+ValeurCmp = 8M;
+IdModule  = Crystals:Crystal_HC49-SD_SMD;
+EndCmp
+
+BeginCmp
+TimeStamp = /54B0A562;
+Reference = X2;
+ValeurCmp = 32.768k;
+IdModule  = d14lib:crystal_SMD_CPFB;
+EndCmp
+
+EndListe

@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by Cvpcb (2014-12-16 BZR 5324)-product   date = Fr 27 Mär 2015 19:19:01 CET
+Cmp-Mod V01 Created by Cvpcb (2015-05-13 BZR 5653)-product   date = Freitag, 15. Mai 2015 16:35:31
 
 BeginCmp
 TimeStamp = /54896B73;
@@ -124,6 +124,20 @@ TimeStamp = /54BDDED3;
 Reference = C17;
 ValeurCmp = 100n;
 IdModule  = Capacitors_SMD:C_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /55565367;
+Reference = C18;
+ValeurCmp = 10u;
+IdModule  = Capacitors_SMD:C_0805;
+EndCmp
+
+BeginCmp
+TimeStamp = /5556541C;
+Reference = C19;
+ValeurCmp = 10u;
+IdModule  = Capacitors_SMD:C_0805;
 EndCmp
 
 BeginCmp
@@ -393,6 +407,20 @@ IdModule  = Resistors_SMD:R_0603;
 EndCmp
 
 BeginCmp
+TimeStamp = /555648E5;
+Reference = R16;
+ValeurCmp = *;
+IdModule  = Resistors_SMD:R_0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /555649D4;
+Reference = R17;
+ValeurCmp = *;
+IdModule  = Resistors_SMD:R_0603;
+EndCmp
+
+BeginCmp
 TimeStamp = /5480667B;
 Reference = SW1;
 ValeurCmp = SW_PUSH;
@@ -439,6 +467,13 @@ TimeStamp = /548991BF;
 Reference = U3;
 ValeurCmp = TPS61221;
 IdModule  = Housings_SOT-23_SOT-143_TSOT-6:SC70-6;
+EndCmp
+
+BeginCmp
+TimeStamp = /55562FC5;
+Reference = U4;
+ValeurCmp = LP38502-ADJ;
+IdModule  = SMD_Packages:TO-263-5;
 EndCmp
 
 BeginCmp

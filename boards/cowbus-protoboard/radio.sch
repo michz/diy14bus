@@ -1,0 +1,183 @@
+EESchema Schematic File Version 2
+LIBS:power
+LIBS:device
+LIBS:transistors
+LIBS:conn
+LIBS:linear
+LIBS:regul
+LIBS:74xx
+LIBS:cmos4000
+LIBS:adc-dac
+LIBS:memory
+LIBS:xilinx
+LIBS:microcontrollers
+LIBS:dsp
+LIBS:microchip
+LIBS:analog_switches
+LIBS:motorola
+LIBS:texas
+LIBS:intel
+LIBS:audio
+LIBS:interface
+LIBS:digital-audio
+LIBS:philips
+LIBS:display
+LIBS:cypress
+LIBS:siliconi
+LIBS:opto
+LIBS:atmel
+LIBS:contrib
+LIBS:valves
+LIBS: STM32F030C8T6
+LIBS:nrf24l01plus-module
+LIBS:cowbus-protoboard-cache
+EELAYER 25 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 3 3
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L nRF24L01+-Module U?
+U 1 1 55A51C3D
+P 5650 3950
+F 0 "U?" H 5000 4250 60  0000 C CNN
+F 1 "nRF24L01+-Module" H 5650 3950 60  0000 C CNN
+F 2 "" H 5750 3550 60  0000 C CNN
+F 3 "" H 5750 3550 60  0000 C CNN
+	1    5650 3950
+	1    0    0    -1  
+$EndComp
+$Comp
+L GND #PWR?
+U 1 1 55A51C67
+P 5650 4700
+F 0 "#PWR?" H 5650 4450 50  0001 C CNN
+F 1 "GND" H 5650 4550 50  0000 C CNN
+F 2 "" H 5650 4700 60  0000 C CNN
+F 3 "" H 5650 4700 60  0000 C CNN
+	1    5650 4700
+	1    0    0    -1  
+$EndComp
+$Comp
+L +3V3 #PWR?
+U 1 1 55A51C7D
+P 5650 3200
+F 0 "#PWR?" H 5650 3050 50  0001 C CNN
+F 1 "+3V3" H 5650 3340 50  0000 C CNN
+F 2 "" H 5650 3200 60  0000 C CNN
+F 3 "" H 5650 3200 60  0000 C CNN
+	1    5650 3200
+	1    0    0    -1  
+$EndComp
+Text HLabel 7150 3800 2    60   Input ~ 0
+SCK
+Wire Wire Line
+	5650 3550 5650 3200
+Wire Wire Line
+	5650 4350 5650 4700
+Wire Wire Line
+	6500 3800 7150 3800
+Wire Wire Line
+	6500 3950 7150 3950
+Wire Wire Line
+	6500 4100 7150 4100
+Text HLabel 7150 3950 2    60   Input ~ 0
+MOSI
+Text HLabel 7150 4100 2    60   Input ~ 0
+MISO
+Wire Wire Line
+	4750 3800 4500 3800
+Wire Wire Line
+	4750 3950 4500 3950
+Wire Wire Line
+	4750 4100 4500 4100
+Text HLabel 4500 3800 0    60   Input ~ 0
+CE
+Text HLabel 4500 3950 0    60   Input ~ 0
+CSN
+Text HLabel 4500 4100 0    60   Input ~ 0
+IRQ
+$Comp
+L GND #PWR?
+U 1 1 55A72AEE
+P 3000 4700
+F 0 "#PWR?" H 3000 4450 50  0001 C CNN
+F 1 "GND" H 3000 4550 50  0000 C CNN
+F 2 "" H 3000 4700 60  0000 C CNN
+F 3 "" H 3000 4700 60  0000 C CNN
+	1    3000 4700
+	1    0    0    -1  
+$EndComp
+$Comp
+L +3V3 #PWR?
+U 1 1 55A72AF4
+P 3000 3200
+F 0 "#PWR?" H 3000 3050 50  0001 C CNN
+F 1 "+3V3" H 3000 3340 50  0000 C CNN
+F 2 "" H 3000 3200 60  0000 C CNN
+F 3 "" H 3000 3200 60  0000 C CNN
+	1    3000 3200
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3000 3200 3000 3800
+Wire Wire Line
+	3000 4100 3000 4700
+$Comp
+L C C?
+U 1 1 55A72B04
+P 3000 3950
+F 0 "C?" H 3025 4050 50  0000 L CNN
+F 1 "C" H 3025 3850 50  0000 L CNN
+F 2 "" H 3038 3800 30  0000 C CNN
+F 3 "" H 3000 3950 60  0000 C CNN
+	1    3000 3950
+	1    0    0    -1  
+$EndComp
+$Comp
+L CP C?
+U 1 1 55A72B51
+P 3500 3950
+F 0 "C?" H 3525 4050 50  0000 L CNN
+F 1 "CP" H 3525 3850 50  0000 L CNN
+F 2 "" H 3538 3800 30  0000 C CNN
+F 3 "" H 3500 3950 60  0000 C CNN
+	1    3500 3950
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3500 3800 3500 3200
+Wire Wire Line
+	3500 4100 3500 4700
+$Comp
+L GND #PWR?
+U 1 1 55A72BFA
+P 3500 4700
+F 0 "#PWR?" H 3500 4450 50  0001 C CNN
+F 1 "GND" H 3500 4550 50  0000 C CNN
+F 2 "" H 3500 4700 60  0000 C CNN
+F 3 "" H 3500 4700 60  0000 C CNN
+	1    3500 4700
+	1    0    0    -1  
+$EndComp
+$Comp
+L +3V3 #PWR?
+U 1 1 55A72C0E
+P 3500 3200
+F 0 "#PWR?" H 3500 3050 50  0001 C CNN
+F 1 "+3V3" H 3500 3340 50  0000 C CNN
+F 2 "" H 3500 3200 60  0000 C CNN
+F 3 "" H 3500 3200 60  0000 C CNN
+	1    3500 3200
+	1    0    0    -1  
+$EndComp
+$EndSCHEMATC

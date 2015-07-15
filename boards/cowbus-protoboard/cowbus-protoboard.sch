@@ -36,9 +36,9 @@ EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 6
-Title ""
-Date ""
-Rev ""
+Title "cowbus protoboard"
+Date "2015-07-15"
+Rev "0.9"
 Comp ""
 Comment1 ""
 Comment2 ""

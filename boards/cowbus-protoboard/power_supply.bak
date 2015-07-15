@@ -36,9 +36,9 @@ EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
 Sheet 3 6
-Title ""
-Date ""
-Rev ""
+Title "cowbus protoboard"
+Date "2015-07-15"
+Rev "0.9"
 Comp ""
 Comment1 ""
 Comment2 ""
@@ -173,4 +173,41 @@ Wire Wire Line
 	4450 4600 4450 4300
 Wire Wire Line
 	4450 3450 4450 4000
+$Comp
+L GND #PWR?
+U 1 1 55A95D68
+P 8250 4600
+F 0 "#PWR?" H 8250 4350 50  0001 C CNN
+F 1 "GND" H 8250 4450 50  0000 C CNN
+F 2 "" H 8250 4600 60  0000 C CNN
+F 3 "" H 8250 4600 60  0000 C CNN
+	1    8250 4600
+	1    0    0    -1  
+$EndComp
+$Comp
+L +3V3 #PWR?
+U 1 1 55A95D6E
+P 8250 3700
+F 0 "#PWR?" H 8250 3550 50  0001 C CNN
+F 1 "+3V3" H 8250 3840 50  0000 C CNN
+F 2 "" H 8250 3700 60  0000 C CNN
+F 3 "" H 8250 3700 60  0000 C CNN
+	1    8250 3700
+	1    0    0    -1  
+$EndComp
+$Comp
+L C C?
+U 1 1 55A95D76
+P 8250 4150
+F 0 "C?" H 8275 4250 50  0000 L CNN
+F 1 "100n" H 8275 4050 50  0000 L CNN
+F 2 "" H 8288 4000 30  0000 C CNN
+F 3 "" H 8250 4150 60  0000 C CNN
+	1    8250 4150
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	8250 4000 8250 3700
+Wire Wire Line
+	8250 4600 8250 4300
 $EndSCHEMATC

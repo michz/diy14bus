@@ -474,15 +474,15 @@ Wire Wire Line
 Wire Wire Line
 	9450 4300 10200 4300
 Wire Wire Line
-	9450 1700 10150 1700
+	9450 4400 10200 4400
 Wire Wire Line
-	9450 1800 10150 1800
+	9450 4500 10200 4500
 Wire Wire Line
-	9450 1900 10150 1900
+	9450 4600 10200 4600
 Wire Wire Line
-	9450 2000 10150 2000
+	9450 4700 10200 4700
 Wire Wire Line
-	9450 2100 10150 2100
+	9450 4800 10200 4800
 Wire Wire Line
 	5500 2000 5500 1850
 Wire Wire Line
@@ -548,14 +548,34 @@ Text HLabel 10200 4300 2    60   Input ~ 0
 GPIO7
 Text HLabel 10200 3200 2    60   Input ~ 0
 GPIO0
-Text HLabel 10150 1700 2    60   Input ~ 0
+Text HLabel 10200 4400 2    60   Input ~ 0
 GPIO8
-Text HLabel 10150 1800 2    60   Input ~ 0
+Text HLabel 10200 4500 2    60   Input ~ 0
 GPIO9
-Text HLabel 10150 1900 2    60   Input ~ 0
+Text HLabel 10200 4600 2    60   Input ~ 0
 GPIO10
-Text HLabel 10150 2000 2    60   Input ~ 0
+Text HLabel 10200 4700 2    60   Input ~ 0
 GPIO11
-Text HLabel 10150 2100 2    60   Input ~ 0
+Text HLabel 10200 4800 2    60   Input ~ 0
 GPIO12
+Wire Wire Line
+	9450 1700 10200 1700
+Wire Wire Line
+	9450 1800 10200 1800
+Wire Wire Line
+	9450 1900 10200 1900
+Wire Wire Line
+	9450 2000 10200 2000
+Wire Wire Line
+	9450 2100 10200 2100
+Text HLabel 10200 1700 2    60   Input ~ 0
+GPIO13
+Text HLabel 10200 1800 2    60   Input ~ 0
+GPIO14
+Text HLabel 10200 1900 2    60   Input ~ 0
+GPIO15
+Text HLabel 10200 2000 2    60   Input ~ 0
+GPIO16
+Text HLabel 10200 2100 2    60   Input ~ 0
+GPIO17
 $EndSCHEMATC

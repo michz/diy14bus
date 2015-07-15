@@ -35,7 +35,7 @@ EELAYER 25 0
 EELAYER END
 $Descr A4 11693 8268
 encoding utf-8
-Sheet 1 6
+Sheet 5 6
 Title ""
 Date ""
 Rev ""
@@ -45,4 +45,23 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
+Text Notes 4150 3700 0    197  ~ 0
+globale Spannungsversorgung... \nDCDC? Laderegler für Li-Ion?
+$Comp
+L VCC #PWR?
+U 1 1 55A6DF87
+P 2000 1250
+F 0 "#PWR?" H 2000 1100 50  0001 C CNN
+F 1 "VCC" H 2000 1400 50  0000 C CNN
+F 2 "" H 2000 1250 60  0000 C CNN
+F 3 "" H 2000 1250 60  0000 C CNN
+	1    2000 1250
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	2000 1250 2000 1500
+Wire Wire Line
+	2000 1500 1300 1500
+Text HLabel 1300 1500 0    79   Input ~ 0
+VCC_OUT
 $EndSCHEMATC

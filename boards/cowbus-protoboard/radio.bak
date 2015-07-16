@@ -30,6 +30,7 @@ LIBS:contrib
 LIBS:valves
 LIBS: STM32F030C8T6
 LIBS:nrf24l01plus-module
+LIBS:i2c
 LIBS:cowbus-protoboard-cache
 EELAYER 25 0
 EELAYER END

@@ -30,6 +30,7 @@ LIBS:contrib
 LIBS:valves
 LIBS: STM32F030C8T6
 LIBS:nrf24l01plus-module
+LIBS:i2c
 LIBS:cowbus-protoboard-cache
 EELAYER 25 0
 EELAYER END
@@ -273,7 +274,7 @@ L Crystal Y?
 U 1 1 55A5D620
 P 2800 4150
 F 0 "Y?" H 2800 4300 50  0000 C CNN
-F 1 "37,768kHz" H 2800 4000 50  0000 C CNN
+F 1 "32,768kHz" H 2800 4000 50  0000 C CNN
 F 2 "" H 2800 4150 60  0000 C CNN
 F 3 "" H 2800 4150 60  0000 C CNN
 	1    2800 4150
@@ -654,4 +655,12 @@ Wire Wire Line
 	4950 2200 4950 1150
 Wire Wire Line
 	4700 2200 4700 1150
+Wire Wire Line
+	9450 2700 9850 2700
+Wire Wire Line
+	9450 2600 9850 2600
+Text HLabel 9850 2600 2    60   Input ~ 0
+TX
+Text HLabel 9850 2700 2    60   Input ~ 0
+RX
 $EndSCHEMATC

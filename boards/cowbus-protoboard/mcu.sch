@@ -30,6 +30,7 @@ LIBS:contrib
 LIBS:valves
 LIBS: STM32F030C8T6
 LIBS:nrf24l01plus-module
+LIBS:i2c
 LIBS:cowbus-protoboard-cache
 EELAYER 25 0
 EELAYER END
@@ -654,4 +655,12 @@ Wire Wire Line
 	4950 2200 4950 1150
 Wire Wire Line
 	4700 2200 4700 1150
+Wire Wire Line
+	9450 2700 9850 2700
+Wire Wire Line
+	9450 2600 9850 2600
+Text HLabel 9850 2600 2    60   Input ~ 0
+TX
+Text HLabel 9850 2700 2    60   Input ~ 0
+RX
 $EndSCHEMATC

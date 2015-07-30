@@ -16,11 +16,30 @@
 
 \long\def\comment / *#1* /{}
 
+
+
+% -----------------------------------------------------------------------------
+% Visible TODO and FIXME markers
+% -----------------------------------------------------------------------------
+\newcounter{TODOCOUNT}
+\newcommand{\TODO}[1]{\vspace{0.5em}\todo[inline, color=orange]{#1}\stepcounter{TODOCOUNT}}
+\newcommand{\FIXME}[1]{\todo[size=\small, color=red]{#1}\stepcounter{TODOCOUNT}}
+\AtEndDocument{
+	\ifnum\value{TODOCOUNT}>0
+		%\cleardoublepage
+		\listoftodos
+	\fi
+}
+% -----------------------------------------------------------------------------
+
+
+
+
 \begin{document}
 
 
 \title{cowbus -- a small home automation bus}
-\author{Robin~Backhaus \and Patrick~Kanzler \and Josef~Schnurrer \and Michael~Zapf}
+\author{Patrick~Kanzler \and Michael~Zapf}
 \date{\today}
 
 
@@ -47,7 +66,12 @@ Hardware und die Integration in den \ac{openHAB}.
     automatisch herunter sobald die Sonne blendet --
     all das ist keine Science Fiction mehr sondern längst Realität.
 
+    Diese Arbeit versucht eine Plattform zu schaffen, die günstig nachbaubar ist.
+    Sie soll für Bastler, Macher, Studenten, Forscher und weitere Interessierte
+    niedrige Einstiegshürden in den Bereich der drahtlosen Sensornetze bieten.
+
 \section{Motivaton}
+    \TODO{Gateways raus, prägnanter}
     Die meisten erhältlichen \enquote{Smart Home}-Lösungen sind teuer und nicht offen.
     Da die Beliebtheit solcher Systeme immer größer wird, wäre eine größere 
     Zugänglichkeit durch günstige Alternativen und langfristige Sicherheit, 
@@ -62,6 +86,7 @@ Hardware und die Integration in den \ac{openHAB}.
     cowbus zu verbinden.
 
 \section{Projektidee und -ziele}
+    \TODO{blabla raus, ganz raus vielleicht? Ist eigentlich das gleiche wie Motivation}
     Angefangen hat der cowbus mit der Suche nach einem Projekt für die Vorlesung 
     \enquote{DIY: Personal Fabrication} 2014/2015 von Dr.-Ing. Jürgen Eckert, durch 
     Michael Zapf und Patrick Kanzler. Im Rahmen der Veranstaltung hat sich dann ein 
@@ -87,6 +112,7 @@ Hardware und die Integration in den \ac{openHAB}.
 
 
 \section{Projektverlauf und Meilensteine}
+    \TODO{Ist das Kunst oder kann das weg?}
     \subsection{Erstes Brainstorming}
     Die Wahl des Projektnamen fiel nicht leicht. Wir haben uns darauf geeinigt, dass 
     wir das Projekt DIY14BUS nennen und auch so anmelden. Nachdem wir im 
@@ -324,9 +350,11 @@ Diese werden im weiteren Verlauf beschrieben.
             \begin{figure}
             \centering
             \includegraphics[width=0.5\textwidth]{img/paket}
-            \caption{Aufbau der Pakete}
+            \caption{vorläufiger Aufbau der Pakete auf der MAC-Schicht}
             \label{fig:paket}
         \end{figure}
+
+        \TODO{allgemein: Paketstruktur auf PHY-Schicht von eigener Paketstruktur auf MAC-Schicht unterscheiden}
 
         Hardwarebedingt sind wir für die übertragenen Pakete auf 32\,Byte 
         beschränkt, dazu in der späteren Beschreibung über den Funkchip mehr. 
@@ -592,6 +620,7 @@ Die SWD-Funktionalität des Controllers ist in Form einer Cortex-M-Debugschnitts
         
 
     \subsection{Verschlüsselung}
+        \TODO{in Sicherheit umbenennen und knackiger/aussagekräftiger machen}
         Um das System im eigenen Haus gegen Angriffe von aussen zu schützen soll in 
         späteren Versionen eine Verschlüsselung erfolgen.
         Details sind noch nicht geplant, intuitiv bietet sich aber eine
@@ -599,7 +628,6 @@ Die SWD-Funktionalität des Controllers ist in Form einer Cortex-M-Debugschnitts
         dann sicherstellen, dass nur Knoten im Netz senden und mitlesen können,
         die vom Benutzer selbst autorisiert wurden -- denen also vom Benutzer
         der Schlüssel mitgeteilt wurde.
-
 
 
 
@@ -620,6 +648,13 @@ Das Betriebssystem und eine Funk-Testanwendung läuft,
 sodass jetzt mit der Entwicklung der konkreten,
 produktiven Anwendung fortgefahren werden kann.
 
+
+        \begin{figure}
+            \centering
+            \includegraphics[width=0.5\textwidth]{img/node_stack}
+            \caption{Netzwerkstack}
+            \label{fig:comp}
+        \end{figure}
 
 
 

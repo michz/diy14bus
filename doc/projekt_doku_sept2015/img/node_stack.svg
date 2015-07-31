@@ -186,7 +186,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.8370109"
-     inkscape:cx="553.10672"
+     inkscape:cx="317.74539"
      inkscape:cy="302.38978"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -222,7 +222,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -307,14 +307,14 @@
            y="178.24144" /></flowRegion><flowPara
          style="font-size:36px;text-align:center;text-anchor:middle"
          id="flowPara3810-4-0">???</flowPara></flowRoot>    <rect
-       style="color:#000000;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:3;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;filter:url(#filter4606)"
+       style="color:#000000;fill:#972d2d;fill-opacity:1;fill-rule:nonzero;stroke:#6a0e0e;stroke-width:5;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;filter:url(#filter4606)"
        id="rect2985-0-0-8"
        width="390.05453"
        height="315.94775"
        x="58.886314"
        y="348.86655" />
     <rect
-       style="color:#000000;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:3;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;filter:url(#filter4618)"
+       style="color:#000000;fill:#972d2d;fill-opacity:1;fill-rule:nonzero;stroke:#6a0e0e;stroke-width:5;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;filter:url(#filter4618)"
        id="rect2985-0-0-8-34"
        width="390.05453"
        height="315.94775"
@@ -322,7 +322,7 @@
        y="348.86655" />
     <flowRoot
        transform="translate(-208.52959,236.53022)"
-       style="font-size:12px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       style="font-size:12px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Sans"
        id="flowRoot3802-3-1-5"
        xml:space="preserve"><flowRegion
          id="flowRegion3804-2-3-6"><rect
@@ -330,8 +330,9 @@
            x="315.33398"
            height="69.596291"
            width="269.01511"
-           id="rect3806-4-2-2" /></flowRegion><flowPara
-         style="font-size:28px;text-align:center;text-anchor:middle"
+           id="rect3806-4-2-2"
+           style="fill:#ffffff;fill-opacity:1" /></flowRegion><flowPara
+         style="font-size:28px;text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1"
          id="flowPara4093">Anwendung 1</flowPara></flowRoot>    <flowRoot
        transform="translate(80.745752,294.25986)"
        style="font-size:12px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
@@ -346,7 +347,7 @@
          style="font-size:28px;text-align:center;text-anchor:middle"
          id="flowPara4093-4">...</flowPara></flowRoot>    <flowRoot
        transform="translate(360.16073,236.53022)"
-       style="font-size:12px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       style="font-size:12px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Sans"
        id="flowRoot3802-3-1-5-9"
        xml:space="preserve"><flowRegion
          id="flowRegion3804-2-3-6-6"><rect
@@ -354,11 +355,12 @@
            x="315.33398"
            height="69.596291"
            width="269.01511"
-           id="rect3806-4-2-2-63" /></flowRegion><flowPara
-         style="font-size:28px;text-align:center;text-anchor:middle"
+           id="rect3806-4-2-2-63"
+           style="fill:#ffffff;fill-opacity:1" /></flowRegion><flowPara
+         style="font-size:28px;text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1"
          id="flowPara4093-8">Anwendung n</flowPara></flowRoot>    <flowRoot
        transform="translate(-208.52959,314.18751)"
-       style="font-size:12px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       style="font-size:12px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Sans"
        id="flowRoot3802-3-1-5-2"
        xml:space="preserve"><flowRegion
          id="flowRegion3804-2-3-6-62"><rect
@@ -366,11 +368,12 @@
            x="266.10828"
            height="141.27997"
            width="391.11926"
-           id="rect3806-4-2-2-3" /></flowRegion><flowPara
-         style="font-size:22px;text-align:center;text-anchor:middle"
+           id="rect3806-4-2-2-3"
+           style="fill:#ffffff;fill-opacity:1" /></flowRegion><flowPara
+         style="font-size:22px;text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1"
          id="flowPara4093-1">(z.B. Temperaturmessung)</flowPara></flowRoot>    <flowRoot
        transform="translate(338.65563,314.18751)"
-       style="font-size:12px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       style="font-size:12px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Sans"
        id="flowRoot3802-3-1-5-2-7"
        xml:space="preserve"><flowRegion
          id="flowRegion3804-2-3-6-62-4"><rect
@@ -378,7 +381,8 @@
            x="266.10828"
            height="141.27997"
            width="391.11926"
-           id="rect3806-4-2-2-3-0" /></flowRegion><flowPara
-         style="font-size:22px;text-align:center;text-anchor:middle"
+           id="rect3806-4-2-2-3-0"
+           style="fill:#ffffff;fill-opacity:1" /></flowRegion><flowPara
+         style="font-size:22px;text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1"
          id="flowPara4093-1-1">(z.B. Schaltung durch Relais)</flowPara></flowRoot>  </g>
 </svg>

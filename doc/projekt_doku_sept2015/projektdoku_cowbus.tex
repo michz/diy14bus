@@ -47,8 +47,8 @@
 \maketitle
 
 \begin{abstract}
-Auf einem \emph{STM32F0}-Microcontroller mit dem Funkchip \emph{nrf24l01+} soll
-mit Hilfe des Betriebssystems RIOT OS ein offener Bus für die
+Auf einem \emph{STM32F0}-Microcontroller soll mit Hilfe des Funkchips
+\emph{nrf24l01+} und des Betriebssystems RIOT OS ein offener Bus für die
 Heimautomatisierung realisiert werden.
 Die Knoten kommunizieren dabei im 2,4\,GHz ISM-Band miteinander.
 Ziele sind preisgünstige Komponenten, einfache Erweiterbarkeit in Soft- und
@@ -80,119 +80,12 @@ Hardware und die Integration in den \ac{openHAB}.
     flexiblen und damit einfach zu erweiternden Netzwerktopologie.
     Mit möglichst günstigen Komponenten sollen dabei Sensoren und Aktoren 
     mit verschiedensten Funktionen ermöglicht werden.
-    Eine Anknüpfung an vorhandene IP-basierende Netze durch Gateways würde die 
-    Anwendungsmöglichkeiten zusätzlich erhöhen 
-    und es ermöglichen bereits bestehende und neue externe Anwendungen mit dem 
-    cowbus zu verbinden.
-
-\section{Projektidee und -ziele}
-    \TODO{blabla raus, ganz raus vielleicht? Ist eigentlich das gleiche wie Motivation}
-    Angefangen hat der cowbus mit der Suche nach einem Projekt für die Vorlesung 
-    \enquote{DIY: Personal Fabrication} 2014/2015 von Dr.-Ing. Jürgen Eckert, durch 
-    Michael Zapf und Patrick Kanzler. Im Rahmen der Veranstaltung hat sich dann ein 
-    Team gebildet, um eine günstige, offene Alternative zu bestehenden Heimbussystemen 
-    zu entwickeln. Das Team besteht aus Michael Zapf, Patrick Kanzler, Josef Schnurrer 
-    und Robin Backhaus. 
-
-    An zentraler Stelle des Projektes steht die Kommunikation zwischen Netzwerkknoten 
-    und ein Netzwerkmodell, das möglichst flexibel erweiterbar und verkleinerbar 
-    sein soll. 
-    Dazu wird ein drahtloses Mesh-Netzwerk mit dezentraler Organisation implementiert 
-    und an Beispiel-Sensoren und "~Aktoren getestet. 
-    Als besonderes Merkmal soll das System aus einzelnen, kostengünstigen, sich 
-    selbst vermaschenden Knoten bestehen.
-    Die Sensoren und Aktoren sollen Ereignisse erzeugen und darauf reagieren können. 
-    Optional könnte nach ersten Funktionstests der ausgewählten Hardware oder im 
-    Anschluss an die erfolgreiche Implementierung eines Netzwerkes der Standard 
-    \enquote{\ac{6LoWPAN}} implementiert werden. 
-    Um keine unbrauchbare Insellösung zu entwickeln, soll neben den Aktoren und 
-    Sensoren ein Ethernet-Gateway implementiert werden. Durch dieses soll das 
-    Meshnetzwerk als optionales Anwendungsbeispiel eine Verbindung zu 
-    einer \enquote{\ac{openHAB}}-Instanz aufnehmen können.
 
 
-\section{Projektverlauf und Meilensteine}
-    \TODO{Ist das Kunst oder kann das weg?}
-    \subsection{Erstes Brainstorming}
-    Die Wahl des Projektnamen fiel nicht leicht. Wir haben uns darauf geeinigt, dass 
-    wir das Projekt DIY14BUS nennen und auch so anmelden. Nachdem wir im 
-    Projektverlauf mehr über Technologie und Funktionsumfang festlegten, wollten wir 
-    später einen \enquote{richtigen} Namen wählen. Die Wahl viel dann auf \textbf{cowbus}.
-
-    Über die Implementierung von \enquote{\ac{6LoWPAN}} waren wir uns nach einem ersten 
-    Brainstorming nicht mehr sicher. Obwohl dies als moderner offener Standard 
-    sehr wünschenswert war, hatten wir aufgrund der begrenzten Projektzeit Bedenken 
-    zu viel Zeit zu verlieren, wenn die Implementierung nicht auf Anhieb gelingen 
-    sollte. Vorher ein funktionierendes Mesh-Netzwerk mit den von uns gewünschten 
-    Eigenschaften zu implementieren erschien uns als wichtiger, vor allem um 
-    eigene Erfahrungen zu sammeln. Wir entschieden uns dafür \enquote{\ac{6LoWPAN}} 
-    nicht sofort zu implementieren, sondern als Option für eine Weiterentwicklung 
-    nach dem Projekt offen zu halten.
-
-    Durch die Konkretisierung unserer Projektziele entschieden wir uns, eine 
-    \enquote{proof-of-work}-Herangehensweise zu wählen und als erstes unser 
-    Sensor-Aktor-Konzept umzusetzen. Erst im Anschluss sollte ein 
-    Ethernet-Gateway folgen um den Funktionsumfang des cowbus zu erhöhen.
-
-    \subsection{Projektplanung}
-    Zeitlich haben wir das Projekt in Monate aufgeteilt. Für den restlichen Oktober 
-    gaben wir uns Zeit, uns kennen zu lernen, Informationen und Wissen über bestehende 
-    und zu verwendende Technologien auszutauschen und uns in das Thema einzuarbeiten.
-    
-    Verwendete Software und Hilfsmittel sollten unter anderem
-    GitHub\footnote{https://github.com/michz/diy14bus},
-    KiCad\footnote{http://www.kicad-pcb.org/},
-    JLink\footnote{https://www.segger.com/jlink-debug-probes.html}
-    und OpenOCD\footnote{http://openocd.sourceforge.net/}, sowie ein
-    Blog\footnote{http://michz.github.io/diy14bus/}
-    zur Projektdokumentation sein, die für unsere 
-    Projektinfrastruktur vorbereitet wurden.
-    Im November sollten die ersten Tests und Anpassungen von RIOT OS in Verbindung 
-    mit den Discovery-Boards stattfinden, um anschließend mit der Planung und einem 
-    Entwurf für unser Mesh-Netzwerk beginnen zu können.
-   
-    Nachdem unsere \emph{nrf24l01+}-Funkchips angekommen waren, sollte im Dezember 
-    die Softwareentwicklung und  Funktests mit Discovery-Boards vorangehen.
-    Hier stießen wir jedoch auf Komplikationen bei der Unterstützung durch RIOT OS. 
-    Während wir dennoch unser erstes Funksignal übertragen konnten, gewannen wir 
-    einen genaueren Überblick, welchen Funktionsumfang wir mit unseren 
-    Sensor-Aktor-Prototypen im Rahmen des Projektes realisieren könnten, was die 
-    Grundlage für das gleichzeitig stattfindende Schaltungslayout und 
-    Platinendesign für unseren Prototypen sein sollte.
-    
-    Im Januar wollten wir die bisherigen Ergebnisse zusammenbringen und  
-    Implementierung und Test der bisherigen Software am Prototypen vorantreiben. 
-    Als Meilenstein nahmen wir uns vor in der Zwischenstandspräsentation erste 
-    Showcases vorführen zu können. Unser Prototyp sollte als der 
-    \enquote{Beispielknoten} gleichzeitig Sensor- (über Druckknöpfe) und 
-    Aktorfunktionalitätten (verschiedene LEDs) haben.
-    
-    Für Februar hatten wir uns vorgenommen das Projekt soweit abzurunden und 
-    unseren Schwerpunkt auf Fehlerbehebungen zu legen. Außerdem steht es noch an, 
-    die Arbeit an optionalen Projektzielen fortzuführen. 
-
-    \subsection{Kennenlernen von RIOT OS}
-    Um das Rad nicht neu zu erfinden, bietet es sich an, ein eingebettetes 
-    Betriebssystem auf den Knoten einzusetzen. Relativ früh wurde uns der Tipp 
-    gegeben, \enquote{RIOT OS}\footnote{\url{http://www.riot-os.org/}} anzuschauen.
-    
-    RIOT OS ist ein Betriebssystem für den Bereich embedded, welches auf das 
-    Thema Internet of Things optimiert wurde.
-    Von dessen Erschaffern wird es als \enquote{The friendly Operating System for the Internet of Things.} bezeichnet.
-    Damit bietet es gegenüber Konkurrenten, wie chibiOS oder FreeRTOS den Vorteil, 
-    dass einiges, wie eine saubere Netzwerkkommunikation mit Unterstützung für 
-    IPv6 bereits implementiert ist. 
-    
-    Es soll \ac{6LoWPAN} zum Einsatz kommen, um auf den doch relativ schwachen 
-    Knotengeräten Ressourcen zu sparen.
-    RIOT OS unterstützt Multithreading und ist aufgrund seiner Schichtenarchitektur
-    gut portierbar. Eine Anwendung kann für unterschiedliche Boards mit unterschiedlichen
-    CPU-Kernen gleich geschrieben werden, da sich der Programmierer nicht um Hardware-Details
-    kümmern muss. Dies ist dank der gut ausgeprägten \ac{HAL}, 
-    die für jedes Board erstellt werden muss, möglich.
-    RIOT OS steht unter der LGPLv2 Lizenz.
-
+\section{???}
+    \TODO{sinnvoll ordnen, Überschrift, etc.}
     \subsection{Funkchip \emph{nrf24l01+}}
+    \TODO{neutraler, weniger Erzählstil}
     Die Wahl des Funkchips stand nach kurzer Recherche fest: Der \emph{nrf24l01+} von 
     \emph{Nordic Semiconductor} ist günstig in der Anschaffung, da er 
     im Zehner-Pack nur knapp 2\,\euro\ pro Stück kostet. Er arbeitet im 2,4\,GHz 
@@ -218,32 +111,11 @@ Hardware und die Integration in den \ac{openHAB}.
     implementiert und musste mit Hilfe der bereits unterstützten Plattformen
     implementiert werden.
 
-    \subsection{Erste Funkübertragung}
-        Nach etwa der Hälfte der bisherigen Entwicklungszeit ist in RIOT OS 
-        glücklicherweise der Treiber für den \emph{nrf24l01+}"~Chip erschienen. Mit 
-        diesem Treiber ist es erstmals gelungen, Pakete mit RIOT OS zu versenden 
-        und mit einem anderen Board zu empfangen.
-        Der Treiber ist allerdings nicht in die bisherigen Module des 
-        Netzwerkstapels integriert worden. Da die Integration zu aufwändig 
-        gewesen wäre, wurde auf diesem Treiber aufgebaut und ein eigenes 
-        Protokoll entworfen.
-
-    \subsection{Platinendesign des Prototypes}
-    An dieser Stelle erschienen drei Baustellen. Zum einen sollte ein Prototyp, 
-    der \textbf{cowbus-one}, geplant und erstellt werden. Auf einer runden Platine soll 
-    ein ARM-Prozessor von ST, eine RGB-LED, und drei Taster platziert werden. 
-    Dafür wurde erst der Schaltplan, dann das Layout erstellt und anschließend 
-    die Platine gefertigt und bestückt.
-    Die zweite Baustelle war der \ac{HAL} von RIOT OS 
-    für unseren Prototypen. Als drittes sollte das entworfene Protokoll 
-    implementiert werden, das unten im Detail beschrieben wird.
-
- %   \subsection{Zwischenpresentation}
 
 \section{Systemaufbau}
 Für die Eigenschaften des cowbus sind im Grunde drei Punkte wichtig.
 Diese werden im weiteren Verlauf beschrieben.
-%TODO könnte man noch schöner gestalten...
+    \TODO{könnte man noch schöner gestalten...}
     \subsection{Funkmedium}
         Als Übertragungsmedium kommt eine 2,4\,GHz-Technologie
         zum Einsatz. Eine Funktechnologie eignet sich besonders gut dazu
@@ -347,7 +219,13 @@ Diese werden im weiteren Verlauf beschrieben.
             die in jedem modernen Browser läuffähig sein sollte.
 
     \subsection{Paketaufbau}
-            \begin{figure}
+        \begin{figure}
+            \centering
+            \includegraphics[width=0.5\textwidth]{img/paket_phy}
+            \caption{Aufbau der Pakete auf der PHY-Schicht (vom Funkmodul vorgegeben)}
+            \label{fig:paket}
+        \end{figure}
+        \begin{figure}
             \centering
             \includegraphics[width=0.5\textwidth]{img/paket}
             \caption{vorläufiger Aufbau der Pakete auf der MAC-Schicht}

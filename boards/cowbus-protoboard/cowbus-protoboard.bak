@@ -1,4 +1,5 @@
 EESchema Schematic File Version 2
+LIBS:cowbus-protoboard-rescue
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -31,6 +32,7 @@ LIBS:valves
 LIBS: STM32F030C8T6
 LIBS:nrf24l01plus-module
 LIBS:i2c
+LIBS:led_rgb_reichelt
 LIBS:cowbus-protoboard-cache
 EELAYER 25 0
 EELAYER END
@@ -258,15 +260,15 @@ Wire Wire Line
 Wire Wire Line
 	3600 6350 2900 6350
 Wire Wire Line
+	3600 6750 2900 6750
+Wire Wire Line
+	3600 6850 2900 6850
+Wire Wire Line
 	3600 6450 2900 6450
 Wire Wire Line
 	3600 6550 2900 6550
 Wire Wire Line
 	3600 6650 2900 6650
-Wire Wire Line
-	3600 6750 2900 6750
-Wire Wire Line
-	3600 6850 2900 6850
 Wire Wire Line
 	3600 6950 2900 6950
 Wire Wire Line
@@ -289,15 +291,15 @@ Text Label 2900 6250 0    47   ~ 0
 SW_3
 Text Label 2900 6350 0    47   ~ 0
 SW_4
-Text Label 2900 6450 0    47   ~ 0
-SCL
-Text Label 2900 6550 0    47   ~ 0
-SDA
-Text Label 2900 6650 0    47   ~ 0
-LED_R
 Text Label 2900 6750 0    47   ~ 0
-LED_G
+SCL
 Text Label 2900 6850 0    47   ~ 0
+SDA
+Text Label 2900 6450 0    47   ~ 0
+LED_R
+Text Label 2900 6550 0    47   ~ 0
+LED_G
+Text Label 2900 6650 0    47   ~ 0
 LED_B
 Text Label 2900 6950 0    47   ~ 0
 BUZ
@@ -314,15 +316,15 @@ Wire Wire Line
 Wire Wire Line
 	1900 6350 1200 6350
 Wire Wire Line
+	1900 6750 1200 6750
+Wire Wire Line
+	1900 6850 1200 6850
+Wire Wire Line
 	1900 6450 1200 6450
 Wire Wire Line
 	1900 6550 1200 6550
 Wire Wire Line
 	1900 6650 1200 6650
-Wire Wire Line
-	1900 6750 1200 6750
-Wire Wire Line
-	1900 6850 1200 6850
 Wire Wire Line
 	1900 6950 1200 6950
 Wire Wire Line
@@ -345,15 +347,15 @@ Text Label 1200 6250 0    47   ~ 0
 SW_3
 Text Label 1200 6350 0    47   ~ 0
 SW_4
-Text Label 1200 6450 0    47   ~ 0
-SCL
-Text Label 1200 6550 0    47   ~ 0
-SDA
-Text Label 1200 6650 0    47   ~ 0
-LED_R
 Text Label 1200 6750 0    47   ~ 0
-LED_G
+SCL
 Text Label 1200 6850 0    47   ~ 0
+SDA
+Text Label 1200 6450 0    47   ~ 0
+LED_R
+Text Label 1200 6550 0    47   ~ 0
+LED_G
+Text Label 1200 6650 0    47   ~ 0
 LED_B
 Text Label 1200 6950 0    47   ~ 0
 BUZ
@@ -374,7 +376,7 @@ L CONN_01X22 P1
 U 1 1 55A93700
 P 2100 6100
 F 0 "P1" H 2100 7250 50  0000 C CNN
-F 1 "CONN_01X22" V 2200 6100 50  0000 C CNN
+F 1 "CPU_TO_PERIPH" V 2200 6100 50  0000 C CNN
 F 2 "Pin_Headers:Pin_Header_Straight_1x22" H 2100 6100 60  0001 C CNN
 F 3 "" H 2100 6100 60  0000 C CNN
 	1    2100 6100
@@ -438,4 +440,21 @@ Text Label 8800 5300 2    79   ~ 0
 RX
 Text Label 8800 5450 2    79   ~ 0
 TX
+$Comp
+L +3V3 #PWR4
+U 1 1 55BE898C
+P 9300 1700
+F 0 "#PWR4" H 9300 1550 50  0001 C CNN
+F 1 "+3V3" H 9300 1840 50  0000 C CNN
+F 2 "" H 9300 1700 60  0000 C CNN
+F 3 "" H 9300 1700 60  0000 C CNN
+	1    9300 1700
+	-1   0    0    -1  
+$EndComp
+Wire Wire Line
+	9650 2200 9300 2200
+Wire Wire Line
+	9300 2200 9300 1700
+Text Label 9650 2200 2    60   ~ 0
+3V3
 $EndSCHEMATC

@@ -51,10 +51,10 @@ $EndDescr
 Text Notes 4150 3700 0    197  ~ 0
 globale Spannungsversorgung... \nDCDC? Laderegler für Li-Ion?
 $Comp
-L VCC #PWR50
+L VCC #PWR050
 U 1 1 55A6DF87
 P 2000 1250
-F 0 "#PWR50" H 2000 1100 50  0001 C CNN
+F 0 "#PWR050" H 2000 1100 50  0001 C CNN
 F 1 "VCC" H 2000 1400 50  0000 C CNN
 F 2 "" H 2000 1250 60  0000 C CNN
 F 3 "" H 2000 1250 60  0000 C CNN

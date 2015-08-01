@@ -1,4 +1,4 @@
-update=Fr 31 Jul 2015 14:53:13 CEST
+update=Sa 01 Aug 2015 18:24:57 CEST
 version=1
 last_client=kicad
 [pcbnew]
@@ -73,3 +73,4 @@ LibName31=lib/ STM32F030C8T6
 LibName32=lib/nrf24l01plus-module
 LibName33=lib/i2c
 LibName34=lib/led_rgb_reichelt
+LibName35=lib/ts5204

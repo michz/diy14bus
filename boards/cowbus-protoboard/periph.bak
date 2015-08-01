@@ -33,6 +33,7 @@ LIBS: STM32F030C8T6
 LIBS:nrf24l01plus-module
 LIBS:i2c
 LIBS:led_rgb_reichelt
+LIBS:ts5204
 LIBS:cowbus-protoboard-cache
 EELAYER 25 0
 EELAYER END

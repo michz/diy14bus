@@ -42,7 +42,7 @@ encoding utf-8
 Sheet 3 6
 Title "cowbus protoboard"
 Date "2015-07-15"
-Rev "0.9"
+Rev "1"
 Comp ""
 Comment1 ""
 Comment2 ""
@@ -324,7 +324,7 @@ U 1 1 55BCF895
 P 5800 4100
 F 0 "U2" H 5500 4350 40  0000 C CNN
 F 1 "TS5204" H 5800 4300 40  0000 C CNN
-F 2 "SMD_Packages:SOT-323" H 5800 4200 35  0000 C CIN
+F 2 "Housings_SOT-23_SOT-143_TSOT-6:SOT-23_Handsoldering" H 5800 4200 35  0001 C CIN
 F 3 "" H 5800 4100 60  0000 C CNN
 	1    5800 4100
 	1    0    0    -1  

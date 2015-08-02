@@ -42,7 +42,7 @@ encoding utf-8
 Sheet 6 6
 Title "cowbus protoboard"
 Date "2015-07-15"
-Rev "0.9"
+Rev "1"
 Comp ""
 Comment1 ""
 Comment2 ""

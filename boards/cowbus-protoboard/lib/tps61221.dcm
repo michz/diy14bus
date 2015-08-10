@@ -1,0 +1,37 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP TPS61221
+D TPS6122x Low Input Voltage, 0.7V Boost Converter With 5.5μA Quiescent Current
+$ENDCMP
+#
+$CMP TPS77801D
+D TPS77801D, 750 mA Fast-Transient Low Dropout Voltage Regulator, Adjustable Output 1.2-5.5V, SOIC8
+K 750mA LDO Regulator Adjustable Positive
+F http://www.ti.com/lit/ds/symlink/tps77725.pdf
+$ENDCMP
+#
+$CMP TPS77815D
+D TPS77815D, 750 mA Fast-Transient Low Dropout Voltage Regulator, Fixed Output 1.5V, SOIC8
+K 750mA LDO Regulator Fixed Positive
+F http://www.ti.com/lit/ds/symlink/tps77725.pdf
+$ENDCMP
+#
+$CMP TPS77818D
+D TPS77818D, 750 mA Fast-Transient Low Dropout Voltage Regulator, Fixed Output 1.8V, SOIC8
+K 750mA LDO Regulator Fixed Positive
+F http://www.ti.com/lit/ds/symlink/tps77725.pdf
+$ENDCMP
+#
+$CMP TPS77825D
+D TPS77825D, 750 mA Fast-Transient Low Dropout Voltage Regulator, Fixed Output 2.5V, SOIC8
+K 750mA LDO Regulator Fixed Positive
+F http://www.ti.com/lit/ds/symlink/tps77725.pdf
+$ENDCMP
+#
+$CMP TPS77833D
+D TPS77833D, 750 mA Fast-Transient Low Dropout Voltage Regulator, Fixed Output 3.3V, SOIC8
+K 750mA LDO Regulator Fixed Positive
+F http://www.ti.com/lit/ds/symlink/tps77725.pdf
+$ENDCMP
+#
+#End Doc Library

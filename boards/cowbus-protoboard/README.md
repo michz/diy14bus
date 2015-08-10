@@ -25,6 +25,12 @@ Following addresses are reserved:
 * 1001000 (temperature sensor on periphery board)
 
 
+License
+-------
+This board is licensed under
+[Creative Commons Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/)
+![CC BY 4.0 logo](https://licensebuttons.net/l/by/4.0/88x31.png)
+
 
 [STM32F030C8T6]: http://www.digikey.de/product-detail/de/STM32F030C8T6/497-14043-ND/4357252
 

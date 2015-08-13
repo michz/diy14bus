@@ -71,7 +71,7 @@
     (grid_origin 182.118 135.128)
     (visible_elements FFFEEF7F)
     (pcbplotparams
-      (layerselection 0x03030_80000001)
+      (layerselection 0x030fc_80000001)
       (usegerberextensions false)
       (excludeedgelayer true)
       (linewidth 0.100000)
@@ -90,11 +90,11 @@
       (plotinvisibletext false)
       (padsonsilk false)
       (subtractmaskfromsilk false)
-      (outputformat 4)
+      (outputformat 1)
       (mirror false)
       (drillshape 0)
       (scaleselection 1)
-      (outputdirectory pdf/layout/))
+      (outputdirectory gerber/))
   )
 
   (net 0 "")

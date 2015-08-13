@@ -47,7 +47,7 @@ preview-%.pdf: %.tex
 clean: clean-latex clean-bibtex
 
 clean-latex:
-	$(RM) *.aux *.d *.dvi *.log *.nav *.out *.snm *.toc
+	$(RM) *.aux *.d *.dvi *.log *.nav *.out *.snm *.toc *.tdo *.fls *.fdb_latexmk
 
 clean-bibtex:
 	$(RM) *.bbl *.blg

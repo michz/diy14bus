@@ -10,6 +10,7 @@
 \usepackage{eurosym}
 \usepackage{todonotes}
 \usepackage{microtype}
+\usepackage{icomma}
  
 
 \usepackage{hyperref}
@@ -84,11 +85,57 @@
 
 \section{Ansatz}
     \subsection{Voraussetzungen, Annahmen}
-        \TODO{paketorientiertes Netzwerk, Adressierung}
+        Wir gehen davon aus, dass uns ein paketvermitteltes Netz vorliegt,
+        in dem alle Teilnehmer eindeutig adressierbar sind.
 
-        \TODO{Basis: cowbus-Plattform, Idee kurz erläutern}
-        
-        \TODO{Grundidee: Sensoren dumm, Aktoren intelligent; auch, weil die Aktoren oft bessere Stromversorgungen haben - Lampe z.B.}
+        Als Test- und Referenzumgebung dient uns der \emph{cowbus}.
+        Dabei handelt es sich um ein studentisches Projekt,
+        das sich zum Ziel gesetzt hat,
+        eine kostengünstige und einfach nachzubauende Plattform zu schaffen,
+        die einen Einstieg in den Arbeits- und Forschungsbereich des
+        \enquote{Smart Home} bzw. \enquote{Connected Home} ermöglichen soll.
+        Der Nachrichtenaustausch erfolgt dabei drahtlos über eine
+        $2,4$\,GHz-Funkverbindung. \cite{cowbus}
+
+        Das Testnetzwerk besteht aus drei Komponenten:
+        \begin{itemize}
+            \item Als \textbf{Sensor} dient ein einfacher Taster.
+                Er soll Schaltaktionen im Netzwerk auslösen.
+            \item Eine LED dient als \textbf{Aktor},
+                der beliebige Schaltaktionen im Netzwerk symbolisch darstellt.
+            \item Zur \textbf{Konfiguration} der Geräte befindet sich
+                außerdem ein
+                Raspberry Pi\footnote{\url{http://www.raspberrypi.org}}
+                im Netzwerk.
+                Er wurde um ein Funkmodul erweitert und stellt eine
+                Weboberfläche zur Verfügung,
+                über die die Konfiguration ermöglicht werden soll.
+                Außerdem ermöglicht er die \textbf{Überwachung} des Netzwerkverkehrs.
+        \end{itemize}
+
+    \subsection{Idee}
+        Da \textbf{Sensoren} häufig höhere Anforderungen an den Energieverbrauch
+        stellen, sollen sie in dem System \enquote{dumm} sein.
+        Sie erarbeiten sich also kein Wissen über die anderen Netzwerkkomponenten
+        und reagieren nicht, sondern agieren ausschließlich.
+        Das ermöglicht uns sie die meiste Zeit in Energiesparmodi zu betreiben
+        und nur dann aufzuwecken, wenn sie selbst ein Ereignis auslösen,
+        zum Beispiel wenn der Benutzer einen Taster betätigt.
+
+        \textbf{Aktoren} hingegen sind häufig mit stabilen Energiequellen
+        ausgestattet, da sie meist gewisse Lasten schalten.
+        Als Beispiele wären Leuchten, Jalousiemotoren oder auch Ventilatoren
+        zu nennen.
+        Daher bietet es sich an, logische Verknüpfungen hier vorzunehmen.
+
+        Die \textbf{Konfiguration} der Aktoren wird über ein webfähiges Gerät
+        vorgenommen, das über ein herkömmliches \ac{LAN} die
+        Konfigurationswebseite des Raspberry Pi anzeigt.
+        Dabei werden Konfigurationsnachrichten quasi \enquote{in-band}
+        über den Funkkanal gesendet.
+        Die Aktoren erkennen sie an den speziellen Nachrichtentypen.
+
+        \TODO{Ideen entwickeln, z.B.: welche Nachrichtnetypen brauchts? "Lösche alle Zuordnungen", "neue Zuordnung", ...}
 
 
 \section{Evaluation}
@@ -102,7 +149,7 @@
         \begin{figure}
             \centering
             \includegraphics[width=0.5\textwidth]{img/system}
-            \caption{Schematische Darstellung der beteiligten Komponententypen}
+            \caption{Schematische Darstellung der Testumgebung}
             \label{fig:comp}
         \end{figure}
 
@@ -197,6 +244,7 @@
 \begin{acronym}
     \acro{6LoWPAN}{IPv6 over Low power Wireless Personal Area Network}
     \acro{CSMA/CA}{Carrier Sense Multiple Access with Collision Avoidance\acroextra{\newline \emph{dt.}: Mehrfachzugriff mit Trägerprüfung und Kollisionsvermeidung}}
+    \acro{DIY}{Do-It-Yourself}
     \acro{HAL}{Hardware Abstraction Layer}
     \acro{LAN}{Local Area Network}
     \acro{openHAB}{open Home Automation Bus}
@@ -211,6 +259,7 @@
 \listoftables
 \clearpage
 * /
+
 
 \bibliographystyle{IEEEtran}
 \bibliography{IEEEabrv,projektdoku_cowbus}

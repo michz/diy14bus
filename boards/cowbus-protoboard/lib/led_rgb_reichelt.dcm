@@ -1,0 +1,7 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP LED_RGB_reichelt
+D LED RGB 6 pins from Reichelt (2015)
+$ENDCMP
+#
+#End Doc Library

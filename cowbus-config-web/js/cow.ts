@@ -11,8 +11,13 @@ class cow {
     
     static fromPacket(pkt : cowpacket) : cow {
         var c = new cow(pkt.address);
-        if (pkt.type == cowpacket_type.get_name && pkt.payload.length > 0) {
-            c.name = pkt.payload;
+        if (pkt.type == cowpacket_type.ping_answer) {
+            logme("Received ping answer from " + pkt.address + " (" + pkt.payload + ")", 'success');
+        }
+        if ((pkt.type == cowpacket_type.get_name ||
+            pkt.type == cowpacket_type.ping_answer) &&
+            pkt.payload.length > 0) {
+                c.name = pkt.payload;
         }
         return c;
     }

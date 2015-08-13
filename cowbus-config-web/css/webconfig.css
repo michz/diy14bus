@@ -47,9 +47,16 @@ table {
 
 /*  ###### END RESET ###### */
 
-body { font-family:sans; }
+html, body { font-family:sans; width:100%; height:100%; }
 
-#mainTable { width:100%; border-collapse:collapse; border:0; }
+#left { position:absolute; left:0; top:0; bottom:0; right:50%;
+    overflow-y:scroll;
+    background-color:none; }
+#right { position:absolute; right:0; top:0; bottom:0; width:50%;
+    overflow-y:scroll;
+    background-color:#eeeeee; }
+
+#btnClose { position:absolute; top:5px; right:15px; }
 
 h2 { margin:0 0 10px 0; padding:8px 25px;
     font-size:1.3em; font-weight:bold; text-shadow:2px 2px 2px #fff;
@@ -67,8 +74,6 @@ div.node span.addr { padding:3px; position:absolute; top:0; right:0;
 
 div.node span.buttons { position:absolute; left:0; right:0; }
 div.node span.node-button { width:16px; height:16px; float:right; overflow:hidden;}
-
-
 
 
 /* Logging */

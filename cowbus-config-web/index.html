@@ -23,20 +23,16 @@
 </head>
 
 <body>
-    <table id="mainTable">
-        <tr>
-            <td style="width:50%;">
-                <h2>Nodes</h2>
-                <div id="nodes">
-                </div>
-            </td>
-            <td style="width:50%;">
-                <h2>Log</h2>
-                <div id="log-output"></div>
-                <input type="button" name="btnClose" id="btnClose" value="Reconnect">
-            </td>
-        </tr>
-    </table>
+    <div id="left">
+        <h2>Nodes</h2>
+        <div id="nodes">
+        </div>
+    </div>
+    <div id="right">
+        <h2>Log</h2>
+        <input type="button" name="btnClose" id="btnClose" value="Reconnect">
+        <div id="log-output"></div>
+    </div>
 
     <!-- connect dialog -->
     <div id="dialog-connect" title="Connect to cowbus-config-server">

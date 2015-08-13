@@ -6,7 +6,10 @@ var cow = (function () {
     }
     cow.fromPacket = function (pkt) {
         var c = new cow(pkt.address);
-        if (pkt.type == 3 /* get_name */ && pkt.payload.length > 0) {
+        if (pkt.type == 7 /* ping_answer */) {
+            logme("Received ping answer from " + pkt.address + " (" + pkt.payload + ")", 'success');
+        }
+        if ((pkt.type == 3 /* get_name */ || pkt.type == 7 /* ping_answer */) && pkt.payload.length > 0) {
             c.name = pkt.payload;
         }
         return c;

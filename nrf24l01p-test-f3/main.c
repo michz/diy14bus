@@ -31,6 +31,10 @@
 char radio_stack_buffer[RADIO_STACK_SIZE];
 msg_t msg_q[RCV_BUFFER_SIZE];
 
+#define DBG_MSG_BUTTON      (1)
+#define DBG_PING_ANSWER     (2)
+#define DBG_GET_NAME        (3)
+
 uint8_t sendMsg;
 kernel_pid_t radio_pid;
 
@@ -38,7 +42,7 @@ static nrf24l01p_t nrf24l01p_0;
 
 int seq_no = 0xB;
 
-
+char dbg_name[PAYLOAD_MAX_LENGTH+1];
 
 char rx_handler_stack[KERNEL_CONF_STACKSIZE_MAIN];
 
@@ -82,6 +86,31 @@ void *nrf24l01p_rx_handler(void *arg)
                 puts("");
                 LD9_ON;
                 hwtimer_wait(HWTIMER_TICKS(100 * 1000));
+
+                // DEBUG do some basic stuff
+                cowpacket* p = (cowpacket*)rx_buf;
+                if (p->type == ping)  {
+                    // PING request
+                    sendMsg = DBG_PING_ANSWER;
+                }
+                else if (p->type == get_name)  {
+                    sendMsg = DBG_GET_NAME;
+                }
+                else if (p->type == set_name)  {
+                    // SET_NAME request
+                    memset(dbg_name, 0, PAYLOAD_MAX_LENGTH+1);
+                    strncpy(dbg_name, (char*)p->payload, strlen((char*)p->payload));
+
+                    // set ping response (type = 7)
+                    sendMsg = DBG_GET_NAME;
+
+                    LD10_ON;
+                    hwtimer_wait(HWTIMER_TICKS(500 * 1000));
+                    LD10_OFF;
+                }
+
+
+
                 LD9_OFF;
 
                 break;
@@ -106,6 +135,9 @@ int main(void)
 {
 	sendMsg = 1;
 
+    // DEBUG
+    char* tmp_name = "TESTNODE1";
+    strncpy(dbg_name, tmp_name, strlen(tmp_name));
 
     LD3_OFF;
     LD4_OFF;
@@ -163,13 +195,10 @@ int main(void)
     gpio_irq_enable(GPIO_11);
 
     int i = 0;
-	while(1) {
-		if(gpio_read(GPIO_0) > 0 && sendMsg == 1){ //hier dann auf sendMsg pruefen, das durch externen Taster in dessen ISR auf 1 gesetzt wird.
-			sendMsg = 0;
+	while (1) {
+		if (sendMsg > 0) {
 
             int r = 0;
-
-
 
             int status = 0;
             char tx_buf[NRF24L01P_MAX_DATA_LENGTH];
@@ -183,15 +212,31 @@ int main(void)
             cp->type    = event;
             cp->is_fragment = 0;
 
-            for (int i = 0; i < sizeof(cp->payload); ++i) {
-                cp->payload[i] = 48+i;
+
+            if (sendMsg == DBG_MSG_BUTTON) {
+                for (int i = 0; i < sizeof(cp->payload); ++i) {
+                    cp->payload[i] = 48+i;
+                }
             }
+            else if (sendMsg == DBG_PING_ANSWER) {
+                cp->type = ping_answer;
+
+                // send name back for example
+                memset(cp->payload, 0, sizeof(cp->payload));
+                strncpy((char*)cp->payload, dbg_name, strlen((char*)dbg_name));
+            }
+            else if (sendMsg == DBG_GET_NAME) {
+                cp->type = get_name;
+                memset(cp->payload, 0, sizeof(cp->payload));
+                strncpy((char*)cp->payload, dbg_name, strlen((char*)dbg_name));
+            }
+
+
             cp->checksum[0] = 0xAA;
             cp->checksum[1] = 0xAA;
 
             if (seq_no > 30) { seq_no = 0; }
             else { seq_no++; }
-
 
             /* power on the device */
             r = nrf24l01p_on(&nrf24l01p_0);
@@ -216,35 +261,8 @@ int main(void)
             /* setup device as receiver */
             nrf24l01p_set_rxmode(&nrf24l01p_0);
 
-
-            /*
-            radio_packet_t p;
-
-            transceiver_command_t tcmd;
-            tcmd.transceivers = TRANSCEIVER_CC1100;
-            tcmd.data = &p;
-
-            p.data = (uint8_t *) text_msg;
-            p.length = strlen(text_msg) + 1;
-            p.dst = (uint16_t)0;
-
-			//neue msg anlegen.
-			msg_t msg;
-            msg.type = SND_PKT;
-            msg.content.ptr = (char *)&tcmd;
-            msg_send_receive(&msg, &msg, transceiver_pid);
-            */
-
-            /*
-			if(msg_send(newMsg, radio_pid) == -1){
-				//no success
-				//20141205: is reached :(
-				LD4_ON;
-			}
-            */
-
-			//free(newMsg);
-
+            // reset
+            sendMsg = 0;
 		}
 
 

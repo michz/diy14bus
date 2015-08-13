@@ -42,6 +42,7 @@ void ws_packet_handler(string data) {
     cp->is_fragment = 0;
 
     const char* payload = d["payload"].GetString();
+    memset(cp->payload, 0, PAYLOAD_MAX_LENGTH);
     memcpy(cp->payload, payload, strlen(payload));
 
     cp->checksum[0] = 0xAA; // TODO generate checksum

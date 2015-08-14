@@ -5,6 +5,9 @@
 #include <sstream>
 #include <iostream>
 
+#include <signal.h>
+#include <unistd.h>
+
 #include <boost/thread.hpp>
 
 #include "../cowbus/include/cowpacket.h"
@@ -22,6 +25,14 @@ static nrf_server* nrf_inst;
 using namespace std;
 using boost::thread;
 
+void my_handler(int s){
+    printf("Caught signal %d. Shutting down sockets and stopping.\n", s);
+
+    ws_inst->stop();
+    nrf_inst->stop();
+
+    exit(1);
+}
 
 void ws_packet_handler(string data) {
     cout << "Got JSON: " << data << endl;
@@ -30,6 +41,7 @@ void ws_packet_handler(string data) {
     d.Parse<0>(data.c_str());
 
     char tx_buf[sizeof(cowpacket)];
+    memset(tx_buf, 0, sizeof(cowpacket));
 
     /* fill TX buffer with data */
     cowpacket* cp = (cowpacket*)tx_buf;
@@ -45,10 +57,9 @@ void ws_packet_handler(string data) {
     memset(cp->payload, 0, PAYLOAD_MAX_LENGTH);
     memcpy(cp->payload, payload, strlen(payload));
 
-    cp->checksum[0] = 0xAA; // TODO generate checksum
-    cp->checksum[1] = 0xAA;
+    cowpacket_generate_checksum(cp);// TODO generate checksum
 
-    nrf_inst->sendMessage(string(tx_buf));
+    nrf_inst->sendMessage(tx_buf);
 }
 
 void nrf_packet_handler(string data) {
@@ -57,6 +68,16 @@ void nrf_packet_handler(string data) {
 }
 
 int main( int argc, char ** argv) {
+    // register signals
+    struct sigaction sigIntHandler;
+
+    sigIntHandler.sa_handler = my_handler;
+    sigemptyset(&sigIntHandler.sa_mask);
+    sigIntHandler.sa_flags = 0;
+
+    sigaction(SIGINT, &sigIntHandler, NULL);
+
+
     // Create a websocket server endpoint
     ws_server wss;
     nrf_server nrfs;

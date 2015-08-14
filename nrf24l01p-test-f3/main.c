@@ -14,19 +14,15 @@
 #include "periph/spi.h"
 #include "periph/uart.h"
 
-#include "transceiver.h"
-
 #include "periph/gpio.h"
 
 #include "board_uart0.h"
 
-
-#include "../cowbus/include/cowpacket.h" //TODO!
-
+#include "../cowbus/include/cowpacket.h"
 
 #define SND_BUFFER_SIZE     (100)
 #define RCV_BUFFER_SIZE     (64)
-#define RADIO_STACK_SIZE    (KERNEL_CONF_STACKSIZE_DEFAULT)
+#define RADIO_STACK_SIZE    (THREAD_STACKSIZE_MAIN)
 
 char radio_stack_buffer[RADIO_STACK_SIZE];
 msg_t msg_q[RCV_BUFFER_SIZE];
@@ -44,7 +40,7 @@ int seq_no = 0xB;
 
 char dbg_name[PAYLOAD_MAX_LENGTH+1];
 
-char rx_handler_stack[KERNEL_CONF_STACKSIZE_MAIN];
+char rx_handler_stack[RADIO_STACK_SIZE];
 
 /* RX handler that waits for a message from the ISR */
 void *nrf24l01p_rx_handler(void *arg)
@@ -185,26 +181,27 @@ int main(void)
 
     hwtimer_wait(HWTIMER_TICKS(1000 * 1000));
 
-    //                                  ce=B11, cs=B12, irq=A1
-    int ret = nrf24l01p_init(&nrf24l01p_0, SPI_1, GPIO_6, GPIO_7, GPIO_12);
+    int ret = nrf24l01p_init(&nrf24l01p_0, SPI_1,
+            GPIO(PORT_B, 11),       // B11  (CE)
+            GPIO(PORT_B, 12),       // B12  (CS)
+            GPIO(PORT_A, 1)         // A1   (IRQ)
+            );
 
     if (ret < 0) {
         printf("Transceiver initialization failed: %i\n", ret);
     }
 
     thread_create(
-        rx_handler_stack, sizeof(rx_handler_stack), PRIORITY_MAIN - 1, 0,
+        rx_handler_stack, sizeof(rx_handler_stack), THREAD_PRIORITY_MAIN - 1, 0,
         nrf24l01p_rx_handler, 0, "nrf24l01p_rx_handler");
 
     nrf24l01p_disable_all_auto_ack(&nrf24l01p_0); // disable all auto ack
     nrf24l01p_set_rxmode(&nrf24l01p_0);
 
 
-    //	init_transceiver();
-
     // initialize button USER
-    gpio_init_int(GPIO_11, GPIO_NOPULL, GPIO_RISING, (void *)button_pressed, 0);
-    gpio_irq_enable(GPIO_11);
+    gpio_init_int(GPIO(PORT_A, 0), GPIO_NOPULL, GPIO_RISING, (void *)button_pressed, 0);
+    gpio_irq_enable(GPIO(PORT_A, 0));
 
     int i = 0;
 	while (1) {

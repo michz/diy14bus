@@ -53,6 +53,7 @@ void *nrf24l01p_rx_handler(void *arg)
     msg_init_queue(msg_q, 1);
     unsigned int pid = thread_getpid();
     char rx_buf[NRF24L01P_MAX_DATA_LENGTH];
+    memset(rx_buf, 0, NRF24L01P_MAX_DATA_LENGTH);
 
     puts("Registering nrf24l01p_rx_handler thread...");
     nrf24l01p_register(&nrf24l01p_0, &pid);
@@ -84,34 +85,45 @@ void *nrf24l01p_rx_handler(void *arg)
                 }
 
                 puts("");
-                LD9_ON;
-                hwtimer_wait(HWTIMER_TICKS(100 * 1000));
 
-                // DEBUG do some basic stuff
+                // -v-v-v- DEBUG do some basic stuff -v-v-v-
                 cowpacket* p = (cowpacket*)rx_buf;
-                if (p->type == ping)  {
-                    // PING request
-                    sendMsg = DBG_PING_ANSWER;
+
+                // check checksum
+                if (cowpacket_check_checksum(p)) {
+                    LD9_ON;
+                    hwtimer_wait(HWTIMER_TICKS(100 * 1000));
+
+                    if (p->type == ping)  {
+                        // PING request
+                        sendMsg = DBG_PING_ANSWER;
+                    }
+                    else if (p->type == get_name)  {
+                        sendMsg = DBG_GET_NAME;
+                    }
+                    else if (p->type == set_name)  {
+                        // SET_NAME request
+                        memset(dbg_name, 0, PAYLOAD_MAX_LENGTH+1);
+                        strncpy(dbg_name, (char*)p->payload, strlen((char*)p->payload));
+
+                        // set ping response (type = 7)
+                        sendMsg = DBG_GET_NAME;
+
+                        LD7_ON;
+                        hwtimer_wait(HWTIMER_TICKS(500 * 1000));
+                        LD7_OFF;
+                    }
+
+                    LD9_OFF;
                 }
-                else if (p->type == get_name)  {
-                    sendMsg = DBG_GET_NAME;
+                else { // checksum failure
+                    for (int i = 0; i < 3; ++i) {
+                        LD10_ON;
+                        hwtimer_wait(HWTIMER_TICKS(75 * 1000));
+                        LD10_OFF;
+                        hwtimer_wait(HWTIMER_TICKS(125 * 1000));
+                    }
                 }
-                else if (p->type == set_name)  {
-                    // SET_NAME request
-                    memset(dbg_name, 0, PAYLOAD_MAX_LENGTH+1);
-                    strncpy(dbg_name, (char*)p->payload, strlen((char*)p->payload));
-
-                    // set ping response (type = 7)
-                    sendMsg = DBG_GET_NAME;
-
-                    LD10_ON;
-                    hwtimer_wait(HWTIMER_TICKS(500 * 1000));
-                    LD10_OFF;
-                }
-
-
-
-                LD9_OFF;
 
                 break;
 
@@ -232,8 +244,9 @@ int main(void)
             }
 
 
-            cp->checksum[0] = 0xAA;
-            cp->checksum[1] = 0xAA;
+            cowpacket_generate_checksum(cp);
+//            cp->checksum[0] = 0xAA;
+//            cp->checksum[1] = 0xAA;
 
             if (seq_no > 30) { seq_no = 0; }
             else { seq_no++; }

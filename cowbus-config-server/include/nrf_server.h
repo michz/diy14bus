@@ -47,14 +47,18 @@ class nrf_server {
             radio.stopListening();
         }
 
+        void stop(void) {
+            radio.stopListening();
+        }
+
         /**
          * TODO
          */
-        bool sendMessage(std::string const payload){
+        bool sendMessage(char* const payload){
             radio.stopListening(); //Stop listening
 
             // Send the message
-            bool ok = radio.write(payload.c_str(), sizeof(cowpacket));
+            bool ok = radio.write(payload, sizeof(cowpacket));
             
             radio.startListening(); // resume listening operation
             
@@ -75,25 +79,27 @@ class nrf_server {
                     radio.read(read_buf, sizeof(cowpacket));
                     cowpacket* cp = (cowpacket*)read_buf;
 
-                    // TODO bereits hier CRC prüfen, bei falscher CRC
-                    //      darf das Paket gar nicht erst zum Client
+                    if (cowpacket_check_checksum(cp)) {
+                        char payload[PAYLOAD_MAX_LENGTH+1];
+                        payload[PAYLOAD_MAX_LENGTH] = 0;
+                        memcpy(payload, cp->payload, PAYLOAD_MAX_LENGTH);
 
-                    char payload[PAYLOAD_MAX_LENGTH+1];
-                    payload[PAYLOAD_MAX_LENGTH] = 0;
-                    memcpy(payload, cp->payload, PAYLOAD_MAX_LENGTH);
-
-                    std::stringstream ss;
-                    ss << "{ " <<
-                        "\"version\": \""   << cp->version << "\", " <<
-                        "\"seq_no\": \""    << cp->seq_no << "\", " <<
-                        "\"ttl\": \""       << cp->ttl << "\", " <<
-                        "\"address\": \""   << cp->addr << "\", " <<
-                        "\"type\": \""      << cp->type << "\", " <<
-                        "\"is_fragment\": \"" << cp->is_fragment << "\", " <<
-                        "\"payload\": \""   << payload << "\" " <<
-                        " }";
-                    
-                    pkt_callback(ss.str());
+                        std::stringstream ss;
+                        ss << "{ " <<
+                            "\"version\": \""   << cp->version << "\", " <<
+                            "\"seq_no\": \""    << cp->seq_no << "\", " <<
+                            "\"ttl\": \""       << cp->ttl << "\", " <<
+                            "\"address\": \""   << cp->addr << "\", " <<
+                            "\"type\": \""      << cp->type << "\", " <<
+                            "\"is_fragment\": \"" << cp->is_fragment << "\", " <<
+                            "\"payload\": \""   << payload << "\" " <<
+                            " }";
+                        
+                        pkt_callback(ss.str());
+                    }
+                    else {
+                        std::cerr << "Got corrupt packet." << std::endl;
+                    }
                 }
 
                 //TODO: Sleep-Time anpassen

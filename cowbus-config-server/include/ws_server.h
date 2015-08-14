@@ -60,6 +60,11 @@ class ws_server {
             pkt_callback = callback;
         }
 
+        void stop(void) {
+            m_server.stop_listening();
+            m_server.stop();
+        }
+
     private:
         typedef std::set<connection_hdl,std::owner_less<connection_hdl>> con_list;
         server          m_server;

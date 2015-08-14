@@ -11,6 +11,7 @@
 #ifndef COWPACKET_H
 #define COWPACKET_H
 
+#include <stdint.h>
 #define PAYLOAD_MAX_LENGTH  (26)
 
 
@@ -36,5 +37,38 @@ typedef struct cowpacket {
     unsigned char payload[PAYLOAD_MAX_LENGTH];
     unsigned char checksum[2];
 } cowpacket;
+
+static inline void cowpacket_generate_checksum(cowpacket* p) {
+    uint16_t r = 0;
+    p->checksum[0] = 0;
+    p->checksum[1] = 0;
+
+    char* buf = (char*)p;
+    for (unsigned int i = 0; i < sizeof(cowpacket); ++i) {
+        r += buf[i];
+    }
+
+    p->checksum[0] = r >> 8;    // high byte
+    p->checksum[1] = r;         // low byte
+}
+
+static inline int cowpacket_check_checksum(cowpacket* p) {
+    uint16_t checksum = p->checksum[1] + (p->checksum[0] << 8);
+    uint16_t r = 0;
+    p->checksum[0] = 0;
+    p->checksum[1] = 0;
+
+    char* buf = (char*)p;
+    for (unsigned int i = 0; i < sizeof(cowpacket); ++i) {
+        r += buf[i];
+    }
+
+    // restore checksum into packet data
+    p->checksum[0] = checksum >> 8;    // high byte
+    p->checksum[1] = checksum;         // low byte
+
+    if (checksum == r) return 1;
+    return 0;
+}
 
 #endif // COWPACKET_H

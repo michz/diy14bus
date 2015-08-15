@@ -1,11 +1,11 @@
-(kicad_pcb (version 4) (host pcbnew 0.201508090901+6074~28~ubuntu14.04.1-product)
+(kicad_pcb (version 4) (host pcbnew 0.201508130901+6089~28~ubuntu14.04.1-product)
 
   (general
     (links 143)
     (no_connects 0)
     (area 114.707999 69.440899 194.715933 138.962601)
     (thickness 1.6)
-    (drawings 9)
+    (drawings 12)
     (tracks 812)
     (zones 0)
     (modules 44)
@@ -15,8 +15,8 @@
   (page A4)
   (title_block
     (title "cowbus protoboard")
-    (date 2015-08-02)
-    (rev 1)
+    (date 2015-08-15)
+    (rev 1.1)
   )
 
   (layers
@@ -1868,6 +1868,15 @@
     (fp_line (start 0.35052 0.89916) (end 0.7493 1.89992) (layer F.SilkS) (width 0.15))
   )
 
+  (gr_text RX (at 142.8242 77.4954 90) (layer F.SilkS)
+    (effects (font (size 1 1) (thickness 0.18)))
+  )
+  (gr_text TX (at 140.2842 77.4954 90) (layer F.SilkS)
+    (effects (font (size 1 1) (thickness 0.18)))
+  )
+  (gr_text GND (at 137.6934 76.9366 90) (layer F.SilkS)
+    (effects (font (size 1 1) (thickness 0.18)))
+  )
   (dimension 63.601783 (width 0.3) (layer F.SilkS)
     (gr_text "63,602 mm" (at 188.065933 107.02786 270.1372899) (layer F.SilkS)
       (effects (font (size 1.5 1.5) (thickness 0.3)))

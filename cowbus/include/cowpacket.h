@@ -12,8 +12,8 @@
 #define COWPACKET_H
 
 #include <stdint.h>
-#define PAYLOAD_MAX_LENGTH  (26)
-
+#define PAYLOAD_MAX_LENGTH      (26)
+#define PACKET_COPY(from,to)    (memcpy(to, from, PAYLOAD_MAX_LENGTH))
 
 typedef enum cowpacket_type {
     undefined   = 0,    ///< reserved!
@@ -25,6 +25,7 @@ typedef enum cowpacket_type {
     ping        = 6,    ///< ask if there is somebody out there with the given address
     ping_answer = 7,    ///< ping answer saying "I am ADDR"
     set_name    = 8,    ///< set the name of the current node
+    configure   = 9     ///< configuration mode
 } cowpacket_type;
 
 typedef struct cowpacket {
@@ -48,15 +49,15 @@ static inline void cowpacket_generate_checksum(cowpacket* p) {
         r += buf[i];
     }
 
-    p->checksum[0] = r >> 8;    // high byte
-    p->checksum[1] = r;         // low byte
+    p->checksum[1] = r >> 8;    // high byte
+    p->checksum[0] = r;         // low byte
 }
 
 static inline int cowpacket_check_checksum(cowpacket* p) {
-    uint16_t checksum = p->checksum[1] + (p->checksum[0] << 8);
+    uint16_t checksum = p->checksum[0] + (p->checksum[1] << 8);
     uint16_t r = 0;
-    p->checksum[0] = 0;
     p->checksum[1] = 0;
+    p->checksum[0] = 0;
 
     char* buf = (char*)p;
     for (unsigned int i = 0; i < sizeof(cowpacket); ++i) {
@@ -64,8 +65,8 @@ static inline int cowpacket_check_checksum(cowpacket* p) {
     }
 
     // restore checksum into packet data
-    p->checksum[0] = checksum >> 8;    // high byte
-    p->checksum[1] = checksum;         // low byte
+    p->checksum[1] = checksum >> 8;    // high byte
+    p->checksum[0] = checksum;         // low byte
 
     if (checksum == r) return 1;
     return 0;

@@ -8,6 +8,7 @@ var stdTtl      : number    = 5;
 
 $(document).ready(function() {
     sock = new socket();
+    cowconfig_rule_pool.init();
 
     // make first dialog button to standard button (called when ENTER pressed)
     // src of next 15 lines of code:   http://stackoverflow.com/a/868999
@@ -60,7 +61,7 @@ $(document).ready(function() {
 
                     logme("Rename address " + addr + " to " + name);
 
-                    var pkt = new cowpacket(0, seqNo++, stdTtl, addr,
+                    var pkt = new cowpacket(0, getNextSeqNo(), stdTtl, addr,
                         cowpacket_type.set_name, false, name);
 
                     sock.send(pkt.generateJSON());
@@ -77,6 +78,62 @@ $(document).ready(function() {
         ]
     });
 
+    // init config dialog
+    $( "#dialog-config" ).dialog({
+        autoOpen: false,
+        width: 700,
+        modal: true,
+        open: function() {
+            var addr = $("#hidCfgAddr").val();
+            updateRuleList(addr);
+        },
+        buttons: [
+            {
+                text: "OK",
+                click: function() {
+                    var node_addr = $("#hidCfgAddr").val();
+                    var addr = parseInt($("#txtCfgSourceAddress").val());
+                    var op = parseInt($("#selCfgOperation").val());
+                    var thresh_a = parseInt($("#txtCfgThresholdA").val());
+                    var thresh_b = parseInt($("#txtCfgThresholdB").val());
+                    var action = parseInt($("#txtCfgAction").val());
+
+                    // TODO own class for cowconfig_rule, cowconfig_packet
+                    var cfg_string =    String.fromCharCode(0) +
+                                        String.fromCharCode(1) + 
+                                        String.fromCharCode(addr & 0xFF) + 
+                                        String.fromCharCode((addr >> 8) & 0xFF) + 
+                                        String.fromCharCode(op) + 
+                                        String.fromCharCode(action) +
+                                        String.fromCharCode((thresh_a)      & 0xFF) + 
+                                        String.fromCharCode((thresh_a >> 8) & 0xFF) + 
+                                        String.fromCharCode((thresh_b)      & 0xFF) +
+                                        String.fromCharCode((thresh_b >> 8) & 0xFF); 
+
+                    var pkt = new cowpacket(0, getNextSeqNo(), stdTtl, node_addr,
+                        cowpacket_type.configure, false, btoa(cfg_string));
+
+                    sock.send(pkt.generateJSON());
+
+                    $( this ).dialog( "close" );
+                }
+            },
+            {
+                text: "Cancel",
+                click: function() {
+                    $( this ).dialog( "close" );
+                }
+            },
+            {
+                text: "Delete all rules",
+                click: function() {
+                    var node_addr = parseInt($("#hidCfgAddr").val());
+                    cowconfig_rule_pool.delete_all(node_addr);
+                }
+            }
+        ]
+    });
+
 
 
     // and now start
@@ -88,11 +145,14 @@ $(document).ready(function() {
 
 function pktHandler(json : string) {
     var obj = JSON.parse(json);
+    logme("Received: " + JSON.stringify(obj));
     var pkt = cowpacket.fromJSON(obj);
-    logme("Received: " + JSON.stringify(pkt));
     known_cows.updateCow(cow.fromPacket(pkt));
-    
-    // TODO: irgendwas mit obj anfangen
+    if (pkt.type == cowpacket_type.configure) {
+        var cfgpkt = cowconfig_packet.fromString(pkt.payload);
+        logme("Config received: " + JSON.stringify(cfgpkt), 'success');
+        cowconfig_rule_pool.add(pkt.address, cfgpkt.id, cfgpkt.rule);
+    }
 }
 
 function logme(msg : string, cls : string = "") {
@@ -100,6 +160,41 @@ function logme(msg : string, cls : string = "") {
 }
 
 function showRenameDialog() {
+}
+
+function updateRuleList(addr) {
+    var rules = cowconfig_rule_pool.get_by_node(addr);
+    console.log("Loading rules for dialog for addr " + addr + ": ");
+    console.log(rules);
+
+    $("#cfg-right").empty();
+
+    for (var i = 0; i < rules.length; ++i) {
+        var r = rules[i];
+        if (!r) continue;
+        $("#cfg-right").append(
+            '<div class="cfg-rule">' +
+            '    <p><span class="config-label">ID: ' + i + '</span></p>' +
+            '    <p><span class="config-label">Adresse: ' + r.address + '</span></p>' +
+            '    <p><span class="config-label">Operation: ' + r.operation + '</span></p>' +
+            '    <p><span class="config-label">Action: ' + r.action + '</span></p>' +
+            '    <p><span class="config-label">Threshold A: ' + r.threshold_a + '</span></p>' +
+            '    <p><span class="config-label">Threshold B: ' + r.threshold_b + '</span></p>' +
+            '    <span onclick="deleteConfigRule('+addr+', '+i+')">Delete rule</span>' +
+            '</div>' 
+        );
+    }
+}
+
+function deleteConfigRule(addr, id) : void {
+    cowconfig_rule_pool.delete_one(addr, id);
+}
+
+function getNextSeqNo() : number {
+    seqNo++;
+    if (seqNo > 30) seqNo = 0;
+
+    return seqNo;
 }
 
 

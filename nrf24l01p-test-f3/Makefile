@@ -17,7 +17,7 @@ USEMODULE += uart0
 # Comment this out to disable code in RIOT that does safety checking
 # which is not needed in a production environment but helps in the
 # development process:
-#CFLAGS += -DDEVELHELP 
+#CFLAGS += -DDEVELHELP -DCREATE_STACKTEST
 CFLAGS += -marm -mthumb-interwork
 
 

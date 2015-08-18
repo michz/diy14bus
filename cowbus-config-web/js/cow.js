@@ -1,8 +1,9 @@
 var cow = (function () {
     function cow(new_address, new_name) {
-        if (new_name === void 0) { new_name = "unnamed"; }
+        if (new_name === void 0) { new_name = cow.UNKNOWN_NAME; }
         this.address = new_address;
         this.name = new_name;
+        console.log("Constructing cow with name " + new_name);
     }
     cow.fromPacket = function (pkt) {
         var c = new cow(pkt.address);
@@ -14,5 +15,6 @@ var cow = (function () {
         }
         return c;
     };
+    cow.UNKNOWN_NAME = "&lt;unknown&gt;";
     return cow;
 })();

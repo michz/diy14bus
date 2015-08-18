@@ -1,12 +1,15 @@
 class cow {
+    public static UNKNOWN_NAME : string = "&lt;unknown&gt;";
+
     address : number;
     name    : string;
     methods : string[];
 
 
-    constructor(new_address : number, new_name : string = "unnamed") {
+    constructor(new_address : number, new_name : string = cow.UNKNOWN_NAME) {
         this.address    = new_address;
         this.name       = new_name;
+        console.log("Constructing cow with name " + new_name);
     }
     
     static fromPacket(pkt : cowpacket) : cow {

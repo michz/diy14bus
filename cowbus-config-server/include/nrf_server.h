@@ -13,9 +13,10 @@
 #include <cstdlib>
 #include <sstream>
 #include <iostream>
-//#include <RF24/RF24.h>
 
+//#include <RF24/RF24.h>
 #include "RF24.h"
+#include "base64.h"
 
 #include "../../cowbus/include/cowpacket.h"
 
@@ -59,13 +60,20 @@ class nrf_server {
 
             // Send the message
             bool ok = radio.write(payload, sizeof(cowpacket));
+            boost::this_thread::sleep(boost::posix_time::milliseconds(2));
             
             radio.startListening(); // resume listening operation
             
             if (!ok) {
                 std::cout << "failed..." << std::endl;
                 return false;
-            } 
+            }
+
+            std::cout << "SERVER -> RADIO: " << std::endl;
+            for (unsigned int i = 0; i < sizeof(cowpacket); ++i) {
+                std::cout << (int)(payload[i]) << " ";
+            }
+            std::cout << std::endl;
             return true;
         }
 
@@ -74,16 +82,25 @@ class nrf_server {
          */
         void run() {
             char read_buf[sizeof(cowpacket)];
+            memset(read_buf, 0, sizeof(cowpacket));
             while(true) {
                 if (radio.available()) {
                     radio.read(read_buf, sizeof(cowpacket));
                     cowpacket* cp = (cowpacket*)read_buf;
 
                     if (cowpacket_check_checksum(cp)) {
-                        char payload[PAYLOAD_MAX_LENGTH+1];
+                        unsigned char payload[PAYLOAD_MAX_LENGTH+1];
                         payload[PAYLOAD_MAX_LENGTH] = 0;
                         memcpy(payload, cp->payload, PAYLOAD_MAX_LENGTH);
+                        std::cout << "Payload max length: " << PAYLOAD_MAX_LENGTH << std::endl;
+                        std::cout << "Payload struct length: " << sizeof(payload) << std::endl;
+                        for (int i = 0; i < PAYLOAD_MAX_LENGTH; ++i) {
+                            std::cout << (int)(payload[i]) << " ";
+                        }
+                        std::cout << std::endl;
 
+                        // transform payload to base64 to preserve null bytes etc.
+                        std::string payload_base64 = base64_encode(payload, PAYLOAD_MAX_LENGTH);
                         std::stringstream ss;
                         ss << "{ " <<
                             "\"version\": \""   << cp->version << "\", " <<
@@ -92,7 +109,7 @@ class nrf_server {
                             "\"address\": \""   << cp->addr << "\", " <<
                             "\"type\": \""      << cp->type << "\", " <<
                             "\"is_fragment\": \"" << cp->is_fragment << "\", " <<
-                            "\"payload\": \""   << payload << "\" " <<
+                            "\"payload\": \""   << payload_base64 << "\" " <<
                             " }";
                         
                         pkt_callback(ss.str());
@@ -103,7 +120,7 @@ class nrf_server {
                 }
 
                 //TODO: Sleep-Time anpassen
-                boost::this_thread::sleep(boost::posix_time::milliseconds(10));
+                boost::this_thread::sleep(boost::posix_time::microseconds(100));
             }
         }
 

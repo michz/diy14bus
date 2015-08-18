@@ -13,6 +13,7 @@
 #include <websocketpp/config/asio_no_tls.hpp>
 #include <websocketpp/server.hpp>
 
+
 typedef websocketpp::server<websocketpp::config::asio> server;
 using websocketpp::connection_hdl;
 using websocketpp::lib::placeholders::_1;
@@ -62,7 +63,20 @@ class ws_server {
 
         void stop(void) {
             m_server.stop_listening();
+            boost::this_thread::sleep(boost::posix_time::milliseconds(250));
+            
+            for (auto it : m_connections) {
+                websocketpp::lib::error_code ec;
+                m_server.close(it, websocketpp::close::status::going_away, "", ec);
+                if (ec) {
+                    std::cerr << "> Error closing connection" << ": "  
+                        << ec.message() << std::endl;
+                }
+            }
+            boost::this_thread::sleep(boost::posix_time::milliseconds(250));
+            
             m_server.stop();
+            boost::this_thread::sleep(boost::posix_time::milliseconds(250));
         }
 
     private:

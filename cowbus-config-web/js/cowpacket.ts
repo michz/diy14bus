@@ -7,9 +7,13 @@ enum cowpacket_type {
     get_config          = 5,
     ping                = 6,
     ping_answer         = 7,
-    set_name            = 8
+    set_name            = 8,
+    configure           = 9
 }
 class cowpacket {
+    public static COWBUS_VERSION  : number = 0;
+    public static DEFAULT_TTL     : number = 4;
+
     version : number;
     seq_no  : number;
     ttl     : number;
@@ -39,13 +43,21 @@ class cowpacket {
             json['address'],
             json['type'],
             json['is_fragment'],
-            json['payload']
+            atob(json['payload'])
             );
         return r;
     }
 
     generateJSON() : string {
         return JSON.stringify(this);
+    }
+    
+    getRawByte(i : number) : number {
+        if (this.payload.length <= i) {
+            logme("Error in cowpacket::getRawByte(i : number): String short than i.", 'error');
+            return -1;
+        }
+        return this.payload.charCodeAt(i);
     }
 }
 

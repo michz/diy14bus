@@ -76,6 +76,18 @@ div.node span.buttons { position:absolute; left:0; right:0; }
 div.node span.node-button { width:16px; height:16px; float:right; overflow:hidden;}
 
 
+#cfg-left { float:left; width:49%; }
+#cfg-right { float:left; width:49%; overflow-y:scroll; }
+
+.config-label { width: 165px; display: inline-block; text-align: right; }
+
+#cfg-left input { width:100px; }
+#cfg-left select { width:99%; }
+
+.cfg-rule { margin:3px; padding:2px;
+    background-color:#EDA64F; border:1px solid #9A821C; border-radius:5px; }
+.cfg-rule p { margin:1px 0; }
+
 /* Logging */
 #log-output { font-size:0.8em; margin:10px; word-wrap:break-word; }
 #log-output .error { color:red; }

@@ -13,6 +13,7 @@
     <script src="js/cow.js"></script>
     <script src="js/socket.js"></script>
     <script src="js/cowpacket.js"></script>
+    <script src="js/cowconfig.js"></script>
     <script src="js/cow_list.js"></script>
     <script src="js/store.js"></script>
     <script src="js/init.js"></script>
@@ -49,6 +50,55 @@
             <input type="hidden" id="hidRenameAddr">
             <input style="width:100%;" type="text" name="txtRename" id="txtRename" value="">
         </form>
+    </div>
+
+    <!-- config dialog -->
+    <div id="dialog-config" title="Configure cowbus node">
+        <div id="cfg-left">
+            <form>
+                <input type="hidden" id="hidCfgAddr">
+                <p>New configuration rule:</p>
+                <p>
+                    <span class="config-label">Source address:</span>
+                    <input type="text" name="txtCfgSourceAddress" id="txtCfgSourceAddress" value="">
+                </p>
+                <p>
+                    <span class="config-label">Operation:</span>
+                    <select name="selCfgOperation" id="selCfgOperation">
+                        <option value="1">any packet with given source address</option>
+                        <option value="2">less than (a &lt; x)</option>
+                        <option value="3">less than or equal (a &lt;= x)</option>
+                        <option value="4">greater than or equal (a &gt;= x)</option>
+                        <option value="5">greater than (a &gt; x)</option>
+                        <option value="6">equal (a = x)</option>
+                        <option value="7">not equal (a != x)</option>
+                        <option value="8">between a and b (a &lt; x &lt; b)</option>
+                        <option value="9">between a and b with borders (a &lt;= x &lt;= b)</option>
+                        <option value="10">between a and b with lower border (a &lt;= x &lt; b)</option>
+                        <option value="11">between a and b with higher border (a &lt; x &lt;= b)</option>
+                    </select>
+                </p>
+                <p>
+                    <span class="config-label">Threshold (a):</span>
+                    <input type="text" name="txtCfgThresholdA" id="txtCfgThresholdA" value="">
+                </p>
+                <p>
+                    <span class="config-label">Threshold (b):</span>
+                    <input type="text" name="txtCfgThresholdB" id="txtCfgThresholdB" value="">
+                </p>
+                <p>
+                    <span class="config-label">Action:</span>
+                    <input type="text" name="txtCfgAction" id="txtCfgAction" value="">
+                </p>
+                <p>TODO: chose address from list</p>
+                <p>TODO: Delete by addr</p>
+                <p>TODO: show input for threshB only if range is selected</p>
+                <p>TODO: check if a is lower than b</p>
+                <p>TODO: check if action is smaller than 127</p>
+            </form>
+        </div>
+        <div id="cfg-right">
+        </div>
     </div>
 </body>
 </html>

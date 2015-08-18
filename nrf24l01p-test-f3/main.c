@@ -1,3 +1,5 @@
+#define COWCONFIG_DEBUG
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -19,6 +21,7 @@
 #include "board_uart0.h"
 
 #include "../cowbus/include/cowpacket.h"
+#include "../cowbus/include/cowconfig.h"
 
 #define SND_BUFFER_SIZE     (100)
 #define RCV_BUFFER_SIZE     (64)
@@ -30,6 +33,7 @@ msg_t msg_q[RCV_BUFFER_SIZE];
 #define DBG_MSG_BUTTON      (1)
 #define DBG_PING_ANSWER     (2)
 #define DBG_GET_NAME        (3)
+#define DBG_SEND_CONFIG     (4)
 
 uint8_t sendMsg;
 kernel_pid_t radio_pid;
@@ -41,6 +45,7 @@ int seq_no = 0xB;
 char dbg_name[PAYLOAD_MAX_LENGTH+1];
 
 char rx_handler_stack[RADIO_STACK_SIZE];
+
 
 /* RX handler that waits for a message from the ISR */
 void *nrf24l01p_rx_handler(void *arg)
@@ -84,6 +89,8 @@ void *nrf24l01p_rx_handler(void *arg)
 
                 // -v-v-v- DEBUG do some basic stuff -v-v-v-
                 cowpacket* p = (cowpacket*)rx_buf;
+                printf("v: %d; s: %d; tt: %d; a: %d; ty: %d; f: %d\n", p->version,
+                            p->seq_no, p->ttl, p->addr, p->type, p->is_fragment);
 
                 // check checksum
                 if (cowpacket_check_checksum(p)) {
@@ -100,7 +107,7 @@ void *nrf24l01p_rx_handler(void *arg)
                     else if (p->type == set_name)  {
                         // SET_NAME request
                         memset(dbg_name, 0, PAYLOAD_MAX_LENGTH+1);
-                        strncpy(dbg_name, (char*)p->payload, strlen((char*)p->payload));
+                        PACKET_COPY(p->payload, dbg_name);
 
                         // set ping response (type = 7)
                         sendMsg = DBG_GET_NAME;
@@ -108,6 +115,36 @@ void *nrf24l01p_rx_handler(void *arg)
                         LD7_ON;
                         hwtimer_wait(HWTIMER_TICKS(500 * 1000));
                         LD7_OFF;
+                    }
+                    else if (p->type == configure)  {
+                        cowconfig_packet* ccp = (cowconfig_packet*)p->payload;
+
+                        switch(ccp->method) {
+                            case CCPM_LIST:
+                                sendMsg = DBG_SEND_CONFIG;
+                                cowconfig_dump();
+                                break;
+                            case CCPM_ADD:
+                                cowconfig_add(&(ccp->rule));
+                                cowconfig_dump();
+                                break;
+                            case CCPM_DELETE_ALL:
+                                cowconfig_delete_all();
+                                cowconfig_dump();
+                                break;
+                            case CCPM_DELETE_ONE:
+                                cowconfig_delete_one(ccp->id);
+                                cowconfig_dump();
+                                break;
+                            case CCPM_DELETE_ADDR:
+                                cowconfig_delete_addr((ccp->raw[0] << 8) + ccp->raw[1]);
+                                cowconfig_dump();
+                                break;
+                        }
+
+                        LD8_ON;
+                        hwtimer_wait(HWTIMER_TICKS(500 * 1000));
+                        LD8_OFF;
                     }
 
                     LD9_OFF;
@@ -146,6 +183,8 @@ int main(void)
     // DEBUG
     char* tmp_name = "TESTNODE1";
     strncpy(dbg_name, tmp_name, strlen(tmp_name));
+
+    cowconfig_init();
 
     LD3_OFF;
     LD4_OFF;
@@ -209,8 +248,8 @@ int main(void)
 
             int r = 0;
 
-            int status = 0;
             char tx_buf[NRF24L01P_MAX_DATA_LENGTH];
+            memset(tx_buf, 0, sizeof(cowpacket)); // clear out data buffer
 
             /* fill TX buffer with sample data */
             cowpacket* cp = (cowpacket*)tx_buf;
@@ -231,42 +270,76 @@ int main(void)
                 cp->type = ping_answer;
 
                 // send name back for example
-                memset(cp->payload, 0, sizeof(cp->payload));
-                strncpy((char*)cp->payload, dbg_name, strlen((char*)dbg_name));
+                PACKET_COPY(dbg_name, cp->payload);
             }
             else if (sendMsg == DBG_GET_NAME) {
                 cp->type = get_name;
                 memset(cp->payload, 0, sizeof(cp->payload));
-                strncpy((char*)cp->payload, dbg_name, strlen((char*)dbg_name));
+                PACKET_COPY(dbg_name, cp->payload);
+            }
+            else if (sendMsg == DBG_SEND_CONFIG) {
+                for (int i = 0; i < COWCONFIG_COUNT; ++i) {
+                    if (cowconfig_data[i].operation > 0) {
+                        cp->type = configure;
+                        cowconfig_packet* ccp = (cowconfig_packet*)(cp->payload);
+                        ccp->id = i;
+                        ccp->method = CCPM_ANSWER_LIST;
+                        memcpy(ccp->raw, &(cowconfig_data[i]), sizeof(cowconfig_rule));
+
+                        cowpacket_generate_checksum(cp);
+
+                        //printf("Send configure packet: \n");
+                        //printf("v: %d\n", cp->version);
+                        //printf("s: %d\n", cp->seq_no);
+                        //printf("tt:%d\n", cp->ttl);
+                        //printf("a: %d\n", cp->addr);
+                        //for (int i = 0; i < sizeof(cowpacket); i++) {
+                        //    printf("%d\n", ((char*)cp)[i]);
+                        //}
+                        //printf("\n");
+
+
+                        r = nrf24l01p_on(&nrf24l01p_0);
+                        hwtimer_wait(DELAY_DATA_ON_AIR);
+                        r = nrf24l01p_set_txmode(&nrf24l01p_0);
+                        r = nrf24l01p_preload(&nrf24l01p_0, tx_buf, NRF24L01P_MAX_DATA_LENGTH);
+                        nrf24l01p_transmit(&nrf24l01p_0);
+                        hwtimer_wait(2*DELAY_DATA_ON_AIR);
+                        nrf24l01p_set_rxmode(&nrf24l01p_0);
+                        if (seq_no > 30) { seq_no = 0; }
+                        else { seq_no++; }
+                        cp->seq_no  = seq_no;
+                        printf("sending configuration ... %d ...\n", i);
+                    }
+                }
+                sendMsg = 0; continue; // abort resend
             }
 
-
             cowpacket_generate_checksum(cp);
-//            cp->checksum[0] = 0xAA;
-//            cp->checksum[1] = 0xAA;
 
             if (seq_no > 30) { seq_no = 0; }
             else { seq_no++; }
 
             /* power on the device */
             r = nrf24l01p_on(&nrf24l01p_0);
-            printf("on: %i\n", r);
+            hwtimer_wait(DELAY_DATA_ON_AIR); // DEBUG: does not work without
+            //printf("on: %i\n", r);
             /* setup device as transmitter */
             r = nrf24l01p_set_txmode(&nrf24l01p_0);
-            printf("txmode: %i\n", r);
+            //printf("txmode: %i\n", r);
             /* load data to transmit into device */
             r = nrf24l01p_preload(&nrf24l01p_0, tx_buf, NRF24L01P_MAX_DATA_LENGTH);
-            printf("preload: %i\n", r);
+            //printf("preload: %i\n", r);
             /* trigger transmitting */
             nrf24l01p_transmit(&nrf24l01p_0);
 
             /* wait while data is pysically transmitted  */
-            hwtimer_wait(DELAY_DATA_ON_AIR);
+            hwtimer_wait(2*DELAY_DATA_ON_AIR);
 
-            status = nrf24l01p_get_status(&nrf24l01p_0);
-            printf("Status: %i\n", status);
-            if (status & TX_DS) {
-                printf("Sent Packet\n");
+            r = nrf24l01p_get_status(&nrf24l01p_0);
+            //printf("Status: %i\n", r);
+            if (r & TX_DS) {
+                printf("Sent Packet: %d\n", r);
             }
             /* setup device as receiver */
             nrf24l01p_set_rxmode(&nrf24l01p_0);

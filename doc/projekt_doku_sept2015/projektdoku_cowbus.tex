@@ -7,11 +7,14 @@
 \usepackage{algorithmic}
 \usepackage{graphicx}
 \usepackage[autostyle=true,german=quotes]{csquotes}
+\usepackage{gensymb}
 \usepackage{eurosym}
+\usepackage{booktabs}
+\usepackage{array}
 \usepackage{todonotes}
 \usepackage{microtype}
 \usepackage{icomma}
- 
+
 
 \usepackage{hyperref}
 
@@ -33,6 +36,8 @@
 }
 % -----------------------------------------------------------------------------
 
+
+\newcolumntype{x}[1]{>{\centering\arraybackslash\hspace{0pt}}p{#1}}
 
 
 
@@ -137,12 +142,120 @@
 
         \TODO{Ideen entwickeln, z.B.: welche Nachrichtnetypen brauchts? "Lösche alle Zuordnungen", "neue Zuordnung", ...}
 
+    \subsection{Regeln}
+        Basis der Logik sind sind einfache Wenn-Dann-Regeln.
+        Ein (Aktor)-Knoten kann theoretisch beliebig viele dieser Regeln befolgen.
+
+        Eine Regel besteht aus mehreren Komponenten.
+        Zur Veranschaulichung wird jede Komponente am Beispiel unserer
+        Testumgebung erklärt: Der Schalter soll die Lampe an- bzw. abschalten.
+        \begin{enumerate}
+            \item Festgelegt wird, auf Pakete welcher \textbf{Adresse}
+                die Regel zutrifft.
+                Im Beispiel wäre dies die Adresse des Schalters.
+            \item Die \textbf{Operator} legt fest, wie der angegebene
+                Schwellwert der Regel mit dem im Paket übertragenen Wert
+                verglichen wird.
+                Im Schalter-Lampe-Beispiel bietet sich hier der Test auf Gleichheit an.
+            \item Verglichen wird jeweils mit dem bereits erwähnten
+                \textbf{Schwellwert}. Wenn als Operator eine Intervallprüfung
+                gewählt wird, müssen zwei Schwellwerte
+                (ein oberer und ein unterer) angegeben werden.
+                Im Beispiel sind hier die Werte 0 für \enquote{an}
+                und 1 für \enquote{aus} sinnvoll.
+            \item Die \textbf{Aktion} gibt an, was der Aktor macht,
+                wenn ein Paket eingetroffen ist, auf das die Regel zutrifft.
+        \end{enumerate}
+
+        Unter der Annahme, dass der Schalter im Zustand \enquote{an} eine
+        \enquote{1} und im Zustand \enquote{aus} eine \enquote{0} sendet
+        ergeben sich also zwei Regeln:
+
+        \begin{center}
+            \begin{tabular}{r|x{0.15\textwidth}|x{0.15\textwidth}}
+                \toprule
+                                        & \textbf{Regel 1} & \textbf{Regel 2} \\
+                \midrule
+                \textbf{Adresse}:       & \multicolumn{2}{c}{Schalteradresse} \\
+                \textbf{Operator}:     & \multicolumn{2}{c}{\enquote{=} (Gleichheit)} \\
+                \textbf{Schwellwert}:   & 1  & 0 \\
+                \textbf{Aktion}:        & \enquote{Lampe an}  & \enquote{Lampe aus} \\
+                \bottomrule
+            \end{tabular}
+        \end{center}
+
+        Soll eine Lampe aufleuchten, wenn der Wert eines Temperatursensors
+        $30\degree$C übersteigt, könnten die zugehörigen Regeln wie folgt aussehen:
+
+        \begin{center}
+            \begin{tabular}{r|x{0.15\textwidth}|x{0.15\textwidth}}
+                \toprule
+                                        & \textbf{Regel 1} & \textbf{Regel 2} \\
+                \midrule
+                \textbf{Adresse}:       & \multicolumn{2}{c}{Sensoradresse} \\
+                \textbf{Operator}:     & \enquote{$>$} (größer) & \enquote{$\leq$} (kleiner oder gleich) \\
+                \textbf{Schwellwert}:   & \multicolumn{2}{c}{30} \\
+                \textbf{Aktion}:        & \enquote{Lampe an}  & \enquote{Lampe aus} \\
+                \bottomrule
+            \end{tabular}
+        \end{center}
+
+        Soll eine Lampe aufleuchten, wenn der Wert eines Temperatursensors
+        im Intervall $[18;25]$ liegt, könnten die zugehörigen Regeln wie folgt aussehen:
+
+        \begin{center}
+            \begin{tabular}{r|x{0.15\textwidth}|x{0.15\textwidth}}
+                \toprule
+                                        & \textbf{Regel 1} & \textbf{Regel 2} \\
+                \midrule
+                \textbf{Adresse}:       & \multicolumn{2}{c}{Sensoradresse} \\
+                \textbf{Operator}:     & \enquote{$\leq \geq$} & \enquote{nicht $\leq \geq$} \\
+                \textbf{Schwellwert A}: & \multicolumn{2}{c}{18} \\
+                \textbf{Schwellwert B}: & \multicolumn{2}{c}{25} \\
+                \textbf{Aktion}:        & \enquote{Lampe an}  & \enquote{Lampe aus} \\
+                \bottomrule
+            \end{tabular}
+        \end{center}
+
+    \subsection{Operator}
+        Mit folgenden Operatoren lassen sich bereits viele übliche
+        Schaltaufgaben abbilden:
+
+        \begin{center}
+            \begin{tabular}{p{0.07\textwidth}p{0.38\textwidth}}
+                \toprule
+                    \textbf{Op.} & \textbf{Beschreibung} \\
+                \midrule
+                    $*$             &   Wert beliebig (Regel trifft auf jedes
+                                        Paket mit der gegebenen Adresse zu) \\
+                    $=$             &   Gleicheit \\
+                    $\neq$          &   Ungleicheit \\
+                    $\textless$     &   kleiner \\
+                    $\leq$          &   kleiner oder gleich \\
+                    $\textgreater$  &   größer \\
+                    $\geq$          &   größer oder gleich \\
+                    $\geq \leq$     &   $x \in [a;b]$, also: $a \leq x \leq b$ \\
+                    $\textgreater \leq$ &   $x \in~]a;b]$, also: $a \textless x \leq b$ \\
+                    $\geq \textless$ &  $x \in [a;b[$, also: $a \leq x \textless b$ \\
+                    $\textgreater \textless$ &  $x \in~]a;b[$, also: $a \textless x \textless b$ \\
+                    $!(\geq \leq)$     &   $x \notin [a;b]$, also: $(x \textless a)~or~(x \textgreater b)$ \\
+                    $!(\textgreater \leq)$ &   $x \notin~]a;b]$, also: $(x \leq a)~or~(x \textgreater b)$ \\
+                    $!(\geq \textless)$ &  $x \notin [a;b[$, also: $(x \textless a)~or~(x \geq b)$ \\
+                    $!(\textgreater \textless)$ &  $x \notin~]a;b[$, also: $(x \leq a)~or~(x \geq b)$ \\
+                \bottomrule
+            \end{tabular}
+        \end{center}
+
 
 \section{Evaluation}
     \TODO{Hurra, es geht?}
 
 \section{Zusammenfassung}
     \TODO{Hurra, es geht?}
+    \TODO{Ausblick: Was, wenn Sensor mehrere Werte in einem Paket schickt? => Auswahlmechanismus}
+    \TODO{Ausblick: Gemittelte Werte?}
+    \TODO{Ausblick: Aggregierte Werte? (Nur ausführen, wenn zwei bestimmte Pakete angekommen sind)}
+    \TODO{Ausblick: Tendenzen (trifft zu, wenn bestimmter Wert steigt/sinkt)}
 
 
 \section{Altes Zeug, vielleicht noch brauchbar}

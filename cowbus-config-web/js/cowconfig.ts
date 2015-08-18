@@ -10,7 +10,11 @@ enum cowconfig_operation {
     OP_RANGE_GT_LT      = 8,    ///< @brief range without borders/limits (a  <   x  <   y)
     OP_RANGE_GTE_LTE    = 9,    ///< @brief range with borders/limits    (a  <=  x  <=  b)
     OP_RANGE_GTE_LT     = 10,   ///< @brief range with left border       (a  <=  x  <=  b)
-    OP_RANGE_GT_LTE     = 11    ///< @brief range with right border      (a  <   x  <=  y)
+    OP_RANGE_GT_LTE     = 11,   ///< @brief range with right border      (a  <   x  <=  y)
+    OP_NOT_RANGE_GT_LT   = 12,  ///< @brief complementary to OP_RANGE_GT_LT
+    OP_NOT_RANGE_GTE_LTE = 13,  ///< @brief complementary to OP_RANGE_GTE_LTE
+    OP_NOT_RANGE_GTE_LT  = 14,  ///< @brief complementary to OP_RANGE_GTE_LT
+    OP_NOT_RANGE_GT_LTE  = 15   ///< @brief complementary to OP_RANGE_GT_LTE
 }
 enum cowconfig_packet_method {
     CCPM_LIST           = 0,    ///< @brief list all rules of node
@@ -30,7 +34,7 @@ class cowconfig_rule {
 
     constructor(new_address: number = 0,
                 new_operation: cowconfig_operation = cowconfig_operation.OP_NO,
-                new_action: number = 0, 
+                new_action: number = 0,
                 new_threshold_a: number = 0, new_threshold_b: number = 0) {
 
         this.address        = new_address;
@@ -39,7 +43,7 @@ class cowconfig_rule {
         this.threshold_a    = new_threshold_a;
         this.threshold_b    = new_threshold_b;
     }
-    
+
     static fromString(s: string) : cowconfig_rule {
         var address = 0;
         address += (s.charCodeAt(1) << 8);
@@ -57,13 +61,13 @@ class cowconfig_rule {
     }
 
     toPayload() : string {
-        return String.fromCharCode(this.address & 0xFF) + 
-            String.fromCharCode((this.address >> 8)& 0xFF) + 
-            String.fromCharCode(this.operation) + 
-            String.fromCharCode(this.action) + 
-            String.fromCharCode(this.threshold_a & 0xFF) + 
-            String.fromCharCode((this.threshold_a >> 8)& 0xFF) + 
-            String.fromCharCode(this.threshold_b & 0xFF) + 
+        return String.fromCharCode(this.address & 0xFF) +
+            String.fromCharCode((this.address >> 8)& 0xFF) +
+            String.fromCharCode(this.operation) +
+            String.fromCharCode(this.action) +
+            String.fromCharCode(this.threshold_a & 0xFF) +
+            String.fromCharCode((this.threshold_a >> 8)& 0xFF) +
+            String.fromCharCode(this.threshold_b & 0xFF) +
             String.fromCharCode((this.threshold_b >> 8)& 0xFF);
     }
 }
@@ -74,13 +78,13 @@ class cowconfig_packet {
     rule    : cowconfig_rule;
 
     constructor(new_id: number = 0,
-                new_method: cowconfig_packet_method = cowconfig_packet_method.CCPM_LIST, 
+                new_method: cowconfig_packet_method = cowconfig_packet_method.CCPM_LIST,
                 new_rule: cowconfig_rule = null) {
         this.id         = new_id;
         this.method     = new_method;
         this.rule       = new_rule;
     }
-    
+
     static fromString(s: string) : cowconfig_packet {
         var rule_string = s.substr(2, s.length - 2);
         var rule = cowconfig_rule.fromString(rule_string);
@@ -101,7 +105,7 @@ class cowconfig_packet {
 }
 class cowconfig_rule_pool {
     static pool : cowconfig_rule[][];
-    
+
     static init() : void {
         cowconfig_rule_pool.pool = [];
     }
@@ -125,7 +129,7 @@ class cowconfig_rule_pool {
         }
         return rules;
     }
-    
+
     static delete_one(node_address : number, id : number) : void {
         if (!(cowconfig_rule_pool.pool[node_address]) || !(cowconfig_rule_pool.pool[node_address][id])) {
             return;
@@ -135,7 +139,7 @@ class cowconfig_rule_pool {
         var pkt = new cowconfig_packet(id, cowconfig_packet_method.CCPM_DELETE_ONE, null);
         var cpkt = pkt.toCowpacket(node_address);
         sock.send(cpkt.generateJSON());
-        
+
         updateRuleList(node_address); // GUI
     }
 
@@ -148,7 +152,7 @@ class cowconfig_rule_pool {
         var pkt = new cowconfig_packet(0, cowconfig_packet_method.CCPM_DELETE_ALL, null);
         var cpkt = pkt.toCowpacket(node_address);
         sock.send(cpkt.generateJSON());
-        
+
         updateRuleList(node_address); // GUI
     }
 }

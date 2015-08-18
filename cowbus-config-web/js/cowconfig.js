@@ -11,7 +11,11 @@ var cowconfig_operation;
     cowconfig_operation[cowconfig_operation["OP_RANGE_GT_LT"] = 8] = "OP_RANGE_GT_LT";
     cowconfig_operation[cowconfig_operation["OP_RANGE_GTE_LTE"] = 9] = "OP_RANGE_GTE_LTE";
     cowconfig_operation[cowconfig_operation["OP_RANGE_GTE_LT"] = 10] = "OP_RANGE_GTE_LT";
-    cowconfig_operation[cowconfig_operation["OP_RANGE_GT_LTE"] = 11] = "OP_RANGE_GT_LTE"; ///< @brief range with right border      (a  <   x  <=  y)
+    cowconfig_operation[cowconfig_operation["OP_RANGE_GT_LTE"] = 11] = "OP_RANGE_GT_LTE";
+    cowconfig_operation[cowconfig_operation["OP_NOT_RANGE_GT_LT"] = 12] = "OP_NOT_RANGE_GT_LT";
+    cowconfig_operation[cowconfig_operation["OP_NOT_RANGE_GTE_LTE"] = 13] = "OP_NOT_RANGE_GTE_LTE";
+    cowconfig_operation[cowconfig_operation["OP_NOT_RANGE_GTE_LT"] = 14] = "OP_NOT_RANGE_GTE_LT";
+    cowconfig_operation[cowconfig_operation["OP_NOT_RANGE_GT_LTE"] = 15] = "OP_NOT_RANGE_GT_LTE"; ///< @brief complementary to OP_RANGE_GT_LTE
 })(cowconfig_operation || (cowconfig_operation = {}));
 var cowconfig_packet_method;
 (function (cowconfig_packet_method) {

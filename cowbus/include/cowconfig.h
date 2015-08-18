@@ -26,7 +26,11 @@ typedef enum cowconfig_operation {
     OP_RANGE_GT_LT     = 8,    ///< @brief range without borders/limits (a  <   x  <   y)
     OP_RANGE_GTE_LTE   = 9,    ///< @brief range with borders/limits    (a  <=  x  <=  b)
     OP_RANGE_GTE_LT    = 10,   ///< @brief range with left border       (a  <=  x  <=  b)
-    OP_RANGE_GT_LTE    = 11    ///< @brief range with right border      (a  <   x  <=  y)
+    OP_RANGE_GT_LTE    = 11,   ///< @brief range with right border      (a  <   x  <=  y)
+    OP_NOT_RANGE_GT_LT   = 12, ///< @brief complementary to OP_RANGE_GT_LT
+    OP_NOT_RANGE_GTE_LTE = 13, ///< @brief complementary to OP_RANGE_GTE_LTE
+    OP_NOT_RANGE_GTE_LT  = 14, ///< @brief complementary to OP_RANGE_GTE_LT
+    OP_NOT_RANGE_GT_LTE  = 15  ///< @brief complementary to OP_RANGE_GT_LTE
 } cowconfig_operation;
 
 typedef enum cowconfig_packet_method {

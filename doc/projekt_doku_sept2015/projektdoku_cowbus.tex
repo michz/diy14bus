@@ -84,11 +84,72 @@
 
     \TODO{DIY-Charakter, wie formulieren?}
 
-\section{Related work / deutsch?}
-    \TODO{related work}
-    \TODO{gibt's da was zu KNX/EIB? Ich find den Ansatz furchtbar, dass man das Setup nicht auslesen kann, sondern sein Projektfile aus der Software braucht}
+\section{Verwandte Arbeiten}
+    Gebäudeautomation wird inzwischen sowohl in der Praxis
+    als auch in der Forschung erprobt. Hierbei konkurrieren verschiedene Systeme
+    und Technologien, denen unterschiedlichste Paradigmen zugrunde liegen.
+    Zur Veranschaulichung möchten wir hier ein System aus der Praxis betrachten,
+    das auf dezentraler Kommunikation beruht,
+    sowie einen Ansatz aus der Forschung,
+    der einen zentralen Kommunikationsserver vorschlägt.
+
+    \subsection{Europäischer Installationsbus (EIB) / KNX}
+    Der unter der Abkürzung EIB bekannte Europäische Installationsbus
+    ist ein offener Standard und nach subjektivem Empfinden das in der Praxis
+    wohl meistgenutzte System in der Gebäudeautomation.
+    Inzwischen wird er unter dem Namen KNX entwickelt und vertrieben.
+    Es sind weltweit fast 7000 Produkte auf dem Markt \cite{knx-prod}, die
+    mit einer Twisted-Pair-Leitung verbunden werden
+    (weitere Medien -- auch drahtlose -- sind verfügbar),
+    über die Nachrichten direkt untereinander ausgetauscht werden.
+    \cite{knx-trans}
+
+    Die Konfiguration der Schaltregeln etc. erfolgt nach der Installation
+    der Komponenten durch einen Fachmann mithilfe von Software aus der
+    ETS-Familie. Dabei handelt es sich um proprietäre Software,
+    die von der KNX Association\footnote{\url{http://www.knx.org/}} entwickelt
+    und vertrieben wird.
+    \cite{knx}
+
+    KNX eignet sich besonders im Bereich großer Gebäude, in denen die
+    elektrischen Systeme von einem Fachmann geplant, installiert und auch über
+    Jahre hinweg gewartet werden. Ein entscheidender Nachteil von KNX ist,
+    dass die Konfiguration, sobald sie einmal in die Steuergeräte geschrieben
+    ist, nicht mehr ohne weiteres ausgelesen werden kann.
+    Um die Konfiguration zu ändern (um zum Beispiel neue Komponenten einzufügen
+    oder auch nur eine einfache Schaltregel anzupassen) wird jedes mal
+    die ursprünglich erstellte Projektdatei aus der ETS-Software benötigt.
+
+    \subsection{zentrale skriptbasierte Steuerung}
+        T. Haenselmann et al. beschreiben ein zentrales System, das weitgehend
+        unabhängig von dem verwendeten Transportmedium ist.
+        Sie schlagen eine drahtlose Kommunikation vor,
+        der Kerngedanke jedoch, auf den wir uns hier beziehen werden,
+        gilt jedoch medienunabhängig.
+        Der grundlegende Ansatz besteht in der Einrichtung eines zentralen
+        Servers, bei dem alle Nachrichten des Systems zusammenlaufen.
+        Sensoren melden ihre Messwerte an diesen, der dann Schaltnachrichten
+        an die Aktoren sendet.
+        Die Entscheidung, welche Aktionen ausgelöst werden, trifft der Server
+        mithilfe von Skripten, die der Benutzer hinterlegt.
+        Diese Skripte können auch über eine Weboberfläche erstellt und
+        verwaltet werden.
+    \cite{haenselmann2007skriptbasierte}
+
+    %\cite{drossos2013ansteuerung}
+    %\cite{kuntz6servicecast}
+    %\cite{kuntz2011dienstbasierte}
 
 \section{Ansatz}
+    Inspiriert von Haenselmann et al.s Arbeit möchten wir ein System vorschlagen,
+    das ebenso über eine einfache Weboberfläche konfiguriert werden kann.
+    Der Benutzer kann dort einfache Wenn-Dann-Regeln anlegen, bearbeiten und
+    löschen, die das Verhalten der Aktoren in Abhängigkeit von Sensorereignissen
+    festlegen.
+
+    Der grundlegende Unterschied im Ansatz besteht jedoch darin,
+    dass wir auf eine zentrale Kommunikationseinheit verzichten.
+
     \subsection{Voraussetzungen, Annahmen}
         Wir gehen davon aus, dass uns ein paketvermitteltes Netz vorliegt,
         in dem alle Teilnehmer eindeutig adressierbar sind.
@@ -293,63 +354,6 @@
             bleiben und können (z.\,B. in einem sehr kleinen, temporären Aufbau)
             ohne jede Programmierung verwendet werden, ohne dass sie von den
             konkreten Sensoren wissen müssen.
-
-            Wie ein solches Gateway aussehen könnte zeigt der folgende Abschnitt.
-
-        \subsubsection{Gateway (derzeit ein Raspberry PI)}
-            Ein System, das unabhängig von äußeren Steuerungsinfrastrukturen
-            funktionieren kann, ist für die Akzeptanz im Gebäude wichtig.
-            Wenn kein Lichtschalter im Haus mehr funktioniert, weil
-            im Keller jemand das falsche Netzwerkkabel gezogen hat,
-            wird kein Nutzer recht überzeugt sein.
-            Umgekehrt ist es allerdings auch wichtig, Schnittstellen zu
-            etablierten Kommunikationsstrukturen zu bieten.
-            So ist eine Anbindung an vorhandene IPv4"~ oder IPv6"~Netze
-            wünschenswert, sodass auch mächtigere Komponenten integriert werden
-            können, die unter Umständen noch weitere Kommunikationsmöglichkeiten
-            bieten.
-
-            Momentane Lösung dieses Wunsches ist die Integration eines Computers
-            in den cowbus. Die offensichtlichste Möglichkeit war auch bei diesem
-            Projekt ein Raspberry PI\footnote{\url{http://www.raspberrypi.org/}},
-            der bereits alle nötigen Schnittstellen mitbringt, um direkt das
-            2,4\,GHz-Funkmodul und das vorhandene \ac{LAN} anzuschließen.
-
-            Auf dem Raspberry PI läuft ein kleiner in C++ verfasster Daemon.
-            Dieser steuert zum einen das Funkmodul und wartet auf Pakete aus
-            dem Funknetz.
-            Auf der anderen Seite enthält er einen kleinen Websocket-Server,
-            über den von jedem beliebigen PC, der ihn über das \ac{LAN}
-            erreichen kann, Pakete in das Funknetz verschickt und aus diesem
-            empfangen werden können.
-
-            Dazu steht eine kleine HTML/JavaScript-Anwendung zur Verfügung,
-            die in jedem modernen Browser läuffähig sein sollte.
-
-    \subsection{Paketaufbau}
-        \begin{figure}
-            \centering
-            \includegraphics[width=0.5\textwidth]{img/paket_phy}
-            \caption{Aufbau der Pakete auf der PHY-Schicht (vom Funkmodul vorgegeben)}
-            \label{fig:paket}
-        \end{figure}
-        \begin{figure}
-            \centering
-            \includegraphics[width=0.5\textwidth]{img/paket}
-            \caption{vorläufiger Aufbau der Pakete auf der MAC-Schicht}
-            \label{fig:paket}
-        \end{figure}
-
-
-
-        \begin{figure}
-            \centering
-            \includegraphics[width=0.5\textwidth]{img/node_stack}
-            \caption{Netzwerkstack}
-            \label{fig:comp}
-        \end{figure}
-
-
 
 
 \section*{Abkürzungen}

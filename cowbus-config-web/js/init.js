@@ -55,7 +55,7 @@ $(document).ready(function () {
                     var addr = $("#hidRenameAddr").val();
                     var name = $("#txtRename").val();
                     logme("Rename address " + addr + " to " + name);
-                    var pkt = new cowpacket(0, getNextSeqNo(), stdTtl, addr, 8 /* set_name */, false, name);
+                    var pkt = new cowpacket(0, getNextSeqNo(), stdTtl, addr, 8 /* set_name */, false, btoa(name));
                     sock.send(pkt.generateJSON());
                     $(this).dialog("close");
                 }

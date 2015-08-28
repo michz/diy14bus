@@ -62,7 +62,7 @@ $(document).ready(function() {
                     logme("Rename address " + addr + " to " + name);
 
                     var pkt = new cowpacket(0, getNextSeqNo(), stdTtl, addr,
-                        cowpacket_type.set_name, false, name);
+                        cowpacket_type.set_name, false, btoa(name));
 
                     sock.send(pkt.generateJSON());
 

@@ -4,6 +4,7 @@ var cow = (function () {
         this.address = new_address;
         this.name = new_name;
         console.log("Constructing cow with name " + new_name);
+        // TODO ping for configuration
     }
     cow.fromPacket = function (pkt) {
         var c = new cow(pkt.address);

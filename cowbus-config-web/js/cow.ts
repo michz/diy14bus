@@ -10,6 +10,7 @@ class cow {
         this.address    = new_address;
         this.name       = new_name;
         console.log("Constructing cow with name " + new_name);
+        // TODO ping for configuration
     }
     
     static fromPacket(pkt : cowpacket) : cow {

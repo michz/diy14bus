@@ -21,7 +21,7 @@ We use [gcc-arm-embedded](https://launchpad.net/~terry.guo/+archive/ubuntu/gcc-a
 
 If you want to run the configuration tool on a Raspberry Pi,
 clone the
-[RF24](https://github.com/edoardoo/RF24)-
+[RF24](https://github.com/TMRh20/RF24/tree/interrupts)-
 Repository and the 
 [WebsocketPP](https://github.com/zaphoyd/websocketpp.git)-
 Repository into a directory on the same level as the above mentioned.

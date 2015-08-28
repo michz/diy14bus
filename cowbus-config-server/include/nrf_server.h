@@ -20,6 +20,8 @@
 
 #include "../../cowbus/include/cowpacket.h"
 
+#define RADIO_ADDRESS { 0xe7, 0xe7, 0xe7, 0xe7, 0xe7 };
+
 class ws_server;
 
 class nrf_server {
@@ -36,11 +38,14 @@ class nrf_server {
             radio.setChannel(5);
             radio.setPayloadSize(32);
 
-            radio.printDetails(); // DEBUG
-            radio.openWritingPipe(pipes[0]);
-            radio.openReadingPipe(1, pipes[1]);
+            uint8_t addr[] = RADIO_ADDRESS;
+            radio.openWritingPipe(addr);
+            radio.openReadingPipe(1, addr);
+            //radio.openWritingPipe(pipes[0]);
+            //radio.openReadingPipe(1, pipes[1]);
             radio.setAutoAck(false);
 
+            radio.printDetails(); // DEBUG
             radio.startListening();
         }
 
@@ -120,7 +125,7 @@ class nrf_server {
                 }
 
                 //TODO: Sleep-Time anpassen
-                boost::this_thread::sleep(boost::posix_time::microseconds(100));
+                boost::this_thread::sleep(boost::posix_time::microseconds(250));
             }
         }
 
@@ -133,7 +138,6 @@ class nrf_server {
 
     private:
         RF24 radio{RPI_V2_GPIO_P1_22, RPI_V2_GPIO_P1_24, BCM2835_SPI_SPEED_8MHZ};
-        const uint64_t pipes[2] = { 0xe7e7e7e7e7LL, 0xe7e7e7e7e7LL };
         void (*pkt_callback)(std::string);
 };
 

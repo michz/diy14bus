@@ -139,6 +139,8 @@ $(document).ready(function() {
     // and now start
     $("#dialog-connect").dialog("open");
 
+    //    window.setInterval(known_cows.scan, 5000);
+
     // debug
     //known_cows.updateCow(new cow(2))
 });
@@ -152,6 +154,7 @@ function pktHandler(json : string) {
         var cfgpkt = cowconfig_packet.fromString(pkt.payload);
         logme("Config received: " + JSON.stringify(cfgpkt), 'success');
         cowconfig_rule_pool.add(pkt.address, cfgpkt.id, cfgpkt.rule);
+        known_cows.updateView();
     }
 }
 
@@ -184,6 +187,8 @@ function updateRuleList(addr) {
             '</div>' 
         );
     }
+
+    known_cows.updateView();
 }
 
 function deleteConfigRule(addr, id) : void {

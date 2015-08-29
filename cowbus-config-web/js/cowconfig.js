@@ -74,7 +74,7 @@ var cowconfig_packet = (function () {
     };
     cowconfig_packet.prototype.toCowpacket = function (address) {
         var payload = String.fromCharCode(this.id) + String.fromCharCode(this.method) + ((this.rule) ? this.rule.toPayload() : "");
-        return new cowpacket(cowpacket.COWBUS_VERSION, getNextSeqNo(), cowpacket.DEFAULT_TTL, address, 9 /* configure */, false, btoa(payload));
+        return new cowpacket(cowpacket.COWBUS_VERSION, getNextSeqNo(), cowpacket.DEFAULT_TTL, address, 7 /* configure */, false, btoa(payload));
     };
     return cowconfig_packet;
 })();

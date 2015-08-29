@@ -22,17 +22,31 @@ class cowList {
         // not found in list, so create new entry
         if (!updated) {
             this.cows.push(new_cow);
+            new_cow.request_configuration(); // ping for configuration
         }
         console.log(this.cows);
 
         // update display
         this.updateView();
     }
+    
+    scan() : void {
+        var pkt = new cowpacket(0, seqNo++, stdTtl, 0,
+            cowpacket_type.ping, false, "");
+        sock.send(pkt.generateJSON());
+    }
 
     updateView() : void {
         $("#nodes").children().remove();
         for (var i = 0; i < this.cows.length; i++) {
             var c = this.cows[i];
+            var rules = cowconfig_rule_pool.get_by_node(c.address);
+            var rules_count = 0;
+            for (var j = 0; j < rules.length; ++j) {
+                if (!rules[j]) continue;
+                rules_count++;
+            }
+            var text = "Regeln: " + rules_count;
             $("#nodes").append(
                 '<div class="node" id="node_' + i + '">' +
                 '    <h3 id="node_' + i + '_name">' + c.name + '</h3>' +
@@ -45,6 +59,8 @@ class cowList {
                             'title="Rename" id="node_' + i + '_rename">Rename</span>' +
                 '        <span class="node-button button-ping" title="ping" ' + 
                             'id="node_' + i + '_ping">Ping</span>' +
+                '        <span class="node-text" ' + 
+                            'id="node_' + i + '_text">' + text + '</span>' +
                 '    </p>' +
                 '    <p style="clear:both;"></p>' +
                 '</div>'

@@ -50,9 +50,13 @@ void ws_packet_handler(string data) {
     cp->version = d["version"].GetInt();
     cp->seq_no  = d["seq_no"].GetInt();
     cp->ttl     = d["ttl"].GetInt();
-    cp->addr    = d["address"].GetInt();
-    cp->type    = static_cast<cowpacket_type>(d["type"].GetInt());
-    cp->is_fragment = 0;
+    cowpacket_set_address(cp, (uint16_t)(d["address"].GetInt()));
+    cowpacket_set_type(cp, static_cast<cowpacket_type>(d["type"].GetInt()));
+    cowpacket_set_is_fragment(cp, 0);
+
+    cout << "DEBUG Addr: " << cowpacket_get_address(cp) << endl;
+    cout << "DEBUG TTL : " << cp->ttl << endl;
+    cout << "DEBUG Type: " << cowpacket_get_type(cp) << endl;
 
     string payload_s = base64_decode(d["payload"].GetString());
     int payload_length = payload_s.length();
@@ -62,7 +66,7 @@ void ws_packet_handler(string data) {
     memset(cp->payload, 0, PAYLOAD_MAX_LENGTH);
     memcpy(cp->payload, payload, payload_length);
 
-    cowpacket_generate_checksum(cp);
+    //cowpacket_generate_checksum(cp);
 
     nrf_inst->sendMessage(tx_buf);
 }
@@ -70,6 +74,7 @@ void ws_packet_handler(string data) {
 void nrf_packet_handler(string data) {
     cout << "SERVER <- RADIO: " << data << endl;
     cout << "CLIENT <- SERVER" << endl;
+            
     ws_inst->send(data);
 }
 

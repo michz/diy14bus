@@ -55,7 +55,7 @@ $(document).ready(function () {
                     var addr = $("#hidRenameAddr").val();
                     var name = $("#txtRename").val();
                     logme("Rename address " + addr + " to " + name);
-                    var pkt = new cowpacket(0, getNextSeqNo(), stdTtl, addr, 8 /* set_name */, false, btoa(name));
+                    var pkt = new cowpacket(0, getNextSeqNo(), stdTtl, addr, 6 /* set_name */, false, btoa(name));
                     sock.send(pkt.generateJSON());
                     $(this).dialog("close");
                 }
@@ -89,7 +89,7 @@ $(document).ready(function () {
                     var action = parseInt($("#txtCfgAction").val());
                     // TODO own class for cowconfig_rule, cowconfig_packet
                     var cfg_string = String.fromCharCode(0) + String.fromCharCode(1) + String.fromCharCode(addr & 0xFF) + String.fromCharCode((addr >> 8) & 0xFF) + String.fromCharCode(op) + String.fromCharCode(action) + String.fromCharCode((thresh_a) & 0xFF) + String.fromCharCode((thresh_a >> 8) & 0xFF) + String.fromCharCode((thresh_b) & 0xFF) + String.fromCharCode((thresh_b >> 8) & 0xFF);
-                    var pkt = new cowpacket(0, getNextSeqNo(), stdTtl, node_addr, 9 /* configure */, false, btoa(cfg_string));
+                    var pkt = new cowpacket(0, getNextSeqNo(), stdTtl, node_addr, 7 /* configure */, false, btoa(cfg_string));
                     sock.send(pkt.generateJSON());
                     $(this).dialog("close");
                 }
@@ -111,6 +111,7 @@ $(document).ready(function () {
     });
     // and now start
     $("#dialog-connect").dialog("open");
+    //    window.setInterval(known_cows.scan, 5000);
     // debug
     //known_cows.updateCow(new cow(2))
 });
@@ -119,10 +120,11 @@ function pktHandler(json) {
     logme("Received: " + JSON.stringify(obj));
     var pkt = cowpacket.fromJSON(obj);
     known_cows.updateCow(cow.fromPacket(pkt));
-    if (pkt.type == 9 /* configure */) {
+    if (pkt.type == 7 /* configure */) {
         var cfgpkt = cowconfig_packet.fromString(pkt.payload);
         logme("Config received: " + JSON.stringify(cfgpkt), 'success');
         cowconfig_rule_pool.add(pkt.address, cfgpkt.id, cfgpkt.rule);
+        known_cows.updateView();
     }
 }
 function logme(msg, cls) {
@@ -142,6 +144,7 @@ function updateRuleList(addr) {
             continue;
         $("#cfg-right").append('<div class="cfg-rule">' + '    <p><span class="config-label">ID: ' + i + '</span></p>' + '    <p><span class="config-label">Adresse: ' + r.address + '</span></p>' + '    <p><span class="config-label">Operation: ' + r.operation + '</span></p>' + '    <p><span class="config-label">Action: ' + r.action + '</span></p>' + '    <p><span class="config-label">Threshold A: ' + r.threshold_a + '</span></p>' + '    <p><span class="config-label">Threshold B: ' + r.threshold_b + '</span></p>' + '    <span onclick="deleteConfigRule(' + addr + ', ' + i + ')">Delete rule</span>' + '</div>');
     }
+    known_cows.updateView();
 }
 function deleteConfigRule(addr, id) {
     cowconfig_rule_pool.delete_one(addr, id);

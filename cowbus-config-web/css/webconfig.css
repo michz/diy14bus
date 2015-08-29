@@ -67,13 +67,16 @@ div.node { position:relative; margin:5px; padding:0;
     box-shadow:2px 2px 2px #999;
 }
 
-div.node h3 { padding:2px 5px; font-size:1.2em; font-weight:bold; }
+div.node h3 { margin:0 0 4px 0; padding:4px 5px 0 5px;
+    font-size:1.2em; font-weight:bold; border-bottom:1px solid #bbbbcc;
+    background-color:#ddddff; }
 
 div.node span.addr { padding:3px; position:absolute; top:0; right:0;
-    text-align:right; background-color:#eef; }
+    text-align:right; }
 
-div.node span.buttons { position:absolute; left:0; right:0; }
-div.node span.node-button { width:16px; height:16px; float:right; overflow:hidden;}
+
+div.node .buttons { margin: 2px 2px 5px 4px; }
+div.node span.node-button { width:16px; height:16px; float:right; overflow:hidden; }
 
 
 #cfg-left { float:left; width:49%; }

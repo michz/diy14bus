@@ -7,6 +7,7 @@
 #include "board.h" // stm32f3discovery-diy
 #include "cpu.h"
 #include "hwtimer.h"
+#include "periph/random.h"
 
 #include "thread.h"
 
@@ -22,6 +23,7 @@
 
 #include "../cowbus/include/cowpacket.h"
 #include "../cowbus/include/cowconfig.h"
+#include "../cowbus/include/radio_config.h"
 
 #define SND_BUFFER_SIZE     (100)
 #define RCV_BUFFER_SIZE     (64)
@@ -41,6 +43,7 @@ kernel_pid_t radio_pid;
 static nrf24l01p_t nrf24l01p_0;
 
 int seq_no = 0xB;
+uint16_t radio_addr = 2040;
 
 char dbg_name[PAYLOAD_MAX_LENGTH+1];
 
@@ -81,81 +84,93 @@ void *nrf24l01p_rx_handler(void *arg)
                 nrf24l01p_start((nrf24l01p_t *)m.content.ptr);
 
                 /* print rx buffer */
-                for (int i = 0; i < NRF24L01P_MAX_DATA_LENGTH; i++) {
-                    printf("%i ", rx_buf[i]);
-                }
+                //for (int i = 0; i < NRF24L01P_MAX_DATA_LENGTH; i++) {
+                //    printf("%i ", rx_buf[i]);
+                //}
 
                 puts("");
 
                 // -v-v-v- DEBUG do some basic stuff -v-v-v-
                 cowpacket* p = (cowpacket*)rx_buf;
-                printf("v: %d; s: %d; tt: %d; a: %d; ty: %d; f: %d\n", p->version,
-                            p->seq_no, p->ttl, p->addr, p->type, p->is_fragment);
+                uint16_t addr = cowpacket_get_address(p);
+                uint8_t type = cowpacket_get_type(p);
 
-                // check checksum
-                if (cowpacket_check_checksum(p)) {
-                    LD9_ON;
-                    hwtimer_wait(HWTIMER_TICKS(100 * 1000));
+                // DEBUG
+                //printf("v: %d; s: %d; tt: %d; a: %d; ty: %d; f: %d\n", p->version,
+                //            p->seq_no, p->ttl, addr, type,
+                //            cowpacket_get_is_fragment(p));
 
-                    if (p->type == ping)  {
-                        // PING request
-                        sendMsg = DBG_PING_ANSWER;
-                    }
-                    else if (p->type == get_name)  {
-                        sendMsg = DBG_GET_NAME;
-                    }
-                    else if (p->type == set_name)  {
-                        // SET_NAME request
-                        memset(dbg_name, 0, PAYLOAD_MAX_LENGTH+1);
-                        PACKET_COPY(p->payload, dbg_name);
 
-                        // set ping response (type = 7)
-                        sendMsg = DBG_GET_NAME;
+                // check if own address or broadcast ping
+                if (addr == radio_addr || (addr == 0 && type == ping)) {
+                    // check checksum
+                    //if (cowpacket_check_checksum(p)) {
+                        LD9_ON;
+                        hwtimer_wait(HWTIMER_TICKS(100 * 1000));
 
-                        LD7_ON;
-                        hwtimer_wait(HWTIMER_TICKS(500 * 1000));
-                        LD7_OFF;
-                    }
-                    else if (p->type == configure)  {
-                        cowconfig_packet* ccp = (cowconfig_packet*)p->payload;
+                        if (type == ping)  {
+                            // PING request
+                            sendMsg = DBG_PING_ANSWER;
+                        }
+                        else if (type == get_name)  {
+                            sendMsg = DBG_GET_NAME;
+                        }
+                        else if (type == set_name)  {
+                            // SET_NAME request
+                            memset(dbg_name, 0, PAYLOAD_MAX_LENGTH+1);
+                            PACKET_COPY(p->payload, dbg_name);
 
-                        switch(ccp->method) {
-                            case CCPM_LIST:
-                                sendMsg = DBG_SEND_CONFIG;
-                                cowconfig_dump();
-                                break;
-                            case CCPM_ADD:
-                                cowconfig_add(&(ccp->rule));
-                                cowconfig_dump();
-                                break;
-                            case CCPM_DELETE_ALL:
-                                cowconfig_delete_all();
-                                cowconfig_dump();
-                                break;
-                            case CCPM_DELETE_ONE:
-                                cowconfig_delete_one(ccp->id);
-                                cowconfig_dump();
-                                break;
-                            case CCPM_DELETE_ADDR:
-                                cowconfig_delete_addr((ccp->raw[0] << 8) + ccp->raw[1]);
-                                cowconfig_dump();
-                                break;
+                            // set ping response (type = 7)
+                            sendMsg = DBG_GET_NAME;
+
+                            LD7_ON;
+                            hwtimer_wait(HWTIMER_TICKS(500 * 1000));
+                            LD7_OFF;
+                        }
+                        else if (type == configure)  {
+                            cowconfig_packet* ccp = (cowconfig_packet*)p->payload;
+
+                            switch(ccp->method) {
+                                case CCPM_LIST:
+                                    sendMsg = DBG_SEND_CONFIG;
+                                    cowconfig_dump();
+                                    break;
+                                case CCPM_ADD:
+                                    cowconfig_add(&(ccp->rule));
+                                    cowconfig_dump();
+                                    break;
+                                case CCPM_DELETE_ALL:
+                                    cowconfig_delete_all();
+                                    cowconfig_dump();
+                                    break;
+                                case CCPM_DELETE_ONE:
+                                    cowconfig_delete_one(ccp->id);
+                                    cowconfig_dump();
+                                    break;
+                                case CCPM_DELETE_ADDR:
+                                    cowconfig_delete_addr((ccp->raw[0] << 8) + ccp->raw[1]);
+                                    cowconfig_dump();
+                                    break;
+                            }
+
+                            LD8_ON;
+                            hwtimer_wait(HWTIMER_TICKS(500 * 1000));
+                            LD8_OFF;
                         }
 
-                        LD8_ON;
-                        hwtimer_wait(HWTIMER_TICKS(500 * 1000));
-                        LD8_OFF;
-                    }
-
-                    LD9_OFF;
+                        LD9_OFF;
+                    //}
+                    //else { // checksum failure
+                    //    for (int i = 0; i < 3; ++i) {
+                    //        LD10_ON;
+                    //        hwtimer_wait(HWTIMER_TICKS(75 * 1000));
+                    //        LD10_OFF;
+                    //        hwtimer_wait(HWTIMER_TICKS(125 * 1000));
+                    //    }
+                    //}
                 }
-                else { // checksum failure
-                    for (int i = 0; i < 3; ++i) {
-                        LD10_ON;
-                        hwtimer_wait(HWTIMER_TICKS(75 * 1000));
-                        LD10_OFF;
-                        hwtimer_wait(HWTIMER_TICKS(125 * 1000));
-                    }
+                else { // not my address and no broadcast ping
+                    // TODO: check configuration and do action if needed
                 }
 
                 break;
@@ -206,7 +221,6 @@ int main(void)
     LD10_ON;
 
     board_uart0_init();
-    printf("test_uart.\n");
 
     hwtimer_wait(HWTIMER_TICKS(500 * 1000));
     LD3_OFF;
@@ -229,6 +243,12 @@ int main(void)
     if (ret < 0) {
         printf("Transceiver initialization failed: %i\n", ret);
     }
+
+    nrf24l01p_set_channel(&nrf24l01p_0, RADIO_RF_CHANNEL);
+    char addr[] = RADIO_ADDRESS;
+    nrf24l01p_set_tx_address(&nrf24l01p_0, addr, INITIAL_ADDRESS_WIDTH);
+    nrf24l01p_set_rx_address(&nrf24l01p_0, NRF24L01P_PIPE0, addr, INITIAL_ADDRESS_WIDTH);
+
 
     thread_create(
         rx_handler_stack, sizeof(rx_handler_stack), THREAD_PRIORITY_MAIN - 1, 0,
@@ -256,10 +276,9 @@ int main(void)
             cp->version = 0;
             cp->seq_no  = seq_no;
             cp->ttl     = 5;
-            cp->addr    = 2040;
-            cp->type    = event;
-            cp->is_fragment = 0;
-
+            cowpacket_set_address(cp, radio_addr);
+            cowpacket_set_type(cp, event);
+            cowpacket_set_is_fragment(cp, 0);
 
             if (sendMsg == DBG_MSG_BUTTON) {
                 for (int i = 0; i < sizeof(cp->payload); ++i) {
@@ -267,26 +286,26 @@ int main(void)
                 }
             }
             else if (sendMsg == DBG_PING_ANSWER) {
-                cp->type = ping_answer;
+                cowpacket_set_type(cp, ping_answer);
 
                 // send name back for example
                 PACKET_COPY(dbg_name, cp->payload);
             }
             else if (sendMsg == DBG_GET_NAME) {
-                cp->type = get_name;
+                cowpacket_set_type(cp, get_name);
                 memset(cp->payload, 0, sizeof(cp->payload));
                 PACKET_COPY(dbg_name, cp->payload);
             }
             else if (sendMsg == DBG_SEND_CONFIG) {
                 for (int i = 0; i < COWCONFIG_COUNT; ++i) {
                     if (cowconfig_data[i].operation > 0) {
-                        cp->type = configure;
+                        cowpacket_set_type(cp, configure);
                         cowconfig_packet* ccp = (cowconfig_packet*)(cp->payload);
                         ccp->id = i;
                         ccp->method = CCPM_ANSWER_LIST;
                         memcpy(ccp->raw, &(cowconfig_data[i]), sizeof(cowconfig_rule));
 
-                        cowpacket_generate_checksum(cp);
+                        //cowpacket_generate_checksum(cp);
 
                         //printf("Send configure packet: \n");
                         //printf("v: %d\n", cp->version);
@@ -315,7 +334,7 @@ int main(void)
                 sendMsg = 0; continue; // abort resend
             }
 
-            cowpacket_generate_checksum(cp);
+            //cowpacket_generate_checksum(cp);
 
             if (seq_no > 30) { seq_no = 0; }
             else { seq_no++; }

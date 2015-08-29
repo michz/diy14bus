@@ -1,14 +1,12 @@
 enum cowpacket_type {
     undefined_packet    = 0,
     event_packet        = 1,
-    program             = 2,
-    get_name            = 3,
-    get_state           = 4,
-    get_config          = 5,
-    ping                = 6,
-    ping_answer         = 7,
-    set_name            = 8,
-    configure           = 9
+    get_name            = 2,
+    get_state           = 3,
+    ping                = 4,
+    ping_answer         = 5,
+    set_name            = 6,
+    configure           = 7
 }
 class cowpacket {
     public static COWBUS_VERSION  : number = 0;
@@ -37,10 +35,10 @@ class cowpacket {
 
     static fromJSON(json: Object) : cowpacket {
         var r = new cowpacket(
-            json['version'],
-            json['seq_no'],
-            json['ttl'],
-            json['address'],
+            parseInt(json['version']),
+            parseInt(json['seq_no']),
+            parseInt(json['ttl']),
+            parseInt(json['address']),
             json['type'],
             json['is_fragment'],
             atob(json['payload'])
@@ -49,6 +47,14 @@ class cowpacket {
     }
 
     generateJSON() : string {
+        if (typeof this.address == "string") this.address = parseInt(<any>this.address);
+        if (typeof this.ttl == "string") this.ttl = parseInt(<any>this.ttl);
+        if (typeof this.version == "string") this.version = parseInt(<any>this.version);
+        if (typeof this.seq_no == "string") this.seq_no = parseInt(<any>this.seq_no);
+            
+        if (typeof this.is_fragment == "string") {
+            this.is_fragment = (<any>this.is_fragment == "1") ? true : false;
+        }
         return JSON.stringify(this);
     }
     

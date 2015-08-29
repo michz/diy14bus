@@ -9,8 +9,23 @@ class cow {
     constructor(new_address : number, new_name : string = cow.UNKNOWN_NAME) {
         this.address    = new_address;
         this.name       = new_name;
-        console.log("Constructing cow with name " + new_name);
-        // TODO ping for configuration
+    }
+
+    request_configuration() : void {
+        // TODO timeouts/delays?
+        var cow = this;
+
+        // get_name request
+        var pkt = new cowpacket(0, seqNo++, stdTtl, cow.address,
+            cowpacket_type.get_name, false, btoa(""));
+        sock.send(pkt.generateJSON());
+        
+        setTimeout(function() {
+            var pkt2 = new cowpacket(0, seqNo++, stdTtl, cow.address,
+                cowpacket_type.configure, false, btoa(String.fromCharCode(0)));
+            sock.send(pkt2.generateJSON());
+        }, 100);
+        
     }
     
     static fromPacket(pkt : cowpacket) : cow {

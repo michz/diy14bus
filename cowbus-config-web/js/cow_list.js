@@ -16,16 +16,29 @@ var cowList = (function () {
         // not found in list, so create new entry
         if (!updated) {
             this.cows.push(new_cow);
+            new_cow.request_configuration(); // ping for configuration
         }
         console.log(this.cows);
         // update display
         this.updateView();
     };
+    cowList.prototype.scan = function () {
+        var pkt = new cowpacket(0, seqNo++, stdTtl, 0, 4 /* ping */, false, "");
+        sock.send(pkt.generateJSON());
+    };
     cowList.prototype.updateView = function () {
         $("#nodes").children().remove();
         for (var i = 0; i < this.cows.length; i++) {
             var c = this.cows[i];
-            $("#nodes").append('<div class="node" id="node_' + i + '">' + '    <h3 id="node_' + i + '_name">' + c.name + '</h3>' + '    <span class="addr" id="node_' + i + '_addr">' + c.address + '</span>' + '    <p class="buttons">' + '        <span class="node-button button-config" ' + 'title="Config" id="node_' + i + '_config">Config</span>' + '        <span class="node-button button-rename" ' + 'title="Rename" id="node_' + i + '_rename">Rename</span>' + '        <span class="node-button button-ping" title="ping" ' + 'id="node_' + i + '_ping">Ping</span>' + '    </p>' + '    <p style="clear:both;"></p>' + '</div>');
+            var rules = cowconfig_rule_pool.get_by_node(c.address);
+            var rules_count = 0;
+            for (var j = 0; j < rules.length; ++j) {
+                if (!rules[j])
+                    continue;
+                rules_count++;
+            }
+            var text = "Regeln: " + rules_count;
+            $("#nodes").append('<div class="node" id="node_' + i + '">' + '    <h3 id="node_' + i + '_name">' + c.name + '</h3>' + '    <span class="addr" id="node_' + i + '_addr">' + c.address + '</span>' + '    <p class="buttons">' + '        <span class="node-button button-config" ' + 'title="Config" id="node_' + i + '_config">Config</span>' + '        <span class="node-button button-rename" ' + 'title="Rename" id="node_' + i + '_rename">Rename</span>' + '        <span class="node-button button-ping" title="ping" ' + 'id="node_' + i + '_ping">Ping</span>' + '        <span class="node-text" ' + 'id="node_' + i + '_text">' + text + '</span>' + '    </p>' + '    <p style="clear:both;"></p>' + '</div>');
             $('#node_' + i + '_config').button({
                 icons: { primary: " ui-icon-wrench" },
                 text: false
@@ -55,10 +68,10 @@ var cowList = (function () {
                 icons: { primary: "ui-icon-signal-diag" },
                 text: false
             }).on('click', function (event) {
-                var pkt = new cowpacket(0, seqNo++, stdTtl, c.address, 6 /* ping */, false, name);
+                var pkt = new cowpacket(0, seqNo++, stdTtl, c.address, 4 /* ping */, false, name);
                 sock.send(pkt.generateJSON());
                 setTimeout(function () {
-                    var pkt2 = new cowpacket(0, seqNo++, stdTtl, c.address, 9 /* configure */, false, btoa(String.fromCharCode(0)));
+                    var pkt2 = new cowpacket(0, seqNo++, stdTtl, c.address, 7 /* configure */, false, btoa(String.fromCharCode(0)));
                     sock.send(pkt2.generateJSON());
                 }, 100);
                 event.preventDefault();

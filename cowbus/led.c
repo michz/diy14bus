@@ -14,7 +14,8 @@ void led_init(void) {
 
     //led1
     //GPIO_3    LED
-    gpio_init_out(GPIO_3, GPIO_NOPULL); //set as output
+    
+    //gpio_init_out(GPIO_3, GPIO_NOPULL); //set as output
     gpio_clear(GPIO_3); //set to low -> led off
     
     //led2: rgb //TODO

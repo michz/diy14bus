@@ -22,10 +22,7 @@
 void switch1_pressed(void);
 void switch2_pressed(void);
 void switch3_pressed(void);
-
-
-
-
+void switch4_pressed(void);
 
 
 void switch_init(void) {
@@ -73,3 +70,4 @@ bool switch3_get_state(void) {
 void switch1_pressed(void){}
 void switch2_pressed(void){}
 void switch3_pressed(void){}
+void switch4_pressed(void){}

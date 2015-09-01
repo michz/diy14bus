@@ -9,12 +9,14 @@
 
 #include "board.h"      // cowbus-one
 #include "cpu.h"        // stmf0 ?
+#include "periph/gpio.h"
 #include "thread.h"
 #include "nrf24l01p.h"
 #include "nrf24l01p_settings.h"
 #include "hwtimer.h"
 
 #include "radio_nrf.h"
+#include "radio_config.h"
 
 /// @brief instance of RIOTs nrf24l01p driver
 static nrf24l01p_t nrf24l01p_0;
@@ -29,7 +31,7 @@ static unsigned char c_seq_no = 1;
 static unsigned int c_backoff = 0;
 
 /// @brief stack for rx_handler-thread // TODO: stacksize anders wählen (?)
-char rx_handler_stack[KERNEL_CONF_STACKSIZE_DEFAULT];
+char rx_handler_stack[THREAD_STACKSIZE_MAIN];
 
 /// @brief Address of this node
 unsigned short cowbus_address = COWBUS_DEFAULT_ADDR;
@@ -92,22 +94,34 @@ void *nrf24l01p_rx_handler(void *arg) {
 void radio_nrf_init(void) {
     // initialize radio module
     //                                              ce       cs    irq
-    int ret = nrf24l01p_init(&nrf24l01p_0, SPI_0, GPIO_6, GPIO_7, GPIO_12);
+    int ret = nrf24l01p_init(&nrf24l01p_0, SPI_0,
+            GPIO(PORT_B, 2),         // CE
+            GPIO(PORT_B, 1),         // CSN
+            GPIO(PORT_B, 0));        // IRQ
     //TODO auf cowbus-board anpassen
     
-    nrf24l01p_disable_all_auto_ack(&nrf24l01p_0); // disable all auto ack
-
     if (ret < 0) {
         printf("Transceiver initialization failed: %i\n", ret);
-        // TODO: Fehlerzustand irgendwie anzeigen, LEDs?
-        return;
     }
 
+
+    nrf24l01p_set_channel(&nrf24l01p_0, RADIO_RF_CHANNEL);
+    char addr[] = RADIO_ADDRESS;
+    nrf24l01p_set_tx_address(&nrf24l01p_0, addr, INITIAL_ADDRESS_WIDTH);
+    nrf24l01p_set_rx_address(&nrf24l01p_0, NRF24L01P_PIPE0, addr, INITIAL_ADDRESS_WIDTH);
+
+
+
     thread_create(
-        rx_handler_stack, sizeof(rx_handler_stack), PRIORITY_MAIN - 1, 0,
+        rx_handler_stack, sizeof(rx_handler_stack), THREAD_PRIORITY_MAIN - 1, 0,
         nrf24l01p_rx_handler, 0, "nrf24l01p_rx_handler");
 
+    nrf24l01p_disable_all_auto_ack(&nrf24l01p_0); // disable all auto ack
     nrf24l01p_set_rxmode(&nrf24l01p_0);
+
+
+   
+    nrf24l01p_disable_all_auto_ack(&nrf24l01p_0); // disable all auto ack
 
     recv_callback = NULL;
 
@@ -161,10 +175,10 @@ void radio_nrf_send_packet(unsigned short address, cowpacket_type type,
     pkt.version     = COWBUS_VERSION;
     pkt.seq_no      = radio_get_next_seq_no();
     pkt.ttl         = COWBUS_DEFAULT_TTL;
-    pkt.addr        = address;
-    pkt.type        = type;
-    pkt.is_fragment = 0;
-    memcpy(pkt.payload, payload, payload_length);
+    //pkt.addr        = address;
+    //pkt.type        = type;
+    //pkt.is_fragment = 0;
+    //memcpy(pkt.payload, payload, payload_length);
 
     //TODO: Checksumme berechnen
 

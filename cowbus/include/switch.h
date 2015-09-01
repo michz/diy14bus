@@ -14,7 +14,7 @@
 
 
 /**
- * @brief   Initializes the LEDs
+ * @brief   Initializes the Switches
  */
 void switch_init(void);
 
@@ -35,6 +35,12 @@ bool switch2_get_state(void);
  * @return  \b true for "pressed", \b false otherwise
  */
 bool switch3_get_state(void);
+
+/**
+ * @brief   Get the state of switch #4.
+ * @return  \b true for "pressed", \b false otherwise
+ */
+bool switch4_get_state(void);
 
 
 #endif // SWITCH_H

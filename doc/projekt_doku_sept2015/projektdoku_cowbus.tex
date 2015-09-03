@@ -53,7 +53,15 @@
 \maketitle
 
 \begin{abstract}
-    \TODO{Abstract}
+    Um die Vorzüge intelligenter Haussteuerung einer breiten Masse zugänglich
+    zu machen, müssen die System einfach handhabbar werden.
+    Besonders die Konfiguration, also die Zuordnung von Sensorevent zu
+    Schaltaktion, muss einfach durchführbar und ebenso einfach anpassbar
+    bzw. revidierbar sein. Diese Arbeit schlägt einen Ansatz vor,
+    der in einem dezentralen Sensor-Aktor-Netzwerk eine einfache
+    Konfigurationsmöglichkeit bieten soll.
+    Dabei erfolgt die eigentliche Konfiguration per Webbrowser und kann
+    jederzeit wieder ausgelesen, geändert und ergänzt werden.
 \end{abstract}
 
 \section{Einleitung}
@@ -81,8 +89,8 @@
     Teilnehmer in einem Gebäudeautomationsnetzwerk so konfigurierbar zu gestalten,
     dass die Konfiguration jederzeit mit minimalen Aufwand auslesbar
     und änderbar ist.
-
-    \TODO{DIY-Charakter, wie formulieren?}
+    Die Idee ist im Kontext eines DIY-Projektes entstanden und zielt deshalb
+    auch einfachste Anforderungen ab.
 
 \section{Verwandte Arbeiten}
     Gebäudeautomation wird inzwischen sowohl in der Praxis
@@ -309,14 +317,51 @@
 
 
 \section{Evaluation}
-    \TODO{Hurra, es geht?}
+    Der vorgestellte Ansatz funktioniert im kleinen Maßstab sehr gut.
+    Besonders sehr einfache Schaltregeln lassen sich damit ohne großen Aufwand
+    realisieren, zum Beispiel:
+    \begin{itemize}
+        \item \enquote{Schalter wurde auf \emph{AN} gestellt} $\Rightarrow$
+            \enquote{Schalte Lampe an}
+        \item \enquote{Temperatur übersteigt den Schwellwert von $28\degree$C} $\Rightarrow$
+            \enquote{Schalte Ventilator an}
+    \end{itemize}
 
-\section{Zusammenfassung}
-    \TODO{Hurra, es geht?}
-    \TODO{Ausblick: Was, wenn Sensor mehrere Werte in einem Paket schickt? => Auswahlmechanismus}
-    \TODO{Ausblick: Gemittelte Werte?}
-    \TODO{Ausblick: Aggregierte Werte? (Nur ausführen, wenn zwei bestimmte Pakete angekommen sind)}
-    \TODO{Ausblick: Tendenzen (trifft zu, wenn bestimmter Wert steigt/sinkt)}
+    \TODO{Evaluation weiter}
+
+    Offen bleiben jedoch Fragen, wie komplexere logische Abhängigkeiten
+    dargestellt werden können.
+    Zu Beispiel wäre es unter Umständen interessant, eine Aktion nur auszuführen,
+    wenn ein bestimmtes Ereignis über einen bestimmten Zeitraum mehrfach ohne
+    widersprüchliche \enquote{Ausreißer} auftritt.
+    So könnte es im Beispiel des Ventilators sinnvoll sein, diesen nur zu
+    aktivieren, wenn der Temperaturwert über eine Minuten lang konstant über
+    dem Schwellwert liegt, um versehentliche Schaltaktionen aufgrund von
+    Messfehlern zu vermeiden, die sowieso wenige Sekunden später revidiert
+    würden.
+
+    In diesem Fall könnte auch eine Betrachtung der Tendenzen sinnvoll sein,
+    also ob ein Messwert über die Zeit eher steigt oder fällt.
+    Auch eine Mittelwertbildung könnte interessant sein.
+
+    Ein möglicher Ansatz solche komplexeren Aufgaben zu realisieren,
+    wäre einen Pseudo-Sensor-Aktor in das Netz zu setzen, der eingehende
+    Ereignisse aufzeichnet, auswertet und dann unter bestimmten Bedingungen
+    selbst ein Ereignis auslöst, sowie eben auch über die dafür benötigten
+    Ressourcen verfügt. Ein solcher Knoten wäre dann entsprechend
+    aufwändiger zu konfigurieren.
+
+
+\section{Zusammenfassung und Ausblick}
+    Mit cowbusconfig haben wir einen Ansatz zur einfachen Konfigurierbarkeit
+    von Sensor-Aktor-Netzwerken im Hausautomationsbereich vorgestellt.
+    Die Besonderheit gegenüber bisher üblichen oder erforschten Ansätzen ist
+    dabei die Möglichkeit auf zentrale \enquote{Logik}-Komponenten
+    zu verzichten und trotzdem die Konfiguration wiederauslesbar und
+    änderbar zu gestalten.
+    Damit ist es möglich, auf einfache Art und Weise neue Komponenten in das
+    System zu integrieren und entsprechende Schaltregeln hinzuzufügen bzw.
+    anzupassen, ohne das komplette System neu einstellen zu müssen.
 
 
 \section{Altes Zeug, vielleicht noch brauchbar}
@@ -355,7 +400,7 @@
             ohne jede Programmierung verwendet werden, ohne dass sie von den
             konkreten Sensoren wissen müssen.
 
-
+\comment / *
 \section*{Abkürzungen}
 \renewcommand{\IEEEiedlistdecl}{\IEEEsetlabelwidth{CSMA/CA}}
 \begin{acronym}
@@ -367,7 +412,7 @@
     \acro{openHAB}{open Home Automation Bus}
 \end{acronym}
 \renewcommand{\IEEEiedlistdecl}{\relax}% remember to reset \IEEEiedlistdecl
-
+* /
 
 \comment / *
 \listoffigures

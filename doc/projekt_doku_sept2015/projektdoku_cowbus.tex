@@ -209,8 +209,6 @@
         über den Funkkanal gesendet.
         Die Aktoren erkennen sie an den speziellen Nachrichtentypen.
 
-        \TODO{Ideen entwickeln, z.B.: welche Nachrichtnetypen brauchts? "Lösche alle Zuordnungen", "neue Zuordnung", ...}
-
     \subsection{Regeln}
         Basis der Logik sind sind einfache Wenn-Dann-Regeln.
         Ein (Aktor)-Knoten kann theoretisch beliebig viele dieser Regeln befolgen.
@@ -314,6 +312,29 @@
                 \bottomrule
             \end{tabular}
         \end{center}
+    \subsection{Konfigurationsnachrichten}
+        Um die Konfiguration jederzeit auslesbar und änderbar zu gestalten
+        sind folgende Nachrichtentypen vorgesehen:
+
+        \begin{itemize}
+            \item Erhält ein Knoten das Kommando \textbf{LIST} antwortet
+                er mit Nachrichten des Typs \textbf{ANSWER\_LIST},
+                die alle auf ihm gespeicherten Regeln enthalten.
+            \item Eine Nachricht mit dem Kommando \textbf{ADD} weist einen
+                Knoten an die in der Nachricht enthaltene Regel zu seiner
+                Regelliste hinzuzufügen und in Zukunft zu beachten.
+            \item Eine bestimmte Regel kann von einem Knoten gelöscht werden,
+                indem man ihm eine Nachricht mit dem Kommando
+                \textbf{DELETE\_ONE} sendet, die eine auf dem Knoten eindeutige
+                laufende Nummer der Regel enthält.
+                (Die laufenden Nummern der Regeln können mit dem
+                \emph{LIST}-Kommando abgefragt werden.)
+            \item Mit dem Kommando \textbf{DELETE\_ALL} kann die Konfiguration
+                eines Knotens vollständig zurückgesetzt werden.
+            \item Das Kommando \textbf{DELETE\_ADDR} weist einen Knoten an,
+                alle Regeln mit einer bestimmten Adresse zu löschen,
+                die in der Nachricht übertragen werden muss.
+        \end{itemize}
 
 
 \section{Evaluation}
@@ -327,7 +348,7 @@
             \enquote{Schalte Ventilator an}
     \end{itemize}
 
-    \TODO{Evaluation weiter}
+    \TODO{Evaluation weiter? Positives?}
 
     Offen bleiben jedoch Fragen, wie komplexere logische Abhängigkeiten
     dargestellt werden können.
@@ -364,7 +385,6 @@
     anzupassen, ohne das komplette System neu einstellen zu müssen.
 
 
-\section{Altes Zeug, vielleicht noch brauchbar}
         \begin{figure}
             \centering
             \includegraphics[width=0.5\textwidth]{img/system}
@@ -372,47 +392,14 @@
             \label{fig:comp}
         \end{figure}
 
-            \begin{itemize}
-                \item Ein Aktor kann eine Nachricht mit seiner eigenen Adresse
-                    erhalten. Das bedeutet für ihn, er soll diese Aktion
-                    ausführen, unabhängig davon wer das Ereignis ausgelöst hat.
-                \item Ein Aktor kann programmiert werden auf bestimmte andere
-                    Adressen und Nachrichten zu reagieren.
-                    So kann beispielsweise eingestellt werden, dass ein Aktor
-                    dann schaltet, wenn er eine Nachricht entdeckt, in der steht
-                    \enquote{Ich bin Knoten A und meine erste Taste
-                    wurde gedrückt} (siehe oben).
-            \end{itemize}
 
-            Durch diese zwei Varianten ist es auf der einen Seite möglich,
-            dezentral Nachrichten auszulösen und darauf zu reagieren, wobei
-            die Auslöser, also die Sensoren selbst relativ einfach aufgebaut
-            sein können. Die aufwändigere Logik, welcher Sensor welche Aktion
-            auslöst, kann im Aktor implementiert werden.
-            Auf der anderen Seite ist es aber trotzdem möglich, das System
-            zentral zu nutzen, indem Sensornachrichten von einem zentralen
-            Punkt empfangen werden, der anschließend Nachrichten mit konkreten
-            Aktoradressen versendet.
-            Dies könnte z.\,B. ein Gateway in ein IP-basiertes Netz sein, sodass
-            Schaltvorgänge aus dem Internet ausgelöst werden können.
-            So können auch Aktoren \enquote{dumm}
-            bleiben und können (z.\,B. in einem sehr kleinen, temporären Aufbau)
-            ohne jede Programmierung verwendet werden, ohne dass sie von den
-            konkreten Sensoren wissen müssen.
-
-\comment / *
 \section*{Abkürzungen}
 \renewcommand{\IEEEiedlistdecl}{\IEEEsetlabelwidth{CSMA/CA}}
 \begin{acronym}
-    \acro{6LoWPAN}{IPv6 over Low power Wireless Personal Area Network}
-    \acro{CSMA/CA}{Carrier Sense Multiple Access with Collision Avoidance\acroextra{\newline \emph{dt.}: Mehrfachzugriff mit Trägerprüfung und Kollisionsvermeidung}}
     \acro{DIY}{Do-It-Yourself}
-    \acro{HAL}{Hardware Abstraction Layer}
     \acro{LAN}{Local Area Network}
-    \acro{openHAB}{open Home Automation Bus}
 \end{acronym}
 \renewcommand{\IEEEiedlistdecl}{\relax}% remember to reset \IEEEiedlistdecl
-* /
 
 \comment / *
 \listoffigures

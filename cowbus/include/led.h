@@ -29,25 +29,26 @@ typedef enum led_color {
 void led_init(void);
 
 /**
- * @brief   Switches the first LED on or off.
- * @param   on  \b true for on
- */
-void led1_switch_state(bool on);
-
-/**
- * @brief   Switches the first LED on.
- */
-void led1_on(void);
-
-/**
- * @brief   Switches the first LED off.
- */
-void led1_off(void);
-
-/**
  * @brief   Switches the RGB LED on or off and sets color.
  * @param   col Color to be set
  */
-void led2_set_color(led_color color);
+void led_set_color(led_color color);
+
+/**
+ * @brief   Switches the RGB LED on and off the given number of times.
+ * @param   col         Color to be set
+ * @param   ms_on       Time in ms the LED should be on each time
+ * @param   ms_off      Time in ms the LED should be off each time
+ * @param   ms_times    How often the LED should be switched on
+ */
+void led_blink(led_color color, uint16_t ms_on, uint16_t ms_off, uint8_t times);
+
+/**
+ * @brief   Switches the RGB LED on and off the given number of times.
+ * @param   col         Color to be set
+ * @param   ms_on       Time in ms the LED should be on each time
+ * @param   ms_times    How often the LED should be switched on
+ */
+void led_blink_s(led_color color, uint16_t ms_on, uint8_t times);
 
 #endif // LED_H

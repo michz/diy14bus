@@ -29,6 +29,9 @@
 #define RCV_BUFFER_SIZE     (64)
 #define RADIO_STACK_SIZE    (THREAD_STACKSIZE_MAIN)
 
+/// @brief local in-memory representation of configuration rules of this node
+cowconfig_rule cowconfig_data[COWCONFIG_COUNT];
+
 char radio_stack_buffer[RADIO_STACK_SIZE];
 msg_t msg_q[RCV_BUFFER_SIZE];
 

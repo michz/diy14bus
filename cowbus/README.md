@@ -1,65 +1,43 @@
-cowbus general demonstration firmware
-=====================================
+cowbus general prototyping firmware
+===================================
+
+# currently used board: cowbus-protoboard
 
 
-
-# currently used board: cowbus-one
-
-
-folgendes ist wo anders sicher besser aufgehoben, aber wo?
 
 # pin configuration
 
 ## GPIOs
 
-GPIO_0		RGB-LED
-GPIO_1		RGB-LED
-GPIO_2		RGB-LED
-GPIO_3		LED
-GPIO_4		ROM-CS
-GPIO_5		ROM-HOLD
-GPIO_6		nRF-CE
-GPIO_7		nRF-CSN
-GPIO_8
-GPIO_9		SW1
-GPIO_10		SW2
-GPIO_11		SW4
-GPIO_12		nRF-IRQ
+
+GPIO_0		GPIO(PORT_A, 15)    SW-1
+GPIO_1		GPIO(PORT_B, 3)     
+GPIO_2		GPIO(PORT_B, 4)     
+GPIO_3		GPIO(PORT_B, 5)     
+GPIO_4		GPIO(PORT_B, 6)     I2C-SCL
+GPIO_5		GPIO(PORT_B, 7)     I2C-SDA
+GPIO_6		GPIO(PORT_B, 8)     SW-2
+GPIO_7		GPIO(PORT_B, 9)     SW-3
+GPIO_8      GPIO(PORT_B, 10)    
+GPIO_9		GPIO(PORT_B, 11)    LED-R
+GPIO_10		GPIO(PORT_B, 12)    LED-G
+GPIO_11		GPIO(PORT_B, 13)    LED-B
+GPIO_12		GPIO(PORT_B, 14)    SW-4
+GPIO_13		GPIO(PORT_A, 0)     
+GPIO_14		GPIO(PORT_A, 1)     
+GPIO_15		GPIO(PORT_A, 2)     
+GPIO_16		GPIO(PORT_A, 3)     
+GPIO_17		GPIO(PORT_A, 4)     BUZ
 
 
-Pins auf Board:
+            GPIO(PORT_B, 0)     nRF-IRQ
+            GPIO(PORT_B, 1)     nRF-CSN
+            GPIO(PORT_B, 2)     nRF-CE
+            GPIO(PORT_A, 5)     nRF-SCK
+            GPIO(PORT_A, 6)     nRF-MISO
+            GPIO(PORT_A, 7)     nRF-MOSI
+           
+// DO NOT USE:
+            GPIO(PORT_A, 13)    SWDIO
+            GPIO(PORT_A, 14)    SWCLK
 
-PA0		out		RGB-LED
-PA1		out		RGB-LED
-PA2		out		RGB-LED
-PA3		out		LED
-PA4
-PA5		out		SPI-CLK  -> "SPI_0"
-PA6		in		SPI-MISO -> "SPI_0"
-PA7		out		SPI-MOSI -> "SPI_0"
-PA8
-PA9		out		UART_TX
-PA10	in		UART_RX
-PA11
-PA11
-PA12
-PA13
-PA14
-PA15
-
-PB0		i?o		nRF-IRQ//TODO
-PB1		i?o		nRF-CSN
-PB2		in		nRF-CE //TODO
-PB3
-PB4		in		SW1
-PB5		in		SW2
-PB6
-PB7
-PB8		in		SW4//TODO
-PB9
-PB10	out		ROM-CS
-PB11	out		ROM-HOLD
-PB12
-PB13	out		BUZZER
-PB14
-PB15

@@ -12,6 +12,7 @@
 #define COWCONFIG_H
 
 #include <stdint.h>
+#include <stdio.h>
 #define COWCONFIG_COUNT     (4)
 
 typedef enum cowconfig_operation {
@@ -42,6 +43,8 @@ typedef enum cowconfig_packet_method {
     CCPM_ANSWER_LIST   = 5     ///< @brief answer to CCPM_LIST command
 } cowconfig_packet_method;
 
+
+/// @brief  Format of a configuration rule.
 typedef struct cowconfig_rule {
     uint16_t    address;       ///< @brief source address of packets that should trigger
     uint8_t     operation;     ///< @brief operation that triggers (see \ref cowconfig_operation)
@@ -50,6 +53,8 @@ typedef struct cowconfig_rule {
     uint16_t    threshold_b;   ///< @brief upper threshold value that should trigger
 } cowconfig_rule;
 
+
+/// @brief  Format of a packet that contains configuration data/instructions.
 typedef struct cowconfig_packet {
     /// @brief local unique id for this rule
     uint8_t id;
@@ -64,13 +69,25 @@ typedef struct cowconfig_packet {
     };
 } cowconfig_packet;
 
-/// local in-memory representation of configuration rules of this node
-cowconfig_rule cowconfig_data[COWCONFIG_COUNT];
+
+/**
+ * @brief local in-memory representation of configuration rules of this node
+ *
+ * @note    Must be defined somewhere in c code!
+ */
+extern cowconfig_rule cowconfig_data[COWCONFIG_COUNT];
+
 
 static inline void cowconfig_init(void) {
     // should be redundant, but noone knows which bugs will occure in compilers...
     memset(cowconfig_data, 0, sizeof(cowconfig_rule) * COWCONFIG_COUNT);
 }
+
+
+/**
+ * @brief           Adds a rule to this node.
+ * @param   rule    The rule that should be added.
+ */
 static inline int cowconfig_add(cowconfig_rule* rule) {
     for (int i = 0; i < COWCONFIG_COUNT; ++i) {
         if (cowconfig_data[i].operation == OP_NO) {
@@ -92,14 +109,29 @@ static inline int cowconfig_add(cowconfig_rule* rule) {
     // no space left for configuration items
     return -1;
 }
+
+
+/// @brief  Deletes all rules.
 static inline void cowconfig_delete_all(void) {
     cowconfig_init(); // does memset(0)
 }
+
+
+/**
+ * @brief       Deletes the given rule.
+ * @param   i   The rule number to be deleted (find out with \ref CCPM_LIST).
+ */
 static inline void cowconfig_delete_one(int i) {
     if (i >= COWCONFIG_COUNT) return;
     memset(&(cowconfig_data[i]), 0, sizeof(cowconfig_rule));
     printf("Deleted rule #%d.\n", i);
 }
+
+
+/**
+ * @brief           Deletes all rules that have the given address.
+ * @param   addr    Cowbus address of which the rules should be deleted.
+ */
 static inline void cowconfig_delete_addr(int addr) {
     for (int i = 0; i < COWCONFIG_COUNT; ++i) {
         if (cowconfig_data[i].address == addr) {
@@ -109,6 +141,8 @@ static inline void cowconfig_delete_addr(int addr) {
     }
 }
 
+
+/// @brief  Writes the configuration to stdout.
 static inline void cowconfig_dump(void) {
 #ifdef COWCONFIG_DEBUG
     for (int i = 0; i < COWCONFIG_COUNT; ++i) {
@@ -123,9 +157,6 @@ static inline void cowconfig_dump(void) {
 #endif
 }
 
-#else
-
-extern cowconfig_rule cowconfig_data[8];
 
 
 #endif // COWCONFIG_H

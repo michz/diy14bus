@@ -19,6 +19,7 @@
 #include "led.h"
 #include "switch.h"
 #include "cowpacket.h"
+#include "cowconfig.h"
 #include "grazed_list.h"
 #include "actor.h"
 #include "sensor.h"
@@ -26,11 +27,16 @@
 #include "radio_nrf.h"
 #include "eeprom.h"
 
+
+/// @brief local in-memory representation of configuration rules of this node
+cowconfig_rule cowconfig_data[COWCONFIG_COUNT];
+
+
 //#define MODULE_UART0
 
 
 void packet_received(cowpacket pkt) {
-	led1_off();
+    led_blink_s(green, 100, 1);
 //    // TODO packet handling (switch led on/off, ping response, ...)
 //    switch (pkt.type) {
 //        case event:
@@ -67,8 +73,6 @@ void packet_received(cowpacket pkt) {
 //<just for debug>
 void test(void)
 {
-
-	led1_off();
 	printf("test_uart.\n");
 
 }
@@ -76,9 +80,6 @@ void test(void)
 
 int main(void)
 {
-
-
-
 	(RCC->AHBENR |= RCC_AHBENR_GPIOAEN);
 	(RCC->AHBENR |= RCC_AHBENR_GPIOBEN);
 
@@ -98,25 +99,9 @@ int main(void)
 //    GPIO_11		SW4
 //    GPIO_12		nRF-IRQ
 //
-//  Button 1 : GPIO(PORT_A, 15)
-//  Button 2 : GPIO(PORT_B, 8)
-//  Button 3 : GPIO(PORT_B, 9)
-//  Button 4 : GPIO(PORT_B, 14)
-//
-//  nrf24l01p:
-//  IRQ : GPIO(PORT_B, 0)
-//  CSN : GPIO(PORT_B, 1)
-//  CE  : GPIO(PORT_B, 2)
-//  SCK : GPIO(PORT_A, 5)
-//  MISO: GPIO(PORT_A, 6)
-//  MOSI: GPIO(PORT_A, 7)
 
     gpio_init_int(GPIO_9, GPIO_PULLDOWN, GPIO_FALLING, (void *)test, 0); //wird extern auf high gezogen
     gpio_irq_enable(GPIO_9);
-
-    led1_on();
-
-
 
 
     // initialize radio driver
@@ -138,6 +123,12 @@ int main(void)
     //              (or determine another address on another way)
     //
 
+    // TODO read name from eeprom
+    //eeprom_get_name();
+
+    // TODO read configuration from eeprom
+    cowconfig_init();
+    eeprom_read_configuration((char*)cowconfig_data);
 
 
 	while (1) {

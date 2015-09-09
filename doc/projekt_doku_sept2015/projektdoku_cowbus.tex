@@ -239,40 +239,14 @@ www.knx.org/knx-de/knx/technologie/kommunikationsmedien/index.php}}.
                 wenn ein Paket eingetroffen ist, auf das die Regel zutrifft.
         \end{enumerate}
 
-        Unter der Annahme, dass der Schalter im Zustand \enquote{an} eine
-        \enquote{1} und im Zustand \enquote{aus} eine \enquote{0} sendet
-        ergeben sich also zwei Regeln:
+        %Unter der Annahme, dass der Schalter im Zustand \enquote{an} eine
+        %\enquote{1} und im Zustand \enquote{aus} eine \enquote{0} sendet
+        %ergeben sich also zwei Regeln:
 
-        \begin{center}
-            \begin{tabular}{r|x{0.15\textwidth}|x{0.15\textwidth}}
-                \toprule
-                                        & \textbf{Regel 1} & \textbf{Regel 2} \\
-                \midrule
-                \textbf{Adresse}:       & \multicolumn{2}{c}{Schalteradresse} \\
-                \textbf{Operator}:     & \multicolumn{2}{c}{\enquote{=} (Gleichheit)} \\
-                \textbf{Schwellwert}:   & 1  & 0 \\
-                \textbf{Aktion}:        & \enquote{Lampe an}  & \enquote{Lampe aus} \\
-                \bottomrule
-            \end{tabular}
-        \end{center}
+		\todo{Das Beispiel muss angepasst werden, sodass es einheitlich ist. + ERKLÄRUNG}
+        
 
-        Soll eine Lampe aufleuchten, wenn der Wert eines Temperatursensors
-        $30\degree$C übersteigt, könnten die zugehörigen Regeln wie folgt aussehen:
-
-        \begin{center}
-            \begin{tabular}{r|x{0.15\textwidth}|x{0.15\textwidth}}
-                \toprule
-                                        & \textbf{Regel 1} & \textbf{Regel 2} \\
-                \midrule
-                \textbf{Adresse}:       & \multicolumn{2}{c}{Sensoradresse} \\
-                \textbf{Operator}:     & \enquote{$>$} (größer) & \enquote{$\leq$} (kleiner oder gleich) \\
-                \textbf{Schwellwert}:   & \multicolumn{2}{c}{30} \\
-                \textbf{Aktion}:        & \enquote{Lampe an}  & \enquote{Lampe aus} \\
-                \bottomrule
-            \end{tabular}
-        \end{center}
-
-        Soll eine Lampe aufleuchten, wenn der Wert eines Temperatursensors
+        Soll ein Ventilator aktiviert werden, wenn der Wert eines Temperatursensors
         im Intervall $[18;25]$ liegt, könnten die zugehörigen Regeln wie folgt aussehen:
 
         \begin{center}
@@ -284,39 +258,15 @@ www.knx.org/knx-de/knx/technologie/kommunikationsmedien/index.php}}.
                 \textbf{Operator}:     & \enquote{$\leq \geq$} & \enquote{nicht $\leq \geq$} \\
                 \textbf{Schwellwert A}: & \multicolumn{2}{c}{18} \\
                 \textbf{Schwellwert B}: & \multicolumn{2}{c}{25} \\
-                \textbf{Aktion}:        & \enquote{Lampe an}  & \enquote{Lampe aus} \\
+                \textbf{Aktion}:        & \enquote{Ventilator an}  & \enquote{Ventilator aus} \\
                 \bottomrule
             \end{tabular}
         \end{center}
 
     \subsection{Operator}
-        Mit folgenden Operatoren lassen sich bereits viele übliche
-        Schaltaufgaben abbilden:
-
-        \begin{center}
-            \begin{tabular}{p{0.07\textwidth}p{0.38\textwidth}}
-                \toprule
-                    \textbf{Op.} & \textbf{Beschreibung} \\
-                \midrule
-                    $*$             &   Wert beliebig (Regel trifft auf jedes
-                                        Paket mit der gegebenen Adresse zu) \\
-                    $=$             &   Gleicheit \\
-                    $\neq$          &   Ungleicheit \\
-                    $\textless$     &   kleiner \\
-                    $\leq$          &   kleiner oder gleich \\
-                    $\textgreater$  &   größer \\
-                    $\geq$          &   größer oder gleich \\
-                    $\geq \leq$     &   $x \in [a;b]$, also: $a \leq x \leq b$ \\
-                    $\textgreater \leq$ &   $x \in~]a;b]$, also: $a \textless x \leq b$ \\
-                    $\geq \textless$ &  $x \in [a;b[$, also: $a \leq x \textless b$ \\
-                    $\textgreater \textless$ &  $x \in~]a;b[$, also: $a \textless x \textless b$ \\
-                    $!(\geq \leq)$     &   $x \notin [a;b]$, also: $(x \textless a)~or~(x \textgreater b)$ \\
-                    $!(\textgreater \leq)$ &   $x \notin~]a;b]$, also: $(x \leq a)~or~(x \textgreater b)$ \\
-                    $!(\geq \textless)$ &  $x \notin [a;b[$, also: $(x \textless a)~or~(x \geq b)$ \\
-                    $!(\textgreater \textless)$ &  $x \notin~]a;b[$, also: $(x \leq a)~or~(x \geq b)$ \\
-                \bottomrule
-            \end{tabular}
-        \end{center}
+		In den cowbus-Knoten sind die grundlegenden logischen Operatoren implementiert.
+		Damit lassen sich bereits die meisten Schaltaufgaben abbilden.
+		\todo{Entweder ganz weg oder ausbauen.}
     \subsection{Konfigurationsnachrichten}
         Um die Konfiguration jederzeit auslesbar und änderbar zu gestalten
         sind folgende Nachrichtentypen vorgesehen:

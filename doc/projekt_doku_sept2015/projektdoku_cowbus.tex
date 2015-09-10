@@ -1,4 +1,4 @@
-\documentclass{IEEEtran}
+\documentclass[conference]{IEEEtran}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[ngerman]{babel}
@@ -41,19 +41,24 @@
 \newcolumntype{x}[1]{>{\centering\arraybackslash\hspace{0pt}}p{#1}}
 
 
+%\pagestyle{empty}
 
 \begin{document}
 
 
 \title{cowbusconfig -- Ansatz zur dezentralen Konfiguration von Gebäudeautomation}
-\author{Patrick~Kanzler \and Michael~Zapf}
+\author{
+\IEEEauthorblockN{Patrick Kanzler}
+\IEEEauthorblockA{patrick.kanzler@fau.de}
+\and
+\IEEEauthorblockN{Michael Zapf} 
+    \IEEEauthorblockA{michael.zapf@fau.de}
+}
 \date{\today}
 
 
 
 \maketitle
-
-\todo{nochmal über die Abkürzungen drüber gehen und schauen, wo man schön abkürzt (wenn der Text steht.)}
 
 \begin{abstract}
     Um die Vorzüge intelligenter Haussteuerung einer breiten Masse zugänglich
@@ -104,22 +109,16 @@
     Gebäudeautomation wird inzwischen sowohl in der Praxis
     als auch in der Forschung erprobt. Hierbei konkurrieren verschiedene Systeme
     und Technologien, denen unterschiedlichste Paradigmen zugrunde liegen.
-    Zur Veranschaulichung möchten wir hier ein System aus der Praxis betrachten,
-    das auf dezentraler Kommunikation beruht,
-    sowie einen Ansatz aus der Forschung,
-    der einen zentralen Kommunikationsserver vorschlägt.
 
-    \subsection{Europäischer Installationsbus (EIB) / KNX}
-    Der unter der Abkürzung EIB bekannte Europäische Installationsbus
+    Der unter der Abkürzung EIB bekannte \textbf{Europäische Installationsbus}
     ist ein offener Standard und nach subjektivem Empfinden das in der Praxis
     wohl meistgenutzte System in der Gebäudeautomation.
-    Inzwischen wird er unter dem Namen KNX entwickelt und vertrieben.
+    Inzwischen wird er unter dem Namen \textbf{KNX} entwickelt und vertrieben.
     Es sind weltweit fast 7000 Produkte auf dem Markt\footnote{ KNX Association, \enquote{KNX -- Technologie -- Einführung}, \url{http://www.knx.org/knx-de/knx/technologie/einfuehrung/index.php}},
     die mit einer Twisted-Pair-Leitung verbunden werden
     (weitere Medien -- auch drahtlose -- sind verfügbar),
     über die Nachrichten direkt untereinander ausgetauscht werden\footnote{KNX Association, \enquote{KNX -- Technologie -- Kommunikationsmedien}, \url{http://
 www.knx.org/knx-de/knx/technologie/kommunikationsmedien/index.php}}.
-
     Die Konfiguration der Schaltregeln etc. erfolgt nach der Installation
     der Komponenten durch einen Fachmann mithilfe von Software aus der
     ETS-Familie. Dabei handelt es sich um proprietäre Software,
@@ -127,7 +126,6 @@ www.knx.org/knx-de/knx/technologie/kommunikationsmedien/index.php}}.
     entwickelt und vertrieben wird\footnote{KNX Association,
         \enquote{KNX System Specifications -- Architecture}, 2001,
         \url{http://www.knx.org/media/docs/downloads/KNX-Standard/Architecture.pdf}}.
-
     KNX eignet sich besonders im Bereich großer Gebäude, in denen die
     elektrischen Systeme von einem Fachmann geplant, installiert und auch über
     Jahre hinweg gewartet werden. Ein entscheidender Nachteil von KNX ist,
@@ -137,27 +135,23 @@ www.knx.org/knx-de/knx/technologie/kommunikationsmedien/index.php}}.
     oder auch nur eine einfache Schaltregel anzupassen) wird jedes mal
     die ursprünglich erstellte Projektdatei aus der ETS-Software benötigt.
 
-    \subsection{Zentrale skriptbasierte Steuerung}
-        T. Haenselmann et al. \cite{haenselmann2007skriptbasierte}
-        beschreiben ein zentrales System, das weitgehend
-        unabhängig von dem verwendeten Transportmedium ist.
-        Sie schlagen eine drahtlose Kommunikation vor,
-        der Kerngedanke jedoch, auf den wir uns hier beziehen werden,
-        gilt jedoch medienunabhängig.
-        Der grundlegende Ansatz besteht in der Einrichtung eines zentralen
-        Servers, bei dem alle Nachrichten des Systems zusammenlaufen.
-        Sensoren melden ihre Messwerte an diesen, der dann Schaltnachrichten
-        an die Aktoren sendet.
-        Die Entscheidung, welche Aktionen ausgelöst werden, trifft der Server
-        mithilfe von Skripten, die der Benutzer hinterlegt.
-        Diese Skripte können auch über eine Weboberfläche erstellt und
-        verwaltet werden.
+    T. Haenselmann et al. \cite{haenselmann2007skriptbasierte}
+    beschreiben hingegen ein \textbf{zentrales System}.
+    Um die Konfiguration bequem wiederauslesbar und jederzeit änderbar
+    zu gestalten schlagen sie einen zentralen Server vor,
+    bei dem alle Nachrichten des Systems zusammenlaufen.
+    Sensoren melden ihre Messwerte an diesen, der dann Schaltnachrichten
+    an die Aktoren sendet.
+    Die Entscheidung, welche Aktionen ausgelöst werden, trifft der Server
+    mithilfe von Skripten, die der Benutzer hinterlegt.
+    Diese Skripte können auch über eine Weboberfläche erstellt und
+    verwaltet werden.
 
-        Der Nachteil des Ansatzes liegt auf der Hand:
-        Sobald alle Schaltaufgaben von einem zentralen Punkt aus bearbeitet
-        werden entsteht eine Abhängigkeit des gesamten Systems von einer
-        einzelnen Komponente.
-        Fällt diese aus, funktioniert kein einziger Lichtschalter mehr.
+    Der Nachteil des Ansatzes liegt auf der Hand:
+    Sobald alle Schaltaufgaben von einem zentralen Punkt aus bearbeitet
+    werden entsteht eine Abhängigkeit des gesamten Systems von einer
+    einzelnen Komponente.
+    Fällt diese aus, funktioniert kein einziger Lichtschalter mehr.
 
     %\cite{drossos2013ansteuerung}
     %\cite{kuntz6servicecast}
@@ -193,8 +187,8 @@ www.knx.org/knx-de/knx/technologie/kommunikationsmedien/index.php}}.
         verfügbar\footnote{Dokumentation siehe: \url{http://www7.cs.fau.de/de/wp-content/uploads/sites/2/2014/08/projektdoku_cowbus.pdf}; Projekt siehe: \url{https://github.com/michz/diy14bus}.}.
 
     \subsection{Idee}
-        Da \textbf{Sensoren} häufig höhere Anforderungen an den Energieverbrauch
-        stellen, sollen sie in dem System \enquote{dumm} sein.
+        Da \textbf{Sensoren} häufig höhere Anforderungen an einen sparsamen
+        Energieverbrauch stellen, sollen sie in dem System \enquote{dumm} sein.
         Sie erarbeiten sich also kein Wissen über die anderen Netzwerkkomponenten
         und reagieren nicht, sondern agieren ausschließlich.
         Das ermöglicht uns sie die meiste Zeit in Energiesparmodi zu betreiben
@@ -225,7 +219,7 @@ www.knx.org/knx-de/knx/technologie/kommunikationsmedien/index.php}}.
         das über das \ac{LAN} bzw. \ac{WLAN} die
         Konfigurationswebseite des Gateways anzeigt.
         Dabei werden Konfigurationsnachrichten \enquote{in-band} gesendet,
-        also neben den Nutzdaten auf demselben Funkkanal:
+        also neben den Nutzdaten auf demselben Funkkanal.
         Die Aktoren erkennen sie an speziellen Nachrichtentypen
         und aktualisieren ihre interne Regeltabelle anhand der empfangenen
         Konfigurationspakete.
@@ -233,7 +227,9 @@ www.knx.org/knx-de/knx/technologie/kommunikationsmedien/index.php}}.
         Wie bereits angeklungen basiert die Konfiguration auf \textbf{Regeln},
         auf die im Abschnitt \ref{subsec:regeln} genauer eingangen wird.
         Jeder Aktorknoten muss eine oder mehrere Regeln speichern,
-        auf Anfrage auslesen und rückmelden sowie löschen können.
+        auf Anfrage auslesen und rückmelden, sowie löschen können.
+
+    % Figure sehr bald, damit sie auch wirklich auf Seite 3 erscheint
     \begin{figure*}
         \centering
         \begin{subfigure}{1\columnwidth}
@@ -300,13 +296,10 @@ www.knx.org/knx-de/knx/technologie/kommunikationsmedien/index.php}}.
         sind folgende Nachrichtentypen vorgesehen:
 
         \begin{itemize}
-            \item \textbf{LIST} fordert einen Knoten auf, seine Konfiguration
-                auszugeben.
+            \item \textbf{LIST} liest die Konfiguration eines Knotens.
             \item \textbf{ADD} fügt einem Knoten eine Regel hinzu.
             \item \textbf{DELETE\_ONE} löscht eine Regeln auf einem Knoten.
             \item \textbf{DELETE\_ALL} löscht alle Regeln auf einem Knoten.
-            \item \textbf{DELETE\_ADDR} löscht alle Regeln auf einem Knoten mit
-                einer bestimmten Quelladresse.
         \end{itemize}
 
 
@@ -316,8 +309,8 @@ www.knx.org/knx-de/knx/technologie/kommunikationsmedien/index.php}}.
     \begin{itemize}
         \item Als \textbf{Sensor} dient ein Taster auf einem
             cowbus-Prototyping-Board (Abb. \ref{subfig:proto}).
-        \item Eine \ac{LED} ebenfalls auf einem cowbus-Prototyping-Board dient
-            als \textbf{Aktor},
+        \item Als \textbf{Aktor} dient eine \ac{LED},
+            die ebenfalls auf einem cowbus-Prototyping-Board sitzt.
         \item Die Rolle des \textbf{Gateways} übernimmt ein Raspberry Pi,
             der um ein Funkmodul erweitert wurde (Abb. \ref{subfig:pi}).
             Alternativ wäre auch denkbar ein USB-Dongle zu entwickeln,
@@ -343,21 +336,17 @@ www.knx.org/knx-de/knx/technologie/kommunikationsmedien/index.php}}.
     System zu integrieren und entsprechende Schaltregeln hinzuzufügen bzw.
     anzupassen, ohne das komplette System neu einstellen zu müssen.
 
-    Offen bleibt jedoch die Frage, wie komplexere logische Abhängigkeiten
-    dargestellt werden können.
-    Zu Beispiel wäre es interessant eine Aktion nur dann auszuführen,
-    wenn ein bestimmtes Ereignis über einen bestimmten Zeitraum mehrfach ohne
-    widersprüchliche \enquote{Ausreißer} auftritt.
+    Offen bleibt jedoch die Frage,
+    wie komplexere logische Abhängigkeiten dargestellt werden können,
+    wie zum Beispiel die Aggregation von Ereignissen bzw. Werten.
     So könnte es im Beispiel des Ventilators sinnvoll sein, diesen nur zu
     aktivieren, wenn der Temperaturwert über eine Minuten lang konstant über
-    dem Schwellwert liegt, um versehentliche Schaltaktionen aufgrund von
-    Messfehlern zu vermeiden, die sowieso wenige Sekunden später revidiert
-    würden. Mögliche Ansätz reichen von der Pufferung von
-    Werten innerhalb des Aktors bis hin zu autonomen Aggregatorknoten,
-    die nichts weiter machen als Ereignisse zu beobachten und daraus
-    neue Ereignisse zu generieren.
+    dem Schwellwert liegt.
+    Mögliche Ansätze reichen von der Pufferung innerhalb eines Aktors
+    bis hin zu autonomen Aggregatorknoten,
+    die Ereignisse beobachten und daraus neue Ereignisse generieren.
 
-
+    \vspace*{0.5cm}
 
 \section*{Implementierungen}
     Beispielhardware und -code sind unter freien Lizenzen im
@@ -376,6 +365,8 @@ www.knx.org/knx-de/knx/technologie/kommunikationsmedien/index.php}}.
     Sensor-Aktor-Netze zu gewinnen und dabei selbst sehr frei
     und selbstständig Erfahrungen zu sammeln.
 
+
+    \vspace*{0.5cm}
 
 
 %\section*{Abkürzungen}

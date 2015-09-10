@@ -75,11 +75,12 @@
     kaum noch herum kommt. Der moderne Mensch möchte sein Zuhause vernetzen.
     Vor allem in gewerblich genutzten Gebäuden ist es inzwischen üblich,
     auf die in der Vergangenheit übliche harte Verdrahtung von Sensoren und
-    Aktoren -- sprich zum Beispiel Lichtschalter und Leuchte -- zu verzichten
+    Aktoren -- zum Beispiel Lichtschalter und Leuchte -- zu verzichten
     und auf intelligente Einzelkomponenten zu setzen, die meist in einer
     Bustopologie verbunden sind. Der Vorteil liegt auf der Hand:
     Durch das Fehlen der festen und starren Zuordnung zwischen auslösendem
-    Ereignis (\emph{Lichtschalter gedrückt}) und Wirkung (\emph{Leuchte A an})
+    Ereignis des Sensors (\emph{Lichtschalter gedrückt})
+    und Wirkung des Aktors(\emph{Leuchte A an})
     können softwarebasiert Ursache-Wirkung-Beziehungen modelliert, evaluiert
     und korrigiert werden.
 
@@ -92,11 +93,12 @@
     lassen.
 
     In dieser Arbeit beschäftigen wir uns mit dem Gedanken,
-    Teilnehmer in einem Gebäudeautomationsnetzwerk so konfigurierbar zu gestalten,
+    Knoten in einem Gebäudeautomationsnetzwerk so konfigurierbar zu gestalten,
     dass die Konfiguration jederzeit mit minimalen Aufwand auslesbar
     und änderbar ist.
-    Die Idee ist im Kontext der Vorlesung zum Thema \ac{DIY} von Dr.-Ing. Jürgen Eckert als studentisches
-    Projekt entstanden und zielt deshalb auch einfachste Anforderungen ab.
+    Die Idee ist im Kontext der Vorlesung zum Thema \ac{DIY}
+    von Dr.-Ing. Jürgen Eckert als studentisches
+    Projekt entstanden und zielt deshalb auf einfachste Anforderungen ab.
 
 \section{Verwandte Arbeiten}
     Gebäudeautomation wird inzwischen sowohl in der Praxis
@@ -121,10 +123,10 @@ www.knx.org/knx-de/knx/technologie/kommunikationsmedien/index.php}}.
     Die Konfiguration der Schaltregeln etc. erfolgt nach der Installation
     der Komponenten durch einen Fachmann mithilfe von Software aus der
     ETS-Familie. Dabei handelt es sich um proprietäre Software,
-    die von der KNX Association\footnote{KNX Association, \enquote{KNX System Specifications -- Architecture}, 2001}
-    entwickelt und vertrieben wird.
-    \todo{Platzierung der Fußnoten optimieren}
-    
+    die von der KNX Association
+    entwickelt und vertrieben wird\footnote{KNX Association,
+        \enquote{KNX System Specifications -- Architecture}, 2001,
+        \url{http://www.knx.org/media/docs/downloads/KNX-Standard/Architecture.pdf}}.
 
     KNX eignet sich besonders im Bereich großer Gebäude, in denen die
     elektrischen Systeme von einem Fachmann geplant, installiert und auch über
@@ -183,12 +185,12 @@ www.knx.org/knx-de/knx/technologie/kommunikationsmedien/index.php}}.
         die einen Einstieg in den Arbeits- und Forschungsbereich des
         \enquote{Smart Home} bzw. \enquote{Connected Home} ermöglichen soll.
         Der Nachrichtenaustausch erfolgt dabei drahtlos über eine
-        $2,4$\,GHz-Funkverbindung. Eine umfangreichere Beschreibung des Projektes
+        $2,4$\,GHz-Funkverbindung als geflutete Broadcasts in einer
+        Mesh-Topologie.
+        Eine umfangreichere Beschreibung des Projektes
         steht auf der Projektseite des Lehrstuhles zur Verfügung,
         die Daten des Projekts sind bei GitHub
         verfügbar\footnote{Dokumentation siehe: \url{http://www7.cs.fau.de/de/wp-content/uploads/sites/2/2014/08/projektdoku_cowbus.pdf}; Projekt siehe: \url{https://github.com/michz/diy14bus}.}.
-
-        \TODO{Mesh?}
 
     \subsection{Idee}
         Da \textbf{Sensoren} häufig höhere Anforderungen an den Energieverbrauch
@@ -324,11 +326,10 @@ www.knx.org/knx-de/knx/technologie/kommunikationsmedien/index.php}}.
     \end{itemize}
 
     Der vorgestellte Ansatz funktioniert in diesem kleinen Maßstab sehr gut.
-    Besonders sehr einfache Schaltregeln lassen sich damit ohne großen Aufwand
-    realisieren.
-
-    \TODO{Evaluation weiter? Positives?}
-
+    Einfache Schaltregeln lassen sich damit ohne großen Aufwand
+    realisieren. Werden die Regeln in den Knoten persistent gespeichert
+    stellen diese eine ähnlich stabile und dauerhafte Konfiguration dar, wie
+    sie die eingangs erwähnten Systeme bieten.
 
 
 \section{Zusammenfassung und Ausblick}

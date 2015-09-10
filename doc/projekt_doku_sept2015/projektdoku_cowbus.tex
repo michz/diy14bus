@@ -184,20 +184,6 @@ www.knx.org/knx-de/knx/technologie/kommunikationsmedien/index.php}}.
         die Daten des Projekts sind bei GitHub
         verfügbar\footnote{Dokumentation siehe: \url{http://www7.cs.fau.de/de/wp-content/uploads/sites/2/2014/08/projektdoku_cowbus.pdf}; Projekt siehe: \url{https://github.com/michz/diy14bus}.}.
 
-        Das Testnetzwerk besteht aus drei Komponenten:
-        \begin{itemize}
-            \item Als \textbf{Sensor} dient ein einfacher Taster.
-                Er soll Schaltaktionen im Netzwerk auslösen.
-            \item Eine LED dient als \textbf{Aktor},
-                der beliebige Schaltaktionen im Netzwerk symbolisch darstellt.
-            \item Zur \textbf{Konfiguration} der Geräte befindet sich
-                außerdem ein zusätzlicher Computer im Netzwerk.
-                In unserem Aufbau haben wir dafür einen Raspberry Pi gewählt.
-                Er wurde um ein Funkmodul erweitert und stellt eine
-                Weboberfläche zur Verfügung,
-                über die die Konfiguration ermöglicht werden soll.
-                Außerdem ermöglicht er die \textbf{Überwachung} des Netzwerkverkehrs.
-        \end{itemize}
 
     \subsection{Idee}
         Da \textbf{Sensoren} häufig höhere Anforderungen an den Energieverbrauch
@@ -214,44 +200,56 @@ www.knx.org/knx-de/knx/technologie/kommunikationsmedien/index.php}}.
         zu nennen.
         Daher bietet es sich an, logische Verknüpfungen hier vorzunehmen.
 
-        Die \textbf{Konfiguration} der Aktoren wird über ein webfähiges Gerät
-        vorgenommen, das über ein herkömmliches \ac{LAN} die
-        Konfigurationswebseite des Raspberry Pi anzeigt.
-        Dabei werden Konfigurationsnachrichten quasi \enquote{in-band}
-        über den Funkkanal gesendet.
-        Die Aktoren erkennen sie an den speziellen Nachrichtentypen.
+        Ein \textbf{Gateway} verbindet das Sensor-Aktor-Netz mit einem
+        vorhandenen herkömmlichen \ac{LAN} oder \ac{WLAN}.
+        Es muss mit einem Funkmodul ausgestattet sein,
+        um mit den Sensoren und Aktoren zu kommunizieren,
+        und mit einer \ac{LAN}- bzw. \ac{WLAN}-Schnittstelle.
+        Es stellt einen Webserver zur Verfügung,
+        der die Konfigurationswebseite im \ac{LAN}- bzw. \ac{WLAN} anbietet.
 
-    \subsection{Regeln}
-        Basis der Logik sind sind einfache Wenn-Dann-Regeln.
+        Die eigentliche \textbf{Konfiguration} der Aktoren wird dann
+        über ein webfähiges Gerät vorgenommen,
+        das über das \ac{LAN} bzw. \ac{WLAN} die
+        Konfigurationswebseite des Gateways anzeigt.
+        Dabei werden Konfigurationsnachrichten \enquote{in-band} gesendet,
+        also neben den Nutzdaten auf demselben Funkkanal:
+        Die Aktoren erkennen sie an speziellen Nachrichtentypen
+        und aktualisieren ihre interne Regeltabelle anhand der empfangenen
+        Konfigurationspakete.
+
+        Wie bereits angeklungen basiert die Konfiguration auf \textbf{Regeln},
+        auf die im Abschnitt \ref{subsec:regeln} genauer eingangen wird.
+        Jeder Aktorknoten muss eine oder mehrere Regeln speichern,
+        auf Anfrage auslesen und rückmelden sowie löschen können.
+
+    \subsection{Regeln} \label{subsec:regeln}
+        Basis der Logik sind einfache Wenn-Dann-Regeln.
         Ein (Aktor)-Knoten kann theoretisch beliebig viele dieser Regeln befolgen.
 
         Eine Regel besteht aus mehreren Komponenten.
-        Zur Veranschaulichung wird jede Komponente am Beispiel unserer
-        Testumgebung erklärt: Der Schalter soll die Lampe an- bzw. abschalten.
+        Als Beispiel dient ein Temperatursensor,
+        der einen Ventilator nur dann anschalten soll,
+        wenn die Temperatur in einem bestimmten Intervall liegt.
+
         \begin{enumerate}
             \item Festgelegt wird, auf Pakete welcher \textbf{Adresse}
                 die Regel zutrifft.
-                Im Beispiel wäre dies die Adresse des Schalters.
-            \item Die \textbf{Operator} legt fest, wie der angegebene
+                Im Beispiel wäre dies die Adresse des Temperatursensors.
+            \item Der \textbf{Operator} legt fest, wie der angegebene
                 Schwellwert der Regel mit dem im Paket übertragenen Wert
                 verglichen wird.
-                Im Schalter-Lampe-Beispiel bietet sich hier der Test auf Gleichheit an.
+                Im Beispiel nutzen wir einen Intervalloperator.
             \item Verglichen wird jeweils mit dem bereits erwähnten
                 \textbf{Schwellwert}. Wenn als Operator eine Intervallprüfung
                 gewählt wird, müssen zwei Schwellwerte
                 (ein oberer und ein unterer) angegeben werden.
-                Im Beispiel sind hier die Werte 0 für \enquote{an}
-                und 1 für \enquote{aus} sinnvoll.
+                Im Beispiel wird das Intervall $[18;25]$ gewählt.
             \item Die \textbf{Aktion} gibt an, was der Aktor macht,
                 wenn ein Paket eingetroffen ist, auf das die Regel zutrifft.
+                Hier wird der Ventilator an- bzw. abgeschaltet.
         \end{enumerate}
 
-        %Unter der Annahme, dass der Schalter im Zustand \enquote{an} eine
-        %\enquote{1} und im Zustand \enquote{aus} eine \enquote{0} sendet
-        %ergeben sich also zwei Regeln:
-
-		\todo{Das Beispiel muss angepasst werden, sodass es einheitlich ist. + ERKLÄRUNG}
-        
 
         Soll ein Ventilator aktiviert werden, wenn der Wert eines Temperatursensors
         im Intervall $[18;25]$ liegt, könnten die zugehörigen Regeln wie folgt aussehen:
@@ -296,15 +294,24 @@ www.knx.org/knx-de/knx/technologie/kommunikationsmedien/index.php}}.
 
 
 \section{Evaluation}
-    Der vorgestellte Ansatz funktioniert im kleinen Maßstab sehr gut.
-    Besonders sehr einfache Schaltregeln lassen sich damit ohne großen Aufwand
-    realisieren, zum Beispiel:
+    Das Testnetzwerk besteht aus drei Komponenten:
     \begin{itemize}
-        \item \enquote{Schalter wurde auf \emph{AN} gestellt} $\Rightarrow$
-            \enquote{Schalte Lampe an}
-        \item \enquote{Temperatur übersteigt den Schwellwert von $28\degree$C} $\Rightarrow$
-            \enquote{Schalte Ventilator an}
+        \item Als \textbf{Sensor} dient ein einfacher Taster.
+            Er soll Schaltaktionen im Netzwerk auslösen.
+        \item Eine LED dient als \textbf{Aktor},
+            der beliebige Schaltaktionen im Netzwerk symbolisch darstellt.
+        \item Zur \textbf{Konfiguration} der Geräte befindet sich
+            außerdem ein zusätzliches Gateway im Netzwerk.
+            In unserem Aufbau haben wir dafür einen Raspberry Pi gewählt.
+            Er wurde um ein Funkmodul erweitert und stellt eine
+            Weboberfläche zur Verfügung,
+            über die die Konfiguration ermöglicht werden soll.
+            Außerdem ermöglicht er die \textbf{Überwachung} des Netzwerkverkehrs.
     \end{itemize}
+
+    Der vorgestellte Ansatz funktioniert in diesem kleinen Maßstab sehr gut.
+    Besonders sehr einfache Schaltregeln lassen sich damit ohne großen Aufwand
+    realisieren.
 
     \TODO{Evaluation weiter? Positives?}
 
@@ -361,6 +368,7 @@ www.knx.org/knx-de/knx/technologie/kommunikationsmedien/index.php}}.
 \begin{acronym}
     \acro{DIY}{Do-It-Yourself}
     \acro{LAN}{Local Area Network}
+    \acro{WLAN}{Wireless Local Area Network}
 \end{acronym}
 \renewcommand{\IEEEiedlistdecl}{\relax}% remember to reset \IEEEiedlistdecl
 

@@ -147,6 +147,12 @@ www.knx.org/knx-de/knx/technologie/kommunikationsmedien/index.php}}.
         Diese Skripte können auch über eine Weboberfläche erstellt und
         verwaltet werden.
 
+        Der Nachteil des Ansatzes liegt auf der Hand:
+        Sobald alle Schaltaufgaben von einem zentralen Punkt aus bearbeitet
+        werden entsteht eine Abhängigkeit des gesamten Systems von einer
+        einzelnen Komponente.
+        Fällt diese aus, funktioniert kein einziger Lichtschalter mehr.
+
     %\cite{drossos2013ansteuerung}
     %\cite{kuntz6servicecast}
     %\cite{kuntz2011dienstbasierte}
@@ -265,10 +271,6 @@ www.knx.org/knx-de/knx/technologie/kommunikationsmedien/index.php}}.
             \end{tabular}
         \end{center}
 
-    \subsection{Operator}
-		In den cowbus-Knoten sind die grundlegenden logischen Operatoren implementiert.
-		Damit lassen sich bereits die meisten Schaltaufgaben abbilden.
-		\todo{Entweder ganz weg oder ausbauen.}
     \subsection{Konfigurationsnachrichten}
         Um die Konfiguration jederzeit auslesbar und änderbar zu gestalten
         sind folgende Nachrichtentypen vorgesehen:
@@ -307,27 +309,6 @@ www.knx.org/knx-de/knx/technologie/kommunikationsmedien/index.php}}.
 
     \TODO{Evaluation weiter? Positives?}
 
-    Offen bleiben jedoch Fragen, wie komplexere logische Abhängigkeiten
-    dargestellt werden können.
-    Zu Beispiel wäre es unter Umständen interessant, eine Aktion nur auszuführen,
-    wenn ein bestimmtes Ereignis über einen bestimmten Zeitraum mehrfach ohne
-    widersprüchliche \enquote{Ausreißer} auftritt.
-    So könnte es im Beispiel des Ventilators sinnvoll sein, diesen nur zu
-    aktivieren, wenn der Temperaturwert über eine Minuten lang konstant über
-    dem Schwellwert liegt, um versehentliche Schaltaktionen aufgrund von
-    Messfehlern zu vermeiden, die sowieso wenige Sekunden später revidiert
-    würden.
-
-    In diesem Fall könnte auch eine Betrachtung der Tendenzen sinnvoll sein,
-    also ob ein Messwert über die Zeit eher steigt oder fällt.
-    Auch eine Mittelwertbildung könnte interessant sein.
-
-    Ein möglicher Ansatz solche komplexeren Aufgaben zu realisieren,
-    wäre einen Pseudo-Sensor-Aktor in das Netz zu setzen, der eingehende
-    Ereignisse aufzeichnet, auswertet und dann unter bestimmten Bedingungen
-    selbst ein Ereignis auslöst, sowie eben auch über die dafür benötigten
-    Ressourcen verfügt. Ein solcher Knoten wäre dann entsprechend
-    aufwändiger zu konfigurieren.
 
 
 \section{Zusammenfassung und Ausblick}
@@ -341,6 +322,20 @@ www.knx.org/knx-de/knx/technologie/kommunikationsmedien/index.php}}.
     System zu integrieren und entsprechende Schaltregeln hinzuzufügen bzw.
     anzupassen, ohne das komplette System neu einstellen zu müssen.
 
+    Offen bleibt jedoch die Frage, wie komplexere logische Abhängigkeiten
+    dargestellt werden können.
+    Zu Beispiel wäre es interessant eine Aktion nur dann auszuführen,
+    wenn ein bestimmtes Ereignis über einen bestimmten Zeitraum mehrfach ohne
+    widersprüchliche \enquote{Ausreißer} auftritt.
+    So könnte es im Beispiel des Ventilators sinnvoll sein, diesen nur zu
+    aktivieren, wenn der Temperaturwert über eine Minuten lang konstant über
+    dem Schwellwert liegt, um versehentliche Schaltaktionen aufgrund von
+    Messfehlern zu vermeiden, die sowieso wenige Sekunden später revidiert
+    würden. Mögliche Ansätz reichen von der Pufferung von
+    Werten innerhalb des Aktors bis hin zu autonomen Aggregatorknoten,
+    die nichts weiter machen als Ereignisse zu beobachten und daraus
+    neue Ereignisse zu generieren.
+
 
         \begin{figure}
             \centering
@@ -348,6 +343,18 @@ www.knx.org/knx-de/knx/technologie/kommunikationsmedien/index.php}}.
             \caption{Schematische Darstellung der Testumgebung}
             \label{fig:comp}
         \end{figure}
+
+
+\section{Danksagung}
+    Wir möchten uns bei Dr.-Ing. Jürgen Eckert bedanken,
+    der uns mit seiner Lehrveranstaltung \enquote{DIY: Personal Fabrication}
+    \footnote{\enquote{DIY: Personal Fabrication}, Wintersemester 2014/2015, FAU,
+    \url{http://www7.cs.fau.de/de/teaching/diy-2014w/}}
+    und seiner persönlichen Unterstützung ermöglicht hat
+    einen Einblick in die Forschung im Gebiet der modernen
+    Sensor-Aktor-Netze zu gewinnen und dabei selbst sehr frei
+    und selbstständig Erfahrungen zu sammeln.
+
 
 
 %\section*{Abkürzungen}

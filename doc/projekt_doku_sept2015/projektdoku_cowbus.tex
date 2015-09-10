@@ -57,13 +57,16 @@
 \begin{abstract}
     Um die Vorzüge intelligenter Haussteuerung einer breiten Masse zugänglich
     zu machen, müssen die System einfach handhabbar werden.
-    Besonders die Konfiguration, also die Zuordnung von Sensorevent zu
+    Besonders die Konfiguration, also die Zuordnung von Sensoreignis zu
     Schaltaktion, muss einfach durchführbar und ebenso einfach anpassbar
     bzw. revidierbar sein. Diese Arbeit schlägt einen Ansatz vor,
     der in einem dezentralen Sensor-Aktor-Netzwerk eine einfache
     Konfigurationsmöglichkeit bieten soll.
-    Dabei erfolgt die eigentliche Konfiguration per Webbrowser und kann
-    jederzeit wieder ausgelesen, geändert und ergänzt werden.
+    Einfache Wenn-Dann-Regeln werden in den Aktorknoten gespeichert und
+    sind jederzeit auslesbar und änderbar.
+    Im Betrieb wird dabei auf zentrale Komponenten verzichtet.
+    Die eigentliche Konfiguration erfolgt per Webbrowser und ein Gateway,
+    das den Zugang zum Sensor-Aktor-Netz ermöglicht.
 \end{abstract}
 
 \section{Einleitung}
@@ -184,6 +187,7 @@ www.knx.org/knx-de/knx/technologie/kommunikationsmedien/index.php}}.
         die Daten des Projekts sind bei GitHub
         verfügbar\footnote{Dokumentation siehe: \url{http://www7.cs.fau.de/de/wp-content/uploads/sites/2/2014/08/projektdoku_cowbus.pdf}; Projekt siehe: \url{https://github.com/michz/diy14bus}.}.
 
+        \TODO{Mesh?}
 
     \subsection{Idee}
         Da \textbf{Sensoren} häufig höhere Anforderungen an den Energieverbrauch
@@ -199,6 +203,11 @@ www.knx.org/knx-de/knx/technologie/kommunikationsmedien/index.php}}.
         Als Beispiele wären Leuchten, Jalousiemotoren oder auch Ventilatoren
         zu nennen.
         Daher bietet es sich an, logische Verknüpfungen hier vorzunehmen.
+        Aktoren empfangen also die Ereignisse, die von Sensoren generiert werden.
+        Diese sind im einfachsten und üblichsten Fall einfach die Zustände
+        der Sensoren, zum Beispiel eine Temperatur oder eine Schalterposition.
+        Auf Basis dieser Ereignisse treffen Aktoren dann mithilfe von
+        Regeln (siehe unten) Entscheidungen und führen Schaltaktionen aus.
 
         Ein \textbf{Gateway} verbindet das Sensor-Aktor-Netz mit einem
         vorhandenen herkömmlichen \ac{LAN} oder \ac{WLAN}.
@@ -351,11 +360,18 @@ www.knx.org/knx-de/knx/technologie/kommunikationsmedien/index.php}}.
         \end{figure}
 
 
-\section{Danksagung}
+\section*{Implementierungen}
+    Beispielhardware und -code sind unter freien Lizenzen im
+    cowbus-GitHub-Projekt verfügbar:
+
+    \url{https://github.com/michz/diy14bus}
+
+\section*{Danksagung}
     Wir möchten uns bei Dr.-Ing. Jürgen Eckert bedanken,
-    der uns mit seiner Lehrveranstaltung \enquote{DIY: Personal Fabrication}
-    \footnote{\enquote{DIY: Personal Fabrication}, Wintersemester 2014/2015, FAU,
-    \url{http://www7.cs.fau.de/de/teaching/diy-2014w/}}
+    der uns mit seiner Lehrveranstaltung
+    \enquote{DIY: Personal Fabrication}\footnote{\enquote{DIY: Personal Fabrication},
+        Wintersemester 2014/2015, FAU,
+        \url{http://www7.cs.fau.de/de/teaching/diy-2014w/}}
     und seiner persönlichen Unterstützung ermöglicht hat
     einen Einblick in die Forschung im Gebiet der modernen
     Sensor-Aktor-Netze zu gewinnen und dabei selbst sehr frei

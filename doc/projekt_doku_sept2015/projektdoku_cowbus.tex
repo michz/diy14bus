@@ -188,7 +188,7 @@ www.knx.org/knx-de/knx/technologie/kommunikationsmedien/index.php}}.
 
     \subsection{Idee}
         Da \textbf{Sensoren} häufig höhere Anforderungen an einen sparsamen
-        Energieverbrauch stellen, sollen sie in dem System \enquote{dumm} sein.
+        Energieverbrauch stellen, sollen sie in dem System \enquote{dumm}, bzw.\ zustandslos sein.
         Sie erarbeiten sich also kein Wissen über die anderen Netzwerkkomponenten
         und reagieren nicht, sondern agieren ausschließlich.
         Das ermöglicht uns sie die meiste Zeit in Energiesparmodi zu betreiben
@@ -216,13 +216,18 @@ www.knx.org/knx-de/knx/technologie/kommunikationsmedien/index.php}}.
 
         Die eigentliche \textbf{Konfiguration} der Aktoren wird dann
         über ein webfähiges Gerät vorgenommen,
-        das über das \ac{LAN} bzw. \ac{WLAN} die
+        das über das \ac{LAN} bzw.\ \ac{WLAN} die
         Konfigurationswebseite des Gateways anzeigt.
         Dabei werden Konfigurationsnachrichten \enquote{in-band} gesendet,
-        also neben den Nutzdaten auf demselben Funkkanal.
-        Die Aktoren erkennen sie an speziellen Nachrichtentypen
-        und aktualisieren ihre interne Regeltabelle anhand der empfangenen
-        Konfigurationspakete.
+        also neben den Nutzdaten auf demselben Funkkanal. Erkannt werden
+        diese Packete von den Knoten an speziellen Nachrichtentypen.
+        Die Website kommuniziert über ein WebSocket mit dem Gateway, welches die Anfragen
+        in Packete für das Mesh-Netzwerk übersetzt. Dies wird zum einen
+        dazu genutzt, um eine Liste der verfügbaren Knoten zu erzeugen und für diese
+        Liste die bestehende Konfiguration auszulesen. Zum anderen erlaubt die Konfigurationswebsite
+        das Erstellen neuer Regeln, indem sie den Knoten entsprechende Packete sendet.
+        Daraufhin aktualisieren die betroffenen Knoten ihre internen Regeltabellen und bilden
+        damit die neue Sensor-Aktor-Verknüpfung ab.
 
         Wie bereits angeklungen basiert die Konfiguration auf \textbf{Regeln},
         auf die im Abschnitt \ref{subsec:regeln} genauer eingangen wird.

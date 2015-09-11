@@ -15,14 +15,16 @@
 #define LED_G   GPIO(PORT_B, 12)
 #define LED_B   GPIO(PORT_B, 13)
 
-#define LED_ON  gpio_set
-#define LED_OFF gpio_clear
+#define LED_ON  gpio_clear
+#define LED_OFF gpio_set
 
 
 void led_init(void) {
     gpio_init(LED_R, GPIO_DIR_OUT, GPIO_NOPULL);
     gpio_init(LED_G, GPIO_DIR_OUT, GPIO_NOPULL);
     gpio_init(LED_B, GPIO_DIR_OUT, GPIO_NOPULL);
+
+    led_set_color(black);
 }
 
 void led_set_color(led_color color) {

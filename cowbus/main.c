@@ -30,6 +30,8 @@
 
 /// @brief local in-memory representation of configuration rules of this node
 cowconfig_rule cowconfig_data[COWCONFIG_COUNT];
+int seq_no = 0xB;
+uint16_t radio_addr = 1021;
 
 
 //#define MODULE_UART0
@@ -83,14 +85,27 @@ int main(void)
 	(RCC->AHBENR |= RCC_AHBENR_GPIOAEN);
 	(RCC->AHBENR |= RCC_AHBENR_GPIOBEN);
 
+    led_init();
+    while (1) {
+        //led_blink_s(red, 100, 1);
+        led_set_color(red);
+        hwtimer_wait(HWTIMER_TICKS(500 * 1000 * 1000));
+        led_set_color(green);
+        hwtimer_wait(HWTIMER_TICKS(500 * 1000 * 1000));
+        led_set_color(blue);
+        hwtimer_wait(HWTIMER_TICKS(500 * 1000 * 1000));
+        led_set_color(black);
+        hwtimer_wait(HWTIMER_TICKS(500 * 1000 * 1000));
+    }
+    board_uart0_init(); //uart_init wird von syscalls schon vorher aufgerufen - hoffentlich zumindest
+
+
     // initialize ringbuffer for received packets
     packet_queue_init();
 
     switch_init();
-    led_init();
 
 
-    board_uart0_init(); //uart_init wird von syscalls schon vorher aufgerufen - hoffentlich zumindest
 
     //<just for debug>
 
@@ -129,7 +144,6 @@ int main(void)
     // TODO read configuration from eeprom
     cowconfig_init();
     eeprom_read_configuration((char*)cowconfig_data);
-
 
 	while (1) {
         // we can go to sleep here

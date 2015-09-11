@@ -204,7 +204,7 @@ www.knx.org/knx-de/knx/technologie/kommunikationsmedien/index.php}}.
         Diese sind im einfachsten und üblichsten Fall einfach die Zustände
         der Sensoren, zum Beispiel eine Temperatur oder eine Schalterposition.
         Auf Basis dieser Ereignisse treffen Aktoren dann mithilfe von
-        Regeln (siehe unten) Entscheidungen und führen Schaltaktionen aus.
+        Regeln (siehe \ref{subsec:regeln}) Entscheidungen und führen Schaltaktionen aus.
 
         Ein \textbf{Gateway} verbindet das Sensor-Aktor-Netz mit einem
         vorhandenen herkömmlichen \ac{LAN} oder \ac{WLAN}.
@@ -221,6 +221,7 @@ www.knx.org/knx-de/knx/technologie/kommunikationsmedien/index.php}}.
         Dabei werden Konfigurationsnachrichten \enquote{in-band} gesendet,
         also neben den Nutzdaten auf demselben Funkkanal. Erkannt werden
         diese Pakete von den Knoten an speziellen Nachrichtentypen.
+        
         Die Website kommuniziert über ein WebSocket mit dem Gateway, welches die Anfragen
         in Pakete für das Mesh-Netzwerk übersetzt. Dies wird zum einen
         dazu genutzt, um eine Liste der verfügbaren Knoten zu erzeugen und für diese
@@ -325,7 +326,7 @@ www.knx.org/knx-de/knx/technologie/kommunikationsmedien/index.php}}.
 
     Der vorgestellte Ansatz funktioniert in diesem kleinen Maßstab sehr gut.
     Einfache Schaltregeln lassen sich damit ohne großen Aufwand
-    realisieren. Werden die Regeln in den Knoten persistent gespeichert
+    realisieren. Werden die Regeln in den Knoten persistent gespeichert,
     stellen diese eine ähnlich stabile und dauerhafte Konfiguration dar, wie
     sie die eingangs erwähnten Systeme bieten.
 
@@ -345,7 +346,7 @@ www.knx.org/knx-de/knx/technologie/kommunikationsmedien/index.php}}.
     wie komplexere logische Abhängigkeiten dargestellt werden können,
     wie zum Beispiel die Aggregation von Ereignissen bzw. Werten.
     So könnte es im Beispiel des Ventilators sinnvoll sein, diesen nur zu
-    aktivieren, wenn der Temperaturwert über eine Minuten lang konstant über
+    aktivieren, wenn der Temperaturwert über einige Minuten lang konstant über
     dem Schwellwert liegt.
     Mögliche Ansätze reichen von der Pufferung innerhalb eines Aktors
     bis hin zu autonomen Aggregatorknoten,

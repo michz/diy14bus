@@ -62,7 +62,7 @@
 
 \begin{abstract}
     Um die Vorzüge intelligenter Haussteuerung einer breiten Masse zugänglich
-    zu machen, müssen die System einfach handhabbar werden.
+    zu machen, müssen die Systeme einfach handhabbar werden.
     Besonders die Konfiguration, also die Zuordnung von Sensoreignis zu
     Schaltaktion, muss einfach durchführbar und ebenso einfach anpassbar
     bzw. revidierbar sein. Diese Arbeit schlägt einen Ansatz vor,
@@ -71,7 +71,7 @@
     Einfache Wenn-Dann-Regeln werden in den Aktorknoten gespeichert und
     sind jederzeit auslesbar und änderbar.
     Im Betrieb wird dabei auf zentrale Komponenten verzichtet.
-    Die eigentliche Konfiguration erfolgt per Webbrowser und einem Gateway,
+    Die eigentliche Konfiguration erfolgt per Webbrowser und über ein Gateway,
     das den Zugang zum Sensor-Aktor-Netz ermöglicht.
 \end{abstract}
 
@@ -85,7 +85,7 @@
     Bustopologie verbunden sind. Der Vorteil liegt auf der Hand:
     Durch das Fehlen der festen und starren Zuordnung zwischen auslösendem
     Ereignis des Sensors (\emph{Lichtschalter gedrückt})
-    und Wirkung des Aktors (\emph{Leuchte A an})
+    und Wirkung des Aktors (\emph{Leuchte an})
     können softwarebasiert Ursache-Wirkung-Beziehungen modelliert, evaluiert
     und korrigiert werden.
 
@@ -101,7 +101,7 @@
     Knoten in einem Gebäudeautomationsnetzwerk so konfigurierbar zu gestalten,
     dass die Konfiguration jederzeit mit minimalem Aufwand auslesbar
     und änderbar ist.
-    Die Idee ist im Kontext der Vorlesung zum Thema \ac{DIY}
+    Die Idee ist im Kontext einer Vorlesung zum Thema \ac{DIY}
     von Dr.-Ing. Jürgen Eckert als studentisches
     Projekt entstanden und zielt deshalb auf einfachste Anforderungen ab.
 
@@ -114,7 +114,7 @@
     ist ein offener Standard und nach subjektivem Empfinden das in der Praxis
     wohl meistgenutzte System in der Gebäudeautomation.
     Inzwischen wird er unter dem Namen \textbf{KNX} entwickelt und vertrieben.
-    Es sind weltweit fast 7000 Produkte auf dem Markt\footnote{ KNX Association, \enquote{KNX -- Technologie -- Einführung}, \url{http://www.knx.org/knx-de/knx/technologie/einfuehrung/index.php}},
+    Es sind weltweit fast 7000 Produkte auf dem Markt\footnote{KNX Association, \enquote{KNX -- Technologie -- Einführung}, \url{http://www.knx.org/knx-de/knx/technologie/einfuehrung/index.php}},
     die mit einer Twisted-Pair-Leitung verbunden werden
     (weitere Medien -- auch drahtlose -- sind verfügbar),
     über die Nachrichten direkt untereinander ausgetauscht werden\footnote{KNX Association, \enquote{KNX -- Technologie -- Kommunikationsmedien}, \url{http://
@@ -131,14 +131,14 @@ www.knx.org/knx-de/knx/technologie/kommunikationsmedien/index.php}}.
     Jahre hinweg gewartet werden. Ein entscheidender Nachteil von KNX ist,
     dass die Konfiguration, sobald sie einmal in die Steuergeräte geschrieben
     ist, nicht mehr ohne Weiteres ausgelesen werden kann.
-    Um die Konfiguration zu ändern (um zum Beispiel neue Komponenten einzufügen
-    oder auch nur eine einfache Schaltregel anzupassen) wird jedes Mal
+    Um die Konfiguration zu ändern (um zum Beispiel neue Komponenten hinzuzufügen
+    oder auch nur eine einfache Schaltregel anzupassen), wird jedes Mal
     die ursprünglich erstellte Projektdatei aus der ETS-Software benötigt.
 
     T. Haenselmann et al. \cite{haenselmann2007skriptbasierte}
     beschreiben hingegen ein \textbf{zentrales System}.
     Um die Konfiguration bequem wiederauslesbar und jederzeit änderbar
-    zu gestalten schlagen sie einen zentralen Server vor,
+    zu gestalten, schlagen sie einen zentralen Server vor,
     bei dem alle Nachrichten des Systems zusammenlaufen.
     Sensoren melden ihre Messwerte an diesen, der dann Schaltnachrichten
     an die Aktoren sendet.
@@ -152,10 +152,6 @@ www.knx.org/knx-de/knx/technologie/kommunikationsmedien/index.php}}.
     werden, entsteht eine Abhängigkeit des gesamten Systems von einer
     einzelnen Komponente.
     Fällt diese aus, funktioniert kein einziger Lichtschalter mehr.
-
-    %\cite{drossos2013ansteuerung}
-    %\cite{kuntz6servicecast}
-    %\cite{kuntz2011dienstbasierte}
 
 \section{Ansatz}
     Inspiriert von Haenselmann et al. \cite{haenselmann2007skriptbasierte}
@@ -212,26 +208,30 @@ www.knx.org/knx-de/knx/technologie/kommunikationsmedien/index.php}}.
         um mit den Sensoren und Aktoren zu kommunizieren,
         und mit einer \ac{LAN}- bzw. \ac{WLAN}-Schnittstelle.
         Es stellt einen Webserver zur Verfügung,
-        der die Konfigurationswebseite im \ac{LAN}- bzw. \ac{WLAN} anbietet.
+        der die Konfigurationswebsite im \ac{LAN}- bzw. \ac{WLAN} anbietet.
 
         Die eigentliche \textbf{Konfiguration} der Aktoren wird dann
         über ein webfähiges Gerät vorgenommen,
         das über das \ac{LAN} bzw.\ \ac{WLAN} die
-        Konfigurationswebseite des Gateways anzeigt.
+        Konfigurationswebsite des Gateways anzeigt.
         Dabei werden Konfigurationsnachrichten \enquote{in-band} gesendet,
         also neben den Nutzdaten auf demselben Funkkanal. Erkannt werden
         diese Pakete von den Knoten an speziellen Nachrichtentypen.
         
-        Die Website kommuniziert über ein WebSocket mit dem Gateway, welches die Anfragen
-        in Pakete für das Mesh-Netzwerk übersetzt. Dies wird zum einen
-        dazu genutzt, um eine Liste der verfügbaren Knoten zu erzeugen und für diese
+        Die \textbf{Website} kommuniziert über ein WebSocket mit dem Gateway,
+        welches die Anfragen in Pakete für das Mesh-Netzwerk übersetzt.
+        Dies wird zum einen dazu genutzt,
+        um eine Liste der verfügbaren Knoten zu erzeugen und für diese
         Liste die bestehende Konfiguration auszulesen. Zum anderen erlaubt die Konfigurationswebsite
         das Erstellen neuer Regeln, indem sie den Knoten entsprechende Pakete sendet.
         Daraufhin aktualisieren die betroffenen Knoten ihre internen Regeltabellen und bilden
         damit die neue Sensor-Aktor-Verknüpfung ab.
+        Darüber hinaus ist es über die Website möglich alle Nachrichten,
+        die das Gateway auf dem Funkkanal\enquote{sieht},
+        zu protokollieren und so zu Zwecken der Fehlersuche zu nutzen.
 
         Wie bereits angeklungen basiert die Konfiguration auf \textbf{Regeln},
-        auf die im Abschnitt \ref{subsec:regeln} genauer eingangen wird.
+        auf die im Abschnitt \ref{subsec:regeln} genauer eingegangen wird.
         Jeder Aktorknoten muss eine oder mehrere Regeln speichern,
         auf Anfrage auslesen und rückmelden, sowie löschen können.
 
@@ -298,14 +298,16 @@ www.knx.org/knx-de/knx/technologie/kommunikationsmedien/index.php}}.
         \end{center}
 
     \subsection{Konfigurationsnachrichten}
-        Um die Konfiguration jederzeit auslesbar und änderbar zu gestalten
+        Um die Konfiguration jederzeit auslesbar und änderbar zu gestalten,
         sind folgende Nachrichtentypen vorgesehen:
 
         \begin{itemize}
             \item \textbf{LIST} liest die Konfiguration eines Knotens.
             \item \textbf{ADD} fügt einem Knoten eine Regel hinzu.
-            \item \textbf{DELETE\_ONE} löscht eine Regeln auf einem Knoten.
+            \item \textbf{DELETE\_ONE} löscht eine Regel auf einem Knoten.
             \item \textbf{DELETE\_ALL} löscht alle Regeln auf einem Knoten.
+            \item \textbf{DELETE\_ADDRESS} löscht alle Regeln auf einem Knoten,
+                die sich auf eine bestimmte Sensoradresse beziehen.
         \end{itemize}
 
 
@@ -352,7 +354,7 @@ www.knx.org/knx-de/knx/technologie/kommunikationsmedien/index.php}}.
     bis hin zu autonomen Aggregatorknoten,
     die Ereignisse beobachten und daraus neue Ereignisse generieren.
 
-    \vspace*{0.5cm}
+    \vspace*{0.45cm}
 
 \section*{Implementierungen}
     Beispielhardware und -code sind unter freien Lizenzen im
@@ -372,18 +374,18 @@ www.knx.org/knx-de/knx/technologie/kommunikationsmedien/index.php}}.
     und selbstständig Erfahrungen zu sammeln.
 
 
-    \vspace*{0.5cm}
+    \vspace*{0.15cm}
 
 
 %\section*{Abkürzungen}
-\renewcommand{\IEEEiedlistdecl}{\IEEEsetlabelwidth{CSMA/CA}}
+%\renewcommand{\IEEEiedlistdecl}{\IEEEsetlabelwidth{CSMA/CA}}
 \begin{acronym}
     \acro{DIY}{Do-It-Yourself}
     \acro{LAN}{Local Area Network}
     \acro{LED}{Leuchtdiode}
     \acro{WLAN}{Wireless Local Area Network}
 \end{acronym}
-\renewcommand{\IEEEiedlistdecl}{\relax}% remember to reset \IEEEiedlistdecl
+%\renewcommand{\IEEEiedlistdecl}{\relax}% remember to reset \IEEEiedlistdecl
 
 \comment / *
 \listoffigures

@@ -14,8 +14,6 @@
 #include "periph/gpio.h"
 #include "periph/uart.h"
 
-#include "board_uart0.h"
-
 #include "led.h"
 #include "switch.h"
 #include "cowpacket.h"
@@ -86,18 +84,20 @@ int main(void)
 	(RCC->AHBENR |= RCC_AHBENR_GPIOBEN);
 
     led_init();
-    while (1) {
+    while (true) {
+        test();
         //led_blink_s(red, 100, 1);
         led_set_color(red);
-        hwtimer_wait(HWTIMER_TICKS(500 * 1000 * 1000));
+        hwtimer_wait(HWTIMER_TICKS(1000 * 1000));
         led_set_color(green);
-        hwtimer_wait(HWTIMER_TICKS(500 * 1000 * 1000));
+        hwtimer_wait(HWTIMER_TICKS(1000 * 1000));
         led_set_color(blue);
-        hwtimer_wait(HWTIMER_TICKS(500 * 1000 * 1000));
+        hwtimer_wait(HWTIMER_TICKS(1000 * 1000));
         led_set_color(black);
-        hwtimer_wait(HWTIMER_TICKS(500 * 1000 * 1000));
+        hwtimer_wait(HWTIMER_TICKS(1000 * 1000));
     }
-    board_uart0_init(); //uart_init wird von syscalls schon vorher aufgerufen - hoffentlich zumindest
+    //uart_init();
+    //board_uart0_init(); //uart_init wird von syscalls schon vorher aufgerufen - hoffentlich zumindest
 
 
     // initialize ringbuffer for received packets

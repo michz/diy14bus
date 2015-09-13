@@ -19,8 +19,6 @@
 
 #include "periph/gpio.h"
 
-#include "board_uart0.h"
-
 #include "../cowbus/include/cowpacket.h"
 #include "../cowbus/include/cowconfig.h"
 #include "../cowbus/include/radio_config.h"
@@ -222,8 +220,6 @@ int main(void)
     LD8_ON;
     LD9_ON;
     LD10_ON;
-
-    board_uart0_init();
 
     hwtimer_wait(HWTIMER_TICKS(500 * 1000));
     LD3_OFF;

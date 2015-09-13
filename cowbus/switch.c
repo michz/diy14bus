@@ -18,36 +18,43 @@
 
 // TODO ISR
 
-void switch1_pressed(void);
-void switch2_pressed(void);
-void switch3_pressed(void);
-void switch4_pressed(void);
+void switch1_pressed(void) {
+	printf("Switch 1 pressed.\n");
+}
+void switch2_pressed(void) {
+	printf("Switch 2 pressed.\n");
+}
+void switch3_pressed(void) {
+	printf("Switch 3 pressed.\n");
+}
+void switch4_pressed(void) {
+	printf("Switch 4 pressed.\n");
+}
 
 
 void switch_init(void) {
     
-    gpio_init_int(GPIO(PORT_A, 15), GPIO_PULLDOWN, GPIO_RISING,
+    gpio_init_int(GPIO_SWITCH_1, GPIO_PULLDOWN, GPIO_RISING,
             (void *)switch1_pressed, 0);
 
-    gpio_init_int(GPIO(PORT_B, 8), GPIO_PULLDOWN, GPIO_RISING,
+    gpio_init_int(GPIO_SWITCH_2, GPIO_PULLDOWN, GPIO_RISING,
             (void *)switch2_pressed, 0);
 
-    gpio_init_int(GPIO(PORT_B, 9), GPIO_PULLDOWN, GPIO_RISING,
+    gpio_init_int(GPIO_SWITCH_3, GPIO_PULLDOWN, GPIO_RISING,
             (void *)switch3_pressed, 0);
 
-    gpio_init_int(GPIO(PORT_B, 14), GPIO_PULLDOWN, GPIO_RISING,
+    gpio_init_int(GPIO_SWITCH_4, GPIO_PULLDOWN, GPIO_RISING,
             (void *)switch4_pressed, 0);
     
     // TODO: still required?
-    gpio_irq_enable(GPIO(PORT_A, 15));
-    gpio_irq_enable(GPIO(PORT_B,  8));
-    gpio_irq_enable(GPIO(PORT_B,  9));
-    gpio_irq_enable(GPIO(PORT_B, 14));
-
+    gpio_irq_enable(GPIO_SWITCH_1);
+    gpio_irq_enable(GPIO_SWITCH_2);
+    gpio_irq_enable(GPIO_SWITCH_3);
+    gpio_irq_enable(GPIO_SWITCH_4);
 }
 
 bool switch1_get_state(void) {
-    if(gpio_read(GPIO_0) > 0){
+    if(gpio_read(GPIO_SWITCH_1) > 0){
         return true;
     }
     else{
@@ -56,7 +63,7 @@ bool switch1_get_state(void) {
 }
 
 bool switch2_get_state(void) {
-    if(gpio_read(GPIO_6) > 0){
+    if(gpio_read(GPIO_SWITCH_2) > 0){
         return true;
     }
     else{
@@ -65,7 +72,7 @@ bool switch2_get_state(void) {
 }
 
 bool switch3_get_state(void) {
-    if(gpio_read(GPIO_7) > 0){
+    if(gpio_read(GPIO_SWITCH_3) > 0){
         return true;
     }
     else{
@@ -73,9 +80,12 @@ bool switch3_get_state(void) {
     }
 }
 
-//TODO ISR
+bool switch4_get_state(void) {
+    if(gpio_read(GPIO_SWITCH_4) > 0){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
 
-void switch1_pressed(void){}
-void switch2_pressed(void){}
-void switch3_pressed(void){}
-void switch4_pressed(void){}

@@ -3,7 +3,6 @@
 #include "board.h"      // cowbus-one
 #include "cpu.h"
 #include "thread.h"
-#include "hwtimer.h"
 #include "eeprom.h"
 
 #include "cowconfig.h"

@@ -15,7 +15,7 @@
 #include "board.h"
 #include "cpu.h"
 #include "periph/gpio.h"
-#include "hwtimer.h"
+#include "xtimer.h"
 
 void buzzer_init(void) {
     gpio_init(BUZZER_PIN, GPIO_DIR_OUT, GPIO_NOPULL);
@@ -24,10 +24,10 @@ void buzzer_init(void) {
 void buzzer(uint16_t ms, uint8_t times) {
     for (uint8_t i = 0; i < times; ++i) {
         buzzer_on();
-        hwtimer_wait(HWTIMER_TICKS(ms * 1000));
+        xtimer_usleep(ms * 1000);
         buzzer_off();
         if (i < times - 1) {
-            hwtimer_wait(HWTIMER_TICKS(ms * 1000));
+            xtimer_usleep(ms * 1000);
         }
     }
 }

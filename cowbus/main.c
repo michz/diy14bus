@@ -4,7 +4,7 @@
 
 #include "board.h"      // cowbus-one
 #include "cpu.h"        // stmf0 ?
-#include "hwtimer.h"
+#include "xtimer.h"
 
 #include "thread.h"
 
@@ -83,18 +83,21 @@ int main(void)
 	(RCC->AHBENR |= RCC_AHBENR_GPIOAEN);
 	(RCC->AHBENR |= RCC_AHBENR_GPIOBEN);
 
+    xtimer_init();
     led_init();
+    switch_init();
     while (true) {
-        test();
+        //printf("Switches: %d %d %d %d \n", switch1_get_state(),
+        //        switch2_get_state(), switch3_get_state(), switch4_get_state());
         //led_blink_s(red, 100, 1);
         led_set_color(red);
-        hwtimer_wait(HWTIMER_TICKS(1000 * 1000));
+        xtimer_usleep(1000 * 1000);
         led_set_color(green);
-        hwtimer_wait(HWTIMER_TICKS(1000 * 1000));
+        xtimer_usleep(1000 * 1000);
         led_set_color(blue);
-        hwtimer_wait(HWTIMER_TICKS(1000 * 1000));
+        xtimer_usleep(1000 * 1000);
         led_set_color(black);
-        hwtimer_wait(HWTIMER_TICKS(1000 * 1000));
+        xtimer_usleep(1000 * 1000);
     }
     //uart_init();
     //board_uart0_init(); //uart_init wird von syscalls schon vorher aufgerufen - hoffentlich zumindest
@@ -103,7 +106,6 @@ int main(void)
     // initialize ringbuffer for received packets
     packet_queue_init();
 
-    switch_init();
 
 
 
@@ -115,8 +117,8 @@ int main(void)
 //    GPIO_12		nRF-IRQ
 //
 
-    gpio_init_int(GPIO_9, GPIO_PULLDOWN, GPIO_FALLING, (void *)test, 0); //wird extern auf high gezogen
-    gpio_irq_enable(GPIO_9);
+    //gpio_init_int(GPIO_9, GPIO_PULLDOWN, GPIO_FALLING, (void *)test, 0); //wird extern auf high gezogen
+    //gpio_irq_enable(GPIO_9);
 
 
     // initialize radio driver

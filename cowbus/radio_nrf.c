@@ -13,7 +13,7 @@
 #include "thread.h"
 #include "nrf24l01p.h"
 #include "nrf24l01p_settings.h"
-#include "hwtimer.h"
+#include "xtimer.h"
 
 #include "radio_nrf.h"
 #include "radio_config.h"
@@ -126,7 +126,7 @@ void radio_nrf_init(void) {
     recv_callback = NULL;
 
     // initialize RNG for CSMA/CA backoff
-    srand(hwtimer_now());
+    srand(xtimer_now());
 }
 
 void radio_nrf_register_rx_callback(void (*callback)(cowpacket)) {
@@ -153,7 +153,7 @@ void radio_nrf_send_data(char* payload, unsigned short payload_length) {
     nrf24l01p_transmit(&nrf24l01p_0);
 
     // wait while data is pysically transmitted 
-    hwtimer_wait(DELAY_DATA_ON_AIR);
+    xtimer_usleep(DELAY_DATA_ON_AIR);
 
     r = nrf24l01p_get_status(&nrf24l01p_0);
     if (r & TX_DS) {
@@ -192,7 +192,7 @@ void radio_nrf_backoff(void) {
         c_backoff = 165 + rand() % 660; // from 1 to 5 packets
         // TODO test if this calculation is correct
     }
-    hwtimer_wait(HWTIMER_TICKS(c_backoff));
+    xtimer_usleep(c_backoff);
     c_backoff = 0;
 }
 

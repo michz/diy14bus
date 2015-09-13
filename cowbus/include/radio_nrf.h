@@ -13,13 +13,6 @@
 
 #include "cowpacket.h"
 
-#define RADIO_NRF_SPI           SPI_1
-#define RADIO_NRF_PIN_CE        GPIO_6
-#define RADIO_NRF_PIN_CS        GPIO_7
-#define RADIO_NRF_PIN_IRQ       GPIO_12
-#define RADIO_NRF_ADDR          {0xe7, 0xe7, 0xe7, 0xe7, 0xe7}
-#define RADIO_NRF_CHANNEL       (5)
-
 #define COWBUS_VERSION          (1)
 #define COWBUS_DEFAULT_TTL      (5)
 #define COWBUS_DEFAULT_ADDR     (99)

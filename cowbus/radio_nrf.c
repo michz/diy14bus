@@ -19,7 +19,7 @@
 #include "radio_config.h"
 
 /// @brief instance of RIOTs nrf24l01p driver
-static nrf24l01p_t nrf24l01p_0;
+nrf24l01p_t nrf24l01p_0;
 
 /// @brief Callback function pointer for incoming packets
 static void (*recv_callback)(cowpacket);
@@ -95,10 +95,9 @@ void radio_nrf_init(void) {
     // initialize radio module
     //                                              ce       cs    irq
     int ret = nrf24l01p_init(&nrf24l01p_0, SPI_0,
-            GPIO(PORT_B, 2),         // CE
-            GPIO(PORT_B, 1),         // CSN
-            GPIO(PORT_B, 0));        // IRQ
-    //TODO auf cowbus-board anpassen
+            GPIO_NRF_CE,          // CE
+            GPIO_NRF_CSN,         // CSN
+            GPIO_NRF_IRQ);        // IRQ
     
     if (ret < 0) {
         printf("Transceiver initialization failed: %i\n", ret);

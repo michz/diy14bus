@@ -10,12 +10,22 @@
  * @file
  */
 
+#include "board.h"      // cowbus-one
+#include "cpu.h"
+
 
 #ifndef EEPROM_H
 #define EEPROM_H
 
 #define EEPROM_SIZE             ((4*1024)/8)
 #define NAME_MAX_LENGTH         (20)
+
+/**
+ * @brief Delay after each write cycle (byte or page).
+ *
+ * Datasheet says 5ms. 7 should be safe.
+ */
+#define WRITE_DELAY_US          (7 * 1000)
 
 
 extern char eeprom_name_buffer[NAME_MAX_LENGTH];

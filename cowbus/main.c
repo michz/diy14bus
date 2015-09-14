@@ -80,6 +80,7 @@ void switch1(void)
 void switch2(void)
 {
 	printf("switch 2 pressed.\n");
+    sendMsg = -1;
 }
 
 void switch3(void)
@@ -90,6 +91,11 @@ void switch3(void)
 void switch4(void)
 {
 	printf("switch 4 pressed.\n");
+    if (switch3_get_state()) {
+        printf("Pressed #3 and #4, reset!\n");
+        xtimer_spin(1000);
+        NVIC_SystemReset();                     // perform reset
+    }
 }
 
 extern  nrf24l01p_t nrf24l01p_0;
@@ -109,6 +115,7 @@ int main(void)
     radio_nrf_init();
     radio_nrf_register_rx_callback(packet_received);
 
+    eeprom_init();
 
 
     int i = 0;
@@ -165,8 +172,12 @@ int main(void)
             nrf24l01p_set_rxmode(&nrf24l01p_0);
 
             // reset
-            sendMsg = 0;
 		}
+        else if (sendMsg < 0) {
+            uint16_t addr = eeprom_get_addr();
+            printf("addr from eeprom: %d\n", addr);
+        }
+        sendMsg = 0;
 
 
 

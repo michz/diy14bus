@@ -1,9 +1,11 @@
 #include <string.h>
 
+#include "eeprom.h"
+
 #include "board.h"      // cowbus-one
 #include "cpu.h"
 #include "thread.h"
-#include "eeprom.h"
+#include "xtimer.h"
 
 #include "cowconfig.h"
 
@@ -42,9 +44,15 @@ uint16_t eeprom_get_addr(void) {
     char buf[2];
     eeprom_read_bytes(buf, EEPROM_POS_ADDRESS, EEPROM_LENGTH_ADDRESS);
 
+    printf("e:");
+    for (int i = 0; i < EEPROM_LENGTH_ADDRESS; ++i) {
+        printf(" %d", (int)(buf[i]));
+    }
+    printf("\n");
+
     uint16_t addr = 0;
     addr += buf[0] & 0xFF;
-    addr += (buf[1] << 8) & 0xFF;
+    addr += (buf[1] << 8);
 
     return addr;    // TODO test  eeprom_get_addr
 }
@@ -65,7 +73,7 @@ void eeprom_set_addr(uint16_t addr) {
     char buf[2];
 
     buf[0] = addr & 0xFF;           // low byte
-    buf[1] = (addr << 8) & 0xFF;    // high byte
+    buf[1] = (addr >> 8) & 0xFF;    // high byte
 
     eeprom_write_bytes(buf, EEPROM_POS_ADDRESS, EEPROM_LENGTH_ADDRESS);
 }
@@ -80,12 +88,15 @@ char* eeprom_read_bytes(char* buf, int address, int n) {
 
     // ctrl should be:  0 1 0 1 0 X X (Page 0|1)    with x = don't care
     char ctrl = 0;
-    ctrl |= (0xA << 3);
-    ctrl |= EEPROM_GET_PAGE(address);
+    char* ptr = buf;
+    for (int i = 0; i < n; ++i) {
+        ctrl |= (0xA << 3);
+        ctrl |= EEPROM_GET_PAGE((address+i));
 
-    i2c_acquire(I2C_0);
-    i2c_read_regs(I2C_0, ctrl, EEPROM_GET_ADDR(address), buf, n);
-    i2c_release(I2C_0);
+        i2c_acquire(I2C_0);
+        i2c_read_regs(I2C_0, ctrl, EEPROM_GET_ADDR((address+i)), ptr++, 1);
+        i2c_release(I2C_0);
+    }
 
     return buf;
 }
@@ -96,10 +107,15 @@ void eeprom_write_bytes(char* from, int address, int n) {
 
     // ctrl should be:  0 1 0 1 0 X X (Page 0|1)    with x = don't care
     char ctrl = 0;
-    ctrl |= (0xA << 3);
-    ctrl |= EEPROM_GET_PAGE(address);
+    char* ptr = from;
 
-    i2c_acquire(I2C_0);
-    i2c_write_regs(I2C_0, ctrl, EEPROM_GET_ADDR(address), from, n);
-    i2c_release(I2C_0);
+    for (int i = 0; i < n; ++i) {
+        ctrl |= (0xA << 3);
+        ctrl |= EEPROM_GET_PAGE((address+i));
+
+        i2c_acquire(I2C_0);
+        i2c_write_regs(I2C_0, ctrl, EEPROM_GET_ADDR((address+i)), ptr++, 1);
+        i2c_release(I2C_0);
+        xtimer_usleep(WRITE_DELAY_US);  // wait one write cycle time
+    }
 }

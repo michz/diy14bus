@@ -1,3 +1,10 @@
+/**
+ * @file
+ *
+ * @author  Michael Zapf <michael.zapf@fau.de>
+ * @date    2015-09-14
+ */
+
 #include <string.h>
 
 #include "eeprom.h"
@@ -43,12 +50,6 @@ char* eeprom_get_name(void) {
 uint16_t eeprom_get_addr(void) {
     char buf[2];
     eeprom_read_bytes(buf, EEPROM_POS_ADDRESS, EEPROM_LENGTH_ADDRESS);
-
-    printf("e:");
-    for (int i = 0; i < EEPROM_LENGTH_ADDRESS; ++i) {
-        printf(" %d", (int)(buf[i]));
-    }
-    printf("\n");
 
     uint16_t addr = 0;
     addr += buf[0] & 0xFF;

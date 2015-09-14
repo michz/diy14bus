@@ -4,6 +4,9 @@ cowbus general prototyping firmware
 # currently used board: cowbus-protoboard
 
 
+# Temperature sensor I2C address: (MSB)   1 0 0 1 0 0 0   (LSB)
+
+
 
 # pin configuration
 

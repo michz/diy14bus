@@ -1,13 +1,9 @@
 /**
-* @brief   TODO
- *
- * TODO
- *
- * This file refers to "cowbit-characters" which by now means characters
- * that are encoded with a length of 5 bit.
- *
- * @author  TODO
  * @file
+ * @brief   eeprom functionality for persistent storage
+ *
+ * @author  Michael Zapf <michael.zapf@fau.de>
+ * @date    2015-09-14
  */
 
 #include "board.h"      // cowbus-one

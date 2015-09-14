@@ -24,6 +24,7 @@
 #include "packet_queue.h"
 #include "radio_nrf.h"
 #include "eeprom.h"
+#include "temp.h"
 
 
 /// @brief local in-memory representation of configuration rules of this node
@@ -116,6 +117,7 @@ int main(void)
     radio_nrf_register_rx_callback(packet_received);
 
     eeprom_init();
+    temp_init();
 
 
     int i = 0;
@@ -174,8 +176,9 @@ int main(void)
             // reset
 		}
         else if (sendMsg < 0) {
-            uint16_t addr = eeprom_get_addr();
-            printf("addr from eeprom: %d\n", addr);
+            //uint16_t addr = eeprom_get_addr();
+            //printf("addr from eeprom: %d\n", addr);
+            printf("Temp: %s\n", temp_to_readable(temp_get()));
         }
         sendMsg = 0;
 

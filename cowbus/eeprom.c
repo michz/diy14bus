@@ -54,7 +54,7 @@ uint16_t eeprom_get_addr(void) {
     addr += buf[0] & 0xFF;
     addr += (buf[1] << 8);
 
-    return addr;    // TODO test  eeprom_get_addr
+    return addr;
 }
 
 void eeprom_read_configuration(char* to) {

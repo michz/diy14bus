@@ -12,6 +12,11 @@ RIOTBASE ?= $(CURDIR)/../../RIOT/
 APP_MACROS += -DNODE_IS_ACTOR		# says that this node is a actor
 APP_MACROS += -DNODE_IS_SENSOR		# says that this node is a sensor
 
+APP_MACROS += -DPERIPH_EN_BUZZER	# enable PERIPH
+APP_MACROS += -DPERIPH_EN_EEPROM	# enable PERIPH
+APP_MACROS += -DPERIPH_EN_TEMP		# enable PERIPH
+APP_MACROS += -DPERIPH_EN_LED		# enable PERIPH
+APP_MACROS += -DPERIPH_EN_SWITCH	# enable PERIPH
 
 USEMODULE += nrf24l01p
 #USEMODULE += uart0

@@ -25,6 +25,7 @@
 #include "radio_nrf.h"
 #include "eeprom.h"
 #include "temp.h"
+#include "buzzer.h"
 
 
 /// @brief local in-memory representation of configuration rules of this node
@@ -105,9 +106,6 @@ int main(void)
 	(RCC->AHBENR |= RCC_AHBENR_GPIOAEN);
 	(RCC->AHBENR |= RCC_AHBENR_GPIOBEN);
 
-    xtimer_init();
-    led_init();
-    switch_init();
     switch1_set_isr(switch1);
     switch2_set_isr(switch2);
     switch3_set_isr(switch3);
@@ -116,8 +114,6 @@ int main(void)
     radio_nrf_init();
     radio_nrf_register_rx_callback(packet_received);
 
-    eeprom_init();
-    temp_init();
 
 
     int i = 0;

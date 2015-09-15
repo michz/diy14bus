@@ -13,10 +13,6 @@
 
 #include "cowpacket.h"
 
-#define COWBUS_VERSION          (1)
-#define COWBUS_DEFAULT_TTL      (5)
-#define COWBUS_DEFAULT_ADDR     (99)
-
 extern unsigned short cowbus_address;
 
 /**

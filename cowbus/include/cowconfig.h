@@ -11,6 +11,7 @@
 #ifndef COWCONFIG_H
 #define COWCONFIG_H
 
+#include <string.h>
 #include <stdint.h>
 #include <stdio.h>
 #define COWCONFIG_COUNT     (4)

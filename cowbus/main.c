@@ -27,6 +27,8 @@
 #include "temp.h"
 #include "buzzer.h"
 
+#include "cowmac.h"
+
 
 /// @brief local in-memory representation of configuration rules of this node
 cowconfig_rule cowconfig_data[COWCONFIG_COUNT];
@@ -112,8 +114,7 @@ int main(void)
     switch4_set_isr(switch4);
     
     radio_nrf_init();
-    radio_nrf_register_rx_callback(packet_received);
-
+    cowmac_register_packet_handler(packet_received);
 
 
     int i = 0;

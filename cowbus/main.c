@@ -175,6 +175,14 @@ int main(void)
             //uint16_t addr = eeprom_get_addr();
             //printf("addr from eeprom: %d\n", addr);
             printf("Temp: %s\n", temp_to_readable(temp_get()));
+            buzzer(note_c2, 250);
+            buzzer(note_d2, 250);
+            buzzer(note_e2, 250);
+            buzzer(note_f2, 250);
+            buzzer(note_g2, 250);
+            buzzer(note_a2, 250);
+            buzzer(note_b2, 250);
+            buzzer(note_c3, 250);
         }
         sendMsg = 0;
 

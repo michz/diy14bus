@@ -102,7 +102,6 @@ void switch4(void)
     }
 }
 
-extern  nrf24l01p_t nrf24l01p_0;
 int main(void)
 {
 	(RCC->AHBENR |= RCC_AHBENR_GPIOAEN);
@@ -120,55 +119,10 @@ int main(void)
     int i = 0;
 	while (1) {
 		if (sendMsg > 0) {
+            cowpacket pkt;
 
-            int r = 0;
-
-            char tx_buf[NRF24L01P_MAX_DATA_LENGTH];
-            memset(tx_buf, 0, sizeof(cowpacket)); // clear out data buffer
-
-            /* fill TX buffer with sample data */
-            cowpacket* cp = (cowpacket*)tx_buf;
-            cp->version = 0;
-            cp->seq_no  = seq_no;
-            cp->ttl     = 5;
-            //cowpacket_set_address(cp, radio_addr);
-            cowpacket_set_address(cp, 0);
-            //cowpacket_set_type(cp, event);
-            cowpacket_set_type(cp, ping);
-            cowpacket_set_is_fragment(cp, 0);
-
-            for (int i = 0; i < sizeof(cp->payload); ++i) {
-                cp->payload[i] = 48+i;
-            }
-
-            //cowpacket_generate_checksum(cp);
-
-            if (seq_no > 30) { seq_no = 0; }
-            else { seq_no++; }
-
-            /* power on the device */
-            r = nrf24l01p_on(&nrf24l01p_0);
-            xtimer_usleep(DELAY_DATA_ON_AIR); // DEBUG: does not work without
-            //printf("on: %i\n", r);
-            /* setup device as transmitter */
-            r = nrf24l01p_set_txmode(&nrf24l01p_0);
-            //printf("txmode: %i\n", r);
-            /* load data to transmit into device */
-            r = nrf24l01p_preload(&nrf24l01p_0, tx_buf, NRF24L01P_MAX_DATA_LENGTH);
-            //printf("preload: %i\n", r);
-            /* trigger transmitting */
-            nrf24l01p_transmit(&nrf24l01p_0);
-
-            /* wait while data is pysically transmitted  */
-            xtimer_usleep(2*DELAY_DATA_ON_AIR);
-
-            r = nrf24l01p_get_status(&nrf24l01p_0);
-            //printf("Status: %i\n", r);
-            if (r & TX_DS) {
-                printf("Sent Packet: %d\n", r);
-            }
-            /* setup device as receiver */
-            nrf24l01p_set_rxmode(&nrf24l01p_0);
+            cowmac_init_packet(&pkt, 0, ping, "123456", 7);
+            cowmac_send_packet(&pkt);
 
             // reset
 		}

@@ -61,7 +61,7 @@ void *cowmac_receiver(void *arg);
 /**
  * brief    TODO
  */
-void cowmac_send_packet(cowpacket pkt);
+void cowmac_send_packet(cowpacket *pkt);
 
 
 /**
@@ -69,6 +69,12 @@ void cowmac_send_packet(cowpacket pkt);
  */
 void cowmac_register_packet_handler(void (*fnc)(cowpacket));
 
+
+/**
+ * brief    TODO
+ */
+int cowmac_init_packet(cowpacket *pkt, uint16_t address,
+        cowpacket_type type, char* payload, unsigned char payload_length);
 
 /**
  * brief    TODO

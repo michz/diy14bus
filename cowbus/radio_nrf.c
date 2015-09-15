@@ -58,6 +58,8 @@ void radio_nrf_send_data(char* payload, unsigned short payload_length) {
     // power on the device
     int r = nrf24l01p_on(&nrf24l01p_0);
     
+    xtimer_usleep(DELAY_DATA_ON_AIR); // DEBUG: wait for sure...
+    
     // setup device as transmitter
     r = nrf24l01p_set_txmode(&nrf24l01p_0);
     
@@ -67,12 +69,13 @@ void radio_nrf_send_data(char* payload, unsigned short payload_length) {
     // trigger transmitting
     nrf24l01p_transmit(&nrf24l01p_0);
 
-    // wait while data is pysically transmitted 
-    xtimer_usleep(DELAY_DATA_ON_AIR);
+    /* wait while data is pysically transmitted  */
+    xtimer_usleep(2*DELAY_DATA_ON_AIR);     // DEBUG: wair double for sure...
 
     r = nrf24l01p_get_status(&nrf24l01p_0);
     if (r & TX_DS) {
-        printf("Sent Packet\n");
+        // all good
+        //printf("Sent Packet\n");
     }
     else {
         //TODO error handling
@@ -80,7 +83,6 @@ void radio_nrf_send_data(char* payload, unsigned short payload_length) {
 
     // setup device as receiver
     nrf24l01p_set_rxmode(&nrf24l01p_0);
-
 }
 
 

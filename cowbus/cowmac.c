@@ -30,23 +30,23 @@ static inline uint8_t cowmac_next_seqno(void) {
     return ++c_seq_no;
 }
 
-void cowmac_send_packet(cowpacket pkt) {
+void cowmac_send_packet(cowpacket *pkt) {
     // TODO: CSMA/CA
     // check if medium is busy
     //   if yes: radio_nrf_backoff();
     // check again
 
-    radio_nrf_send_data((char*)&pkt, sizeof(cowpacket));
+    radio_nrf_send_data((char*)pkt, sizeof(cowpacket));
 }
 
 void cowmac_register_packet_handler(void (*fnc)(cowpacket)){
     cb_pkt_recv = fnc;
 }
 
-int cowmac_init_packet(cowpacket *pkt, unsigned short address,
+int cowmac_init_packet(cowpacket *pkt, uint16_t address,
         cowpacket_type type, char* payload, unsigned char payload_length) {
 
-    //TODO assure that payload is not longer than PAYLOAD_MAX_LENGTH bytes
+    memset(pkt, 0, sizeof(cowpacket));
     pkt->version    = COWBUS_VERSION;
     pkt->seq_no     = cowmac_next_seqno();
     pkt->ttl        = COWBUS_DEFAULT_TTL;

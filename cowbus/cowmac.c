@@ -11,7 +11,6 @@
 
 
 char cowmac_receiver_stack[THREAD_STACKSIZE_MAIN];
-uint16_t cowmac_address = COWBUS_DEFAULT_ADDR;
 void (*cb_pkt_recv)(cowpacket) = NULL;
 
 /// @brief Current sequence number
@@ -30,6 +29,7 @@ static inline uint8_t cowmac_next_seqno(void) {
     return ++c_seq_no;
 }
 
+
 void cowmac_send_packet(cowpacket *pkt) {
     // TODO: CSMA/CA
     // check if medium is busy
@@ -43,20 +43,30 @@ void cowmac_register_packet_handler(void (*fnc)(cowpacket)){
     cb_pkt_recv = fnc;
 }
 
-int cowmac_init_packet(cowpacket *pkt, uint16_t address,
-        cowpacket_type type, char* payload, unsigned char payload_length) {
+int cowmac_init_packet_empty(cowpacket *pkt, cowpacket_type type) {
 
     memset(pkt, 0, sizeof(cowpacket));
     pkt->version    = COWBUS_VERSION;
     pkt->seq_no     = cowmac_next_seqno();
     pkt->ttl        = COWBUS_DEFAULT_TTL;
-    cowpacket_set_address(pkt, address);
+    cowpacket_set_address(pkt, cowmac_address);
     cowpacket_set_type(pkt, type);
     cowpacket_set_is_fragment(pkt, 0);
+
+    return 1;
+}
+
+int cowmac_init_packet(cowpacket *pkt,
+        cowpacket_type type, char* payload, unsigned char payload_length) {
+
+    cowmac_init_packet_empty(pkt, type);
 
     if (payload_length > PAYLOAD_MAX_LENGTH) return 0;
     memcpy(pkt->payload, payload, payload_length);
     return 1;
+}
+
+void cowmac_packet_handler(void) {
 }
 
 void *cowmac_receiver(void *arg) {
@@ -95,8 +105,59 @@ void *cowmac_receiver(void *arg) {
                 // TODO check if correct cowpacket (especially version!)
                 cowpacket p;
                 memcpy(&p, rx_buf, NRF24L01P_MAX_DATA_LENGTH);
-                if (cb_pkt_recv != NULL) {
-                    cb_pkt_recv(p);
+
+                uint16_t addr = cowpacket_get_address(&p);
+                uint8_t type = cowpacket_get_type(&p);
+
+                // check if own address or broadcast ping
+                if (type == event)  {
+                    if (cb_pkt_recv != NULL) {
+                        cb_pkt_recv(p);
+                    }
+                }
+                else if (addr == cowmac_address || (addr == 0 && type == ping)) {
+                    if (type == ping) {        // PING request
+                        // send ping answer
+                        cowmac_send_ping_answer();
+                    }
+                    else if (type == get_name) {
+                        // send name answer
+                        cowmac_send_name();
+                    }
+                    else if (type == set_name) {
+                        // SET_NAME request
+                        config_set_name((char*)(p.payload));
+
+                        // send name answer
+                        cowmac_send_name();
+                    }
+                    else if (type == configure) {
+                        cowconfig_packet* ccp = (cowconfig_packet*)p.payload;
+
+                        switch(ccp->method) {
+                            case CCPM_LIST:
+                                cowmac_send_config();
+                                cowconfig_dump();
+                                break;
+                            case CCPM_ADD:
+                                cowconfig_add(&(ccp->rule));
+                                cowconfig_dump();
+                                break;
+                            case CCPM_DELETE_ALL:
+                                cowconfig_delete_all();
+                                cowconfig_dump();
+                                break;
+                            case CCPM_DELETE_ONE:
+                                cowconfig_delete_one(ccp->id);
+                                cowconfig_dump();
+                                break;
+                            case CCPM_DELETE_ADDR:
+                                cowconfig_delete_addr((ccp->raw[0] << 8) + ccp->raw[1]);
+                                cowconfig_dump();
+                                break;
+                        }
+                        // TODO ack, if successful?
+                    }
                 }
 
                 break;
@@ -108,6 +169,21 @@ void *cowmac_receiver(void *arg) {
     return NULL;
 }
 
+void cowmac_send_ping_answer(void) {
+    cowpacket pkt;
+    cowmac_init_packet_empty(&pkt, ping_answer);
+    PACKET_COPY(config_get_name(), pkt.payload);
+    cowmac_send_packet(&pkt);
+}
+
+void cowmac_send_name(void) {
+    cowpacket pkt;
+    cowmac_init_packet_empty(&pkt, get_name);
+    PACKET_COPY(config_get_name(), pkt.payload);
+    cowmac_send_packet(&pkt);
+}
+
+
 void cowmac_backoff(void) {
     if (c_backoff == 0) {
         c_backoff = 165 + rand() % 660; // from 1 to 5 packets
@@ -115,6 +191,10 @@ void cowmac_backoff(void) {
     }
     xtimer_usleep(c_backoff);
     c_backoff = 0;
+}
+
+void cowmac_send_config(void) {
+    // TODO
 }
 
 /*

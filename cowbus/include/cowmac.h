@@ -18,8 +18,10 @@
 #include "cowconfig.h"
 #include "radio_config.h"
 #include "radio_nrf.h"
+#include "volatile_config.h"
 
 // RIOT includes
+#include "kernel.h"
 #include "board.h"
 #include "cpu.h"
 #include "thread.h"
@@ -40,9 +42,6 @@
 /// @brief  Default time to live for packets
 #define COWBUS_DEFAULT_TTL      (5)
 
-/// @brief  Default address if not configured / auto detected
-#define COWBUS_DEFAULT_ADDR     (0)
-
 
 /// @brief stack for working-thread  // TODO: stacksize anders wählen (?)
 extern char cowmac_receiver_stack[THREAD_STACKSIZE_MAIN];
@@ -53,36 +52,55 @@ extern uint16_t cowmac_address;
 
 
 /**
- * brief    Working thread waiting for incoming packets over the air.
+ * @brief    Working thread waiting for incoming packets over the air.
  */
 void *cowmac_receiver(void *arg);
 
 
 /**
- * brief    TODO
+ * @brief    TODO
  */
 void cowmac_send_packet(cowpacket *pkt);
 
 
 /**
- * brief    TODO
+ * @brief    TODO
  */
 void cowmac_register_packet_handler(void (*fnc)(cowpacket));
 
 
 /**
- * brief    TODO
+ * @brief   TODO
  */
-int cowmac_init_packet(cowpacket *pkt, uint16_t address,
+int cowmac_init_packet_empty(cowpacket *pkt, cowpacket_type type);
+
+
+/**
+ * @brief    TODO
+ */
+int cowmac_init_packet(cowpacket *pkt,
         cowpacket_type type, char* payload, unsigned char payload_length);
 
 /**
- * brief    TODO
+ * @brief    TODO
  */
 void cowmac_backoff(void);
 
 
+/**
+ * @brief    TODO
+ */
+void cowmac_send_ping_answer(void);
 
+/**
+ * @brief    TODO
+ */
+void cowmac_send_name(void);
+
+/**
+ * @brief    TODO
+ */
+void cowmac_send_config(void);
 
 
 #endif /* !COWMAC_H */

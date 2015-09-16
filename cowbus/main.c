@@ -31,7 +31,6 @@
 
 
 /// @brief local in-memory representation of configuration rules of this node
-cowconfig_rule cowconfig_data[COWCONFIG_COUNT];
 int seq_no = 0xB;
 uint16_t radio_addr = 1021;
 
@@ -42,36 +41,14 @@ int sendMsg = 0;
 
 void packet_received(cowpacket pkt) {
     led_blink_s(green, 100, 1);
-//    // TODO packet handling (switch led on/off, ping response, ...)
-//    switch (pkt.type) {
-//        case event:
-//            // only interpret this if address is my node's address
-//            if (pkt.addr == cowbus_address) {
-//                // TODO interpret message payload (led1 on, led2 color, ...)
-//            }
-//            else {
-//                // TODO go through programmed event handlers
-//            }
-//            break;
-//
-//        case get_name:
-//            if (pkt.addr == cowbus_address) {
-//                // TODO send packet with our name
-//            }
-//            break;
-//
-//        case ping:
-//            if (pkt.addr == cowbus_address) {
-//                radio_nrf_send_packet(cowbus_address, ping_answer, "", 0);
-//            }
-//            break;
-//
-//        case set_name:
-//            if (pkt.addr == cowbus_address) {
-//                // TODO save name into eeprom and RAM
-//            }
-//            break;
-//    }
+    // TODO packet handling (switch led on/off, ping response, ...)
+    // only interpret this if address is my node's address
+    if (cowpacket_get_address(&pkt) == config_get_address()) {
+        // TODO interpret message payload (led1 on, led2 color, ...)
+    }
+    else {
+        // TODO go through programmed event handlers
+    }
 }
 
 
@@ -121,7 +98,8 @@ int main(void)
 		if (sendMsg > 0) {
             cowpacket pkt;
 
-            cowmac_init_packet(&pkt, 0, ping, "123456", 7);
+            cowmac_init_packet(&pkt, ping, "123456", 7);
+
             cowmac_send_packet(&pkt);
 
             // reset

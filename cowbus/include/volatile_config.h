@@ -17,6 +17,13 @@
 /// @brief  Default address if not configured / auto detected
 #define COWBUS_DEFAULT_ADDR     (0)
 
+/// @brief  Default name for nodes that where not named before.
+/// (Remember to make this at least as long as NAME_MAX_LENGTH !)
+#define CONFIG_DEFAULT_NAME     "unnamed-node               "
+
+
+extern char config_name[];
+
 
 /**
  * @brief   TODO
@@ -38,5 +45,9 @@ uint16_t config_get_address(void);
  */
 void config_set_address(uint16_t addr);
 
+/**
+ * @brief   Reads out the unique(?) serial number of processor.
+ */
+uint32_t config_get_cpuid(void);
 
 #endif /* !VOLATILE_CONFIG_H */

@@ -8,6 +8,7 @@
  */
 
 #include "cowmac.h"
+#include "eeprom.h"
 
 
 char cowmac_receiver_stack[THREAD_STACKSIZE_MAIN];
@@ -108,6 +109,7 @@ void *cowmac_receiver(void *arg) {
 
                 uint16_t addr = cowpacket_get_address(&p);
                 uint8_t type = cowpacket_get_type(&p);
+                printf("Received addr: %d; type: %d\n", addr, type);
 
                 // check if own address or broadcast ping
                 if (type == event)  {
@@ -130,6 +132,9 @@ void *cowmac_receiver(void *arg) {
 
                         // send name answer
                         cowmac_send_name();
+
+                        // write to eeprom
+                        eeprom_set_name(config_get_name());
                     }
                     else if (type == configure) {
                         cowconfig_packet* ccp = (cowconfig_packet*)p.payload;

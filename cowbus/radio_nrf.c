@@ -49,7 +49,10 @@ void radio_nrf_init(void) {
         cowmac_receiver, 0, "cowmac_receiver");
 
     nrf24l01p_disable_all_auto_ack(&nrf24l01p_0); // disable all auto ack
+    
+    xtimer_usleep(DELAY_DATA_ON_AIR); // DEBUG: wait for sure...
     nrf24l01p_set_rxmode(&nrf24l01p_0);
+    xtimer_usleep(DELAY_DATA_ON_AIR); // DEBUG: wait for sure...
 
     printf("Transceiver initialization finished.\n");
 }
@@ -75,7 +78,7 @@ void radio_nrf_send_data(char* payload, unsigned short payload_length) {
     r = nrf24l01p_get_status(&nrf24l01p_0);
     if (r & TX_DS) {
         // all good
-        //printf("Sent Packet\n");
+        printf("Sent Packet\n");
     }
     else {
         //TODO error handling

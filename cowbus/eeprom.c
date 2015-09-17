@@ -15,6 +15,7 @@
 #include "xtimer.h"
 
 #include "cowconfig.h"
+#include "volatile_config.h"
 
 #include "periph/i2c.h"
 #include "periph/gpio.h"
@@ -32,18 +33,19 @@
 #define EEPROM_POS_CONFIG       (32)
 #define EEPROM_LENGTH_CONFIG    (COWCONFIG_COUNT * sizeof(cowconfig_rule))  // 64 ?
 
-char eeprom_name_buffer[NAME_MAX_LENGTH];
-
-
 
 void eeprom_init(void) {
     i2c_init_master(I2C_0, I2C_SPEED_NORMAL);
 }
 
 
-char* eeprom_get_name(void) {
-    return eeprom_read_bytes(eeprom_name_buffer,
-            EEPROM_POS_NAME, EEPROM_LENGTH_NAME);
+char* eeprom_read_name(char* to) {
+    char* buf = eeprom_read_bytes(to, EEPROM_POS_NAME, EEPROM_LENGTH_NAME);
+
+    if (buf[0] < 32 || buf[0] > 122) {  // not usable character, assume NOT SET
+        memcpy(buf, CONFIG_DEFAULT_NAME, EEPROM_LENGTH_NAME);
+    }
+    return buf;
 }
 
 
@@ -55,17 +57,21 @@ uint16_t eeprom_get_addr(void) {
     addr += buf[0] & 0xFF;
     addr += (buf[1] << 8);
 
+    if (addr == 0xffff) { // not set in eeprom
+        addr = config_get_cpuid() & 0xffff;
+    }
     return addr;
 }
 
-void eeprom_read_configuration(char* to) {
+void eeprom_read_configuration(void* to) {
     eeprom_read_bytes(to, EEPROM_POS_CONFIG, EEPROM_LENGTH_CONFIG);
 }
 
 void eeprom_set_name(char* new_name) {
     char buf[EEPROM_LENGTH_NAME];
-    memcpy(buf, new_name, strlen(new_name));
-    eeprom_write_bytes(new_name,
+    memset(buf, 0, EEPROM_LENGTH_NAME);             // clear stack memory
+    memcpy(buf, new_name, strlen(new_name));        // name to buffer
+    eeprom_write_bytes(new_name,                    // write buffer to eeprom
             EEPROM_POS_NAME, EEPROM_LENGTH_NAME);
 }
 

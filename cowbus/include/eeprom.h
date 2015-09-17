@@ -31,40 +31,44 @@ void eeprom_init(void);
 
 
 /**
- * Returns the name of this device.
+ * @brief   Returns the name of this device.
+ * @param   to      The buffer where the name will be written to.
+ *
+ * Please provide a buffer that is large enough, there will be no further check.
  *
  * @return  A pointer to the eeprom_name_buffer char array.
  */
-char* eeprom_get_name(void);
+char* eeprom_read_name(char* to);
 
 /**
- * Returns the address of this device.
+ * @brief   Returns the address of this device.
  *
  * @return  The address.
  */
 uint16_t eeprom_get_addr(void);
 
 /**
- * Reads the configuration from eeprom.
+ * @brief   Reads the configuration from eeprom.
+ * @param   to      The buffer where the configuration will be written to.
  */
-void eeprom_read_configuration(char* to);
+void eeprom_read_configuration(void* to);
 
 
 
 /**
- * Set the name of this device.
+ * @brief   Set the name of this device.
  * @param   new_name    The new name array.
  */
 void eeprom_set_name(char* new_name);
 
 /**
- * Set the address of this device.
+ * @brief   Set the address of this device.
  * @param   addr    The new address.
  */
 void eeprom_set_addr(uint16_t addr);
 
 /**
- * Writes the configuration to eeprom.
+ * @brief   Writes the configuration to eeprom.
  */
 void eeprom_write_configuration(char* from);
 

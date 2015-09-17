@@ -28,6 +28,7 @@
 #include "buzzer.h"
 
 #include "cowmac.h"
+#include "volatile_config.h"
 
 
 /// @brief local in-memory representation of configuration rules of this node
@@ -44,6 +45,7 @@ void packet_received(cowpacket pkt) {
     // TODO packet handling (switch led on/off, ping response, ...)
     // only interpret this if address is my node's address
     if (cowpacket_get_address(&pkt) == config_get_address()) {
+        led_blink_s(blue, 100, 1);
         // TODO interpret message payload (led1 on, led2 color, ...)
     }
     else {
@@ -81,13 +83,26 @@ void switch4(void)
 
 int main(void)
 {
-	(RCC->AHBENR |= RCC_AHBENR_GPIOAEN);
-	(RCC->AHBENR |= RCC_AHBENR_GPIOBEN);
+	//(RCC->AHBENR |= RCC_AHBENR_GPIOAEN);
+	//(RCC->AHBENR |= RCC_AHBENR_GPIOBEN);
+
+    printf("Booting up on CPUID 0x%lx\n", config_get_cpuid());
+
 
     switch1_set_isr(switch1);
     switch2_set_isr(switch2);
     switch3_set_isr(switch3);
     switch4_set_isr(switch4);
+
+    cowconfig_init();
+
+    eeprom_read_name(config_name);
+    config_set_address(eeprom_get_addr());
+    eeprom_read_configuration(cowconfig_data);
+
+    printf("Node name: %s\n", config_name);
+    printf("Node addr: %d\n", config_get_address());
+    printf("Hello!\n");
     
     radio_nrf_init();
     cowmac_register_packet_handler(packet_received);

@@ -38,7 +38,7 @@ var cowList = (function () {
                 rules_count++;
             }
             var text = "Regeln: " + rules_count;
-            $("#nodes").append('<div class="node" id="node_' + i + '">' + '    <h3 id="node_' + i + '_name">' + c.name + '</h3>' + '    <span class="addr" id="node_' + i + '_addr">' + c.address + '</span>' + '    <p class="buttons">' + '        <span class="node-button button-config" ' + 'title="Config" id="node_' + i + '_config">Config</span>' + '        <span class="node-button button-rename" ' + 'title="Rename" id="node_' + i + '_rename">Rename</span>' + '        <span class="node-button button-ping" title="ping" ' + 'id="node_' + i + '_ping">Ping</span>' + '        <span class="node-text" ' + 'id="node_' + i + '_text">' + text + '</span>' + '    </p>' + '    <p style="clear:both;"></p>' + '</div>');
+            $("#nodes").append('<div class="node" id="node_' + i + '" data-node="' + i + '">' + '    <h3 id="node_' + i + '_name">' + c.name + '</h3>' + '    <span class="addr" id="node_' + i + '_addr">' + c.address + '</span>' + '    <p class="buttons">' + '        <span class="node-button button-config" ' + 'title="Config" id="node_' + i + '_config">Config</span>' + '        <span class="node-button button-rename" ' + 'title="Rename" id="node_' + i + '_rename">Rename</span>' + '        <span class="node-button button-ping" title="ping" ' + 'id="node_' + i + '_ping">Ping</span>' + '        <span class="node-text" ' + 'id="node_' + i + '_text">' + text + '</span>' + '    </p>' + '    <p style="clear:both;"></p>' + '</div>');
             $('#node_' + i + '_config').button({
                 icons: { primary: " ui-icon-wrench" },
                 text: false
@@ -68,6 +68,7 @@ var cowList = (function () {
                 icons: { primary: "ui-icon-signal-diag" },
                 text: false
             }).on('click', function (event) {
+                var c = known_cows.cows[$(this).parent().parent().data("node")];
                 var pkt = new cowpacket(0, seqNo++, stdTtl, c.address, 4 /* ping */, false, name);
                 sock.send(pkt.generateJSON());
                 setTimeout(function () {

@@ -48,7 +48,7 @@ class cowList {
             }
             var text = "Regeln: " + rules_count;
             $("#nodes").append(
-                '<div class="node" id="node_' + i + '">' +
+                '<div class="node" id="node_' + i + '" data-node="' + i + '">' +
                 '    <h3 id="node_' + i + '_name">' + c.name + '</h3>' +
                 '    <span class="addr" id="node_' + i + '_addr">' +
                     c.address + '</span>' +
@@ -100,6 +100,7 @@ class cowList {
                     icons: { primary: "ui-icon-signal-diag" },
                     text: false
                 }).on('click', function(event) {
+                    var c = known_cows.cows[$(this).parent().parent().data("node")];
                     var pkt = new cowpacket(0, seqNo++, stdTtl, c.address,
                         cowpacket_type.ping, false, name);
                     sock.send(pkt.generateJSON());

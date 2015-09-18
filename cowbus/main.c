@@ -226,31 +226,9 @@ int main(void)
     packet_queue_init();
 
 
-
-
-    //<just for debug>
-
-//    GPIO_9		SW1
-//    GPIO_10		SW2
-//    GPIO_11		SW4
-//    GPIO_12		nRF-IRQ
-//
-
-    //gpio_init_int(GPIO_9, GPIO_PULLDOWN, GPIO_FALLING, (void *)test, 0); //wird extern auf high gezogen
-    //gpio_irq_enable(GPIO_9);
-
-
-    // initialize radio driver
-
-
-    //eeprom_init();
-
-
-
-
     // TODO get node address from eeprom
     //      if not available, go through algorithm to determine new address:
-    //          1. generate randomly address of length 11 bit
+    //          1. generate random address (cpuid?)
     //          2. send PING with generated address
     //          3. wait X seconds for answer (ping_answer)
     //          4. if no answer received, accept address and save it
@@ -258,19 +236,12 @@ int main(void)
     //              (or determine another address on another way)
     //
 
-    // TODO read name from eeprom
-    //eeprom_get_name();
-
-    // TODO read configuration from eeprom
-    cowconfig_init();
-    eeprom_read_configuration((char*)cowconfig_data);
-
-	while (1) {
-        // we can go to sleep here
-        // THIS DOES NOT WAKE UP!
-        // (if needed, thread has to be woken up externally)
-        thread_sleep();
-    }
+	//while (1) {
+    //    // we can go to sleep here
+    //    // THIS DOES NOT WAKE UP!
+    //    // (if needed, thread has to be woken up externally)
+    //    thread_sleep();
+    //}
 
     return 0;
 }

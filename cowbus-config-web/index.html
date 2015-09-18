@@ -8,8 +8,8 @@
     <meta name="author" content="diy14bus project group">
     <meta name="keywords" content="">
 
-    <script src="js/legacy/jquery-1.11.2.min.js"></script>
-    <script src="js/legacy/jquery-ui-1.11.2.custom/jquery-ui.min.js"></script>
+    <script src="js/legacy/jquery-1.11.3.min.js"></script>
+    <script src="js/legacy/jquery-ui-1.11.4.custom/jquery-ui.min.js"></script>
     <script src="js/cow.js"></script>
     <script src="js/socket.js"></script>
     <script src="js/cowpacket.js"></script>
@@ -18,7 +18,7 @@
     <script src="js/store.js"></script>
     <script src="js/init.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="js/legacy/jquery-ui-1.11.2.custom/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="js/legacy/jquery-ui-1.11.4.custom/jquery-ui.css">
     <link rel="stylesheet" type="text/css" href="css/webconfig.css">
 
 </head>
@@ -85,7 +85,7 @@
                     <span class="config-label">Threshold (a):</span>
                     <input type="text" name="txtCfgThresholdA" id="txtCfgThresholdA" value="">
                 </p>
-                <p>
+                <p id="p_line_th_b">
                     <span class="config-label">Threshold (b):</span>
                     <input type="text" name="txtCfgThresholdB" id="txtCfgThresholdB" value="">
                 </p>
@@ -93,11 +93,9 @@
                     <span class="config-label">Action:</span>
                     <input type="text" name="txtCfgAction" id="txtCfgAction" value="">
                 </p>
-                <p>TODO: chose address from list</p>
+                <!--
                 <p>TODO: Delete by addr</p>
-                <p>TODO: show input for threshB only if range is selected</p>
-                <p>TODO: check if a is lower than b</p>
-                <p>TODO: check if action is smaller than 127</p>
+                -->
             </form>
         </div>
         <div id="cfg-right">

@@ -2,6 +2,7 @@ var cow = (function () {
     function cow(new_address, new_name) {
         if (new_name === void 0) { new_name = cow.UNKNOWN_NAME; }
         this.address = new_address;
+        this.value = new_address;
         this.name = new_name;
     }
     cow.prototype.request_configuration = function () {

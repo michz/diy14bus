@@ -49,7 +49,28 @@ var cowList = (function () {
                 $("#selCfgOperation").val("");
                 $("#txtCfgThresholdA").val("");
                 $("#txtCfgThresholdB").val("");
+                $("#p_line_th_b").css("display", "none");
                 $("#txtCfgAction").val("");
+                // initialize autocompletion
+                $('#txtCfgSourceAddress').autocomplete({
+                    source: known_cows.cows,
+                    minLength: 0
+                }).focus(function () {
+                    //$(this).trigger('keydown.autocomplete');
+                    $(this).autocomplete("search");
+                });
+                $('#txtCfgSourceAddress').autocomplete("instance")._renderItem = function (ul, item) {
+                    return $("<li>").append("<a><b>" + item.name + "</b> (" + item.address + ")</a>").appendTo(ul);
+                };
+                $("#selCfgOperation").on("change", function (e) {
+                    var sel = $(e.target).val();
+                    if (sel >= 8) {
+                        $("#p_line_th_b").css("display", "block");
+                    }
+                    else {
+                        $("#p_line_th_b").css("display", "none");
+                    }
+                });
                 $("#dialog-config").dialog("open");
                 $("#selCfgOperation").select();
                 event.preventDefault();

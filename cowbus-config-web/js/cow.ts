@@ -2,12 +2,14 @@ class cow {
     public static UNKNOWN_NAME : string = "&lt;unknown&gt;";
 
     address : number;
+    value   : number;
     name    : string;
     methods : string[];
 
 
     constructor(new_address : number, new_name : string = cow.UNKNOWN_NAME) {
         this.address    = new_address;
+        this.value      = new_address;
         this.name       = new_name;
     }
 

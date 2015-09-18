@@ -101,6 +101,28 @@ $(document).ready(function() {
                     var thresh_b = parseInt($("#txtCfgThresholdB").val());
                     var action = parseInt($("#txtCfgAction").val());
 
+                    // validate input
+                    if (!$.isNumeric(addr) || addr < 1 || addr > 65534) {
+                        alert("addr must be an integer number and greater than 0 and smaller than 65535.");
+                        return false;
+                    }
+                    if (!$.isNumeric(thresh_a) || thresh_a < 0) {
+                        alert("threshold_a must be a positive integer number and smaller than 65535.");
+                        return false;
+                    }
+                    if (op >= 8 && !$.isNumeric(thresh_b) || thresh_a < 0) {
+                        alert("threshold_b must be a positive integer number and smaller than 65535.");
+                        return false;
+                    }
+                    if (thresh_b <= thresh_a) {
+                        alert("threshold_b must be larger than threshold_a!");
+                        return false;
+                    }
+                    if (!$.isNumeric(action) || action < 0 || action > 127) {
+                        alert("action must be a positive integer number and smaller than 128.");
+                        return false;
+                    }
+
                     // TODO own class for cowconfig_rule, cowconfig_packet
                     var cfg_string =    String.fromCharCode(0) +
                                         String.fromCharCode(1) + 

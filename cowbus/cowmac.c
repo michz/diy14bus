@@ -9,6 +9,7 @@
 
 #include "cowmac.h"
 #include "eeprom.h"
+#include "led.h"
 
 
 char cowmac_receiver_stack[THREAD_STACKSIZE_MAIN];
@@ -30,8 +31,13 @@ static inline uint8_t cowmac_next_seqno(void) {
     return ++c_seq_no;
 }
 
+inline uint32_t cowmac_get_random(uint32_t min, uint32_t max) {
+    return min + rand() % (max-min);
+}
 
 void cowmac_send_packet(cowpacket *pkt) {
+    xtimer_usleep(cowmac_get_random(2, 50) * DELAY_DATA_ON_AIR);
+
     // TODO: CSMA/CA
     // check if medium is busy
     //   if yes: radio_nrf_backoff();
@@ -72,7 +78,7 @@ void cowmac_packet_handler(void) {
 
 void *cowmac_receiver(void *arg) {
     // initialize RNG for CSMA/CA backoff
-    srand(xtimer_now());
+    srand(xtimer_now() * config_get_cpuid());
 
     msg_t msg_q[1];
     msg_init_queue(msg_q, 1);
@@ -144,20 +150,32 @@ void *cowmac_receiver(void *arg) {
                                 cowmac_send_config();
                                 cowconfig_dump();
                                 break;
-                            case CCPM_ADD:
-                                cowconfig_add(&(ccp->rule));
+                            case CCPM_ADD: {
+                                int i = cowconfig_add(&(ccp->rule));
+                                if (i < 0) {
+                                    // TODO: error
+                                }
+                                else {
+                                    printf("Added rule #%d.\n", i);
+                                    eeprom_write_configuration(cowconfig_data);
+                                }
                                 cowconfig_dump();
                                 break;
+                            }
                             case CCPM_DELETE_ALL:
                                 cowconfig_delete_all();
+                                printf("Deleted all rules.\n");
+                                eeprom_write_configuration(cowconfig_data);
                                 cowconfig_dump();
                                 break;
                             case CCPM_DELETE_ONE:
                                 cowconfig_delete_one(ccp->id);
+                                eeprom_write_configuration(cowconfig_data);
                                 cowconfig_dump();
                                 break;
                             case CCPM_DELETE_ADDR:
                                 cowconfig_delete_addr((ccp->raw[0] << 8) + ccp->raw[1]);
+                                eeprom_write_configuration(cowconfig_data);
                                 cowconfig_dump();
                                 break;
                         }
@@ -199,12 +217,36 @@ void cowmac_backoff(void) {
 }
 
 void cowmac_send_config(void) {
-    // TODO
+    for (int i = 0; i < COWCONFIG_COUNT; ++i) {
+        if (cowconfig_data[i].operation > 0) {
+            cowpacket cp;
+            cowmac_init_packet_empty(&cp, configure);
+
+            cowconfig_packet* ccp = (cowconfig_packet*)(cp.payload);
+            ccp->id = i;
+            ccp->method = CCPM_ANSWER_LIST;
+            memcpy(ccp->raw, &(cowconfig_data[i]), sizeof(cowconfig_rule));
+
+            //printf("Send configure packet: \n");
+            //printf("v: %d\n", cp->version);
+            //printf("s: %d\n", cp->seq_no);
+            //printf("tt:%d\n", cp->ttl);
+            //printf("a: %d\n", cp->addr);
+            //for (int i = 0; i < sizeof(cowpacket); i++) {
+            //    printf("%d\n", ((char*)cp)[i]);
+            //}
+            //printf("\n");
+
+            cowmac_send_packet(&cp);
+
+            printf("sending configuration ... %d ...\n", i);
+        }
+    }
 }
 
 /*
- * Some notes:
- * According to nrf24l01+ datasheet, a packet is not larger than 329 bit.
- * So the transmission of one packet at 2Mbps should not take longer than 
- *  164.5µs (or 0.1645ms).
+* Some notes:
+* According to nrf24l01+ datasheet, a packet is not larger than 329 bit.
+* So the transmission of one packet at 2Mbps should not take longer than
+*  164.5µs (or 0.1645ms).
  */

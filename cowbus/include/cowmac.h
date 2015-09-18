@@ -56,6 +56,14 @@ extern uint16_t cowmac_address;
  */
 void *cowmac_receiver(void *arg);
 
+/**
+ * @brief       Returns a pseudo randomly generated number between min and max.
+ * @param   min (Inclusive) lower border.
+ * @param   max (Exclusive) upper border.
+ *
+ * @warning Only works reliable if cowmac_receiver thread was started before.
+ */
+uint32_t cowmac_get_random(uint32_t min, uint32_t max);
 
 /**
  * @brief    TODO

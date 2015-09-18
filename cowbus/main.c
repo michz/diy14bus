@@ -41,14 +41,81 @@ int sendMsg = 0;
 //#define MODULE_UART0
 
 void packet_received(cowpacket pkt) {
-    led_blink_s(green, 100, 1);
+    //led_blink_s(green, 100, 1);
+    
     // TODO packet handling (switch led on/off, ping response, ...)
     // only interpret this if address is my node's address
     if (cowpacket_get_address(&pkt) == config_get_address()) {
-        led_blink_s(blue, 100, 1);
+        //led_blink_s(blue, 100, 1);
         // TODO interpret message payload (led1 on, led2 color, ...)
     }
     else {
+        printf("value: %d\n", pkt.payload[0]);
+        for (int i = 0; i < COWCONFIG_COUNT; ++i) {
+            if (cowconfig_data[i].operation > 0 &&
+                cowconfig_data[i].address == cowpacket_get_address(&pkt)) {
+
+                if (
+                    (cowconfig_data[i].operation == OP_ANY) ||
+                    (cowconfig_data[i].operation == OP_LT && pkt.payload[0] < cowconfig_data[i].threshold_a) ||
+                    (cowconfig_data[i].operation == OP_GT && pkt.payload[0] > cowconfig_data[i].threshold_a) ||
+                    (cowconfig_data[i].operation == OP_LTE && pkt.payload[0] <= cowconfig_data[i].threshold_a) ||
+                    (cowconfig_data[i].operation == OP_GTE && pkt.payload[0] >= cowconfig_data[i].threshold_a) ||
+                    (cowconfig_data[i].operation == OP_EQ && pkt.payload[0] == cowconfig_data[i].threshold_a) ||
+                    (cowconfig_data[i].operation == OP_NEQ && pkt.payload[0] != cowconfig_data[i].threshold_a) ||
+                    (cowconfig_data[i].operation == OP_RANGE_GT_LT && 
+                     (pkt.payload[0] > cowconfig_data[i].threshold_a &&
+                      pkt.payload[0] < cowconfig_data[i].threshold_b)) ||
+                    (cowconfig_data[i].operation == OP_RANGE_GTE_LTE && 
+                     (pkt.payload[0] >= cowconfig_data[i].threshold_a &&
+                      pkt.payload[0] <= cowconfig_data[i].threshold_b)) ||
+                    (cowconfig_data[i].operation == OP_RANGE_GTE_LT && 
+                     (pkt.payload[0] >= cowconfig_data[i].threshold_a &&
+                      pkt.payload[0] < cowconfig_data[i].threshold_b)) ||
+                    (cowconfig_data[i].operation == OP_RANGE_GT_LTE && 
+                     (pkt.payload[0] > cowconfig_data[i].threshold_a &&
+                      pkt.payload[0] <= cowconfig_data[i].threshold_b)) ||
+                    (cowconfig_data[i].operation == OP_NOT_RANGE_GT_LT && 
+                     !(pkt.payload[0] > cowconfig_data[i].threshold_a &&
+                      pkt.payload[0] < cowconfig_data[i].threshold_b)) ||
+                    (cowconfig_data[i].operation == OP_NOT_RANGE_GTE_LTE && 
+                     !(pkt.payload[0] >= cowconfig_data[i].threshold_a &&
+                      pkt.payload[0] <= cowconfig_data[i].threshold_b)) ||
+                    (cowconfig_data[i].operation == OP_NOT_RANGE_GTE_LT && 
+                     !(pkt.payload[0] >= cowconfig_data[i].threshold_a &&
+                      pkt.payload[0] < cowconfig_data[i].threshold_b)) ||
+                    (cowconfig_data[i].operation == OP_NOT_RANGE_GT_LTE && 
+                     !(pkt.payload[0] > cowconfig_data[i].threshold_a &&
+                      pkt.payload[0] <= cowconfig_data[i].threshold_b))
+                        ) {
+                            // MATCH! yeah!
+                            
+                            // do action
+                            
+                            switch (cowconfig_data[i].action) {
+                                case 1:
+                                    led_set_color(red);
+                                    break;
+                                case 2:
+                                    led_set_color(green);
+                                    break;
+                                case 3:
+                                    led_set_color(blue);
+                                    break;
+                                case 4:
+                                    led_set_color(black);
+                                    break;
+                                case 5:
+                                    sendMsg = -3;
+                                    break;
+                                default:
+                                    //do nothing
+                                    break;
+                            }
+
+                }
+            }
+        }
         // TODO go through programmed event handlers
     }
 }
@@ -63,17 +130,22 @@ void switch1(void)
 void switch2(void)
 {
 	printf("switch 2 pressed.\n");
-    sendMsg = -1;
+    sendMsg = 2;
 }
 
 void switch3(void)
 {
 	printf("switch 3 pressed.\n");
+    sendMsg = 3;
 }
 
 void switch4(void)
 {
 	printf("switch 4 pressed.\n");
+    sendMsg = 4;
+
+
+    // emergency reboot
     if (switch3_get_state()) {
         printf("Pressed #3 and #4, reset!\n");
         xtimer_spin(1000);
@@ -113,31 +185,32 @@ int main(void)
 		if (sendMsg > 0) {
             cowpacket pkt;
 
-            cowmac_init_packet(&pkt, ping, "123456", 7);
+            cowmac_init_packet_empty(&pkt, event);
+            pkt.payload[0] = sendMsg;
 
             cowmac_send_packet(&pkt);
 
             // reset
 		}
-        else if (sendMsg < 0) {
+        else if (sendMsg == -2) {
             //uint16_t addr = eeprom_get_addr();
             //printf("addr from eeprom: %d\n", addr);
             printf("Temp: %s\n", temp_to_readable(temp_get()));
-            buzzer(note_c2, 250);
-            buzzer(note_d2, 250);
-            buzzer(note_e2, 250);
-            buzzer(note_f2, 250);
-            buzzer(note_g2, 250);
-            buzzer(note_a2, 250);
-            buzzer(note_b2, 250);
-            buzzer(note_c3, 250);
+        }
+        else if (sendMsg == -3) {
+            buzzer(note_c2, 100);
+            buzzer(note_e2, 100);
+            buzzer(note_g2, 100);
+            buzzer(note_d2, 100);
+            buzzer(note_f2, 100);
+            buzzer(note_b2, 100);
         }
         sendMsg = 0;
 
 
 
-        if (i > 5000) {
-            led_blink_s(magenta, 100, 1);
+        if (i > 10000) {
+            led_blink_s(white, 50, 1);
             i = 0;
         }
         i++;

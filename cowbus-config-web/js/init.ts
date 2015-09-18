@@ -46,6 +46,9 @@ $(document).ready(function() {
     });
     $("#txtHost").val(store.getHost());
     $("#btnClose").click(function() { $("#dialog-connect").dialog("open"); });
+    
+    $("#btnScan").click(function() { known_cows.scan(); });
+    $("#btnClear").click(function() { $("#log-output").empty(); });
 
     // init rename dialog
     $( "#dialog-rename" ).dialog({
@@ -160,6 +163,7 @@ function pktHandler(json : string) {
 
 function logme(msg : string, cls : string = "") {
     $("#log-output").append("<p class='" + cls + "'>" + msg  + "</p>");
+    $("#right").animate({scrollTop: $("#log-output").height()}, "slow");
 }
 
 function showRenameDialog() {

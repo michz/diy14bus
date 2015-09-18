@@ -36,7 +36,7 @@ class cow {
         if ((pkt.type == cowpacket_type.get_name ||
             pkt.type == cowpacket_type.ping_answer) &&
             pkt.payload.length > 0) {
-                c.name = pkt.payload;
+                c.name = pkt.payload.replace(/\0/g, '').trim();
         }
         return c;
     }

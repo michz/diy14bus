@@ -138,6 +138,7 @@ static inline void cowconfig_delete_addr(int addr) {
         if (cowconfig_data[i].address == addr) {
             // slot is empty, use it and return index
             memset(&(cowconfig_data[i]), 0, sizeof(cowconfig_rule));
+            printf("Deleted rule #%d.\n", i);
         }
     }
 }

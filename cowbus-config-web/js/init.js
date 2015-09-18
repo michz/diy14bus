@@ -43,6 +43,12 @@ $(document).ready(function () {
     $("#btnClose").click(function () {
         $("#dialog-connect").dialog("open");
     });
+    $("#btnScan").click(function () {
+        known_cows.scan();
+    });
+    $("#btnClear").click(function () {
+        $("#log-output").empty();
+    });
     // init rename dialog
     $("#dialog-rename").dialog({
         autoOpen: false,
@@ -130,6 +136,7 @@ function pktHandler(json) {
 function logme(msg, cls) {
     if (cls === void 0) { cls = ""; }
     $("#log-output").append("<p class='" + cls + "'>" + msg + "</p>");
+    $("#right").animate({ scrollTop: $("#log-output").height() }, "slow");
 }
 function showRenameDialog() {
 }

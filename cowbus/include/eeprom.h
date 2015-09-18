@@ -70,7 +70,7 @@ void eeprom_set_addr(uint16_t addr);
 /**
  * @brief   Writes the configuration to eeprom.
  */
-void eeprom_write_configuration(char* from);
+void eeprom_write_configuration(void* from);
 
 /**
  * @brief           Reads n bytes from eeprom.

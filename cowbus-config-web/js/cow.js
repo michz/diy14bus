@@ -21,7 +21,7 @@ var cow = (function () {
             logme("Received ping answer from " + pkt.address + " (" + pkt.payload + ")", 'success');
         }
         if ((pkt.type == 2 /* get_name */ || pkt.type == 5 /* ping_answer */) && pkt.payload.length > 0) {
-            c.name = pkt.payload;
+            c.name = pkt.payload.replace(/\0/g, '').trim();
         }
         return c;
     };

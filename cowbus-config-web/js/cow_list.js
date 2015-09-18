@@ -43,6 +43,7 @@ var cowList = (function () {
                 icons: { primary: " ui-icon-wrench" },
                 text: false
             }).on('click', function (event) {
+                var c = known_cows.cows[$(this).parent().parent().data("node")];
                 $("#hidCfgAddr").val(String(c.address));
                 $("#txtCfgSourceAddrress").val("");
                 $("#selCfgOperation").val("");
@@ -57,6 +58,7 @@ var cowList = (function () {
                 icons: { primary: " ui-icon-pencil" },
                 text: false
             }).on('click', function (event) {
+                var c = known_cows.cows[$(this).parent().parent().data("node")];
                 $("#hidRenameAddr").val(String(c.address));
                 $("#spanRenameAddr").text(String(c.address));
                 $("#txtRename").val(c.name);
@@ -74,7 +76,7 @@ var cowList = (function () {
                 setTimeout(function () {
                     var pkt2 = new cowpacket(0, seqNo++, stdTtl, c.address, 7 /* configure */, false, btoa(String.fromCharCode(0)));
                     sock.send(pkt2.generateJSON());
-                }, 100);
+                }, 500);
                 event.preventDefault();
             });
         }

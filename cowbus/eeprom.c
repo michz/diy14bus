@@ -45,6 +45,14 @@ char* eeprom_read_name(char* to) {
     if (buf[0] < 32 || buf[0] > 122) {  // not usable character, assume NOT SET
         memcpy(buf, CONFIG_DEFAULT_NAME, EEPROM_LENGTH_NAME);
     }
+    else {
+        // reset "empty" eeprom bytes (default to 255) back to system default (0)
+        for (int i = 0; i < EEPROM_LENGTH_NAME; ++i) {
+            if (buf[i] == 255) buf[i] = 0;
+            printf("%d ", (int)(buf[i]));
+        }
+        printf("\n");
+    }
     return buf;
 }
 
@@ -65,6 +73,14 @@ uint16_t eeprom_get_addr(void) {
 
 void eeprom_read_configuration(void* to) {
     eeprom_read_bytes(to, EEPROM_POS_CONFIG, EEPROM_LENGTH_CONFIG);
+
+    // reset "empty" eeprom bytes (default to 255) back to system default (0)
+    cowconfig_rule* cowconfig_data = to;
+    for (int i = 0; i < COWCONFIG_COUNT; ++i) {
+        if (cowconfig_data[i].operation == 255) {
+            memset(&(cowconfig_data[i]), 0, sizeof(cowconfig_rule));
+        }
+    }
 }
 
 void eeprom_set_name(char* new_name) {
@@ -85,7 +101,7 @@ void eeprom_set_addr(uint16_t addr) {
     eeprom_write_bytes(buf, EEPROM_POS_ADDRESS, EEPROM_LENGTH_ADDRESS);
 }
 
-void eeprom_write_configuration(char* from) {
+void eeprom_write_configuration(void* from) {
     eeprom_write_bytes(from, EEPROM_POS_CONFIG, EEPROM_LENGTH_CONFIG);
 }
 

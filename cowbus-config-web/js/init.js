@@ -4,6 +4,10 @@ var known_cows = new cowList();
 var sock;
 var seqNo = 1;
 var stdTtl = 5;
+var waitPkt = null;
+var waitTimeout = null;
+var waitSucCallback = null;
+var waitErrCallback = null;
 $(document).ready(function () {
     sock = new socket();
     cowconfig_rule_pool.init();
@@ -22,6 +26,15 @@ $(document).ready(function () {
             });
         }
     });
+    // init wait dialog
+    $("#dialog-wait").dialog({
+        autoOpen: false,
+        width: 450,
+        height: 'auto',
+        modal: true,
+        buttons: []
+    });
+    $("#wait-bar").progressbar({ value: false });
     // init connect dialog
     $("#dialog-connect").dialog({
         autoOpen: false,
@@ -118,7 +131,13 @@ $(document).ready(function () {
                     var cfg_string = String.fromCharCode(0) + String.fromCharCode(1) + String.fromCharCode(addr & 0xFF) + String.fromCharCode((addr >> 8) & 0xFF) + String.fromCharCode(op) + String.fromCharCode(action) + String.fromCharCode((thresh_a) & 0xFF) + String.fromCharCode((thresh_a >> 8) & 0xFF) + String.fromCharCode((thresh_b) & 0xFF) + String.fromCharCode((thresh_b >> 8) & 0xFF);
                     var pkt = new cowpacket(0, getNextSeqNo(), stdTtl, node_addr, 7 /* configure */, false, btoa(cfg_string));
                     sock.send(pkt.generateJSON());
-                    $(this).dialog("close");
+                    waitForAck(pkt, "Waiting for configuration to be applied...", function () {
+                        // ping again to get correct rules
+                        setTimeout(function () {
+                            var pkt2 = new cowpacket(0, getNextSeqNo(), stdTtl, node_addr, 7 /* configure */, false, btoa(String.fromCharCode(0)));
+                            sock.send(pkt2.generateJSON());
+                        }, 100);
+                    });
                 }
             },
             {
@@ -146,18 +165,42 @@ function pktHandler(json) {
     var obj = JSON.parse(json);
     logme("Received: " + JSON.stringify(obj));
     var pkt = cowpacket.fromJSON(obj);
-    known_cows.updateCow(cow.fromPacket(pkt));
-    if (pkt.type == 7 /* configure */) {
-        var cfgpkt = cowconfig_packet.fromString(pkt.payload);
-        logme("Config received: " + JSON.stringify(cfgpkt), 'success');
-        cowconfig_rule_pool.add(pkt.address, cfgpkt.id, cfgpkt.rule);
-        known_cows.updateView();
+    if (pkt.type == 15 /* ack */) {
+        // this is an ACK packet, hopefully we are waiting for it
+        if (waitPkt.address == pkt.address && waitPkt.seq_no == pkt.seq_no) {
+            clearTimeout(waitTimeout);
+            hideWait();
+            if (waitSucCallback != null)
+                waitSucCallback();
+        }
+    }
+    else if (pkt.type == 14 /* error */) {
+        // this is an ERROR packet
+        if (waitPkt.address == pkt.address && waitPkt.seq_no == pkt.seq_no) {
+            clearTimeout(waitTimeout);
+            hideWait();
+            console.log(pkt);
+            if (waitErrCallback != null)
+                waitErrCallback();
+            else {
+                alert("An error occurred, sorry!");
+            }
+        }
+    }
+    else {
+        known_cows.updateCow(cow.fromPacket(pkt));
+        if (pkt.type == 7 /* configure */) {
+            var cfgpkt = cowconfig_packet.fromString(pkt.payload);
+            logme("Config received: " + JSON.stringify(cfgpkt), 'success');
+            cowconfig_rule_pool.add(pkt.address, cfgpkt.id, cfgpkt.rule);
+            known_cows.updateView();
+        }
     }
 }
 function logme(msg, cls) {
     if (cls === void 0) { cls = ""; }
     $("#log-output").append("<p class='" + cls + "'>" + msg + "</p>");
-    $("#right").animate({ scrollTop: $("#log-output").height() }, "slow");
+    $("#right").animate({ scrollTop: $("#log-output").height() }, "fast");
 }
 function showRenameDialog() {
 }
@@ -170,7 +213,7 @@ function updateRuleList(addr) {
         var r = rules[i];
         if (!r)
             continue;
-        $("#cfg-right").append('<div class="cfg-rule">' + '    <p><span class="config-label">ID: ' + i + '</span></p>' + '    <p><span class="config-label">Adresse: ' + r.address + '</span></p>' + '    <p><span class="config-label">Operation: ' + r.operation + '</span></p>' + '    <p><span class="config-label">Action: ' + r.action + '</span></p>' + '    <p><span class="config-label">Threshold A: ' + r.threshold_a + '</span></p>' + '    <p><span class="config-label">Threshold B: ' + r.threshold_b + '</span></p>' + '    <span onclick="deleteConfigRule(' + addr + ', ' + i + ')">Delete rule</span>' + '</div>');
+        $("#cfg-right").append('<div class="cfg-rule">' + '    <p><span class="config-label">ID: ' + i + '</span></p>' + '    <p><span class="config-label">address: ' + r.address + '</span></p>' + '    <p><span class="config-label">operation: ' + r.operation + '</span></p>' + '    <p><span class="config-label">threshold A: ' + r.threshold_a + '</span></p>' + '    <p><span class="config-label">threshold B: ' + r.threshold_b + '</span></p>' + '    <p><span class="config-label">action: ' + r.action + '</span></p>' + '    <span onclick="deleteConfigRule(' + addr + ', ' + i + ')">Delete rule</span>' + '</div>');
     }
     known_cows.updateView();
 }
@@ -179,7 +222,33 @@ function deleteConfigRule(addr, id) {
 }
 function getNextSeqNo() {
     seqNo++;
-    if (seqNo > 30)
+    if (seqNo >= 254)
         seqNo = 0;
     return seqNo;
+}
+function waitForAck(pkt, msg, successCallback, errorCallback, timeout) {
+    if (msg === void 0) { msg = "Request ist being processed..."; }
+    if (successCallback === void 0) { successCallback = null; }
+    if (errorCallback === void 0) { errorCallback = null; }
+    if (timeout === void 0) { timeout = 5000; }
+    showWait(msg);
+    waitPkt = pkt;
+    waitSucCallback = successCallback;
+    waitErrCallback = errorCallback;
+    waitTimeout = setTimeout(function () {
+        hideWait();
+        if (waitErrCallback != null)
+            waitErrCallback();
+        else {
+            alert("No ACK was received in time, sorry.");
+        }
+    }, timeout);
+}
+function showWait(msg) {
+    if (msg === void 0) { msg = "Request ist being processed..."; }
+    $("#wait-msg").html(msg);
+    $("#dialog-wait").dialog("open");
+}
+function hideWait() {
+    $("#dialog-wait").dialog("close");
 }

@@ -6,7 +6,9 @@ enum cowpacket_type {
     ping                = 4,
     ping_answer         = 5,
     set_name            = 6,
-    configure           = 7
+    configure           = 7,
+    error               = 14,
+    ack                 = 15
 }
 class cowpacket {
     public static COWBUS_VERSION  : number = 0;

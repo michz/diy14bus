@@ -6,6 +6,11 @@ var sock        : socket;
 var seqNo       : number    = 1;
 var stdTtl      : number    = 5;
 
+var waitPkt     : cowpacket = null;
+var waitTimeout             = null;
+var waitSucCallback         = null;
+var waitErrCallback         = null;
+
 $(document).ready(function() {
     sock = new socket();
     cowconfig_rule_pool.init();
@@ -26,6 +31,16 @@ $(document).ready(function() {
             });
         } 
     });
+    
+    // init wait dialog
+    $( "#dialog-wait" ).dialog({
+        autoOpen: false,
+        width: 450,
+        height: 'auto',
+        modal: true,
+        buttons: []
+        });
+    $( "#wait-bar" ).progressbar(<any>{ value:false });
 
     // init connect dialog
     $( "#dialog-connect" ).dialog({
@@ -140,7 +155,15 @@ $(document).ready(function() {
 
                     sock.send(pkt.generateJSON());
 
-                    $( this ).dialog( "close" );
+                    waitForAck(pkt, "Waiting for configuration to be applied...",
+                        function() { // success callback
+                            // ping again to get correct rules
+                            setTimeout(function() {
+                                var pkt2 = new cowpacket(0, getNextSeqNo(), stdTtl, node_addr,
+                                    cowpacket_type.configure, false, btoa(String.fromCharCode(0)));
+                                sock.send(pkt2.generateJSON());
+                            }, 100);
+                        });
                 }
             },
             {
@@ -174,18 +197,39 @@ function pktHandler(json : string) {
     var obj = JSON.parse(json);
     logme("Received: " + JSON.stringify(obj));
     var pkt = cowpacket.fromJSON(obj);
-    known_cows.updateCow(cow.fromPacket(pkt));
-    if (pkt.type == cowpacket_type.configure) {
-        var cfgpkt = cowconfig_packet.fromString(pkt.payload);
-        logme("Config received: " + JSON.stringify(cfgpkt), 'success');
-        cowconfig_rule_pool.add(pkt.address, cfgpkt.id, cfgpkt.rule);
-        known_cows.updateView();
+
+    if (pkt.type == cowpacket_type.ack) {
+        // this is an ACK packet, hopefully we are waiting for it
+        if (waitPkt.address == pkt.address && waitPkt.seq_no == pkt.seq_no) {
+            clearTimeout(waitTimeout);
+            hideWait();
+            if (waitSucCallback != null) waitSucCallback();
+        }
+    }
+    else if (pkt.type == cowpacket_type.error) {
+        // this is an ERROR packet
+        if (waitPkt.address == pkt.address && waitPkt.seq_no == pkt.seq_no) {
+            clearTimeout(waitTimeout);
+            hideWait();
+            console.log(pkt);
+            if (waitErrCallback != null) waitErrCallback();
+            else { alert("An error occurred, sorry!"); }
+        }
+    }
+    else {
+        known_cows.updateCow(cow.fromPacket(pkt));
+        if (pkt.type == cowpacket_type.configure) {
+            var cfgpkt = cowconfig_packet.fromString(pkt.payload);
+            logme("Config received: " + JSON.stringify(cfgpkt), 'success');
+            cowconfig_rule_pool.add(pkt.address, cfgpkt.id, cfgpkt.rule);
+            known_cows.updateView();
+        }
     }
 }
 
 function logme(msg : string, cls : string = "") {
     $("#log-output").append("<p class='" + cls + "'>" + msg  + "</p>");
-    $("#right").animate({scrollTop: $("#log-output").height()}, "slow");
+    $("#right").animate({scrollTop: $("#log-output").height()}, "fast");
 }
 
 function showRenameDialog() {
@@ -204,11 +248,11 @@ function updateRuleList(addr) {
         $("#cfg-right").append(
             '<div class="cfg-rule">' +
             '    <p><span class="config-label">ID: ' + i + '</span></p>' +
-            '    <p><span class="config-label">Adresse: ' + r.address + '</span></p>' +
-            '    <p><span class="config-label">Operation: ' + r.operation + '</span></p>' +
-            '    <p><span class="config-label">Action: ' + r.action + '</span></p>' +
-            '    <p><span class="config-label">Threshold A: ' + r.threshold_a + '</span></p>' +
-            '    <p><span class="config-label">Threshold B: ' + r.threshold_b + '</span></p>' +
+            '    <p><span class="config-label">address: ' + r.address + '</span></p>' +
+            '    <p><span class="config-label">operation: ' + r.operation + '</span></p>' +
+            '    <p><span class="config-label">threshold A: ' + r.threshold_a + '</span></p>' +
+            '    <p><span class="config-label">threshold B: ' + r.threshold_b + '</span></p>' +
+            '    <p><span class="config-label">action: ' + r.action + '</span></p>' +
             '    <span onclick="deleteConfigRule('+addr+', '+i+')">Delete rule</span>' +
             '</div>' 
         );
@@ -223,10 +267,32 @@ function deleteConfigRule(addr, id) : void {
 
 function getNextSeqNo() : number {
     seqNo++;
-    if (seqNo > 30) seqNo = 0;
-
+    if (seqNo >= 254) seqNo = 0;
     return seqNo;
 }
 
+function waitForAck(pkt : cowpacket, msg = "Request ist being processed...",
+                    successCallback = null, errorCallback = null,
+                    timeout : number = 5000) {
+                   
+    showWait(msg);
+    waitPkt = pkt;
+    waitSucCallback = successCallback;
+    waitErrCallback = errorCallback;
+    waitTimeout = setTimeout(function() {
+        hideWait();
+        if (waitErrCallback != null) waitErrCallback();
+        else { alert("No ACK was received in time, sorry."); }
+    }, timeout);
+}
+
+function showWait(msg : string = "Request ist being processed...") {
+    $( "#wait-msg" ).html(msg);
+    $( "#dialog-wait" ).dialog("open");
+}
+
+function hideWait() {
+    $( "#dialog-wait" ).dialog("close");
+}
 
 // vim: set et ts=4 sw=4 syntax=javascript:

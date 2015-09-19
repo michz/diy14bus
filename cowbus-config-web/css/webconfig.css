@@ -81,8 +81,10 @@ div.node .buttons { margin: 2px 2px 5px 4px; }
 div.node span.node-button { width:16px; height:16px; float:right; overflow:hidden; }
 
 
+#wait-msg { margin-bottom:15px; }
+
 #cfg-left { float:left; width:49%; }
-#cfg-right { float:left; width:49%; overflow-y:scroll; }
+#cfg-right { float:left; width:49%; max-height:400px; overflow-y:scroll; }
 
 .config-label { width: 165px; display: inline-block; text-align: right; }
 
@@ -92,6 +94,8 @@ div.node span.node-button { width:16px; height:16px; float:right; overflow:hidde
 .cfg-rule { margin:3px; padding:2px;
     background-color:#EDA64F; border:1px solid #9A821C; border-radius:5px; }
 .cfg-rule p { margin:1px 0; }
+
+li.ui-state-focus { font-weight:normal !important; }
 
 /* Logging */
 #log-output { font-size:0.8em; margin:10px; word-wrap:break-word; }

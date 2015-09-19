@@ -23,7 +23,7 @@ var cowList = (function () {
         this.updateView();
     };
     cowList.prototype.scan = function () {
-        var pkt = new cowpacket(0, seqNo++, stdTtl, 0, 4 /* ping */, false, "");
+        var pkt = new cowpacket(0, getNextSeqNo(), stdTtl, 0, 4 /* ping */, false, "");
         sock.send(pkt.generateJSON());
     };
     cowList.prototype.updateView = function () {
@@ -62,6 +62,9 @@ var cowList = (function () {
                 $('#txtCfgSourceAddress').autocomplete("instance")._renderItem = function (ul, item) {
                     return $("<li>").append("<a><b>" + item.name + "</b> (" + item.address + ")</a>").appendTo(ul);
                 };
+                $('#txtCfgSourceAddress').autocomplete("instance")._resizeMenu = function () {
+                    this.menu.element.outerWidth(160);
+                };
                 $("#selCfgOperation").on("change", function (e) {
                     var sel = $(e.target).val();
                     if (sel >= 8) {
@@ -92,10 +95,10 @@ var cowList = (function () {
                 text: false
             }).on('click', function (event) {
                 var c = known_cows.cows[$(this).parent().parent().data("node")];
-                var pkt = new cowpacket(0, seqNo++, stdTtl, c.address, 4 /* ping */, false, name);
+                var pkt = new cowpacket(0, getNextSeqNo(), stdTtl, c.address, 4 /* ping */, false, name);
                 sock.send(pkt.generateJSON());
                 setTimeout(function () {
-                    var pkt2 = new cowpacket(0, seqNo++, stdTtl, c.address, 7 /* configure */, false, btoa(String.fromCharCode(0)));
+                    var pkt2 = new cowpacket(0, getNextSeqNo(), stdTtl, c.address, 7 /* configure */, false, btoa(String.fromCharCode(0)));
                     sock.send(pkt2.generateJSON());
                 }, 500);
                 event.preventDefault();

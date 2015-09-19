@@ -31,7 +31,7 @@ class cowList {
     }
     
     scan() : void {
-        var pkt = new cowpacket(0, seqNo++, stdTtl, 0,
+        var pkt = new cowpacket(0, getNextSeqNo(), stdTtl, 0,
             cowpacket_type.ping, false, "");
         sock.send(pkt.generateJSON());
     }
@@ -93,6 +93,9 @@ class cowList {
                             .append( "<a><b>" + item.name + "</b> (" + item.address + ")</a>" )
                             .appendTo( ul );
                     };
+                    (<any>$('#txtCfgSourceAddress')).autocomplete( "instance" )._resizeMenu = function() {
+                        this.menu.element.outerWidth(160);
+                    };
 
                     $("#selCfgOperation").on("change", function(e) {
                         var sel = $(e.target).val();
@@ -130,12 +133,12 @@ class cowList {
                     text: false
                 }).on('click', function(event) {
                     var c = known_cows.cows[$(this).parent().parent().data("node")];
-                    var pkt = new cowpacket(0, seqNo++, stdTtl, c.address,
+                    var pkt = new cowpacket(0, getNextSeqNo(), stdTtl, c.address,
                         cowpacket_type.ping, false, name);
                     sock.send(pkt.generateJSON());
                     
                     setTimeout(function() {
-                        var pkt2 = new cowpacket(0, seqNo++, stdTtl, c.address,
+                        var pkt2 = new cowpacket(0, getNextSeqNo(), stdTtl, c.address,
                             cowpacket_type.configure, false, btoa(String.fromCharCode(0)));
                         sock.send(pkt2.generateJSON());
                     }, 500);

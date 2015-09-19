@@ -35,8 +35,24 @@ inline uint32_t cowmac_get_random(uint32_t min, uint32_t max) {
     return min + rand() % (max-min);
 }
 
+void cowmac_send_error(uint16_t addr, uint8_t seqno) {
+    cowpacket pkt;
+    cowmac_init_packet_empty(&pkt, error);
+    cowpacket_set_address(&pkt, addr);
+    pkt.seq_no = seqno;
+    cowmac_send_packet(&pkt);
+}
+
+void cowmac_send_ack(uint16_t addr, uint8_t seqno) {
+    cowpacket pkt;
+    cowmac_init_packet_empty(&pkt, ack);
+    cowpacket_set_address(&pkt, addr);
+    pkt.seq_no = seqno;
+    cowmac_send_packet(&pkt);
+}
+
 void cowmac_send_packet(cowpacket *pkt) {
-    xtimer_usleep(cowmac_get_random(2, 50) * DELAY_DATA_ON_AIR);
+    xtimer_usleep(2 * cowmac_get_random(1, 50) * DELAY_DATA_ON_AIR);
 
     // TODO: CSMA/CA
     // check if medium is busy
@@ -152,11 +168,12 @@ void *cowmac_receiver(void *arg) {
                                 break;
                             case CCPM_ADD: {
                                 int i = cowconfig_add(&(ccp->rule));
-                                if (i < 0) {
-                                    // TODO: error
+                                if (i < 0) { // error, perhaps too much rules?
+                                    cowmac_send_error(addr, p.seq_no);
                                 }
                                 else {
                                     printf("Added rule #%d.\n", i);
+                                    cowmac_send_ack(addr, p.seq_no);
                                     eeprom_write_configuration(cowconfig_data);
                                 }
                                 cowconfig_dump();
@@ -165,21 +182,23 @@ void *cowmac_receiver(void *arg) {
                             case CCPM_DELETE_ALL:
                                 cowconfig_delete_all();
                                 printf("Deleted all rules.\n");
+                                cowmac_send_ack(addr, p.seq_no);
                                 eeprom_write_configuration(cowconfig_data);
                                 cowconfig_dump();
                                 break;
                             case CCPM_DELETE_ONE:
                                 cowconfig_delete_one(ccp->id);
+                                cowmac_send_ack(addr, p.seq_no);
                                 eeprom_write_configuration(cowconfig_data);
                                 cowconfig_dump();
                                 break;
                             case CCPM_DELETE_ADDR:
                                 cowconfig_delete_addr((ccp->raw[0] << 8) + ccp->raw[1]);
+                                cowmac_send_ack(addr, p.seq_no);
                                 eeprom_write_configuration(cowconfig_data);
                                 cowconfig_dump();
                                 break;
                         }
-                        // TODO ack, if successful?
                     }
                 }
 

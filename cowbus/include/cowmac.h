@@ -65,10 +65,27 @@ void *cowmac_receiver(void *arg);
  */
 uint32_t cowmac_get_random(uint32_t min, uint32_t max);
 
+
 /**
  * @brief    TODO
  */
 void cowmac_send_packet(cowpacket *pkt);
+
+
+/**
+ * @brief    Sends back an error message regarding a received packet.
+ * @param   addr    Address field of received packet.
+ * @param   seqno   Sequence number field of received packet.
+ */
+void cowmac_send_error(uint16_t addr, uint8_t seqno);
+
+
+/**
+ * @brief    Sends back an success+ack message regarding a received packet.
+ * @param   addr    Address field of received packet.
+ * @param   seqno   Sequence number field of received packet.
+ */
+void cowmac_send_ack(uint16_t addr, uint8_t seqno);
 
 
 /**

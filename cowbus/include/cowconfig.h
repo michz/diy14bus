@@ -90,6 +90,8 @@ static inline void cowconfig_init(void) {
  * @param   rule    The rule that should be added.
  */
 static inline int cowconfig_add(cowconfig_rule* rule) {
+    // TODO first check if rule is already added (duplicate packet)
+
     for (int i = 0; i < COWCONFIG_COUNT; ++i) {
         if (cowconfig_data[i].operation == OP_NO) {
             // slot is empty, use it and return index

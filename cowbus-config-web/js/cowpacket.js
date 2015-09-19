@@ -8,6 +8,8 @@ var cowpacket_type;
     cowpacket_type[cowpacket_type["ping_answer"] = 5] = "ping_answer";
     cowpacket_type[cowpacket_type["set_name"] = 6] = "set_name";
     cowpacket_type[cowpacket_type["configure"] = 7] = "configure";
+    cowpacket_type[cowpacket_type["error"] = 14] = "error";
+    cowpacket_type[cowpacket_type["ack"] = 15] = "ack";
 })(cowpacket_type || (cowpacket_type = {}));
 var cowpacket = (function () {
     function cowpacket(new_version, new_seq_no, new_ttl, new_address, new_type, new_is_fragment, new_payload) {

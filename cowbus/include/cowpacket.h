@@ -30,7 +30,9 @@ typedef enum cowpacket_type {
     ping        = 4,    ///< ask if there is somebody out there with the given address
     ping_answer = 5,    ///< ping answer saying "I am ADDR"
     set_name    = 6,    ///< set the name of the current node
-    configure   = 7     ///< configuration mode
+    configure   = 7,    ///< configuration mode
+    error       = 14,   ///< simple ERROR notification
+    ack         = 15    ///< simple ACK
 } cowpacket_type;
 
 

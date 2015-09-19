@@ -134,26 +134,30 @@ class cowconfig_rule_pool {
         if (!(cowconfig_rule_pool.pool[node_address]) || !(cowconfig_rule_pool.pool[node_address][id])) {
             return;
         }
-        cowconfig_rule_pool.pool[node_address][id] = undefined;
 
         var pkt = new cowconfig_packet(id, cowconfig_packet_method.CCPM_DELETE_ONE, null);
         var cpkt = pkt.toCowpacket(node_address);
         sock.send(cpkt.generateJSON());
-
-        updateRuleList(node_address); // GUI
+        waitForAck(cpkt, "Waiting for rule to be deleted on node...",
+            function() { // success callback
+                cowconfig_rule_pool.pool[node_address][id] = undefined;
+                updateRuleList(node_address); // GUI
+            });
     }
 
     static delete_all(node_address : number) : void {
         if (!(cowconfig_rule_pool.pool[node_address])) {
             return;
         }
-        cowconfig_rule_pool.pool[node_address] = undefined;
 
         var pkt = new cowconfig_packet(0, cowconfig_packet_method.CCPM_DELETE_ALL, null);
         var cpkt = pkt.toCowpacket(node_address);
         sock.send(cpkt.generateJSON());
-
-        updateRuleList(node_address); // GUI
+        waitForAck(cpkt, "Waiting for rules to be deleted on node...",
+            function() { // success callback
+                cowconfig_rule_pool.pool[node_address] = undefined;
+                updateRuleList(node_address); // GUI
+            });
     }
 }
 

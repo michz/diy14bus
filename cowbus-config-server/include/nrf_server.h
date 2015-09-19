@@ -44,7 +44,13 @@ class nrf_server {
             radio.begin();
             radio.setRetries(3, 3); // not used
             //	radio.setPALevel(RF24_PA_MAX);
+#if (RADIO_DATARATE == DR_250KBS)
             radio.setDataRate(RF24_250KBPS);
+#elif (RADIO_DATARATE == DR_1MBS)
+            radio.setDataRate(RF24_1MBPS);
+#elif (RADIO_DATARATE == DR_2MBS)
+            radio.setDataRate(RF24_2MBPS);
+#endif
             radio.setChannel(5);
             radio.setPayloadSize(32);
 
@@ -132,7 +138,7 @@ class nrf_server {
                     //}
                 }
 
-                boost::this_thread::sleep(boost::posix_time::microseconds(RADIO_ON_AIR_US));
+                boost::this_thread::sleep(boost::posix_time::microseconds(RADIO_ON_AIR_US/4));
             }
         }
 

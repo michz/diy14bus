@@ -25,6 +25,11 @@ void radio_nrf_init(void);
  */
 void radio_nrf_send_data(char* payload, unsigned short payload_length);
 
+/**
+ * @brief   TODO
+ */
+int8_t radio_get_rssi(void);
+
 
 #endif // RADIO_NRF_H
 

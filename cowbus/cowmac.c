@@ -19,7 +19,7 @@ void (*cb_pkt_recv)(cowpacket) = NULL;
 static uint8_t c_seq_no = 1;
 
 /// @brief Current backoff time
-static unsigned int c_backoff = 0;
+//static unsigned int c_backoff = 0;
 
 
 extern nrf24l01p_t nrf24l01p_0;
@@ -52,12 +52,13 @@ void cowmac_send_ack(uint16_t addr, uint8_t seqno) {
 }
 
 void cowmac_send_packet(cowpacket *pkt) {
-    xtimer_usleep(2 * cowmac_get_random(1, 50) * DELAY_DATA_ON_AIR);
+    int8_t rssi = radio_get_rssi();
+    while (rssi != 0) {
+        cowmac_backoff();
+        rssi = radio_get_rssi();
+    }
 
     // TODO: CSMA/CA
-    // check if medium is busy
-    //   if yes: radio_nrf_backoff();
-    // check again
 
     radio_nrf_send_data((char*)pkt, sizeof(cowpacket));
 }
@@ -227,12 +228,16 @@ void cowmac_send_name(void) {
 
 
 void cowmac_backoff(void) {
-    if (c_backoff == 0) {
-        c_backoff = 165 + rand() % 660; // from 1 to 5 packets
-        // TODO test if this calculation is correct
-    }
-    xtimer_usleep(c_backoff);
-    c_backoff = 0;
+    // TODO real implementation
+    xtimer_usleep(2 * cowmac_get_random(1, 50) * DELAY_DATA_ON_AIR);
+    
+    
+    //if (c_backoff == 0) {
+    //    c_backoff = 165 + rand() % 660; // from 1 to 5 packets
+    //    // TODO test if this calculation is correct
+    //}
+    //xtimer_usleep(c_backoff);
+    //c_backoff = 0;
 }
 
 void cowmac_send_config(void) {

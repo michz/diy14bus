@@ -23,7 +23,8 @@
 #define DR_250KBS           (250)
 #define DR_1MBS             (1000)
 #define DR_2MBS             (2000)
-#define RADIO_DATARATE      (DR_250KBS)
+//#define RADIO_DATARATE      (DR_250KBS)
+#define RADIO_DATARATE      (DR_1MBS)
 // TODO set various speeds in implementations
 // TODO recalculate on-air-time in RIOT
 

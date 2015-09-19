@@ -43,6 +43,13 @@ void radio_nrf_init(void) {
     nrf24l01p_set_tx_address(&nrf24l01p_0, addr, INITIAL_ADDRESS_WIDTH);
     nrf24l01p_set_rx_address(&nrf24l01p_0, NRF24L01P_PIPE0, addr, INITIAL_ADDRESS_WIDTH);
 
+#if RADIO_DATARATE == DR_250KB
+    nrf24l01p_set_datarate(&nrf24l01p_0, NRF24L01P_DR_250KBS);
+#elif RADIO_DATARATE == DR_1MBS
+    nrf24l01p_set_datarate(&nrf24l01p_0, NRF24L01P_DR_1MBS);
+#else
+    nrf24l01p_set_datarate(&nrf24l01p_0, NRF24L01P_DR_2MBS);
+#endif
 
     thread_create(
         cowmac_receiver_stack, sizeof(cowmac_receiver_stack), THREAD_PRIORITY_MAIN - 1, 0,
@@ -61,7 +68,7 @@ void radio_nrf_send_data(char* payload, unsigned short payload_length) {
     // power on the device
     int r = nrf24l01p_on(&nrf24l01p_0);
     
-    xtimer_usleep(DELAY_DATA_ON_AIR); // DEBUG: wait for sure...
+    xtimer_usleep(DELAY_DATA_ON_AIR/4); // DEBUG: wait for sure...
     
     // setup device as transmitter
     r = nrf24l01p_set_txmode(&nrf24l01p_0);
@@ -86,6 +93,12 @@ void radio_nrf_send_data(char* payload, unsigned short payload_length) {
 
     // setup device as receiver
     nrf24l01p_set_rxmode(&nrf24l01p_0);
+}
+
+int8_t radio_get_rssi(void) {
+    int8_t rssi;
+    nrf24l01p_read_reg(&nrf24l01p_0, REG_RPD, (char*)&rssi);
+    return rssi;
 }
 
 

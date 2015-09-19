@@ -25,6 +25,8 @@ using websocketpp::lib::bind;
 class ws_server {
     public:
         ws_server() {
+            boost::asio::socket_base::reuse_address option(true);
+
             // Set logging settings
             m_server.set_access_channels(websocketpp::log::alevel::all);
             m_server.clear_access_channels(websocketpp::log::alevel::frame_payload);

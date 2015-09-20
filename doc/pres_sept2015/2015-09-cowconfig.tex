@@ -7,6 +7,7 @@
 \usepackage{amsmath,amsfonts,amssymb}
 \usepackage{hyperref}
 \usepackage{lmodern}
+\usepackage{microtype}
 
 \usetheme{fau-4-3}
 
@@ -14,6 +15,8 @@
 %\bibliographystyle{apalike} % Or your specific bibliographystyle
 \bibliographystyle{unsrtdin}
 %\bibliographystyle{gerplain}
+
+\newcommand{\todo}[1]{\textbf{\color{red}{TODO: #1}}}
 
 
 \title{cowbusconfig – Ansatz zur dezentralen Konfiguration von Gebäudeautomation}
@@ -26,14 +29,38 @@
 
 %\section{cowbusconfig – Ansatz zur dezentralen Konfiguration von Gebaueudeautomation}
 \begin{frame}
+	\frametitle{Der Traum von der schönen neuen Welt}
+	
+	\begin{itemize}
+		\item \todo{schön darstellen, vielleicht mit Bildern, momentan nur Stichpunkte}
+		\item Haus der Zukunft
+		\item Beleuchtung folgt intelligent durch das Haus
+		\item Haus weiß anhand des Kalenders und Heuristik, wann welcher Raum zu heizen ist
+		\item ... andere schicke Beispiele für Heimautomatisierung
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Ausgeträumt!}
+	
+	\begin{itemize}
+		\item Der Knotenkontroller der Kaffemaschine spricht eine schlechte Implementierung des\
+		Automatisierunsgprotokolls und bringt damit den zentralen Server zum abstürzen
+		\item Es wird unerträglich warm, die Heizung bleibt auf dem letzten Wert hängen
+		\item Lüften geht nicht, weil die Rollos nicht hoch gehen.
+		\item Nichteinmal das Licht geht an. Hätte ich vielleicht doch die starre Verdrahtung drin gelassen?
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
     \frametitle{Ziele und Ideen}
 
     \begin{itemize}
-        \item dezentrale Organisation
-        \item
-        \item
-        \item
-        \item
+        \item dezentrale Organisation, um single-point-of-failure zu umgehen
+        \item Trotzdem: komfortable Konfiguration, nicht jeden Knoten anfassen müssen
+        \item OpenSource, (??? anpassbar an eigene Bedürfnisse, dennoch auch \enquote{out of the box} funktionsfähig ???)
+        \item Verwendung einer fertigen Betriebssystemplattform, um Entwicklungsaufwand zu sparen und Portierbarkeit zu erhöhen
+        \item Auftrennung in \enquote{dumme} Sensoren und \enquote{intelligente} Aktoren
     \end{itemize}
 \end{frame}
 

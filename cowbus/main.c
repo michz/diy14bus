@@ -153,6 +153,27 @@ void switch4(void)
     }
 }
 
+void watchdog_start(void) {
+    IWDG->KR = 0xCCCC;
+}
+
+void watchdog_config(void) {
+    IWDG->KR = 0x5555;
+
+    IWDG->PR = 0x3;                     // prescaler /32
+    while (!(IWDG->SR & IWDG_SR_PVU)) ; // wait for reload value update
+
+    IWDG->RLR = 0xFFF;                  // max: 0xFFF
+    while (!(IWDG->SR & IWDG_SR_RVU)) ; // wait for reload value update
+
+    // these settings should result in a watchdog timeout of 4,0 seconds
+    // (assuming the low speed clock has 32,768kHz)
+}
+
+void watchdog_reset(void) {
+    IWDG->KR = 0xAAAA;
+}
+
 int main(void)
 {
 	//(RCC->AHBENR |= RCC_AHBENR_GPIOAEN);
@@ -179,6 +200,21 @@ int main(void)
     radio_nrf_init();
     cowmac_register_packet_handler(packet_received);
 
+    // say we are up and running
+    led_blink_s(magenta, 150, 1);
+    led_blink_s(cyan, 150, 1);
+    led_blink_s(orange, 150, 1);
+
+    // now initalize watchdog
+    watchdog_config();
+    watchdog_start();
+    watchdog_reset();
+
+    //__IO uint32_t KR;   /*!< IWDG Key register,       Address offset: 0x00 */
+    //__IO uint32_t PR;   /*!< IWDG Prescaler register, Address offset: 0x04 */
+    //__IO uint32_t RLR;  /*!< IWDG Reload register,    Address offset: 0x08 */
+    //__IO uint32_t SR;   /*!< IWDG Status register,    Address offset: 0x0C */
+    //__IO uint32_t WINR; /*!< IWDG Window register,    Address offset: 0x10 */
 
     int i = 0;
 	while (1) {
@@ -214,6 +250,7 @@ int main(void)
             i = 0;
         }
         i++;
+        watchdog_reset();
         xtimer_usleep(100); // 100 us
     }
 

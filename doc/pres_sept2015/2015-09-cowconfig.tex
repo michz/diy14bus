@@ -129,28 +129,38 @@
 
 \begin{frame}
     \frametitle{Demo}
-        Sensor:
-        \begin{itemize} \setlength{\itemsep}{\customitemsep}
-            \item cowbus-protoboard mit RIOT und einfacher Anwendung
-            \item 4 Taster, Temperatursensor
-        \end{itemize}
-        \vspace*{0.75cm}
-        \pause
-
-        Aktor:
-        \begin{itemize} \setlength{\itemsep}{\customitemsep}
-            \item cowbus-protoboard mit RIOT und einfacher Anwendung
-            \item RGB-LED, Piezo-Summer
-        \end{itemize}
-        \vspace*{0.75cm}
-        \pause
-
-        Gateway:
-        \begin{itemize} \setlength{\itemsep}{\customitemsep}
-            \item Raspberry Pi B
-            \item Funkmodul per SPI angebunden
-        \end{itemize}
-        \vspace*{1cm}
+		\begin{columns}        
+        	\column{.4\textwidth}
+        	\uncover<1->{\includegraphics[width=.9\linewidth]{img/img-cowbus-proto.jpg}}
+        	\uncover<3->{\includegraphics[width=.9\linewidth]{img/img-pi-rf.jpg}}
+			\column{.6\textwidth}
+		        \uncover<1->{
+		       	Sensor:
+        		\begin{itemize} \setlength{\itemsep}{\customitemsep}
+		            \item cowbus-protoboard mit RIOT und einfacher Anwendung
+		            \item 4 Taster, Temperatursensor
+		        \end{itemize}
+		        \vspace*{0.75cm}
+		        }
+		
+				\uncover<2->{		        
+		        Aktor:
+		        \begin{itemize} \setlength{\itemsep}{\customitemsep}
+		            \item cowbus-protoboard mit RIOT und einfacher Anwendung
+		            \item RGB-LED, Piezo-Summer
+		        \end{itemize}
+		        \vspace*{0.75cm}
+		        }
+		
+				\uncover<3->{		        
+		        Gateway:
+		        \begin{itemize} \setlength{\itemsep}{\customitemsep}
+		            \item Raspberry Pi B
+		            \item Funkmodul per SPI angebunden
+		        \end{itemize}
+		        \vspace*{1cm}
+		        }
+		\end{columns}
 \end{frame}
 
 \section{Vielen Dank für Ihre Aufmerksamkeit!}

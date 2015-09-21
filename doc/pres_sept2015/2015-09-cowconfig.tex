@@ -70,21 +70,23 @@
     \frametitle{Ziele und Ideen}
     
 		    \begin{itemize} \setlength{\itemsep}{\customitemsep}
-		        \item dezentrale Organisation
-		        \item komfortable Konfiguration, nicht jeden Knoten \enquote{anfassen} müssen
+		        \uncover<1->{\item dezentrale Organisation}
+		        \uncover<2->{\item komfortable Konfiguration, nicht jeden Knoten \enquote{anfassen} müssen
 		            \begin{itemize} \setlength{\itemsep}{\customitemsepsub}
 		                \item z.\,B. Webbrowser vom Notebook/Tablet aus
 		                \item[$\Rightarrow$] Gateway vom LAN/WLAN ins Sensornetz benötigt
 		            \end{itemize}
+		            }
 		
-		        \item einfach nachvollziehbare Schaltregeln
-		        \item typische Anforderungen an Energieversorgung beachten
+		        \uncover<3->{\item einfach nachvollziehbare Schaltregeln}
+		        \uncover<4->{\item typische Anforderungen an Energieversorgung beachten
 		            \begin{itemize} \setlength{\itemsep}{\customitemsepsub}
 		                \item oft: Aktoren besitzen stabile Stromversorgung
 		                \item Sensoren eher klein, flexibel, sparsam
 		                \item[$\Rightarrow$] Aufteilung in \enquote{dumme} Sensoren und \enquote{intelligente} Aktoren
 		                \item[$\Rightarrow$] eigentliche Entscheidungs- bzw. Schaltlogik in Aktoren
 		            \end{itemize}
+		            }
 		    \end{itemize}
 \end{frame}
 
@@ -96,13 +98,16 @@
         \item Annahme: Sensorpaket enthält nur einen Wert, Bedeutung bekannt
         \item[ ] \vspace*{0.5cm}
             \pause
-        \item Quelladresse
-        \item Typ des Vergleichs ($<$, $>$, ==, !=, $<>$)
-        \item Grenzwert(e)
-        \item auszuführende Aktion
-            \begin{itemize} \setlength{\itemsep}{\customitemsep}
-                \item Muss dem Aktor bekannt sein!
-            \end{itemize}
+        \item Regel setzt sich zusammen aus:
+        	\begin{itemize}
+        		\item Quelladresse
+		        \item Typ des Vergleichs ($<$, $>$, ==, !=, $<>$)
+		        \item Grenzwert(e)
+		        \item auszuführende Aktion
+	            \begin{itemize} \setlength{\itemsep}{\customitemsep}
+        	        \item Muss dem Aktor bekannt sein!
+            	\end{itemize}
+        	\end{itemize}
     \end{itemize}
 \end{frame}
 

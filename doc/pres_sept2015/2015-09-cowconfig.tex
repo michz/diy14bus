@@ -1,13 +1,33 @@
 \pdfminorversion=4
-\documentclass{beamer}
+\documentclass[t,compress,logoflat,faulogo]{beamer}
+
 \usepackage[T1]{fontenc}
-\usepackage[ngerman]{babel}
 \usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
 \usepackage[babel,german=quotes]{csquotes}
-\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{booktabs}
+\usepackage{ellipsis}
+\usepackage{acronym}
+\usepackage{tikz}
+\usepackage{stmaryrd}
+\usepackage{graphicx}
+%\usepackage{sistyle}
+\usepackage{listings}
 \usepackage{hyperref}
-\usepackage{lmodern}
-\usepackage{microtype}
+\usepackage{url}
+\usepackage{siunitx}
+\usepackage{todonotes}
+\presetkeys{todonotes}{inline}{}
+\usepackage{scrextend}% add KOMA-Script features to other classes
+\usepackage{ulem}
+\usepackage[capitalize,noabbrev]{cleveref}
+\usetikzlibrary{arrows,shapes,calc,decorations.pathmorphing,patterns,fadings,decorations.pathreplacing}
+\usetikzlibrary{backgrounds}
+\DeclareSIUnit \dBm {dBm}
+
 
 \usetheme{fau-4-3}
 
@@ -16,17 +36,26 @@
 \bibliographystyle{unsrtdin}
 %\bibliographystyle{gerplain}
 
-\newcommand{\todo}[1]{\textbf{\color{red}{TODO: #1}}}
-
 
 \title{cowbusconfig – Ansatz zur dezentralen Konfiguration von Gebäudeautomation}
 \author[P. Kanzler, M. Zapf]{Patrick\,Kanzler \and Michael\,Zapf}
-\institute{14. GI/ITG KuVS Fachgespraech \enquote{Sensornetze}, Erlangen}
-\date{23.09.2015}
+\date[23.09.2015]{14. GI/ITG KuVS Fachgespräch \enquote{Sensornetze}, Erlangen}
+\institute[FAU]{Department of Computer Science 7\\ Computer Networks and Communication Systems, FAU, Germany}
 
 % space between items
 \newcommand{\customitemsep}{7pt}
 \newcommand{\customitemsepsub}{2pt}
+
+
+
+
+\newcommand{\sectiontitle}{}
+\newcommand{\ssection}[1]{\renewcommand{\sectiontitle}{#1}\section{#1}}
+\newcommand{\subsectiontitle}{}
+\newcommand{\ssubsection}[1]{\renewcommand{\subsectiontitle}{#1}\subsection{#1}}
+
+
+
 
 \def\insertframetitle{}
 \begin{document}
@@ -34,7 +63,7 @@
 
 %\section{cowbusconfig – Ansatz zur dezentralen Konfiguration von Gebaueudeautomation}
 \begin{frame}
-	\frametitle{Der Traum von der schönen neuen Welt}
+	\frametitle{Schöne neuen Welt}
 
 	\begin{itemize} \setlength{\itemsep}{\customitemsep}
 		\item \todo{schön darstellen, vielleicht mit Bildern, momentan nur Stichpunkte}
@@ -144,8 +173,10 @@
 		\begin{columns}
         	\column{.4\textwidth}
         	\uncover<1->{\includegraphics[width=.9\linewidth]{img/img-cowbus-proto.jpg}}
-        	\uncover<3->{\includegraphics[width=.9\linewidth]{img/img-pi-rf.jpg}}
+        	\uncover<2->{\includegraphics[width=.9\linewidth]{img/img-pi-rf.jpg}}
 			\column{.6\textwidth}
+		        \vspace*{-5cm}
+
 		        \uncover<1->{
 		       	Sensor:
         		\begin{itemize} \setlength{\itemsep}{\customitemsep}
@@ -162,7 +193,7 @@
 		        \vspace*{0.75cm}
 		        }
 
-				\uncover<3->{
+				\uncover<2->{
 		        Gateway:
 		        \begin{itemize} \setlength{\itemsep}{\customitemsep}
 		            \item Raspberry Pi B

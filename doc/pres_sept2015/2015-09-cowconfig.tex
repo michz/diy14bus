@@ -53,6 +53,7 @@
                     \vspace*{0.5cm}
                 \item \textcolor{red}{aufwändige (Neu-)Einrichtung}
             \end{itemize}
+            \includegraphics[width=.9\linewidth]{img/decentralize-network.pdf}
             \pause
         \column{10cm}
             \textbf{Skriptserver} \\
@@ -63,12 +64,13 @@
                     \vspace*{0.5cm}
                 \item \textcolor{red}{\enquote{Single Point of Failure}}
             \end{itemize}
+            \includegraphics[width=.9\linewidth]{img/centralize-network.pdf}
     \end{columns}
 \end{frame}
 
 \begin{frame}
     \frametitle{Ziele und Ideen}
-    
+
 		    \begin{itemize} \setlength{\itemsep}{\customitemsep}
 		        \uncover<1->{\item dezentrale Organisation}
 		        \uncover<2->{\item komfortable Konfiguration, nicht jeden Knoten \enquote{anfassen} müssen
@@ -77,7 +79,7 @@
 		                \item[$\Rightarrow$] Gateway vom LAN/WLAN ins Sensornetz benötigt
 		            \end{itemize}
 		            }
-		
+
 		        \uncover<3->{\item einfach nachvollziehbare Schaltregeln}
 		        \uncover<4->{\item typische Anforderungen an Energieversorgung beachten
 		            \begin{itemize} \setlength{\itemsep}{\customitemsepsub}
@@ -94,9 +96,12 @@
     \frametitle{Regeln}
 
     \begin{itemize} \setlength{\itemsep}{\customitemsep}
-        \item Annahme: (virtuelle) Knoten durch eindeutige Adresse identifizierbar
-        \item Annahme: Sensorpaket enthält nur einen Wert, Bedeutung bekannt
-        \item[ ] \vspace*{0.5cm}
+        \item Annahmen: 
+            \begin{itemize}
+                \item (virtuelle) Knoten durch eindeutige Adresse identifizierbar
+                \item Sensorpaket enthält nur einen Wert, Bedeutung bekannt
+            \end{itemize}
+        \item[ ] \vspace*{0.2cm}
             \pause
         \item Regel setzt sich zusammen aus:
         	\begin{itemize}
@@ -134,7 +139,7 @@
 
 \begin{frame}
     \frametitle{Demo}
-		\begin{columns}        
+		\begin{columns}
         	\column{.4\textwidth}
         	\uncover<1->{\includegraphics[width=.9\linewidth]{img/img-cowbus-proto.jpg}}
         	\uncover<3->{\includegraphics[width=.9\linewidth]{img/img-pi-rf.jpg}}
@@ -142,22 +147,22 @@
 		        \uncover<1->{
 		       	Sensor:
         		\begin{itemize} \setlength{\itemsep}{\customitemsep}
-		            \item cowbus-protoboard mit RIOT und einfacher Anwendung %TODO will man da RIOT zitieren?
+                    \item cowbus-protoboard (OS: RIOT \cite{riot})
 		            \item 4 Taster, Temperatursensor
 		        \end{itemize}
 		        \vspace*{0.75cm}
 		        }
-		
-				\uncover<2->{		        
+
+				\uncover<2->{
 		        Aktor:
 		        \begin{itemize} \setlength{\itemsep}{\customitemsep}
-		            \item cowbus-protoboard mit RIOT und einfacher Anwendung
+                        \item cowbus-protoboard (OS: RIOT \cite{riot})
 		            \item RGB-LED, Piezo-Summer
 		        \end{itemize}
 		        \vspace*{0.75cm}
 		        }
-		
-				\uncover<3->{		        
+
+				\uncover<3->{
 		        Gateway:
 		        \begin{itemize} \setlength{\itemsep}{\customitemsep}
 		            \item Raspberry Pi B
@@ -167,6 +172,26 @@
 		        }
 		\end{columns}
 \end{frame}
+
+\begin{frame}
+    \frametitle{Zusammenfassung \& Ausblick}
+
+    \begin{itemize} \setlength{\itemsep}{\customitemsep}
+        \item einfache Konfiguration für \enquote{Jedermann}
+        \item einfache Änderbarkeit
+        \item Kommunikation in-band, keine Spezialhardware nötig
+        \item[ ] \vspace*{0.5cm}
+            \pause
+        \item offene Fragen:
+        	\begin{itemize}
+        		\item komplexere Regeln?
+		        \item Aggregation?
+		        \item Bedeutung des Messwertes
+		        \item Bedeutung der Aktion
+        	\end{itemize}
+    \end{itemize}
+\end{frame}
+
 
 \section{Vielen Dank für Ihre Aufmerksamkeit!}
 \section{Q\&A}

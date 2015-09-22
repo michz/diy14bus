@@ -35,7 +35,7 @@
 	\frametitle{Der Traum von der schönen neuen Welt}
 
 	\begin{itemize} \setlength{\itemsep}{\customitemsep}
-		\item \todo{schön darstellen, vielleicht mit Bildern, momentan nur Stichpunkte}
+		%\item \todo{schön darstellen, vielleicht mit Bildern, momentan nur Stichpunkte}
 		\item das Haus der Zukunft, vernetzt und intelligent
 		\item mögliche Anwendung: Beleuchtung verfolgt den Nutzer durch das Haus
         \item scheitert bisher: komplizierte Einrichtung, teure Komponenten, keine einheitlichen Standards
@@ -72,23 +72,23 @@
     \frametitle{Ziele und Ideen}
 
 		    \begin{itemize} \setlength{\itemsep}{\customitemsep}
-		        \uncover<1->{\item dezentrale Organisation}
-		        \uncover<2->{\item komfortable Konfiguration, nicht jeden Knoten \enquote{anfassen} müssen
+		        \item dezentrale Organisation
+		        \item komfortable Konfiguration, nicht jeden Knoten \enquote{anfassen} müssen
 		            \begin{itemize} \setlength{\itemsep}{\customitemsepsub}
 		                \item z.\,B. Webbrowser vom Notebook/Tablet aus
 		                \item[$\Rightarrow$] Gateway vom LAN/WLAN ins Sensornetz benötigt
 		            \end{itemize}
-		            }
-
-		        \uncover<3->{\item einfach nachvollziehbare Schaltregeln}
-		        \uncover<4->{\item typische Anforderungen an Energieversorgung beachten
+		        
+		        \pause
+		        \item einfach nachvollziehbare Schaltregeln
+		        \item typische Anforderungen an Energieversorgung beachten
 		            \begin{itemize} \setlength{\itemsep}{\customitemsepsub}
 		                \item oft: Aktoren besitzen stabile Stromversorgung
 		                \item Sensoren eher klein, flexibel, sparsam
 		                \item[$\Rightarrow$] Aufteilung in \enquote{dumme} Sensoren und \enquote{intelligente} Aktoren
 		                \item[$\Rightarrow$] eigentliche Entscheidungs- bzw. Schaltlogik in Aktoren
 		            \end{itemize}
-		            }
+		            
 		    \end{itemize}
 \end{frame}
 
@@ -151,9 +151,7 @@
 		            \item 4 Taster, Temperatursensor
 		        \end{itemize}
 		        \vspace*{0.75cm}
-		        }
-
-				\uncover<2->{
+		        
 		        Aktor:
 		        \begin{itemize} \setlength{\itemsep}{\customitemsep}
                         \item cowbus-protoboard (OS: RIOT \cite{riot})

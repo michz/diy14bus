@@ -48,7 +48,7 @@
 	\frametitle{Ansätze}
     \begin{columns}[c]
         \column[c]{10cm}
-            \textbf{EIB/KNX} \cite{knx-prod}
+            \textbf{EIB/KNX}
             \begin{itemize} \setlength{\itemsep}{\customitemsep}
                 \item etabliertes System
                 \item viele Produkte auf dem Markt
@@ -59,7 +59,7 @@
             \pause
         \column{10cm}
             \textbf{Skriptserver} \\
-            {\fontsize{15pt}{18pt} \selectfont (z.\,B. nach Haenselmann et al. \cite{haenselmann2007skriptbasierte})}
+            {\fontsize{15pt}{18pt} \selectfont (z.\,B. nach Haenselmann et al.)}
             \begin{itemize} \setlength{\itemsep}{\customitemsep}
                 \item zentrale Stelle mit Schaltregeln
                 \item Skripte jederzeit anpassbar
@@ -80,7 +80,7 @@
 		                \item z.\,B. Webbrowser vom Notebook/Tablet aus
 		                \item[$\Rightarrow$] Gateway vom LAN/WLAN ins Sensornetz benötigt
 		            \end{itemize}
-		        
+
 		        \pause
 		        \item einfach nachvollziehbare Schaltregeln
 		        \item typische Anforderungen an Energieversorgung beachten
@@ -90,7 +90,7 @@
 		                \item[$\Rightarrow$] Aufteilung in \enquote{dumme} Sensoren und \enquote{intelligente} Aktoren
 		                \item[$\Rightarrow$] eigentliche Entscheidungs- bzw. Schaltlogik in Aktoren
 		            \end{itemize}
-		            
+
 		    \end{itemize}
 \end{frame}
 
@@ -98,7 +98,7 @@
     \frametitle{Regeln}
 
     \begin{itemize} \setlength{\itemsep}{\customitemsep}
-        \item Annahmen: 
+        \item Annahmen:
             \begin{itemize}
                 \item (virtuelle) Knoten durch eindeutige Adresse identifizierbar
                 \item Sensorpaket enthält nur einen Wert, Bedeutung bekannt
@@ -149,14 +149,14 @@
 		        \uncover<1->{
 		       	Sensor:
         		\begin{itemize} \setlength{\itemsep}{\customitemsep}
-                    \item cowbus-protoboard (OS: RIOT \cite{riot})
+                    \item cowbus-protoboard (OS: RIOT)
 		            \item 4 Taster, Temperatursensor
 		        \end{itemize}
 		        \vspace*{0.75cm}
-		        
+
 		        Aktor:
 		        \begin{itemize} \setlength{\itemsep}{\customitemsep}
-                        \item cowbus-protoboard (OS: RIOT \cite{riot})
+                        \item cowbus-protoboard (OS: RIOT)
 		            \item RGB-LED, Piezo-Summer
 		        \end{itemize}
 		        \vspace*{0.75cm}
@@ -177,7 +177,7 @@
     \frametitle{Zusammenfassung \& Ausblick}
 
     \begin{itemize} \setlength{\itemsep}{\customitemsep}
-		\item Open-Source-Hardware und -Software        
+		\item Open-Source-Hardware und -Software
         \item einfache Konfiguration für \enquote{Jedermann}
         \item einfache Änderbarkeit
         \item Kommunikation in-band, keine Spezialhardware nötig
@@ -197,7 +197,6 @@
 \section{Vielen Dank für Ihre Aufmerksamkeit!}
 \section{Q\&A}
 
-\bibliography{2015-09-cowconfig}{}
 
 %\begin{frame}[plain]
 %    \center
@@ -206,6 +205,7 @@
 
 
 %\nocite*
+%\bibliography{2015-09-cowconfig}{}
 
 \end{document}
 

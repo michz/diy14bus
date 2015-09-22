@@ -38,9 +38,10 @@
 
 
 \title{cowbusconfig – Ansatz zur dezentralen Konfiguration von Gebäudeautomation}
+\subtitle{blubb}
 \author[P. Kanzler, M. Zapf]{Patrick\,Kanzler \and Michael\,Zapf}
 \date[23.09.2015]{14. GI/ITG KuVS Fachgespräch \enquote{Sensornetze}, Erlangen}
-\institute[FAU]{Department of Computer Science 7\\ Computer Networks and Communication Systems, FAU, Germany}
+\institute[CS7, FAU]{studentisches Projekt \\am Lehrstuhl 7 für Kommunikationssysteme und Rechnernetze, Erlangen}
 
 % space between items
 \newcommand{\customitemsep}{7pt}
@@ -57,9 +58,10 @@
 
 
 
-\def\insertframetitle{}
+%\def\insertframetitle{}
 \begin{document}
-\frame{\titlepage}
+%\frame{\titlepage}
+\frame[plain,c]{\titlepage} % plain-Option deaktiviert Kopf- und Fusszeile
 
 %\section{cowbusconfig – Ansatz zur dezentralen Konfiguration von Gebaueudeautomation}
 \begin{frame}
@@ -230,8 +232,97 @@
 \end{frame}
 
 
-\section{Vielen Dank für Ihre Aufmerksamkeit!}
-\section{Q\&A}
+		\frame[plain,c]{%
+			\setlength{\unitlength}{1mm}%
+			\begin{picture}(254,190.5)(17.4,0) % Ursprung (0,0) minus linke Marginalie
+				% Hintergrundbild Schloss abgeschnitten
+				\put(0,135.1){%
+					\pgfuseimage{fauschlosscropped}%
+				}%
+				% Trennbalken
+				\put(0,135.1){\color{faublue}\rule{\paperwidth}{4mm}}%
+				% Titel der Section
+				\put(17.4,75.3){%
+					\begin{minipage}[b][25mm][t]{226mm}%
+						\fontsize{28}{34}\selectfont % Schriftgroesse und Zeilenabstand
+						\color{faublue}%
+						\bfseries % fett
+						Vielen Dank für Ihre Aufmerksamkeit%
+					\end{minipage}%
+				}%
+				% Projekt-/Lehrstuhl-Box
+				\put(17.4,0){%
+					\begin{minipage}[b][40.5mm][c]{125.45mm}%
+						\raggedright % Ausrichtung am linken Rand
+						\begin{minipage}[b][37.5mm][c]{24mm}%
+							\usebeamertemplate{projectbox}%
+						\end{minipage}%
+						\begin{minipage}[b][24mm][c]{85.45mm}%
+							\color{faublue}%
+							\fontsize{10}{10}\selectfont % Schriftgroesse und Zeilenabstand
+							\textbf{Department of Computer Science 7\\
+								Computer Networks and\\
+								Communication Systems}
+						\end{minipage}%
+					\end{minipage}%
+				}%
+				 % Logo-Box mit FAU-Logo
+				 \put(153.45,0){%
+					 \begin{minipage}[b][37.5mm][c]{89.95mm}%
+						 \raggedleft % Ausrichtung am rechten Rand
+						 \pgfuseimage{faulogo}%
+					 \end{minipage}%
+			 }%
+			\end{picture}%
+		}% end frame
+
+
+		\frame[plain,c]{%
+			\setlength{\unitlength}{1mm}%
+			\begin{picture}(254,190.5)(17.4,0) % Ursprung (0,0) minus linke Marginalie
+				% Hintergrundbild Schloss abgeschnitten
+				\put(0,135.1){%
+					\pgfuseimage{fauschlosscropped}%
+				}%
+				% Trennbalken
+				\put(0,135.1){\color{faublue}\rule{\paperwidth}{4mm}}%
+				% Titel der Section
+				\put(17.4,75.3){%
+					\begin{minipage}[b][25mm][t]{226mm}%
+						\fontsize{28}{34}\selectfont % Schriftgroesse und Zeilenabstand
+						\color{faublue}%
+						\bfseries % fett
+                        Q\&A%
+					\end{minipage}%
+				}%
+				% Projekt-/Lehrstuhl-Box
+				\put(17.4,0){%
+					\begin{minipage}[b][40.5mm][c]{125.45mm}%
+						\raggedright % Ausrichtung am linken Rand
+						\begin{minipage}[b][37.5mm][c]{24mm}%
+							\usebeamertemplate{projectbox}%
+						\end{minipage}%
+						\begin{minipage}[b][24mm][c]{85.45mm}%
+							\color{faublue}%
+							\fontsize{10}{10}\selectfont % Schriftgroesse und Zeilenabstand
+							\textbf{Department of Computer Science 7\\
+								Computer Networks and\\
+								Communication Systems}
+						\end{minipage}%
+					\end{minipage}%
+				}%
+				 % Logo-Box mit FAU-Logo
+				 \put(153.45,0){%
+					 \begin{minipage}[b][37.5mm][c]{89.95mm}%
+						 \raggedleft % Ausrichtung am rechten Rand
+						 \pgfuseimage{faulogo}%
+					 \end{minipage}%
+			 }%
+			\end{picture}%
+		}% end frame
+
+
+
 
 
 %\begin{frame}[plain]

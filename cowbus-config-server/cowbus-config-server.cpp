@@ -13,6 +13,7 @@
 #include "../cowbus/include/cowpacket.h"
 #include "ws_server.h"
 #include "nrf_server.h"
+#include "base64.h"
 
 #define RAPIDJSON_ASSERT(x) 
 
@@ -35,7 +36,7 @@ void my_handler(int s){
 }
 
 void ws_packet_handler(string data) {
-    cout << "Got JSON: " << data << endl;
+    cout << "CLIENT -> SERVER: " << data << endl;
 
     rapidjson::Document d;
     d.Parse<0>(data.c_str());
@@ -49,21 +50,31 @@ void ws_packet_handler(string data) {
     cp->version = d["version"].GetInt();
     cp->seq_no  = d["seq_no"].GetInt();
     cp->ttl     = d["ttl"].GetInt();
-    cp->addr    = d["address"].GetInt();
-    cp->type    = static_cast<cowpacket_type>(d["type"].GetInt());
-    cp->is_fragment = 0;
+    cowpacket_set_address(cp, (uint16_t)(d["address"].GetInt()));
+    cowpacket_set_type(cp, static_cast<cowpacket_type>(d["type"].GetInt()));
+    cowpacket_set_is_fragment(cp, 0);
 
-    const char* payload = d["payload"].GetString();
+    cout << "DEBUG Addr: " << cowpacket_get_address(cp) << endl;
+    cout << "DEBUG TTL : " << cp->ttl << endl;
+    cout << "DEBUG Type: " << cowpacket_get_type(cp) << endl;
+
+    string payload_s = base64_decode(d["payload"].GetString());
+    int payload_length = payload_s.length();
+    const char* payload = payload_s.c_str();
+
+    cout << "Payload: " << payload << endl;
     memset(cp->payload, 0, PAYLOAD_MAX_LENGTH);
-    memcpy(cp->payload, payload, strlen(payload));
+    memcpy(cp->payload, payload, payload_length);
 
-    cowpacket_generate_checksum(cp);// TODO generate checksum
+    //cowpacket_generate_checksum(cp);
 
     nrf_inst->sendMessage(tx_buf);
 }
 
 void nrf_packet_handler(string data) {
-    cout << "Sending JSON to client: " << data << endl;
+    cout << "SERVER <- RADIO: " << data << endl;
+    cout << "CLIENT <- SERVER" << endl;
+            
     ws_inst->send(data);
 }
 

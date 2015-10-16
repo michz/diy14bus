@@ -1,0 +1,334 @@
+\pdfminorversion=4
+\documentclass[t,compress,logoflat,faulogo]{beamer}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage[babel,german=quotes]{csquotes}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{booktabs}
+\usepackage{ellipsis}
+\usepackage{acronym}
+\usepackage{tikz}
+\usepackage{stmaryrd}
+\usepackage{graphicx}
+%\usepackage{sistyle}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{siunitx}
+\usepackage{todonotes}
+\presetkeys{todonotes}{inline}{}
+\usepackage{scrextend}% add KOMA-Script features to other classes
+\usepackage{ulem}
+\usepackage[capitalize,noabbrev]{cleveref}
+\usetikzlibrary{arrows,shapes,calc,decorations.pathmorphing,patterns,fadings,decorations.pathreplacing}
+\usetikzlibrary{backgrounds}
+\DeclareSIUnit \dBm {dBm}
+
+
+\usetheme{fau-4-3}
+
+\usepackage[sort&compress,comma,super,square]{natbib}
+%\bibliographystyle{apalike} % Or your specific bibliographystyle
+\bibliographystyle{unsrtdin}
+%\bibliographystyle{gerplain}
+
+
+\title{cowbusconfig – Ansatz zur dezentralen Konfiguration von Gebäudeautomation}
+\subtitle{blubb}
+\author[P. Kanzler, M. Zapf]{Patrick\,Kanzler \and Michael\,Zapf}
+\date[23.09.2015]{14. GI/ITG KuVS Fachgespräch Sensornetze, 23.-24. Sept. 2015, Erlangen}
+\institute[CS7, FAU]{studentisches Projekt \\am Lehrstuhl 7 für Kommunikationssysteme und Rechnernetze, Erlangen}
+
+% space between items
+\newcommand{\customitemsep}{7pt}
+\newcommand{\customitemsepsub}{2pt}
+
+
+
+
+\newcommand{\sectiontitle}{}
+\newcommand{\ssection}[1]{\renewcommand{\sectiontitle}{#1}\section{#1}}
+\newcommand{\subsectiontitle}{}
+\newcommand{\ssubsection}[1]{\renewcommand{\subsectiontitle}{#1}\subsection{#1}}
+
+
+
+
+%\def\insertframetitle{}
+\begin{document}
+%\frame{\titlepage}
+\frame[plain,c]{\titlepage} % plain-Option deaktiviert Kopf- und Fusszeile
+
+%\section{cowbusconfig – Ansatz zur dezentralen Konfiguration von Gebaueudeautomation}
+\begin{frame}[plain]
+    \includegraphics[width=0.975\linewidth]{img/house.pdf}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Ansätze}
+    \begin{columns}[c]
+        \column[c]{10cm}
+            \textbf{EIB/KNX}
+            \begin{itemize} \setlength{\itemsep}{\customitemsep}
+                \item etabliertes System
+                \item viele Produkte auf dem Markt
+                    \vspace*{0.5cm}
+                \item \textcolor{red}{aufwändige (Neu-)Einrichtung}
+            \end{itemize}
+            \includegraphics[width=.9\linewidth]{img/decentralize-network.pdf}
+            \pause
+        \column{10cm}
+            \textbf{Skriptserver} \\
+            {\fontsize{15pt}{18pt} \selectfont (z.\,B. nach Haenselmann et al.)}
+            \begin{itemize} \setlength{\itemsep}{\customitemsep}
+                \item zentrale Stelle mit Schaltregeln
+                \item Skripte jederzeit anpassbar
+                    \vspace*{0.5cm}
+                \item \textcolor{red}{\enquote{Single Point of Failure}}
+            \end{itemize}
+            \includegraphics[width=.9\linewidth]{img/centralize-network.pdf}
+    \end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Ziele und Ideen}
+
+		    \begin{itemize} \setlength{\itemsep}{\customitemsep}
+		        \item dezentrale Organisation
+		        \item komfortable Konfiguration, nicht jeden Knoten \enquote{anfassen} müssen
+		            \begin{itemize} \setlength{\itemsep}{\customitemsepsub}
+		                \item z.\,B. Webbrowser vom Notebook/Tablet aus
+		                \item[$\Rightarrow$] Gateway vom LAN/WLAN ins Sensornetz benötigt
+		            \end{itemize}
+
+		        \pause
+		        \item einfach nachvollziehbare Schaltregeln
+		        \item typische Anforderungen an Energieversorgung beachten
+		            \begin{itemize} \setlength{\itemsep}{\customitemsepsub}
+		                \item oft: Aktoren besitzen stabile Stromversorgung
+		                \item Sensoren eher klein, flexibel, sparsam
+		                \item[$\Rightarrow$] Aufteilung in \enquote{dumme} Sensoren und \enquote{intelligente} Aktoren
+		                \item[$\Rightarrow$] eigentliche Entscheidungs- bzw. Schaltlogik in Aktoren
+		            \end{itemize}
+
+		    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Ziele und Ideen}
+    \includegraphics[width=1\linewidth]{img/seq_diag_config_and_do.pdf}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Regeln}
+
+    \begin{itemize} \setlength{\itemsep}{\customitemsep}
+        \item Annahmen:
+            \begin{itemize}
+                \item (virtuelle) Knoten durch eindeutige Adresse identifizierbar
+                \item Sensorpaket enthält nur einen Wert, Bedeutung bekannt
+            \end{itemize}
+        \item[ ] \vspace*{0.2cm}
+            \pause
+        \item Regel setzt sich zusammen aus:
+        	\begin{itemize}
+        		\item Quelladresse
+		        \item Typ des Vergleichs ($<$, $>$, ==, !=, $<>$)
+		        \item Grenzwert(e)
+		        \item auszuführende Aktion
+	            \begin{itemize} \setlength{\itemsep}{\customitemsep}
+        	        \item Muss dem Aktor bekannt sein!
+            	\end{itemize}
+        	\end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Konfigurationsnachrichten}
+
+        Ziele:
+            \begin{itemize} \setlength{\itemsep}{\customitemsep}
+                \item Kommunikation in-band, Standort egal
+                \item Konfiguration jederzeit auslesbar und änderbar
+            \end{itemize}
+
+            \pause
+        \vspace*{1cm}
+
+
+        3 Typen ausreichend: LIST, ADD, DELETE
+            \begin{itemize} \setlength{\itemsep}{\customitemsep}
+                \item \textbf{LIST} fordert alle Regeln eines Knotens an
+                \item \textbf{ADD} erstellt eine neue Regel auf einem Knoten
+                \item \textbf{DELETE\_ONE} löscht eine Regel auf einem Knoten
+            \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Demo}
+		\begin{columns}
+        	\column{.4\textwidth}
+        	\uncover<1->{\includegraphics[width=.9\linewidth]{img/img-cowbus-proto.jpg}}
+        	\uncover<2->{\includegraphics[width=.9\linewidth]{img/img-pi-rf.jpg}}
+			\column{.6\textwidth}
+		        \vspace*{-5cm}
+
+		        \uncover<1->{
+		       	Sensor:
+        		\begin{itemize} \setlength{\itemsep}{\customitemsep}
+                    \item cowbus-protoboard (OS: RIOT)
+		            \item 4 Taster, Temperatursensor
+		        \end{itemize}
+		        \vspace*{0.75cm}
+
+		        Aktor:
+		        \begin{itemize} \setlength{\itemsep}{\customitemsep}
+                        \item cowbus-protoboard (OS: RIOT)
+		            \item RGB-LED, Piezo-Summer
+		        \end{itemize}
+		        \vspace*{0.75cm}
+		        }
+
+				\uncover<2->{
+		        Gateway:
+		        \begin{itemize} \setlength{\itemsep}{\customitemsep}
+		            \item Raspberry Pi B
+		            \item Funkmodul per SPI angebunden
+		        \end{itemize}
+		        \vspace*{1cm}
+		        }
+		\end{columns}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Zusammenfassung \& Ausblick}
+
+    \begin{itemize} \setlength{\itemsep}{\customitemsep}
+		\item Open-Source-Hardware und -Software
+        \item einfache Konfiguration für \enquote{Jedermann}
+        \item einfache Änderbarkeit
+        \item Kommunikation in-band, keine Spezialhardware nötig
+        \item[ ] \vspace*{0.5cm}
+            \pause
+        \item offene Fragen:
+        	\begin{itemize}
+        		\item komplexere Regeln?
+		        \item Aggregation?
+		        \item Bedeutung des Messwertes
+		        \item Bedeutung der Aktion
+        	\end{itemize}
+
+            \vspace*{0.75cm}
+        \item https://github.com/michz/diy14bus
+    \end{itemize}
+\end{frame}
+
+
+		\frame[plain,c]{%
+			\setlength{\unitlength}{1mm}%
+			\begin{picture}(254,190.5)(17.4,0) % Ursprung (0,0) minus linke Marginalie
+				% Hintergrundbild Schloss abgeschnitten
+				\put(0,135.1){%
+					\pgfuseimage{fauschlosscropped}%
+				}%
+				% Trennbalken
+				\put(0,135.1){\color{faublue}\rule{\paperwidth}{4mm}}%
+				% Titel der Section
+				\put(17.4,75.3){%
+					\begin{minipage}[b][25mm][t]{226mm}%
+						\fontsize{28}{34}\selectfont % Schriftgroesse und Zeilenabstand
+						\color{faublue}%
+						\bfseries % fett
+						Vielen Dank für Ihre Aufmerksamkeit%
+					\end{minipage}%
+				}%
+				% Projekt-/Lehrstuhl-Box
+				\put(17.4,0){%
+					\begin{minipage}[b][40.5mm][c]{125.45mm}%
+						\raggedright % Ausrichtung am linken Rand
+						\begin{minipage}[b][37.5mm][c]{24mm}%
+							\usebeamertemplate{projectbox}%
+						\end{minipage}%
+						\begin{minipage}[b][24mm][c]{85.45mm}%
+							\color{faublue}%
+							\fontsize{10}{10}\selectfont % Schriftgroesse und Zeilenabstand
+							\textbf{Department of Computer Science 7\\
+								Computer Networks and\\
+								Communication Systems}
+						\end{minipage}%
+					\end{minipage}%
+				}%
+				 % Logo-Box mit FAU-Logo
+				 \put(153.45,0){%
+					 \begin{minipage}[b][37.5mm][c]{89.95mm}%
+						 \raggedleft % Ausrichtung am rechten Rand
+						 \pgfuseimage{faulogo}%
+					 \end{minipage}%
+			 }%
+			\end{picture}%
+		}% end frame
+
+
+		\frame[plain,c]{%
+			\setlength{\unitlength}{1mm}%
+			\begin{picture}(254,190.5)(17.4,0) % Ursprung (0,0) minus linke Marginalie
+				% Hintergrundbild Schloss abgeschnitten
+				\put(0,135.1){%
+					\pgfuseimage{fauschlosscropped}%
+				}%
+				% Trennbalken
+				\put(0,135.1){\color{faublue}\rule{\paperwidth}{4mm}}%
+				% Titel der Section
+				\put(17.4,75.3){%
+					\begin{minipage}[b][25mm][t]{226mm}%
+						\fontsize{28}{34}\selectfont % Schriftgroesse und Zeilenabstand
+						\color{faublue}%
+						\bfseries % fett
+                        Q\&A%
+					\end{minipage}%
+				}%
+				% Projekt-/Lehrstuhl-Box
+				\put(17.4,0){%
+					\begin{minipage}[b][40.5mm][c]{125.45mm}%
+						\raggedright % Ausrichtung am linken Rand
+						\begin{minipage}[b][37.5mm][c]{24mm}%
+							\usebeamertemplate{projectbox}%
+						\end{minipage}%
+						\begin{minipage}[b][24mm][c]{85.45mm}%
+							\color{faublue}%
+							\fontsize{10}{10}\selectfont % Schriftgroesse und Zeilenabstand
+							\textbf{Department of Computer Science 7\\
+								Computer Networks and\\
+								Communication Systems}
+						\end{minipage}%
+					\end{minipage}%
+				}%
+				 % Logo-Box mit FAU-Logo
+				 \put(153.45,0){%
+					 \begin{minipage}[b][37.5mm][c]{89.95mm}%
+						 \raggedleft % Ausrichtung am rechten Rand
+						 \pgfuseimage{faulogo}%
+					 \end{minipage}%
+			 }%
+			\end{picture}%
+		}% end frame
+
+
+
+
+
+%\begin{frame}[plain]
+%    \center
+%    \includegraphics[scale=0.4]{img/system}
+%\end{frame}
+
+
+%\nocite*
+%\bibliography{2015-09-cowconfig}{}
+
+\end{document}
+

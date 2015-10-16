@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:svg="http://www.w3.org/2000/svg" xmlns:ns1="http://sozi.baierouge.fr" xmlns:xlink="http://www.w3.org/1999/xlink" id="svg2" sodipodi:docname="elevation maison.svg" viewBox="0 0 530.37 653.73" version="1.1" inkscape:version="0.48.0 r9654">
+  <title id="title3918">elevation maison</title>
+  <sodipodi:namedview id="base" fit-margin-left="0" inkscape:showpageshadow="false" inkscape:zoom="0.53662109" borderopacity="1.0" inkscape:current-layer="layer1" inkscape:cx="-60.154713" inkscape:cy="222.01931" inkscape:window-maximized="0" showgrid="false" fit-margin-right="0" inkscape:document-units="px" bordercolor="#666666" inkscape:window-x="19" inkscape:window-y="0" fit-margin-bottom="0" inkscape:window-width="1649" inkscape:pageopacity="0.0" inkscape:pageshadow="2" pagecolor="#ffffff" inkscape:window-height="983" showborder="false" fit-margin-top="0"/>
+  <g id="layer1" inkscape:label="Calque 1" inkscape:groupmode="layer" transform="translate(-108.78 -202.01)">
+    <path id="path3031-2" sodipodi:nodetypes="ccccc" style="fill:#f2f2f2" inkscape:connector-curvature="0" d="m109.25 641.44c185.46-2.9983 342.96 1.2597 528.41-1.8635l-0.3088 216.17-521.47-1.8635z"/>
+    <path id="path3822-6" sodipodi:nodetypes="cc" style="stroke-linejoin:round;stroke-dashoffset:3.003;stroke:#1a1a1a;stroke-linecap:round;stroke-width:3;fill:#ffffff" inkscape:connector-curvature="0" d="m110.28 645.16 527.37 0.00003"/>
+    <path id="path2989-2" sodipodi:nodetypes="cccccccccccccccc" style="stroke-linejoin:round;stroke-dashoffset:3.003;stroke:#333333;stroke-linecap:round;stroke-width:3;fill:#ffffff" inkscape:connector-curvature="0" d="m164.33 425.27 39.347-0.0196-2.0046 246.19-20.102 33.516 0.30285 87.968 394.29-2.4093-3.9396-95.294-19.086-25.133-5.7827-252.17 41.853-0.10099-101.51-110.86-2.0855-71.488-51.488 0.33965 1.0216 34.281-65.83-66.579z"/>
+    <path id="path2991-4" sodipodi:nodetypes="cccc" style="stroke-linejoin:round;stroke-dashoffset:3.003;stroke:#333333;stroke-linecap:round;stroke-width:2;fill:#ffffff" inkscape:connector-curvature="0" d="m367.45 240.78-152.81 169.58 320.52-5.59z"/>
+    <path id="path2993-26" sodipodi:nodetypes="ccccc" style="stroke-linejoin:round;stroke-dashoffset:3.003;stroke:#333333;stroke-linecap:round;stroke-width:2;fill:#ffffff" inkscape:connector-curvature="0" d="m225.82 435.49v166.81l300.03-4.6336-1.8635-166.81z"/>
+    <path id="path2993-2-0-2" sodipodi:nodetypes="ccccc" style="stroke-linejoin:round;stroke-dashoffset:3.003;stroke:#333333;stroke-linecap:round;stroke-width:2;fill:#ffffff" inkscape:connector-curvature="0" d="m228.62 623.73v136.04l303.75-3.727-3.7733-134.17z"/>
+  </g>
+  <metadata>
+    <rdf:RDF>
+      <cc:Work>
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+        <cc:license rdf:resource="http://creativecommons.org/licenses/publicdomain/"/>
+        <dc:publisher>
+          <cc:Agent rdf:about="http://openclipart.org/">
+            <dc:title>Openclipart</dc:title>
+          </cc:Agent>
+        </dc:publisher>
+        <dc:title>house elevation / élévation maison</dc:title>
+        <dc:date>2011-02-12T19:33:41</dc:date>
+        <dc:description/>
+        <dc:source>https://openclipart.org/detail/118021/house-elevation--élévation-maison-by-lmproulx</dc:source>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>lmproulx</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:subject>
+          <rdf:Bag>
+            <rdf:li>diagram</rdf:li>
+            <rdf:li>elevation</rdf:li>
+            <rdf:li>foundation</rdf:li>
+            <rdf:li>graphic organizer</rdf:li>
+            <rdf:li>house</rdf:li>
+            <rdf:li>line art</rdf:li>
+          </rdf:Bag>
+        </dc:subject>
+      </cc:Work>
+      <cc:License rdf:about="http://creativecommons.org/licenses/publicdomain/">
+        <cc:permits rdf:resource="http://creativecommons.org/ns#Reproduction"/>
+        <cc:permits rdf:resource="http://creativecommons.org/ns#Distribution"/>
+        <cc:permits rdf:resource="http://creativecommons.org/ns#DerivativeWorks"/>
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+</svg>

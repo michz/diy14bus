@@ -13,6 +13,7 @@
 #include <websocketpp/config/asio_no_tls.hpp>
 #include <websocketpp/server.hpp>
 
+
 typedef websocketpp::server<websocketpp::config::asio> server;
 using websocketpp::connection_hdl;
 using websocketpp::lib::placeholders::_1;
@@ -24,6 +25,8 @@ using websocketpp::lib::bind;
 class ws_server {
     public:
         ws_server() {
+            boost::asio::socket_base::reuse_address option(true);
+
             // Set logging settings
             m_server.set_access_channels(websocketpp::log::alevel::all);
             m_server.clear_access_channels(websocketpp::log::alevel::frame_payload);
@@ -62,7 +65,20 @@ class ws_server {
 
         void stop(void) {
             m_server.stop_listening();
+            boost::this_thread::sleep(boost::posix_time::milliseconds(250));
+            
+            for (auto it : m_connections) {
+                websocketpp::lib::error_code ec;
+                m_server.close(it, websocketpp::close::status::going_away, "", ec);
+                if (ec) {
+                    std::cerr << "> Error closing connection" << ": "  
+                        << ec.message() << std::endl;
+                }
+            }
+            boost::this_thread::sleep(boost::posix_time::milliseconds(250));
+            
             m_server.stop();
+            boost::this_thread::sleep(boost::posix_time::milliseconds(250));
         }
 
     private:

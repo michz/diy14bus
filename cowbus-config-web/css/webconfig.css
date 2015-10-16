@@ -56,25 +56,46 @@ html, body { font-family:sans; width:100%; height:100%; }
     overflow-y:scroll;
     background-color:#eeeeee; }
 
-#btnClose { position:absolute; top:5px; right:15px; }
+#btnScan, #btnClose { position:absolute; top:5px; right:15px; }
+#btnClear { position:absolute; top:5px; right:105px; }
 
 h2 { margin:0 0 10px 0; padding:8px 25px;
-    font-size:1.3em; font-weight:bold; text-shadow:2px 2px 2px #fff;
-    background-color:#bbf; border:0; border-right:1px solid #888; }
+    font-size:1.3em; font-weight:bold; color:#fff; text-shadow:2px 2px 7px rgba(0,0,0,0.2);
+    background:#4297D7 url("../js/legacy/jquery-ui-1.11.4.custom/images/ui-bg_gloss-wave_55_5c9ccc_500x100.png") repeat-x scroll 50% 50%;
+    border:0; border-right:1px solid #888; }
 
 div.node { position:relative; margin:5px; padding:0;
     background-color:#eee; border:1px solid #aaa;
     box-shadow:2px 2px 2px #999;
 }
 
-div.node h3 { padding:2px 5px; font-size:1.2em; font-weight:bold; }
+div.node h3 { margin:0 0 4px 0; padding:4px 5px 0 5px;
+    font-size:1.2em; font-weight:bold; border-bottom:1px solid #bbbbcc;
+    background-color:#ddddff; }
 
 div.node span.addr { padding:3px; position:absolute; top:0; right:0;
-    text-align:right; background-color:#eef; }
+    text-align:right; }
 
-div.node span.buttons { position:absolute; left:0; right:0; }
-div.node span.node-button { width:16px; height:16px; float:right; overflow:hidden;}
 
+div.node .buttons { margin: 2px 2px 5px 4px; }
+div.node span.node-button { width:16px; height:16px; float:right; overflow:hidden; }
+
+
+#wait-msg { margin-bottom:15px; }
+
+#cfg-left { float:left; width:49%; }
+#cfg-right { float:left; width:49%; max-height:400px; overflow-y:scroll; }
+
+.config-label { width: 165px; display: inline-block; text-align: right; }
+
+#cfg-left input { width:100px; }
+#cfg-left select { width:99%; }
+
+.cfg-rule { margin:3px; padding:2px;
+    background-color:#EDA64F; border:1px solid #9A821C; border-radius:5px; }
+.cfg-rule p { margin:1px 0; }
+
+li.ui-state-focus { font-weight:normal !important; }
 
 /* Logging */
 #log-output { font-size:0.8em; margin:10px; word-wrap:break-word; }

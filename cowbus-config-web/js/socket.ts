@@ -35,6 +35,10 @@ class socket {
     }
 
     send(message : string) : void {
+        if (!(this.websocket)) {
+            logme("Could not send packet. Socket not open. " + message, 'error');
+            return;
+        }
         logme("SENT: " + message);
         this.websocket.send(message);
     }

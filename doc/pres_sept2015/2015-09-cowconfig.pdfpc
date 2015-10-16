@@ -1,0 +1,51 @@
+[file]
+2015-09-cowconfig.pdf
+[notes]
+### 1
+Michi
+- Herzlich willkommen
+- studentisches Projekt
+- damals: günstige Plattform für Sensornetze
+- heute: Konfiguration bzw. Schaltregeln
+### 2
+- übliche Situation: Mensch "möchte" intelligentes Haus
+- viele Systeme: für "normale" nicht zu bedienen
+- oder: unpraktisch
+
+- beispielhaft: zwei Systeme / Ansätz => Paradigmen
+### 3
+- EIB: gewerblich verbreitet, privat wenig
+- Problem: Aufwand
+
+- zentralisierter Ansatz
+- Problem: Single Point of Failure
+### 4
+PATRICK
+- deswegen haben wir dezentrale Organisation, kein zentraler Punkt
+- trotzdem knomfortabel: man muss nicht an jeden Knoten Programmieradapter stecken
+- Lösung: Knofiguration über ein Gateway zwischen Sensornetz und lokalem Netzwerk
+- in Knoten: einfache Schaltregeln (nachher)
+- unterschiedliche Anforderungen an Knoten
+- Taster muss zum Beispiel nur bei Ereignis aufwachen
+### 5
+- beispielhaft: Benutzer an Computer (Weboberfläche)
+- erstellt Regel, welche über Gateway ins Sensornetz übertragen wird
+
+- Aktor empfängt dies (und quittiert) und aktualisiert seinen Regelsatz
+- danach: kein Gateway nötig, Aktor horcht auf Sensorereignis
+### 6
+- zwei Grundkonzepte:
+- Regeln
+- Knoten sind eindeutig identifizierbar und erzeugen Ereignise (mit genau einem Wert)
+- Regel besteht aus...
+### 7
+- zweites Grundkomponente
+- Konfigurationsnachrichten
+
+- dienen dazu die Konfiguration der Knoten auszulesen und zu ändern
+### 8
+MICHI
+
+- kleine Demo vorbereitet
+- cowbus-protoboard grundsätzlich aus DIY-Projekt
+### 9

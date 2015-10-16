@@ -1,0 +1,9 @@
+#do not check in fau-template
+art/*
+beamercolorthemefau-4-3.sty
+beamerfontthemefau-4-3.sty
+beamerinnerthemefau-4-3.sty
+beamerouterthemefau-4-3.sty
+beamerthemefau-4-3.sty
+example.tex
+

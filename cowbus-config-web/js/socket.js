@@ -25,6 +25,10 @@ var socket = (function () {
         logme('<span style="color: red;">ERROR:</span> ' + evt.data, "error");
     };
     socket.prototype.send = function (message) {
+        if (!(this.websocket)) {
+            logme("Could not send packet. Socket not open. " + message, 'error');
+            return;
+        }
         logme("SENT: " + message);
         this.websocket.send(message);
     };

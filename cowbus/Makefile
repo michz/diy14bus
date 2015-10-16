@@ -12,9 +12,14 @@ RIOTBASE ?= $(CURDIR)/../../RIOT/
 APP_MACROS += -DNODE_IS_ACTOR		# says that this node is a actor
 APP_MACROS += -DNODE_IS_SENSOR		# says that this node is a sensor
 
+APP_MACROS += -DPERIPH_EN_BUZZER	# enable PERIPH
+APP_MACROS += -DPERIPH_EN_EEPROM	# enable PERIPH
+APP_MACROS += -DPERIPH_EN_TEMP		# enable PERIPH
+APP_MACROS += -DPERIPH_EN_LED		# enable PERIPH
+APP_MACROS += -DPERIPH_EN_SWITCH	# enable PERIPH
 
 USEMODULE += nrf24l01p
-USEMODULE += uart0
+#USEMODULE += uart0
 
 
 # Comment this out to disable code in RIOT that does safety checking
@@ -22,6 +27,7 @@ USEMODULE += uart0
 # development process:
 #CFLAGS += -DDEVELHELP 
 CFLAGS += -I./include/ -marm -mthumb-interwork $(APP_MACROS)
+CFLAGS += -DLOG_LEVEL=LOG_ALL
 
 
 # Change this to 0 show compiler invocation lines by default:

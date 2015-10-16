@@ -8,33 +8,44 @@
     <meta name="author" content="diy14bus project group">
     <meta name="keywords" content="">
 
-    <script src="js/legacy/jquery-1.11.2.min.js"></script>
-    <script src="js/legacy/jquery-ui-1.11.2.custom/jquery-ui.min.js"></script>
+    <script src="js/legacy/jquery-1.11.3.min.js"></script>
+    <script src="js/legacy/jquery-ui-1.11.4.custom/jquery-ui.min.js"></script>
     <script src="js/cow.js"></script>
     <script src="js/socket.js"></script>
     <script src="js/cowpacket.js"></script>
+    <script src="js/cowconfig.js"></script>
     <script src="js/cow_list.js"></script>
     <script src="js/store.js"></script>
     <script src="js/init.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="js/legacy/jquery-ui-1.11.2.custom/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="js/legacy/jquery-ui-1.11.4.custom/jquery-ui.css">
     <link rel="stylesheet" type="text/css" href="css/webconfig.css">
 
 </head>
 
 <body>
     <div id="left">
-        <h2>Nodes</h2>
+        <h2>Nodes
+            <input type="button" name="btnScan" id="btnScan" value="Scan">
+        </h2>
         <div id="nodes">
         </div>
     </div>
     <div id="right">
         <h2>Log</h2>
+        <input type="button" name="btnClear" id="btnClear" value="Clear Log">
         <input type="button" name="btnClose" id="btnClose" value="Reconnect">
         <div id="log-output"></div>
     </div>
 
     <!-- connect dialog -->
+    <div id="dialog-wait" title="Please wait...">
+        <form>
+            <p id="wait-msg">Request ist being processed...</p>
+            <div id="wait-bar"></div>
+        </form>
+    </div>
+
     <div id="dialog-connect" title="Connect to cowbus-config-server">
         <form>
             <p>Address of Server (IPv4, IPv6 or hostname) and port:</p>
@@ -49,6 +60,53 @@
             <input type="hidden" id="hidRenameAddr">
             <input style="width:100%;" type="text" name="txtRename" id="txtRename" value="">
         </form>
+    </div>
+
+    <!-- config dialog -->
+    <div id="dialog-config" title="Configure cowbus node">
+        <div id="cfg-left">
+            <form>
+                <input type="hidden" id="hidCfgAddr">
+                <p>New configuration rule:</p>
+                <p>
+                    <span class="config-label">Source address:</span>
+                    <input type="text" name="txtCfgSourceAddress" id="txtCfgSourceAddress" value="">
+                </p>
+                <p>
+                    <span class="config-label">Operation:</span>
+                    <select name="selCfgOperation" id="selCfgOperation">
+                        <option value="1">any packet with given source address</option>
+                        <option value="2">less than (a &lt; x)</option>
+                        <option value="3">less than or equal (a &lt;= x)</option>
+                        <option value="4">greater than or equal (a &gt;= x)</option>
+                        <option value="5">greater than (a &gt; x)</option>
+                        <option value="6">equal (a = x)</option>
+                        <option value="7">not equal (a != x)</option>
+                        <option value="8">between a and b (a &lt; x &lt; b)</option>
+                        <option value="9">between a and b with borders (a &lt;= x &lt;= b)</option>
+                        <option value="10">between a and b with lower border (a &lt;= x &lt; b)</option>
+                        <option value="11">between a and b with higher border (a &lt; x &lt;= b)</option>
+                    </select>
+                </p>
+                <p>
+                    <span class="config-label">Threshold (a):</span>
+                    <input type="text" name="txtCfgThresholdA" id="txtCfgThresholdA" value="">
+                </p>
+                <p id="p_line_th_b">
+                    <span class="config-label">Threshold (b):</span>
+                    <input type="text" name="txtCfgThresholdB" id="txtCfgThresholdB" value="">
+                </p>
+                <p>
+                    <span class="config-label">Action:</span>
+                    <input type="text" name="txtCfgAction" id="txtCfgAction" value="">
+                </p>
+                <!--
+                <p>TODO: Delete by addr</p>
+                -->
+            </form>
+        </div>
+        <div id="cfg-right">
+        </div>
     </div>
 </body>
 </html>

@@ -10,6 +10,7 @@
 #include "cowmac.h"
 #include "eeprom.h"
 #include "led.h"
+#include "grazed_list.h"
 
 
 char cowmac_receiver_stack[THREAD_STACKSIZE_MAIN];
@@ -134,6 +135,10 @@ void *cowmac_receiver(void *arg) {
                 uint8_t type = cowpacket_get_type(&p);
                 printf("Received addr: %d; type: %d\n", addr, type);
 
+                // check grazed list
+                int grazed = grazed_add(p.seq_no, addr);
+                if (grazed > 0) break;
+
                 // check if own address or broadcast ping
                 if (type == event)  {
                     if (cb_pkt_recv != NULL) {
@@ -203,6 +208,14 @@ void *cowmac_receiver(void *arg) {
                     }
                 }
 
+                // now broadcast again if needed
+                if (!cowmac_is_own_addr(addr)) {
+                    if (p.ttl < 1) break; // abort if TTL is zero
+
+                    p.ttl -= 1;
+                    cowmac_send_packet(&p);
+                }
+
                 break;
             default:
                 break;
@@ -267,6 +280,12 @@ void cowmac_send_config(void) {
         }
     }
 }
+
+
+bool cowmac_is_own_addr(uint16_t addr) {
+    return (addr == cowmac_address);
+}
+
 
 /*
 * Some notes:

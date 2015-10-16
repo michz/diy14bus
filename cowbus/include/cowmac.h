@@ -127,5 +127,10 @@ void cowmac_send_name(void);
  */
 void cowmac_send_config(void);
 
+/**
+ * @brief    Returns \b true if the parameter equals the own cowbus address.
+ */
+bool cowmac_is_own_addr(uint16_t);
+
 
 #endif /* !COWMAC_H */

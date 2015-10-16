@@ -11,6 +11,8 @@
 #ifndef GRAZED_LIST_H
 #define GRAZED_LIST_H
 
+#include <stdint.h>
+
 // TODO definiere Liste der zuletzt empfangenen Pakete
 // - sollte sowas wie FIFO-Liste sein
 // - könnte wie Ringpuffer realisiert sein:
@@ -22,8 +24,8 @@
 //   und löscht zyklisch die Einträge, damit keiner zu alt ist.
 
 typedef struct grazed_header {
-    unsigned int seq_no             : 5;
-    unsigned int addr               : 11;
+    uint8_t seq_no;
+    uint16_t addr;
 } grazed_header;
 
 
@@ -37,7 +39,7 @@ typedef struct grazed_header {
  * @param   seq_nr  sequence number of current packet
  * @param   addr    sender/receiver/sensor/actor address of packet
  */
-int grazed_add(unsigned int seq_nr, unsigned int addr); //TODO
+int grazed_add(uint8_t seq_nr, uint16_t addr); //TODO
 
 /**
  * Clears the next entry.

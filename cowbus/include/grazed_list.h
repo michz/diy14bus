@@ -12,6 +12,7 @@
 #define GRAZED_LIST_H
 
 #include <stdint.h>
+#include "generic_ringbuffer.h"
 
 // TODO definiere Liste der zuletzt empfangenen Pakete
 // - sollte sowas wie FIFO-Liste sein
@@ -28,13 +29,14 @@ typedef struct grazed_header {
     uint16_t addr;
 } grazed_header;
 
+ringBuffer_typedef(grazed_header, grazedBuffer);
+
 
 /**
- * Checks if packet is already on list.
+ * @brief   Checks if packet is already on list.
+ *
  * If no, return 0, otherwise return nonzero value.
  * If table full, oldest entry is overwritten.
- * If new entry is the one that would be deleted next by grazed_delete_cyclic()
- * move this pointer one entry ahead.
  *
  * @param   seq_nr  sequence number of current packet
  * @param   addr    sender/receiver/sensor/actor address of packet
@@ -46,6 +48,13 @@ int grazed_add(uint8_t seq_nr, uint16_t addr); //TODO
  * This is used to assure that no entry is too old.
  */
 void grazed_delete_cyclic(void); // TODO
+
+/**
+ * @brief       Check if given entry is in ringbuffer.
+ * @param   g   Entry to look for
+ * @return      \b true if entry is already in buffer, \b false otherwise
+ */
+int grazed_is(uint8_t seq_nr, uint16_t addr);
 
 
 #endif // GRAZED_LIST_H

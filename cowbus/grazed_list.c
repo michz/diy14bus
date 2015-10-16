@@ -35,6 +35,7 @@ int grazed_add(uint8_t seq_nr, uint16_t addr) {
     return 0;
 }
 
+// TODO call it somewhere for example once per two seconds or so
 void grazed_delete_cyclic(void) {
     grazed_header g;
     if (!isBufferEmpty(grazed)) {

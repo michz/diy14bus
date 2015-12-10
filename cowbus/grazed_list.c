@@ -7,7 +7,9 @@
  * Copyright (C) 2015 Michael Zapf <michael.zapf@fau.de>
  */
 
+#include <stdio.h>
 #include <string.h>
+#include "debug.h"
 #include "grazed_list.h"
 
 #define GRAZED_MAX      (32)
@@ -41,7 +43,7 @@ void grazed_delete_cyclic(void) {
     if (!isBufferEmpty(grazed)) {
         bufferRead(grazed, g);
         (void)(g); // suppress GCC warning (-Werror=unused-but-set-variable)
-        // printf("%d\t: %d\n", g.seq_no, g.addr);      // DEBUG
+        // DBG("%d\t: %d\n", g.seq_no, g.addr);      // DEBUG
     }
 }
 
@@ -50,6 +52,7 @@ int grazed_is(uint8_t seq_nr, uint16_t addr) {
     int end = (grazed->start < grazed->end) ? grazed->end : grazed->end + GRAZED_MAX + 1;
 
     for (i = grazed->start; i < end; ++i) {
+        DBG("%d %d\n", i, end);
         grazed_header l = grazed->elems[i % grazed->size];
         if (l.seq_no == seq_nr && l.addr == addr) return 1;
     }

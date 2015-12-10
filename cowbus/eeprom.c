@@ -14,6 +14,7 @@
 #include "thread.h"
 #include "xtimer.h"
 
+#include "debug.h"
 #include "cowconfig.h"
 #include "volatile_config.h"
 
@@ -49,9 +50,9 @@ char* eeprom_read_name(char* to) {
         // reset "empty" eeprom bytes (default to 255) back to system default (0)
         for (int i = 0; i < EEPROM_LENGTH_NAME; ++i) {
             if (buf[i] == 255) buf[i] = 0;
-            printf("%d ", (int)(buf[i]));
+            DBG("%d ", (int)(buf[i]));
         }
-        printf("\n");
+        DBG("\n");
     }
     return buf;
 }

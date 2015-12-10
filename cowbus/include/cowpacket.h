@@ -14,6 +14,7 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <string.h>
+#include "debug.h"
 
 /// @brief  Sets the maximum payload size.
 #define PAYLOAD_MAX_LENGTH      (26)
@@ -115,11 +116,11 @@ static inline uint8_t cowpacket_get_is_fragment(cowpacket* p) {
 }
 
 static inline void cowpacket_dump(cowpacket *pkt) {
-    printf("cowpacket dump:\n");
+    DBG("cowpacket dump:\n");
     for (int i = 0; i < 32; ++i) {
-        printf("%d ", ((char*)&pkt)[i]);
+        DBG("%d ", ((char*)&pkt)[i]);
     }
-    printf("\n\n");
+    DBG("\n\n");
 }
 
 //static inline void cowpacket_generate_checksum(cowpacket* p) {

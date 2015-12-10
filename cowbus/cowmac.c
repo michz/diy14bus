@@ -97,6 +97,7 @@ void cowmac_packet_handler(void) {
 void *cowmac_receiver(void *arg) {
     // initialize RNG for CSMA/CA backoff
     srand(xtimer_now() * config_get_cpuid());
+    grazed_init();
 
     msg_t msg_q[1];
     msg_init_queue(msg_q, 1);
@@ -107,13 +108,13 @@ void *cowmac_receiver(void *arg) {
 
     msg_t m;
 
-    printf("nrf24l01p_rx_handler started.\n");
+    DBG("nrf24l01p_rx_handler started.\n");
     while (msg_receive(&m)) {
-        printf("nrf24l01p_rx_handler got a message: \n");
+        DBG("nrf24l01p_rx_handler got a message: \n");
 
         switch (m.type) {
             case RCV_PKT_NRF24L01P:
-                printf("Received packet. %d\n", inISR());
+                DBG("Received packet. %d\n", inISR());
 
                 // CE low
                 nrf24l01p_stop((nrf24l01p_t *)m.content.ptr);
@@ -133,7 +134,7 @@ void *cowmac_receiver(void *arg) {
 
                 uint16_t addr = cowpacket_get_address(&p);
                 uint8_t type = cowpacket_get_type(&p);
-                printf("Received addr: %d; type: %d\n", addr, type);
+                DBG("Received addr: %d; type: %d\n", addr, type);
 
                 // check grazed list
                 int grazed = grazed_add(p.seq_no, addr);
@@ -178,7 +179,7 @@ void *cowmac_receiver(void *arg) {
                                     cowmac_send_error(addr, p.seq_no);
                                 }
                                 else {
-                                    printf("Added rule #%d.\n", i);
+                                    DBG("Added rule #%d.\n", i);
                                     cowmac_send_ack(addr, p.seq_no);
                                     eeprom_write_configuration(cowconfig_data);
                                 }
@@ -187,7 +188,7 @@ void *cowmac_receiver(void *arg) {
                             }
                             case CCPM_DELETE_ALL:
                                 cowconfig_delete_all();
-                                printf("Deleted all rules.\n");
+                                DBG("Deleted all rules.\n");
                                 cowmac_send_ack(addr, p.seq_no);
                                 eeprom_write_configuration(cowconfig_data);
                                 cowconfig_dump();
@@ -214,6 +215,8 @@ void *cowmac_receiver(void *arg) {
 
                     p.ttl -= 1;
                     cowmac_send_packet(&p);
+                    DBG("relayed from %d\n", cowpacket_get_address(&p));
+                    led_blink_s(blue, 15, 1);
                 }
 
                 break;
@@ -264,19 +267,19 @@ void cowmac_send_config(void) {
             ccp->method = CCPM_ANSWER_LIST;
             memcpy(ccp->raw, &(cowconfig_data[i]), sizeof(cowconfig_rule));
 
-            //printf("Send configure packet: \n");
-            //printf("v: %d\n", cp->version);
-            //printf("s: %d\n", cp->seq_no);
-            //printf("tt:%d\n", cp->ttl);
-            //printf("a: %d\n", cp->addr);
+            //DBG("Send configure packet: \n");
+            //DBG("v: %d\n", cp->version);
+            //DBG("s: %d\n", cp->seq_no);
+            //DBG("tt:%d\n", cp->ttl);
+            //DBG("a: %d\n", cp->addr);
             //for (int i = 0; i < sizeof(cowpacket); i++) {
-            //    printf("%d\n", ((char*)cp)[i]);
+            //    DBG("%d\n", ((char*)cp)[i]);
             //}
-            //printf("\n");
+            //DBG("\n");
 
             cowmac_send_packet(&cp);
 
-            printf("sending configuration ... %d ...\n", i);
+            DBG("sending configuration ... %d ...\n", i);
         }
     }
 }

@@ -34,7 +34,7 @@ void radio_nrf_init(void) {
             GPIO_NRF_IRQ);        // IRQ
     
     if (ret < 0) {
-        printf("Transceiver initialization failed: %i\n", ret);
+        DBG("Transceiver initialization failed: %i\n", ret);
     }
 
 
@@ -61,7 +61,7 @@ void radio_nrf_init(void) {
     nrf24l01p_set_rxmode(&nrf24l01p_0);
     xtimer_usleep(DELAY_DATA_ON_AIR); // DEBUG: wait for sure...
 
-    printf("Transceiver initialization finished.\n");
+    DBG("Transceiver initialization finished.\n");
 }
 
 void radio_nrf_send_data(char* payload, unsigned short payload_length) {
@@ -85,7 +85,7 @@ void radio_nrf_send_data(char* payload, unsigned short payload_length) {
     r = nrf24l01p_get_status(&nrf24l01p_0);
     if (r & TX_DS) {
         // all good
-        printf("Sent Packet\n");
+        DBG("Sent Packet\n");
     }
     else {
         //TODO error handling

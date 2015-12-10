@@ -101,7 +101,7 @@ static inline int cowconfig_add(cowconfig_rule* rule) {
             cowconfig_data[i].threshold_a   = rule->threshold_a;
             cowconfig_data[i].threshold_b   = rule->threshold_b;
 #ifdef COWCONFIG_DEBUG
-            printf("add rule: id: %d, address: %d, op: %d, th_a: %d, th_b: %d, ac: %d\n",
+            DBG("add rule: id: %d, address: %d, op: %d, th_a: %d, th_b: %d, ac: %d\n",
                     i, rule->address, rule->operation, rule->threshold_a,
                     rule->threshold_b, rule->action);
 #endif
@@ -127,7 +127,7 @@ static inline void cowconfig_delete_all(void) {
 static inline void cowconfig_delete_one(int i) {
     if (i >= COWCONFIG_COUNT) return;
     memset(&(cowconfig_data[i]), 0, sizeof(cowconfig_rule));
-    printf("Deleted rule #%d.\n", i);
+    DBG("Deleted rule #%d.\n", i);
 }
 
 
@@ -140,7 +140,7 @@ static inline void cowconfig_delete_addr(int addr) {
         if (cowconfig_data[i].address == addr) {
             // slot is empty, use it and return index
             memset(&(cowconfig_data[i]), 0, sizeof(cowconfig_rule));
-            printf("Deleted rule #%d.\n", i);
+            DBG("Deleted rule #%d.\n", i);
         }
     }
 }
@@ -150,13 +150,13 @@ static inline void cowconfig_delete_addr(int addr) {
 static inline void cowconfig_dump(void) {
 #ifdef COWCONFIG_DEBUG
     for (int i = 0; i < COWCONFIG_COUNT; ++i) {
-        printf("ID:\t\t%d\n", i);
-        printf("Addr:\t\t%d\n", cowconfig_data[i].address);
-        printf("Op:\t\t%d\n", cowconfig_data[i].operation);
-        printf("Action:\t\t%d\n", cowconfig_data[i].action);
-        printf("Threshold A:\t%d\n", cowconfig_data[i].threshold_a);
-        printf("Threshold B:\t%d\n", cowconfig_data[i].threshold_b);
-        printf("########################################\n\n");
+        DBG("ID:\t\t%d\n", i);
+        DBG("Addr:\t\t%d\n", cowconfig_data[i].address);
+        DBG("Op:\t\t%d\n", cowconfig_data[i].operation);
+        DBG("Action:\t\t%d\n", cowconfig_data[i].action);
+        DBG("Threshold A:\t%d\n", cowconfig_data[i].threshold_a);
+        DBG("Threshold B:\t%d\n", cowconfig_data[i].threshold_b);
+        DBG("########################################\n\n");
     }
 #endif
 }

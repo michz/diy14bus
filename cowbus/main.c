@@ -1,3 +1,8 @@
+#define ACTIVATE_BEACON
+//#define ACTIVATE_TEMP_SENSOR
+//#define DEBUG
+
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -14,6 +19,7 @@
 #include "periph/gpio.h"
 #include "periph/uart.h"
 
+#include "debug.h"
 #include "led.h"
 #include "switch.h"
 #include "cowpacket.h"
@@ -31,6 +37,8 @@
 #include "volatile_config.h"
 
 
+
+
 /// @brief local in-memory representation of configuration rules of this node
 int seq_no = 0xB;
 uint16_t radio_addr = 1021;
@@ -38,7 +46,8 @@ uint16_t radio_addr = 1021;
 int sendMsg = 0;
 
 
-//#define MODULE_UART0
+
+
 
 void packet_received(cowpacket pkt) {
     //led_blink_s(green, 100, 1);
@@ -50,7 +59,6 @@ void packet_received(cowpacket pkt) {
         // TODO interpret message payload (led1 on, led2 color, ...)
     }
     else {
-        printf("value: %d\n", pkt.payload[0]);
         for (int i = 0; i < COWCONFIG_COUNT; ++i) {
             if (cowconfig_data[i].operation > 0 &&
                 cowconfig_data[i].address == cowpacket_get_address(&pkt)) {
@@ -120,34 +128,76 @@ void packet_received(cowpacket pkt) {
     }
 }
 
+#if defined(ACTIVATE_TEMP_SENSOR) || defined(ACTIVATE_BEACON)
+char temp_sensor_runner_stack[THREAD_STACKSIZE_MAIN];
+#define TEMP_SENSOR_PAUSE_SECONDS   (13)
+void *temp_sensor_runner(void *arg) {
+    kernel_pid_t me = thread_getpid();
+    xtimer_t xtimer;
+
+    while(true) {
+#ifdef ACTIVATE_TEMP_SENSOR
+        led_blink_s(green, 10, 1);
+        char* temp = temp_to_readable(temp_get());
+        DBG("Temp: %s\n", temp);
+
+        // send packet
+        cowpacket pkt;
+
+        cowmac_init_packet_empty(&pkt, event);
+        pkt.payload[0] = 't';
+        pkt.payload[1] = 's';
+        strcpy((char*)(pkt.payload+2), temp);
+
+        cowmac_send_packet(&pkt);
+
+        // reschedule
+        xtimer_set_wakeup(&xtimer, ((uint32_t)1000*1000*TEMP_SENSOR_PAUSE_SECONDS), me);
+        thread_sleep();
+#endif // ACTIVATE_TEMP_SENSOR
+
+#ifdef ACTIVATE_BEACON
+        led_blink_s(green, 10, 1);
+
+        // send packet
+        cowmac_send_ping_answer();
+
+        // reschedule
+        xtimer_set_wakeup(&xtimer, ((uint32_t)1000*1000*TEMP_SENSOR_PAUSE_SECONDS), me);
+        thread_sleep();
+#endif // ACTIVATE_BEACON
+
+    }
+}
+#endif // defined(ACTIVATE_TEMP_SENSOR) || defined(ACTIVATE_BEACON)
 
 void switch1(void)
 {
-	printf("switch 1 pressed.\n");
+	DBG("switch 1 pressed.\n");
     sendMsg = 1;
 }
 
 void switch2(void)
 {
-	printf("switch 2 pressed.\n");
+	DBG("switch 2 pressed.\n");
     sendMsg = 2;
 }
 
 void switch3(void)
 {
-	printf("switch 3 pressed.\n");
+	DBG("switch 3 pressed.\n");
     sendMsg = 3;
 }
 
 void switch4(void)
 {
-	printf("switch 4 pressed.\n");
+	DBG("switch 4 pressed.\n");
     sendMsg = 4;
 
 
     // emergency reboot
     if (switch3_get_state()) {
-        printf("Pressed #3 and #4, reset!\n");
+        DBG("Pressed #3 and #4, reset!\n");
         xtimer_spin(1000);
         NVIC_SystemReset();                     // perform reset
     }
@@ -179,7 +229,7 @@ int main(void)
 	//(RCC->AHBENR |= RCC_AHBENR_GPIOAEN);
 	//(RCC->AHBENR |= RCC_AHBENR_GPIOBEN);
 
-    printf("Booting up on CPUID 0x%lx\n", config_get_cpuid());
+    DBG("Booting up on CPUID 0x%lx\n", config_get_cpuid());
 
 
     switch1_set_isr(switch1);
@@ -193,9 +243,9 @@ int main(void)
     config_set_address(eeprom_get_addr());
     eeprom_read_configuration(cowconfig_data);
 
-    printf("Node name: %s\n", config_name);
-    printf("Node addr: %d\n", config_get_address());
-    printf("Hello!\n");
+    DBG("Node name: %s\n", config_name);
+    DBG("Node addr: %d\n", config_get_address());
+    DBG("Hello!\n");
     
     radio_nrf_init();
     cowmac_register_packet_handler(packet_received);
@@ -210,13 +260,17 @@ int main(void)
     watchdog_start();
     watchdog_reset();
 
-    //__IO uint32_t KR;   /*!< IWDG Key register,       Address offset: 0x00 */
-    //__IO uint32_t PR;   /*!< IWDG Prescaler register, Address offset: 0x04 */
-    //__IO uint32_t RLR;  /*!< IWDG Reload register,    Address offset: 0x08 */
-    //__IO uint32_t SR;   /*!< IWDG Status register,    Address offset: 0x0C */
-    //__IO uint32_t WINR; /*!< IWDG Window register,    Address offset: 0x10 */
 
-    int i = 0;
+//#ifdef ACTIVATE_TEMP_SENSOR
+#if defined(ACTIVATE_TEMP_SENSOR) || defined(ACTIVATE_BEACON)
+    thread_create(
+        temp_sensor_runner_stack,
+        sizeof(temp_sensor_runner_stack),
+        THREAD_PRIORITY_MAIN - 2, 0, temp_sensor_runner, 0,
+        "temp_sensor_runner");
+#endif // ACTIVATE_TEMP_SENSOR
+
+    //int i = 0;
 	while (1) {
 		if (sendMsg > 0) {
             cowpacket pkt;
@@ -228,11 +282,6 @@ int main(void)
 
             // reset
 		}
-        else if (sendMsg == -2) {
-            //uint16_t addr = eeprom_get_addr();
-            //printf("addr from eeprom: %d\n", addr);
-            printf("Temp: %s\n", temp_to_readable(temp_get()));
-        }
         else if (sendMsg == -3) {
             buzzer(note_c2, 100);
             buzzer(note_e2, 100);
@@ -245,13 +294,17 @@ int main(void)
 
 
 
-        if (i > 10000) {
-            led_blink_s(white, 50, 1);
-            i = 0;
-        }
-        i++;
+        //if (i > 10000) {
+        //if (i > 10) {
+        //    led_blink_s(green, 10, 1);
+        //    i = 0;
+        //}
+        //i++;
         watchdog_reset();
-        xtimer_usleep(100); // 100 us
+        //xtimer_usleep(100); // 100 us
+        xtimer_sleep(1); // 1s
+
+        grazed_delete_cyclic();
     }
 
 

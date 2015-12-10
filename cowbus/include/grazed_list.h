@@ -33,6 +33,11 @@ ringBuffer_typedef(grazed_header, grazedBuffer);
 
 
 /**
+ * @brief   Initializes the ringbuffer.
+ */
+void grazed_init(void);
+
+/**
  * @brief   Checks if packet is already on list.
  *
  * If no, return 0, otherwise return nonzero value.
